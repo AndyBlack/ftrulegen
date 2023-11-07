@@ -1,4 +1,4 @@
-package application;
+package org.sil.ftrulegen;
 	
 import javafx.application.Application;
 import javafx.fxml.FXML;

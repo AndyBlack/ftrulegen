@@ -4,7 +4,7 @@
  * (http://www.gnu.org/licenses/lgpl-2.1.html)
  */
 
-package application;
+package org.sil.ftrulegen.view;
 
 import java.net.URL;
 import java.util.ResourceBundle;
