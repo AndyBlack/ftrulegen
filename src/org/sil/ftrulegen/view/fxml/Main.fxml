@@ -10,17 +10,17 @@
    <children>
    </children>
    <center>
-      <SplitPane dividerPositions="0.29797979797979796" prefHeight="499.0" prefWidth="665.0" BorderPane.alignment="CENTER">
+      <SplitPane dividerPositions="0.29797979797979796" prefHeight="500.0" prefWidth="1500.0" BorderPane.alignment="CENTER">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
                   <Label layoutX="28.0" layoutY="35.0" text="Label" />
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="1200.0">
                <children>
                   <Label layoutX="78.0" layoutY="28.0" text="Label" />
-                  <WebView fx:id="browser" layoutX="31.0" layoutY="125.0" prefHeight="300.0" prefWidth="1200.0" />
+                  <WebView fx:id="browser" layoutX="31.0" layoutY="125.0" prefHeight="300.0" prefWidth="1900.0" />
                </children>
             </AnchorPane>
         </items>

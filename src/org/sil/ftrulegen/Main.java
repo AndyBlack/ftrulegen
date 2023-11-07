@@ -29,7 +29,7 @@ public class Main extends Application {
 			primaryStage.setTitle("Rule Generator for FLExTrans");
 			// Load root layout from fxml file.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("Main.fxml"));
+			loader.setLocation(Main.class.getResource("view/fxml/Main.fxml"));
 //			ResourceBundle bundle = ResourceBundle.getBundle(Constants.RESOURCE_LOCATION, locale);
 //			loader.setResources(bundle);
 			mainPane = (BorderPane) loader.load();
