@@ -1,0 +1,8 @@
+/mods/
+/installer/windows/input/
+/installer/windows/output/
+/installer/windows/installtemp/
+/installer/windows/*.exe
+XLingPaperPDFTemp/
+*.*~
+.settings
