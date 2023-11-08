@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2021 SIL International
+ * Copyright (c) 2023 SIL International
  * This software is licensed under the LGPL, version 2.1 or later
  * (http://www.gnu.org/licenses/lgpl-2.1.html)
  */
@@ -7,7 +7,11 @@
 package org.sil.ftrulegen.view;
 
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
+
+import org.sil.ftrulegen.*;
+import org.sil.utility.view.ObservableResourceFactory;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -26,6 +30,15 @@ public class MainController implements Initializable {
 	private WebView browser;
 	@FXML
 	private WebEngine webEngine;
+
+	// following lines from
+	// https://stackoverflow.com/questions/32464974/javafx-change-application-language-on-the-run
+	private static final ObservableResourceFactory RESOURCE_FACTORY = ObservableResourceFactory
+			.getInstance();
+	static {
+		RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(Constants.RESOURCE_LOCATION,
+				new Locale("en")));
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
