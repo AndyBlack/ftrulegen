@@ -13,8 +13,8 @@ import jakarta.xml.bind.annotation.XmlTransient;
 
 public class Word extends ConstituentWithFeatures
 {
-	private ArrayList<Affix> Affixes = new ArrayList<Affix> ();
-	public final ArrayList<Affix> getAffixes()
+	private List<Affix> Affixes = new ArrayList<Affix> ();
+	public final List<Affix> getAffixes()
 	{
 		return Affixes;
 	}

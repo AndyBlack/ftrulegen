@@ -12,8 +12,8 @@ import jakarta.xml.bind.annotation.XmlTransient;
 
 public class Phrase extends RuleConstituent
 {
-	private ArrayList<Word> Words = new ArrayList<Word> ();
-	public final ArrayList<Word> getWords()
+	private List<Word> Words = new ArrayList<Word> ();
+	public final List<Word> getWords()
 	{
 		return Words;
 	}

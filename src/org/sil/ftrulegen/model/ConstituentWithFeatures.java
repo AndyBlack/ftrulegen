@@ -10,12 +10,12 @@ import java.util.*;
 
 public abstract class ConstituentWithFeatures extends RuleConstituent
 {
-	private ArrayList<Feature> Features = new ArrayList<Feature> ();
-	public final ArrayList<Feature> getFeatures()
+	private List<Feature> Features = new ArrayList<Feature> ();
+	public final List<Feature> getFeatures()
 	{
 		return Features;
 	}
-	public final void setFeatures(ArrayList<Feature> value)
+	public final void setFeatures(List<Feature> value)
 	{
 		Features = value;
 	}
