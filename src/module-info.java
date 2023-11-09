@@ -11,6 +11,8 @@ module RuleGen {
 	requires javafx.fxml;
 	requires javafx.web;
 	requires libjavadev;
+	requires jakarta.xml.bind;
+	requires junit;
 	
 	opens org.sil.ftrulegen to javafx.graphics, javafx.fxml;
 	opens org.sil.ftrulegen.view to javafx.fxml;
