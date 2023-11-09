@@ -20,6 +20,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 /**
  * 
@@ -30,6 +32,12 @@ public class MainController implements Initializable {
 	private WebView browser;
 	@FXML
 	private WebEngine webEngine;
+	@FXML
+	private Label lblRules;
+	@FXML
+	private Label lblRightClickToEdit;
+	@FXML
+	TextField tfRuleName;
 
 	// following lines from
 	// https://stackoverflow.com/questions/32464974/javafx-change-application-language-on-the-run
@@ -47,6 +55,7 @@ public class MainController implements Initializable {
 		webEngine = browser.getEngine();
 		webEngine.load("file:///C:/ProgramData/SIL/FLExTransRuleGenerator/FLExTransRule.html");
 //		webEngine.loadContent("<html><body><div>Hi there!</div</body></html>");
+		lblRightClickToEdit.setLayoutX(lblRules.getLayoutX() + 40);
 
 	}
 
