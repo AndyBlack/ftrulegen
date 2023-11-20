@@ -11,7 +11,9 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.sil.ftrulegen.*;
-import org.sil.utility.view.ObservableResourceFactory;
+import org.sil.ftrulegen.flexmodel.FLExData;
+//import org.sil.utility.view.ObservableResourceFactory;
+import org.sil.ftrulegen.service.XmlBackEndProviderFLExData;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -41,12 +43,12 @@ public class MainController implements Initializable {
 
 	// following lines from
 	// https://stackoverflow.com/questions/32464974/javafx-change-application-language-on-the-run
-	private static final ObservableResourceFactory RESOURCE_FACTORY = ObservableResourceFactory
-			.getInstance();
-	static {
-		RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(Constants.RESOURCE_LOCATION,
-				new Locale("en")));
-	}
+//	private static final ObservableResourceFactory RESOURCE_FACTORY = ObservableResourceFactory
+//			.getInstance();
+//	static {
+//		RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(Constants.RESOURCE_LOCATION,
+//				new Locale("en")));
+//	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -57,6 +59,11 @@ public class MainController implements Initializable {
 //		webEngine.loadContent("<html><body><div>Hi there!</div</body></html>");
 		lblRightClickToEdit.setLayoutX(lblRules.getLayoutX() + 40);
 
+		FLExData flexData = new FLExData();
+		XmlBackEndProviderFLExData flexProvider = new XmlBackEndProviderFLExData(flexData, new Locale("en"));
+		flexProvider.loadFLExDataFromFile("C:\\Users\\Andy Black\\Documents\\FieldWorks\\FLExTrans\\RuleGenerator\\AndyPlay\\FLExDataSpanFrench.xml");
+		flexData = flexProvider.getFLExData();
+//		System.out.println(flexData.toString());
 	}
 
 }

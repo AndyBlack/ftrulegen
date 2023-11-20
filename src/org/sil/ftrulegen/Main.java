@@ -10,9 +10,10 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.sil.ftrulegen.view.MainController;
-import org.sil.ftrulegen.Constants;
 import org.sil.utility.view.ControllerUtilities;
-import org.sil.utility.view.ObservableResourceFactory;
+import org.sil.ftrulegen.Constants;
+//import org.sil.utility.view.ControllerUtilities;
+//import org.sil.utility.view.ObservableResourceFactory;
 
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -63,6 +64,7 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+	
 //	@Override
 	public Image getNewMainIconImage() {
 		Image img = ControllerUtilities.getIconImageFromURL(kApplicationIconResource,

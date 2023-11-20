@@ -7,34 +7,37 @@
 package org.sil.ftrulegen.flexmodel;
 
 import jakarta.xml.bind.annotation.XmlAttribute;
-import jakarta.xml.bind.annotation.XmlTransient;
 
 public class FLExFeatureValue
 {
-	@XmlAttribute(name="abbr")
-	private String Abbreviation = "";
+	private String abbreviation = "";
+	@XmlAttribute(name = "abbr")
 	public final String getAbbreviation()
 	{
-		return Abbreviation;
+		return abbreviation;
 	}
 	public final void setAbbreviation(String value)
 	{
-		Abbreviation = value;
+		abbreviation = value;
 	}
 
-	@XmlTransient
-	private FLExFeature Feature;
+	private FLExFeature feature;
 	public final FLExFeature getFeature()
 	{
-		return Feature;
+		return feature;
 	}
 	public final void setFeature(FLExFeature value)
 	{
-		Feature = value;
+		feature = value;
 	}
 
 	public FLExFeatureValue()
 	{
+	}
+
+	public FLExFeatureValue(String abbreviation)
+	{
+		this.abbreviation = abbreviation;
 	}
 
 	@Override
@@ -48,5 +51,27 @@ public class FLExFeatureValue
 		}
 		sb.append(getAbbreviation());
 		return sb.toString();
+	}
+	
+	@Override
+	public int hashCode() {
+		String sCombo = abbreviation;
+		return sCombo.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		boolean result = true;
+		FLExFeatureValue val = (FLExFeatureValue) obj;
+		if (!getAbbreviation().equals(val.getAbbreviation())) {
+			result = false;
+		}
+		return result;
 	}
 }

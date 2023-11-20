@@ -6,37 +6,74 @@
 
 package org.sil.ftrulegen.flexmodel;
 
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
+
 @XmlRootElement(name = "FLExData")
-public class FLExData
+public class FLExData extends FLExDataItem
 {
-	private SourceFLExData SourceData = new SourceFLExData();
+	private SourceFLExData sourceData = new SourceFLExData();
+	@XmlElement(name = "SourceData")
 	public final SourceFLExData getSourceData()
 	{
-		return SourceData;
+		return sourceData;
 	}
 	public final void setSourceData(SourceFLExData value)
 	{
-		SourceData = value;
+		sourceData = value;
 	}
-	private TargetFLExData TargetData = new TargetFLExData();
+	
+	private TargetFLExData targetData = new TargetFLExData();
+	@XmlElement(name = "TargetData")
 	public final TargetFLExData getTargetData()
 	{
-		return TargetData;
+		return targetData;
 	}
 	public final void setTargetData(TargetFLExData value)
 	{
-		TargetData = value;
+		targetData = value;
 	}
 
 	public FLExData()
 	{
 	}
 
-	public final void setFeatureInFeatureValues()
+	public void clear()
 	{
-		getSourceData().setFeatureInFeatureValues();
-		getTargetData().setFeatureInFeatureValues();
+		sourceData.clear();
+		targetData.clear();
+	}
+	
+	public void setFeatureInFeatureValues()
+	{
+		sourceData.setFeatureInFeatureValues();
+		targetData.setFeatureInFeatureValues();
+	}
+	
+	@Override
+	public void createClassesFromXmlNode(Node node) {
+//		NodeList list = node.getChildNodes();
+//		for (int i =0; i < list.getLength(); i++)
+//		{
+//			Node subNode = list.item(i);
+//			String nodeName = subNode.getLocalName();
+//			if (nodeName != null)
+//			{
+//				switch (nodeName) {
+//				case "SourceData":
+//					sourceData = new SourceFLExData();
+//					sourceData.createClassesFromXmlNode(subNode);
+//					break;
+//				case "TargetData":
+//					targetData = new TargetFLExData();
+//					targetData.createClassesFromXmlNode(subNode);
+//					break;					
+//				}
+//			}
+//		}
 	}
 }

@@ -10,15 +10,15 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 
 public class FLExCategory
 {
-	@XmlAttribute(name="abbr")
-	private String Abbreviation = "";
+	private String abbreviation = "";
+	@XmlAttribute(name = "abbr")
 	public final String getAbbreviation()
 	{
-		return Abbreviation;
+		return abbreviation;
 	}
 	public final void setAbbreviation(String value)
 	{
-		Abbreviation = value;
+		abbreviation = value;
 	}
 
 	public FLExCategory()
@@ -29,5 +29,27 @@ public class FLExCategory
 	public String toString()
 	{
 		return getAbbreviation();
+	}
+	
+	@Override
+	public int hashCode() {
+		String sCombo = abbreviation;
+		return sCombo.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		boolean result = true;
+		FLExCategory cat = (FLExCategory) obj;
+		if (!getAbbreviation().equals(cat.getAbbreviation())) {
+			result = false;
+		}
+		return result;
 	}
 }

@@ -5,15 +5,42 @@
  */
 
 module RuleGen {
+	exports org.sil.ftrulegen;
+	exports org.sil.ftrulegen.flexmodel;
+	exports org.sil.ftrulegen.model;
+	exports org.sil.ftrulegen.service;
 	exports org.sil.ftrulegen.view;
 
-	requires javafx.controls;
+//	opens org.sil.ftrulegen to javafx.graphics, javafx.fxml;
+	opens org.sil.ftrulegen.view to javafx.fxml;
+	opens org.sil.ftrulegen.view.fxml to javafx.fxml;
+
+	// Java
+	requires java.desktop;
+	requires java.prefs;
+
+	// JavaFX
+	requires transitive javafx.controls;
 	requires javafx.fxml;
+	requires javafx.graphics;
+	requires javafx.swing;
 	requires javafx.web;
-	requires libjavadev;
+	
+
+	// JAXB
 	requires jakarta.xml.bind;
+	requires jakarta.activation;
+	opens org.sil.ftrulegen.model;
+	opens org.sil.ftrulegen.flexmodel;
+
+	// JUnit
 	requires junit;
 	
-	opens org.sil.ftrulegen to javafx.graphics, javafx.fxml;
-	opens org.sil.ftrulegen.view to javafx.fxml;
+	// Other modules/libraries
+	requires transitive libjavadev;
+//	requires java.xml;
+	
+	requires javafx.base;
+	requires javafx.media;
+	requires java.base;
 }

@@ -6,14 +6,11 @@
 
 package org.sil.ftrulegen.flexmodel;
 
-import java.util.*;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
-import jakarta.xml.bind.annotation.XmlAttribute;
-
-
-public abstract class FLExDataBase
+public abstract class FLExDataBase extends FLExDataItem
 {
-	@XmlAttribute(name="name")
 	private String Name = "";
 	public final String getName()
 	{
@@ -23,38 +20,52 @@ public abstract class FLExDataBase
 	{
 		Name = value;
 	}
-
-	private List<FLExCategory> Categories = new ArrayList<FLExCategory> ();
-	public final List<FLExCategory> getCategories()
+	private FLExCategories categories = new FLExCategories();
+	public final FLExCategories getCategories()
 	{
-		return Categories;
+		return categories;
 	}
-	public final void setCategories(ArrayList<FLExCategory> value)
+	public final void setCategories(FLExCategories value)
 	{
-		Categories = value;
+		categories = value;
 	}
-	private List<FLExFeature> Features = new ArrayList<FLExFeature> ();
-	public final List<FLExFeature> getFeatures()
+	private FLExFeatures features = new FLExFeatures();
+	public final FLExFeatures getFeatures()
 	{
-		return Features;
+		return features;
 	}
-	public final void setFeatures(List<FLExFeature> value)
+	public final void setFeatures(FLExFeatures value)
 	{
-		Features = value;
+		features = value;
 	}
-
+	
 	public FLExDataBase()
 	{
 	}
 
-	public final void setFeatureInFeatureValues()
-	{
-		for (FLExFeature feat : getFeatures())
+	protected void createCommonClassesFromXmlNode(Node node) {
+		NodeList list = node.getChildNodes();
+		for (int i =0; i < list.getLength(); i++)
 		{
-			for (FLExFeatureValue value : feat.getValues())
+			Node subNode = list.item(i);
+			String nodeName = subNode.getLocalName();
+			if (nodeName != null)
 			{
-				value.setFeature(feat);
+				switch (nodeName) {
+				case "name":
+					setName(subNode.getNodeValue());
+					break;
+				case "Categories":
+					categories = new FLExCategories();
+					categories.createClassesFromXmlNode(subNode);
+					break;					
+				case "Features":
+					features = new FLExFeatures();
+					features.createClassesFromXmlNode(subNode);
+					break;					
+				}
 			}
 		}
 	}
+
 }
