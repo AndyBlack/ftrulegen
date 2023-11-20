@@ -16,7 +16,7 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
 
-public class FLExFeature extends FLExDataItem
+public class FLExFeature
 {
 	private String name = "";
 	@XmlAttribute(name = "name")
@@ -88,28 +88,5 @@ public class FLExFeature extends FLExDataItem
 		{
 			val.setFeature(this);
 		}
-	}
-
-
-	@Override
-	public void createClassesFromXmlNode(Node node) {
-//		NodeList list = node.getChildNodes();
-//		for (int i =0; i < list.getLength(); i++)
-//		{
-//			Node subNode = list.item(i);
-//			String nodeName = subNode.getLocalName();
-//			if (nodeName != null)
-//			{
-//				switch (nodeName) {
-//				case "name":
-//					setName(subNode.getNodeValue());
-//					break;
-//				case "Values":
-//					values = new FLExFeatureValues();
-//					values.createClassesFromXmlNode(subNode);
-//					break;					
-//				}
-//			}
-//		}
 	}
 }

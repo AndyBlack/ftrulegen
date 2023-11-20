@@ -14,7 +14,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 
 @XmlRootElement(name = "FLExData")
-public class FLExData extends FLExDataItem
+public class FLExData
 {
 	private SourceFLExData sourceData = new SourceFLExData();
 	@XmlElement(name = "SourceData")
@@ -52,28 +52,5 @@ public class FLExData extends FLExDataItem
 	{
 		sourceData.setFeatureInFeatureValues();
 		targetData.setFeatureInFeatureValues();
-	}
-	
-	@Override
-	public void createClassesFromXmlNode(Node node) {
-//		NodeList list = node.getChildNodes();
-//		for (int i =0; i < list.getLength(); i++)
-//		{
-//			Node subNode = list.item(i);
-//			String nodeName = subNode.getLocalName();
-//			if (nodeName != null)
-//			{
-//				switch (nodeName) {
-//				case "SourceData":
-//					sourceData = new SourceFLExData();
-//					sourceData.createClassesFromXmlNode(subNode);
-//					break;
-//				case "TargetData":
-//					targetData = new TargetFLExData();
-//					targetData.createClassesFromXmlNode(subNode);
-//					break;					
-//				}
-//			}
-//		}
 	}
 }
