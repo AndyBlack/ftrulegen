@@ -6,9 +6,6 @@
 
 package org.sil.ftrulegen.flexmodel;
 
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
