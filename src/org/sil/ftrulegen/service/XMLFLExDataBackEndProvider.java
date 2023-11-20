@@ -9,26 +9,17 @@ package org.sil.ftrulegen.service;
 import java.io.File;
 import java.util.Locale;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.sil.ftrulegen.flexmodel.*;
-//import org.sil.utility.HandleExceptionMessage;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.sil.utility.HandleExceptionMessage;
 
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Unmarshaller;
 
-//import jakarta.xml.bind.JAXBContext;
-//import jakarta.xml.bind.Unmarshaller;
-
-public class XmlBackEndProviderFLExData extends BackEndProvider
+public class XMLFLExDataBackEndProvider extends BackEndProvider
 {
 	private FLExData flexData;
 	
-	public XmlBackEndProviderFLExData(FLExData flexData, Locale locale) {
+	public XMLFLExDataBackEndProvider(FLExData flexData, Locale locale) {
 		this.flexData = flexData;
 		setResourceStrings(locale);
 	}
@@ -53,8 +44,8 @@ public class XmlBackEndProviderFLExData extends BackEndProvider
 			flexData.setFeatureInFeatureValues();
 		} catch (Exception e) { // catches ANY exception
 			e.printStackTrace();
-//			HandleExceptionMessage.show(sFileError, sFileErrorLoadHeader, sFileErrorLoadContent
-//					+ fileName, true);
+			HandleExceptionMessage.show(sFileError, sFileErrorLoadHeader, sFileErrorLoadContent
+					+ fileName, true);
 		}
 	}
 }

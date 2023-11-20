@@ -17,9 +17,9 @@ import org.sil.ftrulegen.model.*;
 import java.nio.file.Path;
 import java.util.*;
 
-public class XmlBackEndProviderFLExDataTests extends ServiceTestBase
+public class XMLFLExDataBackEndProviderTests extends ServiceTestBase
 {
-	private XmlBackEndProviderFLExData providerFLExData;
+	private XMLFLExDataBackEndProvider providerFLExData;
 	private FLExData flexData;
 
 	@Before
@@ -28,7 +28,7 @@ public class XmlBackEndProviderFLExDataTests extends ServiceTestBase
 	{
 		super.setup();
 		flexData = new FLExData();
-		providerFLExData = new XmlBackEndProviderFLExData(flexData, new Locale("en"));
+		providerFLExData = new XMLFLExDataBackEndProvider(flexData, new Locale("en"));
 	}
 
 	@Test
