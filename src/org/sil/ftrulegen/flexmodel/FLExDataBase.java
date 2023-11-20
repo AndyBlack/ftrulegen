@@ -40,7 +40,7 @@ public abstract class FLExDataBase
 	/**
 	 * @param categories the categories to set
 	 */
-	public void setCategories(List<FLExCategory> categories, TargetFLExData targetFLExData) {
+	public void setCategories(List<FLExCategory> categories) {
 		this.categories = categories;
 	}
 	/**
