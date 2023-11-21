@@ -10,15 +10,19 @@ import jakarta.xml.bind.annotation.XmlTransient;
 
 public class Category extends RuleConstituent
 {
+	private String catName = "";
 	@XmlTransient
-	private String Name = "";
 	public final String getName()
 	{
-		return Name;
+		return catName;
 	}
 	public final void setName(String value)
 	{
-		Name = value;
+		catName = value;
+	}
+
+	public Category()
+	{
 	}
 
 	public Category(String name)

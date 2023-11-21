@@ -6,21 +6,19 @@
 
 package org.sil.ftrulegen.model;
 
-import java.util.Locale;
-
 import jakarta.xml.bind.annotation.XmlAttribute;
 
 public class Affix extends ConstituentWithFeatures
 {
+	private AffixType affixType = AffixType.suffix;
 	@XmlAttribute(name="type")
-	private AffixType Type = AffixType.suffix;
 	public final AffixType getType()
 	{
-		return Type;
+		return affixType;
 	}
 	public final void setType(AffixType value)
 	{
-		Type = value;
+		affixType = value;
 	}
 
 	public Affix()
@@ -62,4 +60,28 @@ public class Affix extends ConstituentWithFeatures
 		newAffix.setFeatures(duplicateFeatures());
 		return newAffix;
 	}
+
+	@Override
+	public int hashCode() {
+//		String sCombo = wordCategory.hashCode() + wordId.hashCode();
+		return affixType.hashCode() + getFeatures().stream().hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		boolean result = true;
+		Affix word = (Affix) obj;
+		if (!affixType.equals(word.getType()))
+			result = false;
+		else if (!getFeatures().equals(word.getFeatures()))
+			result = false;
+		return result;
+	}
+
 }

@@ -10,26 +10,26 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 
 public class Feature extends RuleConstituent
 {
+	private String featureMatch = "";
 	@XmlAttribute(name="match")
-	private String Match = "";
 	public final String getMatch()
 	{
-		return Match;
+		return featureMatch;
 	}
 	public final void setMatch(String value)
 	{
-		Match = value;
+		featureMatch = value;
 	}
 
+	private String featureLabel = "";
 	@XmlAttribute(name="label")
-	private String Label = "";
 	public final String getLabel()
 	{
-		return Label;
+		return featureLabel;
 	}
 	public final void setLabel(String value)
 	{
-		Label = value;
+		featureLabel = value;
 	}
 
 	public Feature()

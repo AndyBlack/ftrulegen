@@ -9,55 +9,59 @@ package org.sil.ftrulegen.model;
 import java.util.*;
 
 import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlTransient;
 
 public class Word extends ConstituentWithFeatures
 {
-	private List<Affix> Affixes = new ArrayList<Affix> ();
+
+	private List<Affix> affixes = new ArrayList<Affix>();
+	@XmlElementWrapper(name="Affixes")
+	@XmlElement(name="Affix")
 	public final List<Affix> getAffixes()
 	{
-		return Affixes;
+		return affixes;
 	}
-	public final void setAffixes(ArrayList<Affix> value)
+	public final void setAffixes(List<Affix> value)
 	{
-		Affixes = value;
+		affixes = value;
 	}
-
+	private String wordId = "";
 	@XmlAttribute(name="id")
-	private String Id = "";
 	public final String getId()
 	{
-		return Id;
+		return wordId;
 	}
 	public final void setId(String value)
 	{
-		Id = value;
+		wordId = value;
 	}
 
+	private String wordCategory = "";
 	@XmlAttribute(name="category")
-	private String Category = "";
 	public final String getCategory()
 	{
-		return Category;
+		return wordCategory;
 	}
 	public final void setCategory(String value)
 	{
-		Category = value;
+		wordCategory = value;
 	}
 
+	private HeadValue wordHead = HeadValue.no;
 	@XmlAttribute(name="head")
-	private HeadValue Head = HeadValue.no;
 	public final HeadValue getHead()
 	{
-		return Head;
+		return wordHead;
 	}
 	public final void setHead(HeadValue value)
 	{
-		Head = value;
+		wordHead = value;
 	}
 
-	@XmlTransient
 	private Category CategoryConstituent;
+	@XmlTransient
 	public final Category getCategoryConstituent()
 	{
 		return CategoryConstituent;
@@ -71,7 +75,7 @@ public class Word extends ConstituentWithFeatures
 	public void setLocale(Locale value)
 	{
 		super.setLocale(value);
-		for (Affix affix : Affixes)
+		for (Affix affix : affixes)
 		{
 			affix.setLocale(value);
 		}
@@ -226,5 +230,32 @@ public class Word extends ConstituentWithFeatures
 		}
 		newWord.setFeatures(duplicateFeatures());
 		return newWord;
+	}
+
+	@Override
+	public int hashCode() {
+//		String sCombo = wordCategory.hashCode() + wordId.hashCode();
+		return wordCategory.hashCode() + affixes.stream().hashCode() + wordHead.hashCode() + wordId.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		boolean result = true;
+		Word word = (Word) obj;
+		if (!wordCategory.equals(word.getCategory()))
+			result = false;
+		else if (!wordHead.equals(word.getHead()))
+			result = false;
+		else if (!wordId.equals(word.getId()))
+			result = false;
+		else if (!getAffixes().equals(word.getAffixes()))
+			result = false;
+		return result;
 	}
 }

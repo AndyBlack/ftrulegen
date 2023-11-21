@@ -7,6 +7,9 @@
 package org.sil.ftrulegen.model;
 
 import java.util.*;
+
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 
@@ -14,22 +17,25 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 public class FLExTransRuleGenerator
 {
 	Locale locale;
-	public final void setLocale(Locale value)
+
+	public  void setLocale(Locale value)
 	{
 		locale = value;
-		for (FLExTransRule rule : FLExTransRules)
+		for (FLExTransRule rule : flexTransRules)
 		{
 			rule.setLocale(value);
 		}
 	}
-	private List<FLExTransRule> FLExTransRules = new ArrayList<FLExTransRule> ();
-	public final List<FLExTransRule> getFLExTransRules()
+	private List<FLExTransRule> flexTransRules = new ArrayList<FLExTransRule> ();
+	@XmlElementWrapper(name = "FLExTransRules")
+	@XmlElement(name="FLExTransRule")
+	public List<FLExTransRule> getFLExTransRules()
 	{
-		return FLExTransRules;
+		return flexTransRules;
 	}
-	public final void setFLExTransRules(List<FLExTransRule> value)
+	public void setFLExTransRules(List<FLExTransRule> value)
 	{
-		FLExTransRules = value;
+		flexTransRules = value;
 	}
 
 	public FLExTransRuleGenerator()

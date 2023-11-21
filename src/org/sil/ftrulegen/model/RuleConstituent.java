@@ -18,34 +18,34 @@ public class RuleConstituent
 	@XmlTransient
 	protected ResourceBundle bundle;
 	
-	@XmlTransient
 	protected Locale locale;
+	@XmlTransient
 	public void setLocale(Locale value)
 	{
 		locale = value;
 		bundle = ResourceBundle.getBundle(Constants.RESOURCE_LOCATION, locale);
 	}
 	
+	private int identifier;
 	@XmlTransient
-	private int Identifier;
 	public final int getIdentifier()
 	{
-		return Identifier;
+		return identifier;
 	}
 	public final void setIdentifier(int value)
 	{
-		Identifier = value;
+		identifier = value;
 	}
 
+	private RuleConstituent parent;
 	@XmlTransient
-	private RuleConstituent Parent;
 	public final RuleConstituent getParent()
 	{
-		return Parent;
+		return parent;
 	}
 	public final void setParent(RuleConstituent value)
 	{
-		Parent = value;
+		parent = value;
 	}
 
 	public RuleConstituent()

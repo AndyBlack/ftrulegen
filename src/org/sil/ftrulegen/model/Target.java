@@ -8,14 +8,17 @@ package org.sil.ftrulegen.model;
 
 import java.util.Locale;
 
+import jakarta.xml.bind.annotation.XmlElement;
+
 public class Target
 {
 	private Phrase Phrase = new Phrase();
-	public final Phrase getPhrase()
+	@XmlElement(name = "Phrase")
+	public Phrase getPhrase()
 	{
 		return Phrase;
 	}
-	public final void setPhrase(Phrase value)
+	public void setPhrase(Phrase value)
 	{
 		Phrase = value;
 	}

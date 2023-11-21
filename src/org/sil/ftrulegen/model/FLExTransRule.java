@@ -9,46 +9,49 @@ package org.sil.ftrulegen.model;
 import java.util.Locale;
 
 import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
 
 public class FLExTransRule extends RuleConstituent
 {
-	private Source Source = new Source();
+	private Source source = new Source();
+	@XmlElement(name="Source")
 	public final Source getSource()
 	{
-		return Source;
+		return source;
 	}
 	
 	public final void setSource(Source value)
 	{
-		Source = value;
+		source = value;
 	}
 
-	private Target Target = new Target();
+	private Target target = new Target();
+	@XmlElement(name="Target")
 	public final Target getTarget()
 	{
-		return Target;
+		return target;
 	}
 	public final void setTarget(Target value)
 	{
-		Target = value;
+		target = value;
 	}
 
+	private String ruleName = "";
 	@XmlAttribute(name="name")
-	private String Name = "";
 	public final String getName()
 	{
-		return Name;
+		return ruleName;
 	}
 	public final void setName(String value)
 	{
-		Name = value;
+		ruleName = value;
 	}
 
 	@Override
 	public void setLocale(Locale value)
 	{
 		super.setLocale(value);
-		Source.setLocale(value);
+		source.setLocale(value);
 	}
 	
 	public FLExTransRule()
@@ -76,4 +79,32 @@ public class FLExTransRule extends RuleConstituent
 		}
 		return result;
 	}
+
+	@Override
+	public int hashCode() {
+		String sCombo = ruleName + source.hashCode() + target.hashCode();
+		return sCombo.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		boolean result = true;
+		FLExTransRule rule = (FLExTransRule) obj;
+		if (!ruleName.equals(rule.getName()))
+			result = false;
+		else if (!getSource().equals(rule.getSource())) {
+			result = false;
+		} else if (!getTarget().equals(rule.getTarget()))
+		{
+			result = false;
+		}
+		return result;
+	}
+
 }

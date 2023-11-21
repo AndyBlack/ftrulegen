@@ -12,8 +12,8 @@ import java.util.ResourceBundle;
 
 import org.sil.ftrulegen.*;
 import org.sil.ftrulegen.flexmodel.FLExData;
+import org.sil.ftrulegen.service.XMLFLExDataBackEndProvider;
 //import org.sil.utility.view.ObservableResourceFactory;
-import org.sil.ftrulegen.service.XmlBackEndProviderFLExData;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -60,7 +60,7 @@ public class MainController implements Initializable {
 		lblRightClickToEdit.setLayoutX(lblRules.getLayoutX() + 40);
 
 		FLExData flexData = new FLExData();
-		XmlBackEndProviderFLExData flexProvider = new XmlBackEndProviderFLExData(flexData, new Locale("en"));
+		XMLFLExDataBackEndProvider flexProvider = new XMLFLExDataBackEndProvider(flexData, new Locale("en"));
 		flexProvider.loadFLExDataFromFile("C:\\Users\\Andy Black\\Documents\\FieldWorks\\FLExTrans\\RuleGenerator\\AndyPlay\\FLExDataSpanFrench.xml");
 		flexData = flexProvider.getFLExData();
 //		System.out.println(flexData.toString());

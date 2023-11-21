@@ -8,36 +8,41 @@ package org.sil.ftrulegen.model;
 
 import java.util.*;
 
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlTransient;
 
 public class Phrase extends RuleConstituent
 {
-	private List<Word> Words = new ArrayList<Word> ();
+
+	private List<Word> words = new ArrayList<Word>();
+	@XmlElementWrapper(name="Words")
+	@XmlElement(name="Word")
 	public final List<Word> getWords()
 	{
-		return Words;
+		return words;
 	}
-	public final void setWords(ArrayList<Word> value)
+	public final void setWords(List<Word> value)
 	{
-		Words = value;
+		words = value;
 	}
 
+	private PhraseType phraseType = PhraseType.source;
 	@XmlTransient
-	private PhraseType Type = PhraseType.source;
 	public final PhraseType getType()
 	{
-		return Type;
+		return phraseType;
 	}
 	public final void setType(PhraseType value)
 	{
-		Type = value;
+		phraseType = value;
 	}
 
 	@Override
 	public void setLocale(Locale value)
 	{
 		super.setLocale(value);
-		for (Word word : Words)
+		for (Word word : words)
 		{
 			word.setLocale(value);
 		}
@@ -164,5 +169,28 @@ public class Phrase extends RuleConstituent
 			newPhrase.getWords().add(word.duplicate());
 		}
 		return newPhrase;
+	}
+
+	@Override
+	public int hashCode() {
+//		String sCombo = phraseType.hashCode() + words.stream().hashCode();
+		return phraseType.hashCode() + words.stream().hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		boolean result = true;
+		Phrase phrase = (Phrase) obj;
+		if (!phraseType.equals(phrase.getType()))
+			result = false;
+		else if (!getWords().equals(phrase.getWords()))
+			result = false;
+		return result;
 	}
 }

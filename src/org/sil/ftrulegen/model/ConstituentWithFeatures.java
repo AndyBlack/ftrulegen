@@ -8,23 +8,29 @@ package org.sil.ftrulegen.model;
 
 import java.util.*;
 
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElementWrapper;
+
 public abstract class ConstituentWithFeatures extends RuleConstituent
 {
-	private List<Feature> Features = new ArrayList<Feature> ();
-	public final List<Feature> getFeatures()
+
+	private List<Feature> features = new ArrayList<Feature>();
+	@XmlElementWrapper(name="Features")
+	@XmlElement(name="Feature")
+	public List<Feature> getFeatures()
 	{
-		return Features;
+		return features;
 	}
-	public final void setFeatures(List<Feature> value)
+	public void setFeatures(List<Feature> value)
 	{
-		Features = value;
+		features = value;
 	}
 
 	@Override
 	public void setLocale(Locale value)
 	{
 		super.setLocale(value);
-		for (Feature feature : Features)
+		for (Feature feature : features)
 		{
 			feature.setLocale(value);
 		}
