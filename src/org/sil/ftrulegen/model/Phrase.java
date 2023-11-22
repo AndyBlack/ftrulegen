@@ -117,7 +117,7 @@ public class Phrase extends RuleConstituent
 		}
 	}
 
-	public final String produceHtml()
+	public final String produceHtml(ResourceBundle bundle)
 	{
 		StringBuilder sb = new StringBuilder();
 		sb.append("<li>");
@@ -136,7 +136,7 @@ public class Phrase extends RuleConstituent
 		sb.append("<ul>");
 		for (Word word : getWords())
 		{
-			sb.append(word.produceHtml());
+			sb.append(word.produceHtml(bundle));
 		}
 		sb.append("</ul>");
 		sb.append("</li>");

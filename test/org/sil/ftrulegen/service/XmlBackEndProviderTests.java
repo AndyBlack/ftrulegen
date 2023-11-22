@@ -61,13 +61,13 @@ public class XmlBackEndProviderTests extends ServiceTestBase
 		assert 0 == word.getAffixes().size();
 		assert 1 == word.getFeatures().size();
 		Feature feature = word.getFeatures().get(0);
-		checkFeatureAttributes(feature, "gender", "α");
+		checkFeatureAttributes(feature, "gender", "\u03b1");
 		word = words.get(1);
 		checkWordAttributes(word, "2", "", HeadValue.yes);
 		assert 0 == word.getAffixes().size();
 		assert 1 == word.getFeatures().size();
 		feature = word.getFeatures().get(0);
-		checkFeatureAttributes(feature, "gender", "α");
+		checkFeatureAttributes(feature, "gender", "\u03b1");
 	}
 
 	@Test
@@ -112,24 +112,24 @@ public class XmlBackEndProviderTests extends ServiceTestBase
 		assert AffixType.suffix == affix.getType();
 		assert 1 == affix.getFeatures().size();
 		Feature feature = affix.getFeatures().get(0);
-		checkFeatureAttributes(feature, "gender", "α");
+		checkFeatureAttributes(feature, "gender", "\u03b1");
 		affix = word.getAffixes().get(1);
 		assert AffixType.suffix == affix.getType();
 		assert 1 == affix.getFeatures().size();
 		feature = affix.getFeatures().get(0);
-		checkFeatureAttributes(feature, "number", "β");
+		checkFeatureAttributes(feature, "number", "\u03b2");
 
 		word = words.get(1);
 		checkWordAttributes(word, "3", "", HeadValue.yes);
 		assert 1 == word.getAffixes().size();
 		assert 1 == word.getFeatures().size();
 		feature = word.getFeatures().get(0);
-		checkFeatureAttributes(feature, "gender", "α");
+		checkFeatureAttributes(feature, "gender", "\u03b1");
 		affix = word.getAffixes().get(0);
 		assert AffixType.suffix == affix.getType();
 		assert 1 == affix.getFeatures().size();
 		feature = affix.getFeatures().get(0);
-		checkFeatureAttributes(feature, "number", "β");
+		checkFeatureAttributes(feature, "number", "\u03b2");
 
 		word = words.get(2);
 		checkWordAttributes(word, "2", "", HeadValue.no);
@@ -139,12 +139,12 @@ public class XmlBackEndProviderTests extends ServiceTestBase
 		assert AffixType.suffix == affix.getType();
 		assert 1 == affix.getFeatures().size();
 		feature = affix.getFeatures().get(0);
-		checkFeatureAttributes(feature, "gender", "α");
+		checkFeatureAttributes(feature, "gender", "\u03b1");
 		affix = word.getAffixes().get(1);
 		assert AffixType.prefix == affix.getType();
 		assert 1 == affix.getFeatures().size();
 		feature = affix.getFeatures().get(0);
-		checkFeatureAttributes(feature, "number", "β");
+		checkFeatureAttributes(feature, "number", "\u03b2");
 	}
 
 	protected final void checkWordAttributes(Word word, String id, String category, HeadValue head)
@@ -183,32 +183,32 @@ public class XmlBackEndProviderTests extends ServiceTestBase
 		Phrase targetPhrase = new Phrase();
 		word1 = makeWordAttributes("1", "", HeadValue.no);
 		ArrayList<Feature> features1 = new ArrayList<Feature>();
-		features1.add(makeFeatureAttributes("gender", "α"));
+		features1.add(makeFeatureAttributes("gender", "\u03b1"));
 		Affix affix1 = makeAffix(AffixType.suffix, features1);
 		word1.getAffixes().add(affix1);
 		ArrayList<Feature> features2 = new ArrayList<Feature>();
-		features2.add(makeFeatureAttributes("number", "β"));
+		features2.add(makeFeatureAttributes("number", "\u03b2"));
 		Affix affix2 = makeAffix(AffixType.suffix, features2);
 		word1.getAffixes().add(affix2);
 		targetPhrase.getWords().add(word1);
 
 		word2 = makeWordAttributes("3", "", HeadValue.yes);
 		features2 = new ArrayList<Feature>();
-		features2.add(makeFeatureAttributes("number", "β"));
+		features2.add(makeFeatureAttributes("number", "\u03b2"));
 		affix2 = makeAffix(AffixType.suffix, features2);
 		word2.getAffixes().add(affix2);
 		ArrayList<Feature> wordFeatures = new ArrayList<Feature>();
-		wordFeatures.add(makeFeatureAttributes("gender", "α"));
+		wordFeatures.add(makeFeatureAttributes("gender", "\u03b1"));
 		word2.setFeatures(wordFeatures);
 		targetPhrase.getWords().add(word2);
 
 		word3 = makeWordAttributes("2", "", HeadValue.no);
 		ArrayList<Feature> features31 = new ArrayList<Feature>();
-		features31.add(makeFeatureAttributes("gender", "α"));
+		features31.add(makeFeatureAttributes("gender", "\u03b1"));
 		Affix affix3 = makeAffix(AffixType.suffix, features31);
 		word3.getAffixes().add(affix3);
 		ArrayList<Feature> features32 = new ArrayList<Feature>();
-		features32.add(makeFeatureAttributes("number", "β"));
+		features32.add(makeFeatureAttributes("number", "\u03b2"));
 		affix2 = makeAffix(AffixType.suffix, features32);
 		word3.getAffixes().add(affix2);
 		targetPhrase.getWords().add(word3);

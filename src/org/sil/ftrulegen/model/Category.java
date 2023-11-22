@@ -6,6 +6,8 @@
 
 package org.sil.ftrulegen.model;
 
+import java.util.ResourceBundle;
+
 import jakarta.xml.bind.annotation.XmlTransient;
 
 public class Category extends RuleConstituent
@@ -40,7 +42,7 @@ public class Category extends RuleConstituent
 		return constituent;
 	}
 
-	public final String produceHtml()
+	public final String produceHtml(ResourceBundle bundle)
 	{
 		StringBuilder sb = new StringBuilder();
 		sb.append("<li>");

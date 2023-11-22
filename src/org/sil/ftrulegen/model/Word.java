@@ -179,7 +179,7 @@ public class Word extends ConstituentWithFeatures
 		return constituent;
 	}
 
-	public final String produceHtml()
+	public final String produceHtml(ResourceBundle bundle)
 	{
 		StringBuilder sb = new StringBuilder();
 		sb.append("<li>");
@@ -204,12 +204,12 @@ public class Word extends ConstituentWithFeatures
 			sb.append("<ul>\n");
 			if (getCategory().length() > 0)
 			{
-				sb.append(getCategoryConstituent().produceHtml());
+				sb.append(getCategoryConstituent().produceHtml(bundle));
 			}
 			produceHtmlForFeatures(sb);
 			for (Affix affix : getAffixes())
 			{
-				sb.append(affix.produceHtml());
+				sb.append(affix.produceHtml(bundle));
 			}
 			sb.append("</ul>\n");
 		}

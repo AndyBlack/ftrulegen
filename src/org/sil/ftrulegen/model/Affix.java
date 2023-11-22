@@ -6,6 +6,8 @@
 
 package org.sil.ftrulegen.model;
 
+import java.util.ResourceBundle;
+
 import jakarta.xml.bind.annotation.XmlAttribute;
 
 public class Affix extends ConstituentWithFeatures
@@ -36,7 +38,7 @@ public class Affix extends ConstituentWithFeatures
 		return constituent;
 	}
 
-	public final String produceHtml()
+	public final String produceHtml(ResourceBundle bundle)
 	{
 		StringBuilder sb = new StringBuilder();
 		sb.append("<li>");
