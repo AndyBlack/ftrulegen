@@ -6,28 +6,8 @@
 
 package org.sil.ftrulegen.model;
 
-import java.util.Locale;
-
-import jakarta.xml.bind.annotation.XmlElement;
-
-public class Source
+public class Source extends ConstituentWithPhrase
 {
-	private Phrase Phrase = new Phrase();
-	@XmlElement(name = "Phrase")
-	public Phrase getPhrase()
-	{
-		return Phrase;
-	}
-	public void setPhrase(Phrase value)
-	{
-		Phrase = value;
-	}
-
-	public void setLocale(Locale value)
-	{
-		Phrase.setLocale(value);
-	}
-	
 	public Source()
 	{
 		getPhrase().setType(PhraseType.source);

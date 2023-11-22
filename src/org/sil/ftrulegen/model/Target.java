@@ -10,24 +10,8 @@ import java.util.Locale;
 
 import jakarta.xml.bind.annotation.XmlElement;
 
-public class Target
+public class Target extends ConstituentWithPhrase
 {
-	private Phrase Phrase = new Phrase();
-	@XmlElement(name = "Phrase")
-	public Phrase getPhrase()
-	{
-		return Phrase;
-	}
-	public void setPhrase(Phrase value)
-	{
-		Phrase = value;
-	}
-
-	public void setLocale(Locale value)
-	{
-		Phrase.setLocale(value);
-	}
-
 	public Target()
 	{
 		getPhrase().setType(PhraseType.target);
