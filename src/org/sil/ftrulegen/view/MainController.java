@@ -6,7 +6,12 @@
 
 package org.sil.ftrulegen.view;
 
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -14,8 +19,10 @@ import org.sil.ftrulegen.*;
 import org.sil.ftrulegen.flexmodel.FLExData;
 import org.sil.ftrulegen.model.FLExTransRule;
 import org.sil.ftrulegen.model.FLExTransRuleGenerator;
+import org.sil.ftrulegen.service.WebPageProducer;
 import org.sil.ftrulegen.service.XMLFLExDataBackEndProvider;
 import org.sil.ftrulegen.service.XmlBackEndProvider;
+import org.sil.utility.HandleExceptionMessage;
 import org.sil.utility.view.ObservableResourceFactory;
 
 import javafx.beans.value.ChangeListener;
@@ -50,6 +57,9 @@ public class MainController implements Initializable {
 	ListView<FLExTransRule> lvRules;
 
 	FLExTransRule currentRule = null;
+	WebPageProducer producer = null;
+	String webPageFileUri = "file:///C:/ProgramData/SIL/FLExTransRuleGenerator/FLExTransRule.html";
+	String webPageFile = "C:\\ProgramData\\SIL\\FLExTransRuleGenerator\\FLExTransRule.html";
 
 	// following lines from
 	// https://stackoverflow.com/questions/32464974/javafx-change-application-language-on-the-run
@@ -68,13 +78,27 @@ public class MainController implements Initializable {
 			public void changed(ObservableValue<? extends FLExTransRule> observable, FLExTransRule oldValue, FLExTransRule newValue) {
 				tfRuleName.setText(newValue.getName());
 				currentRule = newValue;
+				produceAndShowWebPage(newValue, resources);
+			}
+
+			protected void produceAndShowWebPage(FLExTransRule newValue, ResourceBundle resources) {
+				producer = WebPageProducer.getInstance();
+				String html =producer.produceWebPage(newValue, resources);
+				try {
+					Files.write(Paths.get(webPageFile), html.getBytes());
+					webEngine.load(webPageFileUri);
+				} catch (IOException e) {
+					e.printStackTrace();
+					HandleExceptionMessage.show(resources.getString("file.error"), resources.getString("file.error.load.header"),
+							resources.getString("file.error.load.content")
+							+ webPageFile, true);
+				}
 			}
 		});
 
 		tfRuleName.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (currentRule != null) {
 				currentRule.setName(tfRuleName.getText());
-				System.out.println("name now is: " + currentRule.getName());
 			}
 		});
 
@@ -82,8 +106,7 @@ public class MainController implements Initializable {
 //		Alert alert = new Alert(AlertType.INFORMATION, "content", ButtonType.OK);
 //		alert.show();
 		webEngine = browser.getEngine();
-		webEngine.load("file:///C:/ProgramData/SIL/FLExTransRuleGenerator/FLExTransRule.html");
-//		webEngine.loadContent("<html><body><div>Hi there!</div</body></html>");
+		webEngine.load(webPageFileUri);
 		lblRightClickToEdit.setLayoutX(lblRules.getLayoutX() + 40);
 
 		FLExTransRuleGenerator generator = new FLExTransRuleGenerator();
@@ -96,13 +119,11 @@ public class MainController implements Initializable {
 		XMLFLExDataBackEndProvider flexProvider = new XMLFLExDataBackEndProvider(flexData, new Locale("en"));
 		flexProvider.loadFLExDataFromFile("C:\\Users\\Andy Black\\Documents\\FieldWorks\\FLExTrans\\RuleGenerator\\AndyPlay\\FLExDataSpanFrench.xml");
 		flexData = flexProvider.getFLExData();
-//		System.out.println(flexData.toString());
 
 		if (currentRule == null && lvRules.getItems().size() > 0)
 		{
 //			TODO: use application preference to remember and set last used index
 			lvRules.getSelectionModel().select(0);
-
 		}
 	}
 
