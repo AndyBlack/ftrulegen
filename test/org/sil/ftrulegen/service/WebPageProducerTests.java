@@ -65,10 +65,10 @@ public class WebPageProducerTests extends ServiceTestBase
 	{
 		ResourceBundle bundle = ResourceBundle.getBundle(org.sil.ftrulegen.Constants.RESOURCE_LOCATION, new Locale("en"));
 		actualWebPageOutput = producer.produceWebPage(rule, bundle);
-		System.out.println("actual=\n" + actualWebPageOutput);
+//		System.out.println("actual=\n" + actualWebPageOutput);
 		try {
 			String expectedWebPageOutput = new String(Files.readAllBytes(Paths.get(expectedResultFile)), StandardCharsets.UTF_8);
-//			String expectedWebPageOutput = streamReader.ReadToEnd().Replace("\r", "");
+			expectedWebPageOutput = expectedWebPageOutput.replace("\r", "");
 			assertEquals(expectedWebPageOutput, actualWebPageOutput);
 		} catch (IOException e) {
 			e.printStackTrace();

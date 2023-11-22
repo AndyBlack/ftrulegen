@@ -8,6 +8,7 @@ package org.sil.ftrulegen.view;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -85,7 +86,7 @@ public class MainController implements Initializable {
 				producer = WebPageProducer.getInstance();
 				String html =producer.produceWebPage(newValue, resources);
 				try {
-					Files.write(Paths.get(webPageFile), html.getBytes());
+					Files.write(Paths.get(webPageFile), html.getBytes(Charset.forName("UTF-8")));
 					webEngine.load(webPageFileUri);
 				} catch (IOException e) {
 					e.printStackTrace();
