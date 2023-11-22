@@ -26,6 +26,7 @@ import org.sil.ftrulegen.service.XmlBackEndProvider;
 import org.sil.utility.HandleExceptionMessage;
 import org.sil.utility.view.ObservableResourceFactory;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -123,8 +124,15 @@ public class MainController implements Initializable {
 
 		if (currentRule == null && lvRules.getItems().size() > 0)
 		{
-//			TODO: use application preference to remember and set last used index
-			lvRules.getSelectionModel().select(0);
+			Platform.runLater(new Runnable() {
+				@Override
+				public void run() {
+//					TODO: use application preference to remember and set last used index
+					int index = 0;
+					lvRules.scrollTo(index);
+					lvRules.getSelectionModel().select(index);
+				}
+			});
 		}
 	}
 
