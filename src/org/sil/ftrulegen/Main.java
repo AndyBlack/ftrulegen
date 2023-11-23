@@ -55,6 +55,11 @@ public class Main extends Application {
 			primaryStage.setTitle(loader.getResources().getString("main.Title"));
 			primaryStage.getIcons().add(getNewMainIconImage());
 
+			MainController controller = loader.getController();
+			if (controller != null)
+			{
+				controller.setStage(primaryStage);
+			}
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
