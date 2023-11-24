@@ -30,7 +30,7 @@
                <children>
                   <WebView fx:id="browser" layoutX="31.0" layoutY="125.0" prefHeight="300.0" prefWidth="1900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="71.0" />
                   <Button layoutX="966.0" layoutY="21.0" mnemonicParsing="false" text="%view.Help" AnchorPane.rightAnchor="10.0" />
-                  <Button layoutX="885.0" layoutY="21.0" mnemonicParsing="false" text="%view.Save" AnchorPane.rightAnchor="100.0" />
+                  <Button layoutX="885.0" layoutY="21.0" mnemonicParsing="false" text="%view.Save" AnchorPane.rightAnchor="100.0" onAction="#handleSave" />
                   <Label layoutX="6.0" layoutY="43.0" text="%view.RuleName" />
                   <TextField fx:id="tfRuleName" layoutX="93.0" layoutY="39.0" prefHeight="25.0" prefWidth="247.0" promptText="%view.RuleName" text="%view.RuleNameNeeded" />
                </children>

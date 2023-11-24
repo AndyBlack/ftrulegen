@@ -85,6 +85,8 @@ public class MainController implements Initializable {
 	boolean changesMade = false;
 	ResourceBundle bundle;
 	FLExTransRuleGenerator generator;
+	XmlBackEndProvider provider;
+	String ruleGenFile = "C:\\Users\\Andy Black\\Documents\\FieldWorks\\FLExTrans\\RuleGenerator\\AndyPlay\\ExampleRules.xml";
 
 	// following lines from
 	// https://stackoverflow.com/questions/32464974/javafx-change-application-language-on-the-run
@@ -138,8 +140,8 @@ public class MainController implements Initializable {
 		lblRightClickToEdit.setLayoutX(lblRules.getLayoutX() + 40);
 
 		generator = new FLExTransRuleGenerator();
-		XmlBackEndProvider provider = new XmlBackEndProvider(generator, new Locale ("en"));
-		provider.loadDataFromFile("C:\\Users\\Andy Black\\Documents\\FieldWorks\\FLExTrans\\RuleGenerator\\AndyPlay\\ExampleRules.xml");
+		provider = new XmlBackEndProvider(generator, new Locale ("en"));
+		provider.loadDataFromFile(ruleGenFile);
 		generator = provider.getRuleGenerator();
 		lvRules.getItems().addAll(generator.getFLExTransRules());
 
@@ -248,6 +250,10 @@ public class MainController implements Initializable {
 	{
 		System.out.println(" rule move up clicked");
 
+	}
+
+	public void handleSave() {
+		provider.saveDataToFile(ruleGenFile);
 	}
 
 	void markAsChanged(boolean changed)
