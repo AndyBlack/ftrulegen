@@ -17,6 +17,9 @@ public class RuleConstituent
 {
 	@XmlTransient
 	protected ResourceBundle bundle;
+	public void setBundle(ResourceBundle bundle) {
+		this.bundle = bundle;
+	}
 	
 	protected Locale locale;
 	@XmlTransient

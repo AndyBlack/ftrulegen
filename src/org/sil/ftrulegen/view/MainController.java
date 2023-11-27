@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.Collections;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -228,28 +229,39 @@ public class MainController implements Initializable {
 
 	public void handleRuleDuplicate()
 	{
-		System.out.println("rule duplicate clicked");
-
+		FLExTransRule selectedRule = lvRules.getSelectionModel().getSelectedItem();
+		FLExTransRule newRule = selectedRule.duplicate();
+		generator.getFLExTransRules().add(selectedRuleIndex, newRule);
+		lvRules.getItems().add(selectedRuleIndex, newRule);
 	}
 	public void handleRuleInsertAfter()
 	{
-		System.out.println("rule insert after clicked");
-
+		insertNewRule(Math.min(lvRules.getItems().size(), selectedRuleIndex + 1));
 	}
 	public void handleRuleInsertBefore()
 	{
-		System.out.println("rule insert before clicked");
+		insertNewRule(selectedRuleIndex);
+	}
 
+	protected void insertNewRule(int index) {
+		FLExTransRule newRule = new FLExTransRule();
+		newRule.setBundle(bundle);
+		generator.getFLExTransRules().add(index, newRule);
+		lvRules.getItems().add(index, newRule);
+		lvRules.getSelectionModel().clearAndSelect(index);
 	}
 	public void handleRuleMoveDown()
 	{
-		System.out.println("rule move down clicked");
-
+		moveRule(selectedRuleIndex, selectedRuleIndex + 1);
 	}
 	public void handleRuleMoveUp()
 	{
-		System.out.println(" rule move up clicked");
-
+		moveRule(selectedRuleIndex, selectedRuleIndex - 1);
+	}
+	protected void moveRule(int index1, int index2) {
+		Collections.swap(generator.getFLExTransRules(), index1, index2);
+		Collections.swap(lvRules.getItems(), index1, index2);
+		lvRules.getSelectionModel().clearAndSelect(index2);
 	}
 
 	public void handleSave() {
