@@ -16,11 +16,20 @@ import java.nio.file.StandardOpenOption;
 import java.util.Collections;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import netscape.javascript.JSObject;
 
 import org.sil.ftrulegen.*;
 import org.sil.ftrulegen.flexmodel.FLExData;
+import org.sil.ftrulegen.model.Affix;
+import org.sil.ftrulegen.model.Category;
 import org.sil.ftrulegen.model.FLExTransRule;
 import org.sil.ftrulegen.model.FLExTransRuleGenerator;
+import org.sil.ftrulegen.model.Feature;
+import org.sil.ftrulegen.model.Phrase;
+import org.sil.ftrulegen.model.RuleConstituent;
+import org.sil.ftrulegen.model.Word;
+import org.sil.ftrulegen.service.ConstituentFinder;
+import org.sil.ftrulegen.service.WebPageInteractor;
 import org.sil.ftrulegen.service.WebPageProducer;
 import org.sil.ftrulegen.service.XMLFLExDataBackEndProvider;
 import org.sil.ftrulegen.service.XmlBackEndProvider;
@@ -30,6 +39,7 @@ import org.sil.utility.view.ObservableResourceFactory;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Worker.State;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -78,6 +88,34 @@ public class MainController implements Initializable {
 	MenuItem cmRuleDelete;
 	@FXML
 	MenuItem cmRuleDuplicate;
+	@FXML
+	MenuItem cmEdit;
+	@FXML
+	MenuItem cmInsertCategory;
+	@FXML
+	MenuItem cmInsertFeature;
+	@FXML
+	MenuItem cmInsertPrefix;
+	@FXML
+	MenuItem cmInsertPrefixAfter;
+	@FXML
+	MenuItem cmInsertPrefixBefore;
+	@FXML
+	MenuItem cmInsertSuffix;
+	@FXML
+	MenuItem cmInsertSuffixAfter;
+	@FXML
+	MenuItem cmInsertSuffixBefore;
+	@FXML
+	MenuItem cmMarkAsHead;
+	@FXML
+	MenuItem cmMoveLeft;
+	@FXML
+	MenuItem cmMoveRight;
+	@FXML
+	MenuItem cmRemoveHeadMarking;
+	@FXML
+	MenuItem cmToggleAffixType;
 
 	int selectedRuleIndex = -1;
 	WebPageProducer producer = null;
@@ -87,7 +125,15 @@ public class MainController implements Initializable {
 	ResourceBundle bundle;
 	FLExTransRuleGenerator generator;
 	XmlBackEndProvider provider;
+	WebPageInteractor webPageInteractor;
+	ConstituentFinder finder;
 	String ruleGenFile = "C:\\Users\\Andy Black\\Documents\\FieldWorks\\FLExTrans\\RuleGenerator\\AndyPlay\\ExampleRules.xml";
+
+	Affix affix;
+	Category category;
+	Feature feature;
+	Phrase phrase;
+	Word word;
 
 	// following lines from
 	// https://stackoverflow.com/questions/32464974/javafx-change-application-language-on-the-run
@@ -132,11 +178,43 @@ public class MainController implements Initializable {
 			lvRules.refresh();
 		});
 
-		createContextMenuItems(resources);
+		webEngine = browser.getEngine();
+//		webEngine.setOnAlert(event -> showAlert(event.getData()));
+//		webPageInteractor = new WebPageInteractor(language, webEngine, this);
+		webPageInteractor = new WebPageInteractor(this);
+		webEngine.getLoadWorker().stateProperty().addListener(new ChangeListener<State>() {
+			public void changed(ObservableValue ov, State oldState, State newState) {
+				if (newState == State.SUCCEEDED) {
+					System.out.println("succeeded: url='" + webEngine.getLocation() + "'");
+					Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+							// TODO: is there a way to associate the Java code
+							// with the
+							// javascript code *before* the page is loaded?
+							// We are working around it by sleeping for 10ms in
+							// the
+							// javascript onload() function.
+							JSObject win = (JSObject) webEngine.executeScript("window");
+							win.setMember("ftRuleGenApp", webPageInteractor);
+							System.out.println("\t interactor page set");
+//							webEngine.executeScript("Initialize('" + getCurrentLocaleCode() + "')");
+//							updatePageLabels();
+//							// Timeline timeline = new Timeline(new
+//							// KeyFrame(Duration.millis(500), event -> {
+//							// handleRefresh();
+//							// }));
+//							// timeline.play();
+						}
+					});
+				}
+			}
+		});
+
+		createContextMenuItems();
 
 //		Alert alert = new Alert(AlertType.INFORMATION, "content", ButtonType.OK);
 //		alert.show();
-		webEngine = browser.getEngine();
 		webEngine.load(webPageFileUri);
 		lblRightClickToEdit.setLayoutX(lblRules.getLayoutX() + 40);
 
@@ -144,6 +222,7 @@ public class MainController implements Initializable {
 		provider = new XmlBackEndProvider(generator, new Locale ("en"));
 		provider.loadDataFromFile(ruleGenFile);
 		generator = provider.getRuleGenerator();
+		finder = ConstituentFinder.getInstance();
 		lvRules.getItems().addAll(generator.getFLExTransRules());
 
 		FLExData flexData = new FLExData();
@@ -165,7 +244,7 @@ public class MainController implements Initializable {
 		}
 	}
 
-	void createContextMenuItems(ResourceBundle bundle)
+	void createContextMenuItems()
 	{
 		cmRuleDelete = new MenuItem(bundle.getString("view.cmDelete"));
 		cmRuleDelete.setOnAction((event) -> {
@@ -272,6 +351,31 @@ public class MainController implements Initializable {
 	{
 		changesMade = changed;
 		showChangeStatusOnForm();
+	}
+
+	public void processItemClickedOn(String sItem) {
+		String sCode = sItem.substring(0, 1);
+		int identifier = Integer.parseInt(sItem.substring(2));
+		RuleConstituent constituent = finder.findConstituent(lvRules.getSelectionModel().getSelectedItem(), identifier);
+		System.out.println("controller: item=" + sItem + "; code=" + sCode);
+		switch (sCode) {
+		case "a":
+			affix = (Affix)constituent;
+			// show context menu for affix
+			break;
+		case "c":
+			category = (Category)constituent;
+			break;
+		case "f":
+			feature = (Feature)constituent;
+			break;
+		case "p":
+			phrase = (Phrase)constituent;
+			break;
+		case "w":
+			word = (Word)constituent;
+			break;
+		}
 	}
 
 	void showChangeStatusOnForm()

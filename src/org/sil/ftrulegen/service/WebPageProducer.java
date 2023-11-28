@@ -57,7 +57,8 @@ public class WebPageProducer
 	{
 		StringBuilder sb = new StringBuilder();
 		sb.append("function toApp(msg) {\n");
-		sb.append("window.chrome.webview.postMessage(msg);\n");
+//		sb.append("window.chrome.webview.postMessage(msg);\n");
+		sb.append("ftRuleGenApp.setItemClickedOn(msg);\n");
 		sb.append("return false;\n");
 		sb.append("}\n");
 		return sb.toString();

@@ -43,4 +43,5 @@ module RuleGen {
 	requires javafx.base;
 	requires javafx.media;
 	requires java.base;
+	requires jdk.jsobject;
 }
