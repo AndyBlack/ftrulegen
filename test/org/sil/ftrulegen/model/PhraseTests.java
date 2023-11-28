@@ -11,6 +11,7 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.sil.ftrulegen.service.RuleIdentifierAndParentSetter;
 
 public class PhraseTests
 {
@@ -113,5 +114,14 @@ public class PhraseTests
 		sourcePhrase.markWordAsHead(sourceWord2);
 		assert HeadValue.no == sourcePhrase.getWords().get(0).getHead();
 		assert HeadValue.yes == sourcePhrase.getWords().get(1).getHead();
+	}
+
+	@Test
+	public final void getPhraseFromCategoryTest() {
+		RuleIdentifierAndParentSetter ruleIdAndParent = RuleIdentifierAndParentSetter.getInstance();
+		ruleIdAndParent.setIdentifiersAndParents(ruleGenerator.getFLExTransRules().get(0));
+		Category cat = sourceWord.getCategoryConstituent();
+		Phrase phrase = cat.getPhrase();
+		assertEquals(sourcePhrase, phrase);
 	}
 }

@@ -14,11 +14,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import netscape.javascript.JSObject;
 
 import org.sil.ftrulegen.*;
+import org.sil.ftrulegen.flexmodel.FLExCategory;
 import org.sil.ftrulegen.flexmodel.FLExData;
 import org.sil.ftrulegen.model.Affix;
 import org.sil.ftrulegen.model.Category;
@@ -34,6 +36,7 @@ import org.sil.ftrulegen.service.WebPageProducer;
 import org.sil.ftrulegen.service.XMLFLExDataBackEndProvider;
 import org.sil.ftrulegen.service.XmlBackEndProvider;
 import org.sil.utility.HandleExceptionMessage;
+import org.sil.utility.view.ControllerUtilities;
 import org.sil.utility.view.ObservableResourceFactory;
 
 import javafx.application.Platform;
@@ -41,9 +44,13 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker.State;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
@@ -128,6 +135,8 @@ public class MainController implements Initializable {
 	WebPageInteractor webPageInteractor;
 	ConstituentFinder finder;
 	String ruleGenFile = "C:\\Users\\Andy Black\\Documents\\FieldWorks\\FLExTrans\\RuleGenerator\\AndyPlay\\ExampleRules.xml";
+	String flexDataFile = "C:\\Users\\Andy Black\\Documents\\FieldWorks\\FLExTrans\\RuleGenerator\\AndyPlay\\FLExDataSpanFrench.xml";
+	FLExData flexData;
 
 	Affix affix;
 	Category category;
@@ -153,23 +162,10 @@ public class MainController implements Initializable {
 			public void changed(ObservableValue<? extends FLExTransRule> observable, FLExTransRule oldValue, FLExTransRule newValue) {
 				tfRuleName.setText(newValue.getName());
 				selectedRuleIndex = lvRules.getItems().indexOf(newValue);
-				produceAndShowWebPage(newValue, resources);
+				produceAndShowWebPage(newValue);
 				enableDisableRuleContextMenuItems();
 			}
 
-			protected void produceAndShowWebPage(FLExTransRule newValue, ResourceBundle resources) {
-				producer = WebPageProducer.getInstance();
-				String html = producer.produceWebPage(newValue, resources);
-				try {
-					Files.write(Paths.get(webPageFile), html.getBytes(Charset.forName("UTF-8")));
-					webEngine.load(webPageFileUri);
-				} catch (IOException e) {
-					e.printStackTrace();
-					HandleExceptionMessage.show(resources.getString("file.error"), resources.getString("file.error.load.header"),
-							resources.getString("file.error.load.content")
-							+ webPageFile, true);
-				}
-			}
 
 		});
 
@@ -217,15 +213,15 @@ public class MainController implements Initializable {
 		lblRightClickToEdit.setLayoutX(lblRules.getLayoutX() + 40);
 
 		generator = new FLExTransRuleGenerator();
-		provider = new XmlBackEndProvider(generator, new Locale ("en"));
+		provider = new XmlBackEndProvider(generator, bundle.getLocale());
 		provider.loadDataFromFile(ruleGenFile);
 		generator = provider.getRuleGenerator();
 		finder = ConstituentFinder.getInstance();
 		lvRules.getItems().addAll(generator.getFLExTransRules());
 
-		FLExData flexData = new FLExData();
-		XMLFLExDataBackEndProvider flexProvider = new XMLFLExDataBackEndProvider(flexData, new Locale("en"));
-		flexProvider.loadFLExDataFromFile("C:\\Users\\Andy Black\\Documents\\FieldWorks\\FLExTrans\\RuleGenerator\\AndyPlay\\FLExDataSpanFrench.xml");
+		flexData = new FLExData();
+		XMLFLExDataBackEndProvider flexProvider = new XMLFLExDataBackEndProvider(flexData, bundle.getLocale());
+		flexProvider.loadFLExDataFromFile(flexDataFile);
 		flexData = flexProvider.getFLExData();
 
 		if (lvRules.getItems().size() > 0)
@@ -239,6 +235,19 @@ public class MainController implements Initializable {
 					lvRules.getSelectionModel().select(selectedRuleIndex);
 				}
 			});
+		}
+	}
+	protected void produceAndShowWebPage(FLExTransRule newValue) {
+		producer = WebPageProducer.getInstance();
+		String html = producer.produceWebPage(newValue, bundle);
+		try {
+			Files.write(Paths.get(webPageFile), html.getBytes(Charset.forName("UTF-8")));
+			webEngine.load(webPageFileUri);
+		} catch (IOException e) {
+			e.printStackTrace();
+			HandleExceptionMessage.show(bundle.getString("file.error"), bundle.getString("file.error.load.header"),
+					bundle.getString("file.error.load.content")
+					+ webPageFile, true);
 		}
 	}
 
@@ -325,7 +334,7 @@ public class MainController implements Initializable {
 		affixEditContextMenu.getItems().addAll(cmAffixDuplicate, cmAffixToggleAffixType, new SeparatorMenuItem(),
 				cmAffixInsertPrefixBefore, cmAffixInsertPrefixAfter, cmAffixInsertSuffixBefore,
 				cmAffixInsertSuffixAfter, new SeparatorMenuItem(), cmAffixMoveLeft, cmAffixMoveRight,
-				new SeparatorMenuItem(), cmAffixDelete, cmAffixInsertFeature);
+				new SeparatorMenuItem(), cmAffixDelete, new SeparatorMenuItem(), cmAffixInsertFeature);
 	}
 
 	void createCategoryContextMenuItems() {
@@ -447,9 +456,55 @@ public class MainController implements Initializable {
 	public void handleAffixToggleAffixType() {
 	}
 	public void handleCategoryDelete() {
+		word = (Word)category.getParent();
+		if (word != null) {
+			word.deleteCategory();
+			reportChangesMade();
+		}
 	}
+
 	public void handleCategoryEdit() {
+		// TODO: get the real flex data
+		phrase = category.getPhrase();
+		if (phrase != null) {
+			FLExTransRule rule = (FLExTransRule)phrase.getParent();
+			if (rule != null) {
+				if (phrase == rule.getSource().getPhrase()) {
+					launchCategoryChooser(flexData.getSourceData().getCategories(), bundle);
+				} else {
+					launchCategoryChooser(flexData.getTargetData().getCategories(), bundle);
+				}
+			}
+		}
 	}
+
+	void launchCategoryChooser(List<FLExCategory> categories, ResourceBundle bundle) {
+		try {
+			Stage dialogStage = new Stage();
+			// Load root layout from fxml file.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("view/fxml/CategoryChooser.fxml"));
+			loader.setResources(bundle);
+			AnchorPane pane = loader.load();
+			CategoryChooserController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setCategories(categories);
+			Scene scene = new Scene(pane);
+			dialogStage.setScene(scene);
+			dialogStage.setTitle(loader.getResources().getString("chooser.CategoryTitle"));
+			dialogStage.getIcons().add(ControllerUtilities.getIconImageFromURL("file:resources/FLExTransWindowIcon.png",
+					Constants.RESOURCE_SOURCE_LOCATION));
+			dialogStage.showAndWait();
+			FLExCategory cat = controller.getCategoryChosen();
+			if (controller.isOkClicked() && cat != null) {
+				category.setName(cat.getAbbreviation());
+				reportChangesMade();
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	public void handleFeatureDelete() {
 	}
 	public void handleFeatureEdit() {
@@ -552,7 +607,6 @@ public class MainController implements Initializable {
 		case "a":
 			affix = (Affix)constituent;
 			affixEditContextMenu.show(stage, xCoord, yCoord);
-			// show context menu for affix
 			break;
 		case "c":
 			category = (Category)constituent;
@@ -571,6 +625,11 @@ public class MainController implements Initializable {
 			wordEditContextMenu.show(stage, xCoord, yCoord);
 			break;
 		}
+	}
+
+	void reportChangesMade() {
+		produceAndShowWebPage(lvRules.getSelectionModel().getSelectedItem());
+		markAsChanged(true);
 	}
 
 	void showChangeStatusOnForm()

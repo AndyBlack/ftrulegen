@@ -32,6 +32,15 @@ public class Category extends RuleConstituent
 		setName(name);
 	}
 
+	public Phrase getPhrase() {
+		Phrase phrase = null;
+		Word word = (Word)getParent();
+		if (word != null) {
+			phrase = (Phrase)word.getParent();
+		}
+		return phrase;
+	}
+
 	public final RuleConstituent findConstituent(int identifier)
 	{
 		RuleConstituent constituent = null;
