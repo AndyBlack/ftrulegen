@@ -14,19 +14,37 @@ import org.sil.ftrulegen.view.MainController;
 public class WebPageInteractor {
 
 	MainController controller;
+	String sItemClickedOn = "";
+	int xCoord = 0;
+	int yCoord = 0;
 	
 	public WebPageInteractor(MainController controller)
 	{
 		this.controller = controller;		
 	}
-	String sItemClickedOn = "";
+
 	public String getItemClickedOn() {
 		return sItemClickedOn;
 	}
 	
 	public void setItemClickedOn(String value) {
 		sItemClickedOn = value;
-		System.out.println("item clicked on:" + sItemClickedOn);
 		controller.processItemClickedOn(sItemClickedOn);
+	}
+
+	public int getXCoord()
+	{
+		return xCoord;
+	}
+	public void setXCoord(int value) {
+		xCoord = value;
+	}
+
+	public int getYCoord()
+	{
+		return yCoord;
+	}
+	public void setYCoord(int value) {
+		yCoord = value;
 	}
 }

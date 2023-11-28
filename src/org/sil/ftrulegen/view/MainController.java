@@ -74,48 +74,48 @@ public class MainController implements Initializable {
 	TextField tfRuleName;
 	@FXML
 	ListView<FLExTransRule> lvRules;
-	@FXML
+
+	ContextMenu affixEditContextMenu = new ContextMenu();
+	MenuItem cmAffixDuplicate;
+	MenuItem cmAffixToggleAffixType;
+	MenuItem cmAffixInsertPrefixBefore;
+	MenuItem cmAffixInsertPrefixAfter;
+	MenuItem cmAffixInsertSuffixBefore;
+	MenuItem cmAffixInsertSuffixAfter;
+	MenuItem cmAffixMoveLeft;
+	MenuItem cmAffixMoveRight;
+	MenuItem cmAffixDelete;
+	MenuItem cmAffixInsertFeature;
+
+	ContextMenu categoryEditContextMenu = new ContextMenu();
+	MenuItem cmCategoryEdit;
+	MenuItem cmCategoryDelete;
+
+	ContextMenu featureEditContextMenu = new ContextMenu();
+	MenuItem cmFeatureEdit;
+	MenuItem cmFeatureDelete;
+
 	ContextMenu ruleEditContextMenu = new ContextMenu();
-	@FXML
 	MenuItem cmRuleInsertBefore;
-	@FXML
 	MenuItem cmRuleInsertAfter;
-	@FXML
 	MenuItem cmRuleMoveUp;
-	@FXML
 	MenuItem cmRuleMoveDown;
-	@FXML
 	MenuItem cmRuleDelete;
-	@FXML
 	MenuItem cmRuleDuplicate;
-	@FXML
-	MenuItem cmEdit;
-	@FXML
-	MenuItem cmInsertCategory;
-	@FXML
-	MenuItem cmInsertFeature;
-	@FXML
-	MenuItem cmInsertPrefix;
-	@FXML
-	MenuItem cmInsertPrefixAfter;
-	@FXML
-	MenuItem cmInsertPrefixBefore;
-	@FXML
-	MenuItem cmInsertSuffix;
-	@FXML
-	MenuItem cmInsertSuffixAfter;
-	@FXML
-	MenuItem cmInsertSuffixBefore;
-	@FXML
-	MenuItem cmMarkAsHead;
-	@FXML
-	MenuItem cmMoveLeft;
-	@FXML
-	MenuItem cmMoveRight;
-	@FXML
-	MenuItem cmRemoveHeadMarking;
-	@FXML
-	MenuItem cmToggleAffixType;
+
+	ContextMenu wordEditContextMenu = new ContextMenu();
+	MenuItem cmWordDuplicate;
+	MenuItem cmWordInsertBefore;
+	MenuItem cmWordInsertAfter;
+	MenuItem cmWordMoveLeft;
+	MenuItem cmWordMoveRight;
+	MenuItem cmWordDelete;
+	MenuItem cmWordInsertPrefix;
+	MenuItem cmWordInsertSuffix;
+	MenuItem cmWordInsertCategory;
+	MenuItem cmWordInsertFeature;
+	MenuItem cmWordMarkAsHead;
+	MenuItem cmWordRemoveHeadMarking;
 
 	int selectedRuleIndex = -1;
 	WebPageProducer producer = null;
@@ -185,7 +185,6 @@ public class MainController implements Initializable {
 		webEngine.getLoadWorker().stateProperty().addListener(new ChangeListener<State>() {
 			public void changed(ObservableValue ov, State oldState, State newState) {
 				if (newState == State.SUCCEEDED) {
-					System.out.println("succeeded: url='" + webEngine.getLocation() + "'");
 					Platform.runLater(new Runnable() {
 						@Override
 						public void run() {
@@ -197,7 +196,6 @@ public class MainController implements Initializable {
 							// javascript onload() function.
 							JSObject win = (JSObject) webEngine.executeScript("window");
 							win.setMember("ftRuleGenApp", webPageInteractor);
-							System.out.println("\t interactor page set");
 //							webEngine.executeScript("Initialize('" + getCurrentLocaleCode() + "')");
 //							updatePageLabels();
 //							// Timeline timeline = new Timeline(new
@@ -246,6 +244,14 @@ public class MainController implements Initializable {
 
 	void createContextMenuItems()
 	{
+		createAffixContextMenuItems();
+		createCategoryContextMenuItems();
+		createFeatureContextMenuItems();
+		createRuleContextMenuItems();
+		createWordContextMenuItems();
+	}
+
+	protected void createRuleContextMenuItems() {
 		cmRuleDelete = new MenuItem(bundle.getString("view.cmDelete"));
 		cmRuleDelete.setOnAction((event) -> {
 			handleRuleDelete();
@@ -273,7 +279,132 @@ public class MainController implements Initializable {
 		ruleEditContextMenu.getItems().addAll(cmRuleDuplicate, cmRuleInsertBefore, cmRuleInsertAfter,
 				new SeparatorMenuItem(), cmRuleMoveUp, cmRuleMoveDown, new SeparatorMenuItem(), cmRuleDelete);
 		lvRules.setContextMenu(ruleEditContextMenu);
+	}
 
+	void createAffixContextMenuItems() {
+		cmAffixDuplicate = new MenuItem(bundle.getString("view.cmDuplicate"));
+		cmAffixDuplicate.setOnAction((event) -> {
+			handleAffixDuplicate();
+		});
+		cmAffixToggleAffixType = new MenuItem(bundle.getString("view.cmToggleAffixType"));
+		cmAffixToggleAffixType.setOnAction((event) -> {
+			handleAffixToggleAffixType();
+		});
+		cmAffixInsertPrefixBefore = new MenuItem(bundle.getString("view.cmInsertPrefixBefore"));
+		cmAffixInsertPrefixBefore.setOnAction((event) -> {
+			handleAffixInsertPrefixBefore();
+		});
+		cmAffixInsertPrefixAfter = new MenuItem(bundle.getString("view.cmInsertPrefixAfter"));
+		cmAffixInsertPrefixAfter.setOnAction((event) -> {
+			handleAffixInsertPrefixAfter();
+		});
+		cmAffixInsertSuffixBefore = new MenuItem(bundle.getString("view.cmInsertSuffixBefore"));
+		cmAffixInsertSuffixBefore.setOnAction((event) -> {
+			handleAffixInsertSuffixBefore();
+		});
+		cmAffixInsertSuffixAfter = new MenuItem(bundle.getString("view.cmInsertSuffixAfter"));
+		cmAffixInsertSuffixAfter.setOnAction((event) -> {
+			handleAffixInsertSuffixAfter();
+		});
+		cmAffixMoveLeft = new MenuItem(bundle.getString("view.cmMoveLeft"));
+		cmAffixMoveLeft.setOnAction((event) -> {
+			handleAffixMoveLeft();
+		});
+		cmAffixMoveRight = new MenuItem(bundle.getString("view.cmMoveRight"));
+		cmAffixMoveRight.setOnAction((event) -> {
+			handleAffixMoveRight();
+		});
+		cmAffixDelete = new MenuItem(bundle.getString("view.cmDelete"));
+		cmAffixDelete.setOnAction((event) -> {
+			handleAffixDelete();
+		});
+		cmAffixInsertFeature = new MenuItem(bundle.getString("view.cmInsertFeature"));
+		cmAffixInsertFeature.setOnAction((event) -> {
+			handleAffixInsertFeature();
+		});
+		affixEditContextMenu.getItems().addAll(cmAffixDuplicate, cmAffixToggleAffixType, new SeparatorMenuItem(),
+				cmAffixInsertPrefixBefore, cmAffixInsertPrefixAfter, cmAffixInsertSuffixBefore,
+				cmAffixInsertSuffixAfter, new SeparatorMenuItem(), cmAffixMoveLeft, cmAffixMoveRight,
+				new SeparatorMenuItem(), cmAffixDelete, cmAffixInsertFeature);
+	}
+
+	void createCategoryContextMenuItems() {
+		cmCategoryEdit = new MenuItem(bundle.getString("view.cmEdit"));
+		cmCategoryEdit.setOnAction((event) -> {
+			handleCategoryEdit();
+		});
+		cmCategoryDelete = new MenuItem(bundle.getString("view.cmDelete"));
+		cmCategoryDelete.setOnAction((event) -> {
+			handleCategoryDelete();
+		});
+		categoryEditContextMenu.getItems().addAll(cmCategoryEdit, new SeparatorMenuItem(), cmCategoryDelete);
+	}
+
+	void createFeatureContextMenuItems() {
+		cmFeatureEdit = new MenuItem(bundle.getString("view.cmEdit"));
+		cmFeatureEdit.setOnAction((event) -> {
+			handleFeatureEdit();
+		});
+		cmFeatureDelete = new MenuItem(bundle.getString("view.cmDelete"));
+		cmFeatureDelete.setOnAction((event) -> {
+			handleFeatureDelete();
+		});
+		featureEditContextMenu.getItems().addAll(cmFeatureEdit, new SeparatorMenuItem(), cmFeatureDelete);
+	}
+
+	void createWordContextMenuItems() {
+		cmWordDuplicate = new MenuItem(bundle.getString("view.cmDuplicate"));
+		cmWordDuplicate.setOnAction((event) -> {
+			handleWordDuplicate();
+		});
+		cmWordInsertBefore = new MenuItem(bundle.getString("view.cmInsertBefore"));
+		cmWordInsertBefore.setOnAction((event) -> {
+			handleWordInsertBefore();
+		});
+		cmWordInsertAfter = new MenuItem(bundle.getString("view.cmInsertAfter"));
+		cmWordInsertAfter.setOnAction((event) -> {
+			handleWordInsertAfter();
+		});
+		cmWordMoveLeft = new MenuItem(bundle.getString("view.cmMoveLeft"));
+		cmWordMoveLeft.setOnAction((event) -> {
+			handleWordMoveLeft();
+		});
+		cmWordMoveRight = new MenuItem(bundle.getString("view.cmMoveRight"));
+		cmWordMoveRight.setOnAction((event) -> {
+			handleWordMoveRight();
+		});
+		cmWordDelete = new MenuItem(bundle.getString("view.cmDelete"));
+		cmWordDelete.setOnAction((event) -> {
+			handleWordDelete();
+		});
+		cmWordInsertPrefix = new MenuItem(bundle.getString("view.cmInsertPrefix"));
+		cmWordInsertPrefix.setOnAction((event) -> {
+			handleWordInsertPrefix();
+		});
+		cmWordInsertSuffix = new MenuItem(bundle.getString("view.cmInsertSuffix"));
+		cmWordInsertSuffix.setOnAction((event) -> {
+			handleWordInsertSuffix();
+		});
+		cmWordInsertCategory = new MenuItem(bundle.getString("view.cmInsertCategory"));
+		cmWordInsertCategory.setOnAction((event) -> {
+			handleWordInsertCategory();
+		});
+		cmWordInsertFeature = new MenuItem(bundle.getString("view.cmInsertFeature"));
+		cmWordInsertFeature.setOnAction((event) -> {
+			handleWordInsertFeature();
+		});
+		cmWordMarkAsHead = new MenuItem(bundle.getString("view.cmMarkAsHead"));
+		cmWordMarkAsHead.setOnAction((event) -> {
+			handleWordMarkAsHead();
+		});
+		cmWordRemoveHeadMarking = new MenuItem(bundle.getString("view.cmRemoveHeadMarking"));
+		cmWordRemoveHeadMarking.setOnAction((event) -> {
+			handleWordRemoveHeadMarking();
+		});
+		wordEditContextMenu.getItems().addAll(cmWordDuplicate, cmWordInsertBefore, cmWordInsertAfter,
+				new SeparatorMenuItem(), cmWordMoveLeft, cmWordMoveRight, new SeparatorMenuItem(), cmWordDelete,
+				new SeparatorMenuItem(), cmWordInsertPrefix, cmWordInsertSuffix, cmWordInsertCategory,
+				cmWordInsertFeature, cmWordMarkAsHead, cmWordRemoveHeadMarking);
 	}
 
 	void enableDisableRuleContextMenuItems()
@@ -295,6 +426,34 @@ public class MainController implements Initializable {
 		}
 	}
 
+	public void handleAffixDelete() {
+	}
+	public void handleAffixDuplicate() {
+	}
+	public void handleAffixInsertFeature() {
+	}
+	public void handleAffixInsertPrefixAfter() {
+	}
+	public void handleAffixInsertPrefixBefore() {
+	}
+	public void handleAffixInsertSuffixAfter() {
+	}
+	public void handleAffixInsertSuffixBefore() {
+	}
+	public void handleAffixMoveLeft() {
+	}
+	public void handleAffixMoveRight() {
+	}
+	public void handleAffixToggleAffixType() {
+	}
+	public void handleCategoryDelete() {
+	}
+	public void handleCategoryEdit() {
+	}
+	public void handleFeatureDelete() {
+	}
+	public void handleFeatureEdit() {
+	}
 	public void handleRuleDelete()
 	{
 		generator.getFLExTransRules().remove(selectedRuleIndex);
@@ -348,6 +507,30 @@ public class MainController implements Initializable {
 		lvRules.getSelectionModel().clearAndSelect(index2);
 		markAsChanged(true);
 	}
+	public void handleWordDelete() {
+	}
+	public void handleWordDuplicate() {
+	}
+	public void handleWordInsertAfter() {
+	}
+	public void handleWordInsertBefore() {
+	}
+	public void handleWordInsertCategory() {
+	}
+	public void handleWordInsertFeature() {
+	}
+	public void handleWordInsertPrefix() {
+	}
+	public void handleWordInsertSuffix() {
+	}
+	public void handleWordMarkAsHead() {
+	}
+	public void handleWordMoveLeft() {
+	}
+	public void handleWordMoveRight() {
+	}
+	public void handleWordRemoveHeadMarking() {
+	}
 
 	public void handleSave() {
 		provider.saveDataToFile(ruleGenFile);
@@ -363,23 +546,29 @@ public class MainController implements Initializable {
 		String sCode = sItem.substring(0, 1);
 		int identifier = Integer.parseInt(sItem.substring(2));
 		RuleConstituent constituent = finder.findConstituent(lvRules.getSelectionModel().getSelectedItem(), identifier);
-		System.out.println("controller: item=" + sItem + "; code=" + sCode);
+		int xCoord = webPageInteractor.getXCoord();
+		int yCoord = webPageInteractor.getYCoord();
 		switch (sCode) {
 		case "a":
 			affix = (Affix)constituent;
+			affixEditContextMenu.show(stage, xCoord, yCoord);
 			// show context menu for affix
 			break;
 		case "c":
 			category = (Category)constituent;
+			categoryEditContextMenu.show(stage, xCoord, yCoord);
 			break;
 		case "f":
 			feature = (Feature)constituent;
+			featureEditContextMenu.show(stage, xCoord, yCoord);
 			break;
 		case "p":
 			phrase = (Phrase)constituent;
+			// nothing else to do
 			break;
 		case "w":
 			word = (Word)constituent;
+			wordEditContextMenu.show(stage, xCoord, yCoord);
 			break;
 		}
 	}

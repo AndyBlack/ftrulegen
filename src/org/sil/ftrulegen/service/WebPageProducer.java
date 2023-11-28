@@ -56,8 +56,10 @@ public class WebPageProducer
 	private String javaScriptContents()
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append("function toApp(msg) {\n");
+		sb.append("function toApp(msg,event) {\n");
 //		sb.append("window.chrome.webview.postMessage(msg);\n");
+		sb.append("ftRuleGenApp.setXCoord(event.screenX);\n");
+		sb.append("ftRuleGenApp.setYCoord(event.screenY);\n");
 		sb.append("ftRuleGenApp.setItemClickedOn(msg);\n");
 		sb.append("return false;\n");
 		sb.append("}\n");

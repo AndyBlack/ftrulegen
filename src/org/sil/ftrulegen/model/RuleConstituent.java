@@ -79,7 +79,7 @@ public class RuleConstituent
 		sb.append(sType);
 		sb.append(".");
 		sb.append(getIdentifier());
-		sb.append("')\"");
+		sb.append("',event)\"");
 		return sb.toString();
 	}
 }
