@@ -304,6 +304,7 @@ public class MainController implements Initializable {
 //			lvRules.getFocusModel().focus(iListViewindex);
 //			lvRules.scrollTo(iListViewindex);
 		lvRules.refresh();
+		markAsChanged(true);
 	}
 
 	public void handleRuleDuplicate()
@@ -312,6 +313,7 @@ public class MainController implements Initializable {
 		FLExTransRule newRule = selectedRule.duplicate();
 		generator.getFLExTransRules().add(selectedRuleIndex, newRule);
 		lvRules.getItems().add(selectedRuleIndex, newRule);
+		markAsChanged(true);
 	}
 	public void handleRuleInsertAfter()
 	{
@@ -324,10 +326,13 @@ public class MainController implements Initializable {
 
 	protected void insertNewRule(int index) {
 		FLExTransRule newRule = new FLExTransRule();
+		newRule.getSource().getPhrase().insertNewWordAt(0);
+		newRule.getTarget().getPhrase().insertNewWordAt(0);
 		newRule.setBundle(bundle);
 		generator.getFLExTransRules().add(index, newRule);
 		lvRules.getItems().add(index, newRule);
 		lvRules.getSelectionModel().clearAndSelect(index);
+		markAsChanged(true);
 	}
 	public void handleRuleMoveDown()
 	{
@@ -341,6 +346,7 @@ public class MainController implements Initializable {
 		Collections.swap(generator.getFLExTransRules(), index1, index2);
 		Collections.swap(lvRules.getItems(), index1, index2);
 		lvRules.getSelectionModel().clearAndSelect(index2);
+		markAsChanged(true);
 	}
 
 	public void handleSave() {
