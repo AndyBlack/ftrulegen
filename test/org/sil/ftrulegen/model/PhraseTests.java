@@ -118,10 +118,27 @@ public class PhraseTests
 
 	@Test
 	public final void getPhraseFromCategoryTest() {
-		RuleIdentifierAndParentSetter ruleIdAndParent = RuleIdentifierAndParentSetter.getInstance();
-		ruleIdAndParent.setIdentifiersAndParents(ruleGenerator.getFLExTransRules().get(0));
+		setRuleIdsAndParents();
 		Category cat = sourceWord.getCategoryConstituent();
 		Phrase phrase = cat.getPhrase();
 		assertEquals(sourcePhrase, phrase);
+	}
+
+	@Test
+	public final void getPhraseFromFeatureTest() {
+		Feature wordFeature = sourceWord.insertNewFeature("gender", "alpha");
+		sourceWord2.insertNewAffixAt(AffixType.prefix, 0);
+		Affix affix = sourceWord2.getAffixes().get(0);
+		Feature affixFeature = affix.insertNewFeature("number", "beta");
+		setRuleIdsAndParents();
+		Phrase phrase = wordFeature.getPhrase();
+		assertEquals(sourcePhrase, phrase);
+		phrase = affixFeature.getPhrase();
+		assertEquals(sourcePhrase, phrase);
+	}
+
+	private void setRuleIdsAndParents() {
+		RuleIdentifierAndParentSetter ruleIdAndParent = RuleIdentifierAndParentSetter.getInstance();
+		ruleIdAndParent.setIdentifiersAndParents(ruleGenerator.getFLExTransRules().get(0));
 	}
 }

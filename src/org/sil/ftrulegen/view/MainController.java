@@ -22,6 +22,8 @@ import netscape.javascript.JSObject;
 import org.sil.ftrulegen.*;
 import org.sil.ftrulegen.flexmodel.FLExCategory;
 import org.sil.ftrulegen.flexmodel.FLExData;
+import org.sil.ftrulegen.flexmodel.FLExFeature;
+import org.sil.ftrulegen.flexmodel.FLExFeatureValue;
 import org.sil.ftrulegen.model.Affix;
 import org.sil.ftrulegen.model.Category;
 import org.sil.ftrulegen.model.FLExTransRule;
@@ -464,7 +466,6 @@ public class MainController implements Initializable {
 	}
 
 	public void handleCategoryEdit() {
-		// TODO: get the real flex data
 		phrase = category.getPhrase();
 		if (phrase != null) {
 			FLExTransRule rule = (FLExTransRule)phrase.getParent();
@@ -506,8 +507,58 @@ public class MainController implements Initializable {
 	}
 
 	public void handleFeatureDelete() {
+		RuleConstituent constituent = feature.getParent();
+		if (constituent instanceof Word) {
+			word = (Word) constituent;
+			word.deleteFeature(feature);
+			reportChangesMade();
+		} else if (constituent instanceof Affix) {
+			affix = (Affix) constituent;
+			affix.deleteFeature(feature);
+			reportChangesMade();
+		}
 	}
+
 	public void handleFeatureEdit() {
+		phrase = feature.getPhrase();
+		if (phrase != null) {
+			FLExTransRule rule = (FLExTransRule)phrase.getParent();
+			if (rule != null) {
+				if (phrase == rule.getSource().getPhrase()) {
+					launchFeatureChooser(flexData.getSourceData().getFeatures(), bundle);
+				} else {
+					launchFeatureChooser(flexData.getTargetData().getFeatures(), bundle);
+				}
+			}
+		}
+	}
+
+	void launchFeatureChooser(List<FLExFeature> categories, ResourceBundle bundle) {
+		try {
+			Stage dialogStage = new Stage();
+			// Load root layout from fxml file.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("view/fxml/FLExFeatureValueChooser.fxml"));
+			loader.setResources(bundle);
+			AnchorPane pane = loader.load();
+			FLExFeatureValueChooserController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setFeatures(categories);
+			Scene scene = new Scene(pane);
+			dialogStage.setScene(scene);
+			dialogStage.setTitle(loader.getResources().getString("chooser.FeatureValueTitle"));
+			dialogStage.getIcons().add(ControllerUtilities.getIconImageFromURL("file:resources/FLExTransWindowIcon.png",
+					Constants.RESOURCE_SOURCE_LOCATION));
+			dialogStage.showAndWait();
+			FLExFeatureValue featValue = controller.getFeatureValueChosen();
+			if (controller.isOkClicked() && featValue != null) {
+				feature.setLabel(featValue.getFeature().getName());
+				feature.setMatch(featValue.getAbbreviation());
+				reportChangesMade();
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	public void handleRuleDelete()
 	{

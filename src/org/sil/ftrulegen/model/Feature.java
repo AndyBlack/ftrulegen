@@ -36,6 +36,25 @@ public class Feature extends RuleConstituent
 	{
 	}
 
+	public Phrase getPhrase() {
+		Phrase phrase = null;
+		Word word = null;
+		RuleConstituent constituent = getParent();
+		if (constituent instanceof Word) {
+			word = (Word) constituent;
+			phrase = (Phrase) word.getParent();
+		} else if (constituent instanceof Affix) {
+			Affix affix = (Affix) constituent;
+			if (affix != null) {
+				word = (Word) affix.getParent();
+				if (word != null) {
+					phrase = (Phrase)word.getParent();
+				}
+			}
+		}
+		return phrase;
+	}
+
 	public final RuleConstituent findConstituent(int identifier)
 	{
 		RuleConstituent constituent = null;
