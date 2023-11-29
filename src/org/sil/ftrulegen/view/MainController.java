@@ -438,11 +438,32 @@ public class MainController implements Initializable {
 	}
 
 	public void handleAffixDelete() {
+		word = (Word)affix.getParent();
+		if (word != null) {
+			int index = word.getAffixes().indexOf(affix);
+			word.deleteAffixAt(index);;
+			reportChangesMade();
+		}
 	}
+
 	public void handleAffixDuplicate() {
+		word = (Word)affix.getParent();
+		if (word != null) {
+			int index = word.getAffixes().indexOf(affix);
+			Affix newAffix = affix.duplicate();
+			word.insertAffixAt(newAffix, index);
+			reportChangesMade();
+		}
 	}
+
 	public void handleAffixInsertFeature() {
+		affix.insertNewFeature("", "");
+		feature = affix.getFeatures().get(affix.getFeatures().size()-1);
+		feature.setParent(affix);
+		processInsertFeature();
+		reportChangesMade();
 	}
+
 	public void handleAffixInsertPrefixAfter() {
 	}
 	public void handleAffixInsertPrefixBefore() {
@@ -490,6 +511,7 @@ public class MainController implements Initializable {
 			FLExCategoryChooserController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
 			controller.setCategories(categories);
+			controller.selectFLExCategory(category);
 			Scene scene = new Scene(pane);
 			dialogStage.setScene(scene);
 			dialogStage.setTitle(loader.getResources().getString("chooser.CategoryTitle"));
@@ -520,20 +542,24 @@ public class MainController implements Initializable {
 	}
 
 	public void handleFeatureEdit() {
+		processInsertFeature();
+	}
+
+	protected void processInsertFeature() {
 		phrase = feature.getPhrase();
 		if (phrase != null) {
 			FLExTransRule rule = (FLExTransRule)phrase.getParent();
 			if (rule != null) {
 				if (phrase == rule.getSource().getPhrase()) {
-					launchFeatureChooser(flexData.getSourceData().getFeatures(), bundle);
+					launchFLExFeatureValueChooser(flexData.getSourceData().getFeatures(), bundle);
 				} else {
-					launchFeatureChooser(flexData.getTargetData().getFeatures(), bundle);
+					launchFLExFeatureValueChooser(flexData.getTargetData().getFeatures(), bundle);
 				}
 			}
 		}
 	}
 
-	void launchFeatureChooser(List<FLExFeature> categories, ResourceBundle bundle) {
+	void launchFLExFeatureValueChooser(List<FLExFeature> features, ResourceBundle bundle) {
 		try {
 			Stage dialogStage = new Stage();
 			// Load root layout from fxml file.
@@ -543,7 +569,8 @@ public class MainController implements Initializable {
 			AnchorPane pane = loader.load();
 			FLExFeatureValueChooserController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
-			controller.setFeatures(categories);
+			controller.setFeatures(features);
+			controller.selectFLExFeatureValue(feature);
 			Scene scene = new Scene(pane);
 			dialogStage.setScene(scene);
 			dialogStage.setTitle(loader.getResources().getString("chooser.FeatureValueTitle"));
