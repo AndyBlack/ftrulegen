@@ -438,6 +438,22 @@ public class MainController implements Initializable {
 		}
 	}
 
+	void enableDisableAffixContextMenuItems()
+	{
+		Word word = (Word)affix.getParent();
+		int index = word.getAffixes().indexOf(affix);
+		if (index == 0) {
+			cmAffixMoveLeft.setDisable(true);
+		} else {
+			cmAffixMoveLeft.setDisable(false);
+		}
+		if (index == word.getAffixes().size() - 1) {
+			cmAffixMoveRight.setDisable(true);
+		} else {
+			cmAffixMoveRight.setDisable(false);
+		}
+	}
+
 	public void handleAffixDelete() {
 		word = (Word)affix.getParent();
 		if (word != null) {
@@ -500,9 +516,23 @@ public class MainController implements Initializable {
 	}
 
 	public void handleAffixMoveLeft() {
+		word = (Word)affix.getParent();
+		int index = word.getAffixes().indexOf(affix);
+		moveAffix(index, index - 1);
 	}
+
 	public void handleAffixMoveRight() {
+		word = (Word)affix.getParent();
+		int index = word.getAffixes().indexOf(affix);
+		moveAffix(index, index + 1);
 	}
+
+	protected void moveAffix(int index1, int index2) {
+		Word word = (Word)affix.getParent();
+		Collections.swap(word.getAffixes(), index1, index2);
+		reportChangesMade();
+	}
+
 	public void handleAffixToggleAffixType() {
 		if (affix.getType() == AffixType.prefix) {
 			affix.setType(AffixType.suffix);
@@ -660,14 +690,17 @@ public class MainController implements Initializable {
 		lvRules.getSelectionModel().clearAndSelect(index);
 		markAsChanged(true);
 	}
+
 	public void handleRuleMoveDown()
 	{
 		moveRule(selectedRuleIndex, selectedRuleIndex + 1);
 	}
+
 	public void handleRuleMoveUp()
 	{
 		moveRule(selectedRuleIndex, selectedRuleIndex - 1);
 	}
+
 	protected void moveRule(int index1, int index2) {
 		Collections.swap(generator.getFLExTransRules(), index1, index2);
 		Collections.swap(lvRules.getItems(), index1, index2);
@@ -718,6 +751,7 @@ public class MainController implements Initializable {
 		switch (sCode) {
 		case "a":
 			affix = (Affix)constituent;
+			enableDisableAffixContextMenuItems();
 			affixEditContextMenu.show(stage, xCoord, yCoord);
 			break;
 		case "c":
