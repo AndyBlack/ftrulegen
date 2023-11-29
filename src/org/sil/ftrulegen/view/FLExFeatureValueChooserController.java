@@ -9,9 +9,13 @@ package org.sil.ftrulegen.view;
 import java.util.List;
 
 import org.sil.ftrulegen.Main;
+import org.sil.ftrulegen.flexmodel.FLExCategory;
 import org.sil.ftrulegen.flexmodel.FLExFeature;
 import org.sil.ftrulegen.flexmodel.FLExFeatureValue;
+import org.sil.ftrulegen.model.Category;
+import org.sil.ftrulegen.model.Feature;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
@@ -30,6 +34,8 @@ public class FLExFeatureValueChooserController {
 	boolean okClicked = false;
     int maxVariables = 4;
 	String[] variables = { "α", "β", "γ", "δ", "ε", "ζ", "η", "θ", "ι", "κ", "μ", "ν" };
+	int index = 0;
+
     
 	public int getMaxVariables() {
 		return maxVariables;
@@ -67,6 +73,28 @@ public class FLExFeatureValueChooserController {
 		return featureValueChosen;
 	}
 	
+	public void selectFLExFeatureValue(Feature feat) {
+		for (int i = 0; i < lvFeatureValues.getItems().size(); i++) {
+			FLExFeatureValue ffv = lvFeatureValues.getItems().get(i);
+			if (ffv.getAbbreviation().equals(feat.getMatch()) && ffv.getFeature().getName().equals(feat.getLabel())) {
+				featureValueChosen = ffv;
+				index = i;
+				break;
+			}
+		}
+		if (featureValueChosen != null) {
+			Platform.runLater(new Runnable() {
+
+				@Override
+				public void run() {
+					lvFeatureValues.requestFocus();
+					lvFeatureValues.getSelectionModel().select(index);
+					lvFeatureValues.scrollTo(index);
+				}
+			});
+		}
+	}
+
 	public void handleOK() {
 		featureValueChosen = lvFeatureValues.getSelectionModel().getSelectedItem();
 		okClicked = true;

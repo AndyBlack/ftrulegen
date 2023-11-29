@@ -7,10 +7,14 @@
 package org.sil.ftrulegen.view;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 import org.sil.ftrulegen.Main;
 import org.sil.ftrulegen.flexmodel.FLExCategory;
+import org.sil.ftrulegen.model.Category;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
@@ -46,6 +50,27 @@ public class FLExCategoryChooserController {
 	
 	public FLExCategory getCategoryChosen() {
 		return catChosen;
+	}
+
+	public void selectFLExCategory(Category cat) {
+		for (FLExCategory fcat : lvCategories.getItems()) {
+			if (fcat.getAbbreviation().equals(cat.getName())) {
+				catChosen = fcat;
+				break;
+			}
+		}
+		if (catChosen != null) {
+			Platform.runLater(new Runnable() {
+
+				@Override
+				public void run() {
+					lvCategories.requestFocus();
+					int index = lvCategories.getItems().indexOf(catChosen);
+					lvCategories.getSelectionModel().select(index);
+					lvCategories.scrollTo(index);
+				}
+			});
+		}
 	}
 	
 	public void handleOK() {
