@@ -25,6 +25,7 @@ import org.sil.ftrulegen.flexmodel.FLExData;
 import org.sil.ftrulegen.flexmodel.FLExFeature;
 import org.sil.ftrulegen.flexmodel.FLExFeatureValue;
 import org.sil.ftrulegen.model.Affix;
+import org.sil.ftrulegen.model.AffixType;
 import org.sil.ftrulegen.model.Category;
 import org.sil.ftrulegen.model.FLExTransRule;
 import org.sil.ftrulegen.model.FLExTransRuleGenerator;
@@ -333,10 +334,10 @@ public class MainController implements Initializable {
 		cmAffixInsertFeature.setOnAction((event) -> {
 			handleAffixInsertFeature();
 		});
-		affixEditContextMenu.getItems().addAll(cmAffixDuplicate, cmAffixToggleAffixType, new SeparatorMenuItem(),
-				cmAffixInsertPrefixBefore, cmAffixInsertPrefixAfter, cmAffixInsertSuffixBefore,
-				cmAffixInsertSuffixAfter, new SeparatorMenuItem(), cmAffixMoveLeft, cmAffixMoveRight,
-				new SeparatorMenuItem(), cmAffixDelete, new SeparatorMenuItem(), cmAffixInsertFeature);
+		affixEditContextMenu.getItems().addAll(cmAffixDuplicate, new SeparatorMenuItem(), cmAffixToggleAffixType,
+				new SeparatorMenuItem(), cmAffixInsertFeature, new SeparatorMenuItem(), cmAffixInsertPrefixBefore,
+				cmAffixInsertPrefixAfter, cmAffixInsertSuffixBefore, cmAffixInsertSuffixAfter, new SeparatorMenuItem(),
+				cmAffixMoveLeft, cmAffixMoveRight, new SeparatorMenuItem(), cmAffixDelete);
 	}
 
 	void createCategoryContextMenuItems() {
@@ -465,13 +466,39 @@ public class MainController implements Initializable {
 	}
 
 	public void handleAffixInsertPrefixAfter() {
+		word = (Word)affix.getParent();
+		int index = word.getAffixes().indexOf(affix);
+		index = Math.min(word.getAffixes().size(), index + 1);
+		insertNewAffix(index, AffixType.prefix);
 	}
+
 	public void handleAffixInsertPrefixBefore() {
+		word = (Word)affix.getParent();
+		int index = word.getAffixes().indexOf(affix);
+		insertNewAffix(index, AffixType.prefix);
 	}
+
 	public void handleAffixInsertSuffixAfter() {
+		word = (Word)affix.getParent();
+		int index = word.getAffixes().indexOf(affix);
+		index = Math.min(word.getAffixes().size(), index + 1);
+		insertNewAffix(index, AffixType.suffix);
 	}
+
 	public void handleAffixInsertSuffixBefore() {
+		word = (Word)affix.getParent();
+		int index = word.getAffixes().indexOf(affix);
+		insertNewAffix(index, AffixType.suffix);
 	}
+
+	protected void insertNewAffix(int index, AffixType type) {
+		Affix newAffix = new Affix();
+		word = (Word)affix.getParent();
+		word.insertAffixAt(newAffix, index);
+		newAffix.setType(type);
+		reportChangesMade();
+	}
+
 	public void handleAffixMoveLeft() {
 	}
 	public void handleAffixMoveRight() {
