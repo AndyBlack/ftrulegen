@@ -504,7 +504,14 @@ public class MainController implements Initializable {
 	public void handleAffixMoveRight() {
 	}
 	public void handleAffixToggleAffixType() {
+		if (affix.getType() == AffixType.prefix) {
+			affix.setType(AffixType.suffix);
+		} else {
+			affix.setType(AffixType.prefix);
+		}
+		reportChangesMade();
 	}
+
 	public void handleCategoryDelete() {
 		word = (Word)category.getParent();
 		if (word != null) {
