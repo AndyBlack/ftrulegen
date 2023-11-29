@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 /**
  * 
  */
-public class CategoryChooserController {
+public class FLExCategoryChooserController {
 	
 	@FXML
 	ListView<FLExCategory> lvCategories;

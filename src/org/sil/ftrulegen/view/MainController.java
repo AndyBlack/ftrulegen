@@ -484,10 +484,10 @@ public class MainController implements Initializable {
 			Stage dialogStage = new Stage();
 			// Load root layout from fxml file.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("view/fxml/CategoryChooser.fxml"));
+			loader.setLocation(Main.class.getResource("view/fxml/FLExCategoryChooser.fxml"));
 			loader.setResources(bundle);
 			AnchorPane pane = loader.load();
-			CategoryChooserController controller = loader.getController();
+			FLExCategoryChooserController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
 			controller.setCategories(categories);
 			Scene scene = new Scene(pane);
