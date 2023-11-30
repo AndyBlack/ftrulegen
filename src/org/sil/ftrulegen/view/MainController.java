@@ -30,6 +30,7 @@ import org.sil.ftrulegen.model.Category;
 import org.sil.ftrulegen.model.FLExTransRule;
 import org.sil.ftrulegen.model.FLExTransRuleGenerator;
 import org.sil.ftrulegen.model.Feature;
+import org.sil.ftrulegen.model.HeadValue;
 import org.sil.ftrulegen.model.Phrase;
 import org.sil.ftrulegen.model.RuleConstituent;
 import org.sil.ftrulegen.model.Word;
@@ -462,7 +463,7 @@ public class MainController implements Initializable {
 		if (index == 0) {
 			cmWordMoveLeft.setDisable(true);
 		} else {
-			cmWordMoveRight.setDisable(false);
+			cmWordMoveLeft.setDisable(false);
 		}
 		if (index == phrase.getWords().size() - 1) {
 			cmWordMoveRight.setDisable(true);
@@ -573,6 +574,10 @@ public class MainController implements Initializable {
 	}
 
 	public void handleCategoryEdit() {
+		processInsertCategory();
+	}
+
+	protected void processInsertCategory() {
 		phrase = category.getPhrase();
 		if (phrase != null) {
 			FLExTransRule rule = (FLExTransRule)phrase.getParent();
@@ -729,29 +734,98 @@ public class MainController implements Initializable {
 		lvRules.getSelectionModel().clearAndSelect(index2);
 		markAsChanged(true);
 	}
+
 	public void handleWordDelete() {
+		phrase = (Phrase)word.getParent();
+		if (phrase != null) {
+			int index = phrase.getWords().indexOf(word);
+			phrase.deleteWordAt(index);;
+			reportChangesMade();
+		}
 	}
+
 	public void handleWordDuplicate() {
+		phrase = (Phrase)word.getParent();
+		if (phrase != null) {
+			int index = phrase.getWords().indexOf(word);
+			Word newWord = word.duplicate();
+			phrase.insertWordAt(newWord, index);
+			reportChangesMade();
+		}
 	}
+
 	public void handleWordInsertAfter() {
+		phrase = (Phrase)word.getParent();
+		int index = phrase.getWords().indexOf(word);
+		insertNewWord(Math.min(phrase.getWords().size(), index + 1));
 	}
+
 	public void handleWordInsertBefore() {
+		phrase = (Phrase)word.getParent();
+		int index = phrase.getWords().indexOf(word);
+		insertNewWord(index);
 	}
+
+	protected void insertNewWord(int index) {
+		phrase.insertNewWordAt(index);
+		reportChangesMade();
+	}
+
 	public void handleWordInsertCategory() {
+		category = word.getCategoryConstituent();
+		processInsertCategory();
+		word.setCategoryConstituent(category);
+		word.setCategory(category.getName());
+		reportChangesMade();
 	}
+
 	public void handleWordInsertFeature() {
+		word.insertNewFeature("", "");
+		feature = word.getFeatures().get(word.getFeatures().size()-1);
+		feature.setParent(word);
+		processInsertFeature();
+		reportChangesMade();
 	}
+
 	public void handleWordInsertPrefix() {
+		insertNewAffixIntoWord(Math.max(0, word.getAffixes().size() - 1), AffixType.prefix);
 	}
+
 	public void handleWordInsertSuffix() {
+		insertNewAffixIntoWord(Math.max(0, word.getAffixes().size() - 1), AffixType.suffix);
 	}
+
+	protected void insertNewAffixIntoWord(int index, AffixType type) {
+		word.insertNewAffixAt(type, index);
+		reportChangesMade();
+	}
+
 	public void handleWordMarkAsHead() {
+		word.setHead(HeadValue.yes);
+		reportChangesMade();
 	}
+
 	public void handleWordMoveLeft() {
+		phrase = (Phrase)word.getParent();
+		int index = phrase.getWords().indexOf(word);
+		moveWord(index, index - 1);
 	}
+
 	public void handleWordMoveRight() {
+		phrase = (Phrase)word.getParent();
+		int index = phrase.getWords().indexOf(word);
+		moveWord(index, index + 1);
 	}
+
+	protected void moveWord(int index1, int index2) {
+		phrase = (Phrase)word.getParent();
+		Collections.swap(phrase.getWords(), index1, index2);
+		reportChangesMade();
+	}
+
 	public void handleWordRemoveHeadMarking() {
+		word.setHead(HeadValue.no);
+		reportChangesMade();
 	}
 
 	public void handleSave() {
