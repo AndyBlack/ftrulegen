@@ -413,10 +413,27 @@ public class MainController implements Initializable {
 		cmWordRemoveHeadMarking.setOnAction((event) -> {
 			handleWordRemoveHeadMarking();
 		});
-		wordEditContextMenu.getItems().addAll(cmWordDuplicate, cmWordInsertBefore, cmWordInsertAfter,
-				new SeparatorMenuItem(), cmWordMoveLeft, cmWordMoveRight, new SeparatorMenuItem(), cmWordDelete,
+		wordEditContextMenu.getItems().addAll(cmWordDuplicate, new SeparatorMenuItem(), cmWordMarkAsHead,
+				cmWordRemoveHeadMarking, new SeparatorMenuItem(), cmWordInsertBefore, cmWordInsertAfter,
 				new SeparatorMenuItem(), cmWordInsertPrefix, cmWordInsertSuffix, cmWordInsertCategory,
-				cmWordInsertFeature, cmWordMarkAsHead, cmWordRemoveHeadMarking);
+				cmWordInsertFeature, new SeparatorMenuItem(), cmWordMoveLeft, cmWordMoveRight, new SeparatorMenuItem(),
+				cmWordDelete);
+	}
+
+	void enableDisableAffixContextMenuItems()
+	{
+		Word word = (Word)affix.getParent();
+		int index = word.getAffixes().indexOf(affix);
+		if (index == 0) {
+			cmAffixMoveLeft.setDisable(true);
+		} else {
+			cmAffixMoveLeft.setDisable(false);
+		}
+		if (index == word.getAffixes().size() - 1) {
+			cmAffixMoveRight.setDisable(true);
+		} else {
+			cmAffixMoveRight.setDisable(false);
+		}
 	}
 
 	void enableDisableRuleContextMenuItems()
@@ -438,19 +455,24 @@ public class MainController implements Initializable {
 		}
 	}
 
-	void enableDisableAffixContextMenuItems()
+	void enableDisableWordContextMenuItems()
 	{
-		Word word = (Word)affix.getParent();
-		int index = word.getAffixes().indexOf(affix);
+		phrase = (Phrase) word.getParent();
+		int index = phrase.getWords().indexOf(word);
 		if (index == 0) {
-			cmAffixMoveLeft.setDisable(true);
+			cmWordMoveLeft.setDisable(true);
 		} else {
-			cmAffixMoveLeft.setDisable(false);
+			cmWordMoveRight.setDisable(false);
 		}
-		if (index == word.getAffixes().size() - 1) {
-			cmAffixMoveRight.setDisable(true);
+		if (index == phrase.getWords().size() - 1) {
+			cmWordMoveRight.setDisable(true);
 		} else {
-			cmAffixMoveRight.setDisable(false);
+			cmWordMoveRight.setDisable(false);
+		}
+		if (index == 0 && phrase.getWords().size() == 1) {
+			cmWordDelete.setDisable(true);
+		} else {
+			cmWordDelete.setDisable(false);
 		}
 	}
 
@@ -768,6 +790,7 @@ public class MainController implements Initializable {
 			break;
 		case "w":
 			word = (Word)constituent;
+			enableDisableWordContextMenuItems();
 			wordEditContextMenu.show(stage, xCoord, yCoord);
 			break;
 		}
