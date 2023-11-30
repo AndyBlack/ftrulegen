@@ -70,6 +70,30 @@ public class PhraseTests
 	}
 
 	@Test
+	public final void insertWordAtTest() {
+		assert 2 == sourcePhrase.getWords().size();
+		Word word3 = new Word();
+		word3.setId("3");
+		sourcePhrase.insertWordAt(word3, -1); // is a no-op
+		assert 2 == sourcePhrase.getWords().size();
+		sourcePhrase.insertWordAt(word3,3); // is a no-op
+		assert 2 == sourcePhrase.getWords().size();
+		sourcePhrase.insertWordAt(word3, 1);
+		assert 3 == sourcePhrase.getWords().size();
+		assertEquals("3", sourcePhrase.getWords().get(1).getId());
+		Word word4 = new Word();
+		word4.setId("4");
+		sourcePhrase.insertWordAt(word4, 0);
+		assert 4 == sourcePhrase.getWords().size();
+		assertEquals("4", sourcePhrase.getWords().get(0).getId());
+		Word word5 = new Word();
+		word5.setId("5");
+		sourcePhrase.insertWordAt(word5, sourcePhrase.getWords().size());
+		assert 5 == sourcePhrase.getWords().size();
+		assertEquals("5", sourcePhrase.getWords().get(4).getId());
+	}
+
+	@Test
 	public final void insertNewWordAtTest()
 	{
 		assert 2 == sourcePhrase.getWords().size();

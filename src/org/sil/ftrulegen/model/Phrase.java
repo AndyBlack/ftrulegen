@@ -74,7 +74,7 @@ public class Phrase extends RuleConstituent
 
 	public final void insertWordAt(Word word, int index)
 	{
-		if (index < 0 || index >= getWords().size())
+		if (index < 0 || index > getWords().size())
 		{
 			return;
 		}

@@ -754,7 +754,7 @@ public class MainController implements Initializable {
 		if (phrase != null) {
 			int index = phrase.getWords().indexOf(word);
 			Word newWord = word.duplicate();
-			phrase.insertWordAt(newWord, index);
+			phrase.insertWordAt(newWord, Math.min(phrase.getWords().size(), index + 1));
 			reportChangesMade();
 		}
 	}

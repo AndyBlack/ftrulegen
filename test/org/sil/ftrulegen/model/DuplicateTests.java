@@ -11,10 +11,12 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.sil.ftrulegen.service.RuleIdentifierAndParentSetter;
 
 public class DuplicateTests
 {
 	private FLExTransRuleGenerator ruleGenerator;
+	private FLExTransRule rule;
 	private Word sourceWord;
 	private Word sourceWord2;
 
@@ -22,7 +24,7 @@ public class DuplicateTests
 	public final void setup()
 	{
 		ruleGenerator = new FLExTransRuleGenerator();
-		FLExTransRule rule = new FLExTransRule();
+		rule = new FLExTransRule();
 		rule.setName("Rule 1");
 		ruleGenerator.getFLExTransRules().add(rule);
 		Source source = rule.getSource();
@@ -67,9 +69,11 @@ public class DuplicateTests
 	@Test
 	public final void wordDuplicateTest()
 	{
+		RuleIdentifierAndParentSetter setter = RuleIdentifierAndParentSetter.getInstance();
+		setter.setIdentifiersAndParents(rule);
 		Word newWord = sourceWord.duplicate();
 		assert "Source 1" == sourceWord.getId();
-		assert "Source 1" == newWord.getId();
+		assertEquals("3", newWord.getId());
 		assert "Noun" == sourceWord.getCategory();
 		assert "Noun" == newWord.getCategory();
 		Category sourceCat = sourceWord.getCategoryConstituent();
