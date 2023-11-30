@@ -475,6 +475,11 @@ public class MainController implements Initializable {
 		} else {
 			cmWordDelete.setDisable(false);
 		}
+		if (word.getCategory().length() > 0) {
+			cmWordInsertCategory.setDisable(true);
+		} else {
+			cmWordInsertCategory.setDisable(false);
+		}
 	}
 
 	public void handleAffixDelete() {
