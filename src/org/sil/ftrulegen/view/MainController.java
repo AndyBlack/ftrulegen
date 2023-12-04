@@ -617,6 +617,8 @@ public class MainController implements Initializable {
 			FLExCategory cat = controller.getCategoryChosen();
 			if (controller.isOkClicked() && cat != null) {
 				category.setName(cat.getAbbreviation());
+				word = (Word)category.getParent();
+				word.setCategory(cat.getAbbreviation());
 				reportChangesMade();
 			}
 		} catch(Exception e) {
