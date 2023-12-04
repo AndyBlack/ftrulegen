@@ -6,8 +6,10 @@
 
 package org.sil.ftrulegen.view;
 
+import java.net.URL;
 import java.util.List;
 import java.util.Optional;
+import java.util.ResourceBundle;
 import java.util.stream.Stream;
 
 import org.sil.ftrulegen.Main;
@@ -16,13 +18,14 @@ import org.sil.ftrulegen.model.Category;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
 /**
  * 
  */
-public class FLExCategoryChooserController {
+public class FLExCategoryChooserController implements Initializable {
 
 	@FXML
 	ListView<FLExCategory> lvCategories;
@@ -50,6 +53,27 @@ public class FLExCategoryChooserController {
 
 	public FLExCategory getCategoryChosen() {
 		return catChosen;
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		lvCategories.setOnKeyPressed(keyEvent -> {
+			switch (keyEvent.getCode()) {
+			case ENTER:
+				handleOK();
+				break;
+			case ESCAPE:
+				handleCancel();
+				break;
+			default:
+				break;
+			}
+		});
+		lvCategories.setOnMouseClicked(mouseEvent -> {
+			if (mouseEvent.getClickCount() >= 2) {
+				handleOK();
+			}
+		});
 	}
 
 	public void selectFLExCategory(Category cat) {

@@ -6,7 +6,9 @@
 
 package org.sil.ftrulegen.view;
 
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import org.sil.ftrulegen.Main;
 import org.sil.ftrulegen.flexmodel.FLExCategory;
@@ -17,13 +19,14 @@ import org.sil.ftrulegen.model.Feature;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
 /**
  * 
  */
-public class FLExFeatureValueChooserController {
+public class FLExFeatureValueChooserController implements Initializable {
 
 	@FXML
 	ListView<FLExFeatureValue> lvFeatureValues;
@@ -70,6 +73,27 @@ public class FLExFeatureValueChooserController {
 
 	public FLExFeatureValue getFeatureValueChosen() {
 		return featureValueChosen;
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		lvFeatureValues.setOnKeyPressed(keyEvent -> {
+			switch (keyEvent.getCode()) {
+			case ENTER:
+				handleOK();
+				break;
+			case ESCAPE:
+				handleCancel();
+				break;
+			default:
+				break;
+			}
+		});
+		lvFeatureValues.setOnMouseClicked(mouseEvent -> {
+			if (mouseEvent.getClickCount() >= 2) {
+				handleOK();
+			}
+		});
 	}
 
 	public void selectFLExFeatureValue(Feature feat) {
