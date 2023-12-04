@@ -7,6 +7,9 @@
 package org.sil.ftrulegen.model;
 
 import java.util.Locale;
+import java.util.ResourceBundle;
+
+import org.sil.ftrulegen.Constants;
 
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
@@ -75,6 +78,10 @@ public class FLExTransRule extends RuleConstituent
 		String result = getName();
 		if (getName().length() == 0)
 		{
+			if (bundle == null) {
+				bundle = ResourceBundle.getBundle(Constants.RESOURCE_LOCATION,
+						new Locale("en"));
+			}
 			result = bundle.getString("model.namemissing");
 		}
 		return result;
