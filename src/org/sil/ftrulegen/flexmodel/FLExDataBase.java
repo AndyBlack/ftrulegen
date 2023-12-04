@@ -13,22 +13,20 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
 
-public abstract class FLExDataBase
-{
+public abstract class FLExDataBase {
 	private String name = "";
 	protected List<FLExCategory> categories = new ArrayList<FLExCategory>();
 	protected List<FLExFeature> features = new ArrayList<FLExFeature>();
+
 	@XmlAttribute(name = "name")
-	public final String getName()
-	{
+	public final String getName() {
 		return name;
 	}
-	public final void setName(String value)
-	{
+
+	public final void setName(String value) {
 		name = value;
 	}
 
-	
 	/**
 	 * @return the categories
 	 */
@@ -37,12 +35,14 @@ public abstract class FLExDataBase
 	public List<FLExCategory> getCategories() {
 		return categories;
 	}
+
 	/**
 	 * @param categories the categories to set
 	 */
 	public void setCategories(List<FLExCategory> categories) {
 		this.categories = categories;
 	}
+
 	/**
 	 * @return the features
 	 */
@@ -51,24 +51,26 @@ public abstract class FLExDataBase
 	public List<FLExFeature> getFeatures() {
 		return features;
 	}
+
 	/**
 	 * @param features the features to set
 	 */
 	public void setFeatures(List<FLExFeature> features, TargetFLExData targetFLExData) {
 		this.features = features;
 	}
+
 	public void clear() {
 		categories.clear();
 		features.clear();
 	}
+
 	public void setFeatureInFeatureValues() {
-		for (FLExFeature feat : features)
-		{
+		for (FLExFeature feat : features) {
 			feat.setFeatureInFeatureValues();
 		}
 	}
-	public FLExDataBase()
-	{
+
+	public FLExDataBase() {
 	}
 
 	@Override

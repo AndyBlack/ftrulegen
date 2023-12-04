@@ -16,16 +16,15 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
 
-public class FLExFeature
-{
+public class FLExFeature {
 	private String name = "";
+
 	@XmlAttribute(name = "name")
-	public final String getName()
-	{
+	public final String getName() {
 		return name;
 	}
-	public final void setName(String value)
-	{
+
+	public final void setName(String value) {
 		name = value;
 	}
 
@@ -33,18 +32,17 @@ public class FLExFeature
 
 	@XmlElementWrapper(name = "Values")
 	@XmlElement(name = "FLExFeatureValue")
-	public final List<FLExFeatureValue> getValues()
-	{
+	public final List<FLExFeatureValue> getValues() {
 		return values;
 	}
-	public void setValues(List<FLExFeatureValue> values)
-	{
-		this.values = values; 
+
+	public void setValues(List<FLExFeatureValue> values) {
+		this.values = values;
 	}
-	
-	public FLExFeature()
-	{
+
+	public FLExFeature() {
 	}
+
 	public FLExFeature(String name, List<FLExFeatureValue> values) {
 		super();
 		this.name = name;
@@ -52,11 +50,10 @@ public class FLExFeature
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return getName();
 	}
-	
+
 	@Override
 	public int hashCode() {
 		String sCombo = name + values.stream().hashCode();
@@ -75,17 +72,14 @@ public class FLExFeature
 		FLExFeature feat = (FLExFeature) obj;
 		if (!getName().equals(feat.getName())) {
 			result = false;
-		} else if (!getValues().equals(feat.getValues()))
-		{
+		} else if (!getValues().equals(feat.getValues())) {
 			result = false;
 		}
 		return result;
 	}
-	
-	public void setFeatureInFeatureValues()
-	{
-		for (FLExFeatureValue val : values)
-		{
+
+	public void setFeatureInFeatureValues() {
+		for (FLExFeatureValue val : values) {
 			val.setFeature(this);
 		}
 	}

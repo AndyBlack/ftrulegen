@@ -13,16 +13,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.sil.ftrulegen.service.RuleIdentifierAndParentSetter;
 
-public class DuplicateTests
-{
+public class DuplicateTests {
 	private FLExTransRuleGenerator ruleGenerator;
 	private FLExTransRule rule;
 	private Word sourceWord;
 	private Word sourceWord2;
 
 	@Before
-	public final void setup()
-	{
+	public final void setup() {
 		ruleGenerator = new FLExTransRuleGenerator();
 		rule = new FLExTransRule();
 		rule.setName("Rule 1");
@@ -56,8 +54,7 @@ public class DuplicateTests
 	}
 
 	@Test
-	public final void ruleDuplicateTest()
-	{
+	public final void ruleDuplicateTest() {
 		assert 1 == ruleGenerator.getFLExTransRules().size();
 		FLExTransRule rule = ruleGenerator.getFLExTransRules().get(0);
 		FLExTransRule rule2 = rule.duplicate();
@@ -67,8 +64,7 @@ public class DuplicateTests
 	}
 
 	@Test
-	public final void wordDuplicateTest()
-	{
+	public final void wordDuplicateTest() {
 		RuleIdentifierAndParentSetter setter = RuleIdentifierAndParentSetter.getInstance();
 		setter.setIdentifiersAndParents(rule);
 		Word newWord = sourceWord.duplicate();
@@ -87,8 +83,7 @@ public class DuplicateTests
 	}
 
 	@Test
-	public final void affixDuplicateTest()
-	{
+	public final void affixDuplicateTest() {
 		final String kLabel = "gender";
 		final String kMatch = "alpha";
 		Affix affix = new Affix();

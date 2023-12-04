@@ -10,28 +10,24 @@ import java.util.*;
 
 import org.sil.ftrulegen.model.*;
 
-
-public class RuleIdentifierAndParentSetter
-{
+public class RuleIdentifierAndParentSetter {
 	private static final RuleIdentifierAndParentSetter instance = new RuleIdentifierAndParentSetter();
 
 	private static int CurrentIdentifer = 0;
-	public static int getCurrentIdentifer()
-	{
+
+	public static int getCurrentIdentifer() {
 		return CurrentIdentifer;
 	}
-	public static void setCurrentIdentifer(int value)
-	{
+
+	public static void setCurrentIdentifer(int value) {
 		CurrentIdentifer = value;
 	}
 
-	public static RuleIdentifierAndParentSetter getInstance()
-	{
+	public static RuleIdentifierAndParentSetter getInstance() {
 		return instance;
 	}
 
-	public final void setIdentifiersAndParents(FLExTransRule rule)
-	{
+	public final void setIdentifiersAndParents(FLExTransRule rule) {
 		setCurrentIdentifer(0);
 		RuleIdentifierAndParentSetter idSetter = RuleIdentifierAndParentSetter.instance;
 		setPhraseIdentifiers(rule.getSource().getPhrase());
@@ -40,12 +36,10 @@ public class RuleIdentifierAndParentSetter
 		rule.getTarget().getPhrase().setParent(rule);
 	}
 
-	private static void setPhraseIdentifiers(Phrase phrase)
-	{
+	private static void setPhraseIdentifiers(Phrase phrase) {
 		setCurrentIdentifer(getCurrentIdentifer() + 1);
 		phrase.setIdentifier(getCurrentIdentifer());
-		for (Word word : phrase.getWords())
-		{
+		for (Word word : phrase.getWords()) {
 			setCurrentIdentifer(getCurrentIdentifer() + 1);
 			word.setIdentifier(getCurrentIdentifer());
 			word.setParent(phrase);
@@ -53,8 +47,7 @@ public class RuleIdentifierAndParentSetter
 			word.getCategoryConstituent().setIdentifier(getCurrentIdentifer());
 			word.getCategoryConstituent().setParent(word);
 			setFeatureIdentifiers(word.getFeatures(), word);
-			for (Affix affix : word.getAffixes())
-			{
+			for (Affix affix : word.getAffixes()) {
 				setCurrentIdentifer(getCurrentIdentifer() + 1);
 				affix.setIdentifier(getCurrentIdentifer());
 				affix.setParent(word);
@@ -63,10 +56,8 @@ public class RuleIdentifierAndParentSetter
 		}
 	}
 
-	private static void setFeatureIdentifiers(List<Feature> features, RuleConstituent parent)
-	{
-		for (Feature feature : features)
-		{
+	private static void setFeatureIdentifiers(List<Feature> features, RuleConstituent parent) {
+		for (Feature feature : features) {
 			setCurrentIdentifer(getCurrentIdentifer() + 1);
 			feature.setIdentifier(getCurrentIdentifer());
 			feature.setParent(parent);

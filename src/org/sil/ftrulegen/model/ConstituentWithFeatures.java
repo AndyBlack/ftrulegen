@@ -11,42 +11,36 @@ import java.util.*;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
 
-public abstract class ConstituentWithFeatures extends RuleConstituent
-{
+public abstract class ConstituentWithFeatures extends RuleConstituent {
 
 	private List<Feature> features = new ArrayList<Feature>();
-	@XmlElementWrapper(name="Features")
-	@XmlElement(name="Feature")
-	public List<Feature> getFeatures()
-	{
+
+	@XmlElementWrapper(name = "Features")
+	@XmlElement(name = "Feature")
+	public List<Feature> getFeatures() {
 		return features;
 	}
-	public void setFeatures(List<Feature> value)
-	{
+
+	public void setFeatures(List<Feature> value) {
 		features = value;
 	}
 
 	@Override
-	public void setLocale(Locale value)
-	{
+	public void setLocale(Locale value) {
 		super.setLocale(value);
-		for (Feature feature : features)
-		{
+		for (Feature feature : features) {
 			feature.setLocale(value);
 		}
 	}
 
-	public ConstituentWithFeatures()
-	{
+	public ConstituentWithFeatures() {
 	}
 
-	public final void deleteFeature(Feature feature)
-	{
+	public final void deleteFeature(Feature feature) {
 		getFeatures().remove(feature);
 	}
 
-	public final Feature insertNewFeature(String label, String match)
-	{
+	public final Feature insertNewFeature(String label, String match) {
 		Feature feature = new Feature();
 		feature.setLabel(label);
 		feature.setMatch(match);
@@ -54,33 +48,26 @@ public abstract class ConstituentWithFeatures extends RuleConstituent
 		return feature;
 	}
 
-	protected final RuleConstituent findConstituentInFeatures(int identifier)
-	{
+	protected final RuleConstituent findConstituentInFeatures(int identifier) {
 		RuleConstituent constituent = null;
-		for (Feature feature : getFeatures())
-		{
+		for (Feature feature : getFeatures()) {
 			constituent = feature.findConstituent(identifier);
-			if (constituent != null)
-			{
+			if (constituent != null) {
 				return constituent;
 			}
 		}
 		return constituent;
 	}
 
-	protected final void produceHtmlForFeatures(StringBuilder sb)
-	{
-		for (Feature feature : getFeatures())
-		{
+	protected final void produceHtmlForFeatures(StringBuilder sb) {
+		for (Feature feature : getFeatures()) {
 			sb.append(feature.produceHtml());
 		}
 	}
 
-	protected final ArrayList<Feature> duplicateFeatures()
-	{
+	protected final ArrayList<Feature> duplicateFeatures() {
 		ArrayList<Feature> newFeatures = new ArrayList<Feature>();
-		for (Feature feature : getFeatures())
-		{
+		for (Feature feature : getFeatures()) {
 			newFeatures.add(feature.duplicate());
 		}
 		return newFeatures;

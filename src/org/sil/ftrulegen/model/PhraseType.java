@@ -6,18 +6,14 @@
 
 package org.sil.ftrulegen.model;
 
-public enum PhraseType
-{
-	source,
-	target;
+public enum PhraseType {
+	source, target;
 
-	public int getValue()
-	{
+	public int getValue() {
 		return this.ordinal();
 	}
 
-	public static PhraseType forValue(int value)
-	{
+	public static PhraseType forValue(int value) {
 		return values()[value];
 	}
 }

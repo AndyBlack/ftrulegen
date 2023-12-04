@@ -13,50 +13,48 @@ import org.sil.ftrulegen.Constants;
 
 import jakarta.xml.bind.annotation.XmlTransient;
 
-public class RuleConstituent
-{
+public class RuleConstituent {
 	@XmlTransient
 	protected ResourceBundle bundle;
+
 	public void setBundle(ResourceBundle bundle) {
 		this.bundle = bundle;
 	}
-	
+
 	protected Locale locale;
+
 	@XmlTransient
-	public void setLocale(Locale value)
-	{
+	public void setLocale(Locale value) {
 		locale = value;
 		bundle = ResourceBundle.getBundle(Constants.RESOURCE_LOCATION, locale);
 	}
-	
+
 	private int identifier;
+
 	@XmlTransient
-	public final int getIdentifier()
-	{
+	public final int getIdentifier() {
 		return identifier;
 	}
-	public final void setIdentifier(int value)
-	{
+
+	public final void setIdentifier(int value) {
 		identifier = value;
 	}
 
 	private RuleConstituent parent;
+
 	@XmlTransient
-	public final RuleConstituent getParent()
-	{
+	public final RuleConstituent getParent() {
 		return parent;
 	}
-	public final void setParent(RuleConstituent value)
-	{
+
+	public final void setParent(RuleConstituent value) {
 		parent = value;
 	}
 
-	public RuleConstituent()
-	{
+	public RuleConstituent() {
 	}
 
-	protected final String produceSpan(String sClass, String sType)
-	{
+	protected final String produceSpan(String sClass, String sType) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<span class=\"");
 		sb.append(sClass);
@@ -72,8 +70,7 @@ public class RuleConstituent
 		return sb.toString();
 	}
 
-	protected final String produceToApp(String sType)
-	{
+	protected final String produceToApp(String sType) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("\"toApp('");
 		sb.append(sType);

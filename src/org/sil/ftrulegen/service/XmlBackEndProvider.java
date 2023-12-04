@@ -19,26 +19,23 @@ import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 
-public class XmlBackEndProvider extends BackEndProvider
-{
+public class XmlBackEndProvider extends BackEndProvider {
 	private FLExTransRuleGenerator ruleGenerator;
-	
+
 	public XmlBackEndProvider(FLExTransRuleGenerator ruleGenerator, Locale locale) {
 		this.ruleGenerator = ruleGenerator;
 		setResourceStrings(locale);
 	}
 
-	public FLExTransRuleGenerator getRuleGenerator()
-	{
+	public FLExTransRuleGenerator getRuleGenerator() {
 		return ruleGenerator;
 	}
-	public void setRuleGenerator(FLExTransRuleGenerator value)
-	{
+
+	public void setRuleGenerator(FLExTransRuleGenerator value) {
 		ruleGenerator = value;
 	}
 
-	public final void loadDataFromFile(String fileName)
-	{
+	public final void loadDataFromFile(String fileName) {
 		try {
 			File file = new File(fileName);
 			JAXBContext context = JAXBContext.newInstance(FLExTransRuleGenerator.class);
@@ -46,29 +43,24 @@ public class XmlBackEndProvider extends BackEndProvider
 			// Reading XML from the file and unmarshalling.
 			ruleGenerator = (FLExTransRuleGenerator) um.unmarshal(file);
 			// Not sure we need this, but otherwise the target phrase type is set to source
-			for (FLExTransRule rule : getRuleGenerator().getFLExTransRules())
-			{
+			for (FLExTransRule rule : getRuleGenerator().getFLExTransRules()) {
 				rule.getTarget().getPhrase().setType(PhraseType.target);
 				setCategoryConstituentInWords(rule.getSource().getPhrase().getWords());
 				setCategoryConstituentInWords(rule.getTarget().getPhrase().getWords());
 			}
 		} catch (Exception e) { // catches ANY exception
 			e.printStackTrace();
-			HandleExceptionMessage.show(sFileError, sFileErrorLoadHeader, sFileErrorLoadContent
-					+ fileName, true);
+			HandleExceptionMessage.show(sFileError, sFileErrorLoadHeader, sFileErrorLoadContent + fileName, true);
 		}
-	}	
+	}
 
-	private static void setCategoryConstituentInWords(List<Word> words)
-	{
-		for (Word word : words)
-		{
+	private static void setCategoryConstituentInWords(List<Word> words) {
+		for (Word word : words) {
 			word.getCategoryConstituent().setName(word.getCategory());
 		}
 	}
 
-	public final void saveDataToFile(String fileName)
-	{
+	public final void saveDataToFile(String fileName) {
 		try {
 			File file = new File(fileName);
 			JAXBContext context = JAXBContext.newInstance(FLExTransRuleGenerator.class);
@@ -77,19 +69,19 @@ public class XmlBackEndProvider extends BackEndProvider
 			// Marshalling and saving XML to the file.
 			m.marshal(ruleGenerator, file);
 
-			// Maybe there's a better way, but this hack inserts the DOCTYPE in the right spot.
+			// Maybe there's a better way, but this hack inserts the DOCTYPE in the right
+			// spot.
 			StringBuilder sb = new StringBuilder();
 			sb.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
 			sb.append("<!DOCTYPE FLExTransRuleGenerator PUBLIC \" -//XMLmind//DTD FLExTransRuleGenerator//EN\"\n");
 			sb.append("\"FLExTransRuleGenerator.dtd\">\n");
-			String result = new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8); 
+			String result = new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8);
 			sb.append("<FLExTransRuleGenerator>\n");
 			sb.append(result.substring(81));
 			Files.write(file.toPath(), sb.toString().getBytes(), StandardOpenOption.WRITE);
 		} catch (Exception e) { // catches ANY exception
 			e.printStackTrace();
-			HandleExceptionMessage.show(sFileError, sFileErrorSaveHeader, sFileErrorSaveContent
-					+ fileName, true);
+			HandleExceptionMessage.show(sFileError, sFileErrorSaveHeader, sFileErrorSaveContent + fileName, true);
 		}
 	}
 }

@@ -8,29 +8,26 @@ package org.sil.ftrulegen.flexmodel;
 
 import jakarta.xml.bind.annotation.XmlAttribute;
 
-public class FLExCategory
-{
+public class FLExCategory {
 	private String abbreviation = "";
+
 	@XmlAttribute(name = "abbr")
-	public final String getAbbreviation()
-	{
+	public final String getAbbreviation() {
 		return abbreviation;
 	}
-	public final void setAbbreviation(String value)
-	{
+
+	public final void setAbbreviation(String value) {
 		abbreviation = value;
 	}
 
-	public FLExCategory()
-	{
+	public FLExCategory() {
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return getAbbreviation();
 	}
-	
+
 	@Override
 	public int hashCode() {
 		String sCombo = abbreviation;

@@ -21,8 +21,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.sil.ftrulegen.model.*;
 
-public class WebPageProducerTests extends ServiceTestBase
-{
+public class WebPageProducerTests extends ServiceTestBase {
 	private WebPageProducer producer;
 	private String expectedResultFile = "";
 	private String actualWebPageOutput = "";
@@ -31,15 +30,13 @@ public class WebPageProducerTests extends ServiceTestBase
 
 	@Before
 	@Override
-	public void setup()
-	{
+	public void setup() {
 		super.setup();
 		producer = WebPageProducer.getInstance();
 	}
 
 	@Test
-	public final void produceFromEx1aDefNounTest()
-	{
+	public final void produceFromEx1aDefNounTest() {
 		final String kFileName = "Ex1a_Def-Noun";
 		setRuleGenExpected(Path.of(getTestDataDir(), kFileName + ".xml").toString());
 		provider.loadDataFromFile(getRuleGenExpected());
@@ -50,8 +47,7 @@ public class WebPageProducerTests extends ServiceTestBase
 	}
 
 	@Test
-	public final void produceFromEx4bIndefAdjNounTest()
-	{
+	public final void produceFromEx4bIndefAdjNounTest() {
 		final String kFileName = "Ex4b_Indef-Adj-Noun";
 		setRuleGenExpected(Path.of(getTestDataDir(), kFileName + ".xml").toString());
 		provider.loadDataFromFile(getRuleGenExpected());
@@ -61,13 +57,14 @@ public class WebPageProducerTests extends ServiceTestBase
 		checkResult();
 	}
 
-	private void checkResult()
-	{
-		ResourceBundle bundle = ResourceBundle.getBundle(org.sil.ftrulegen.Constants.RESOURCE_LOCATION, new Locale("en"));
+	private void checkResult() {
+		ResourceBundle bundle = ResourceBundle.getBundle(org.sil.ftrulegen.Constants.RESOURCE_LOCATION,
+				new Locale("en"));
 		actualWebPageOutput = producer.produceWebPage(rule, bundle);
 //		System.out.println("actual=\n" + actualWebPageOutput);
 		try {
-			String expectedWebPageOutput = new String(Files.readAllBytes(Paths.get(expectedResultFile)), StandardCharsets.UTF_8);
+			String expectedWebPageOutput = new String(Files.readAllBytes(Paths.get(expectedResultFile)),
+					StandardCharsets.UTF_8);
 			expectedWebPageOutput = expectedWebPageOutput.replace("\r", "");
 			assertEquals(expectedWebPageOutput, actualWebPageOutput);
 		} catch (IOException e) {

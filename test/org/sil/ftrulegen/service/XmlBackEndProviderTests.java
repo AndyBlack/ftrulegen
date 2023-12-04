@@ -21,19 +21,17 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
-public class XmlBackEndProviderTests extends ServiceTestBase
-{
+public class XmlBackEndProviderTests extends ServiceTestBase {
 
 	@Test
-	public final void loadEx1aDefNounTest()
-	{
+	public final void loadEx1aDefNounTest() {
 		setRuleGenExpected(Path.of(getTestDataDir(), "Ex1a_Def-Noun.xml").toString());
 		provider.loadDataFromFile(getRuleGenExpected());
 		ruleGenerator = provider.getRuleGenerator();
 		assertNotNull(ruleGenerator);
 		assertEquals(1, ruleGenerator.getFLExTransRules().size());
 		FLExTransRule ftRule = ruleGenerator.getFLExTransRules().get(0);
-		assertEquals("Definite - Noun",ftRule.getName());
+		assertEquals("Definite - Noun", ftRule.getName());
 
 		Source source = ftRule.getSource();
 		assertNotNull(source);
@@ -71,8 +69,7 @@ public class XmlBackEndProviderTests extends ServiceTestBase
 	}
 
 	@Test
-	public final void loadEx4bIndefAdjNounTest()
-	{
+	public final void loadEx4bIndefAdjNounTest() {
 		setRuleGenExpected(Path.of(getTestDataDir(), "Ex4b_Indef-Adj-Noun.xml").toString());
 		provider.loadDataFromFile(getRuleGenExpected());
 		FLExTransRuleGenerator ruleGenerator = provider.getRuleGenerator();
@@ -147,24 +144,21 @@ public class XmlBackEndProviderTests extends ServiceTestBase
 		checkFeatureAttributes(feature, "number", "\u03b2");
 	}
 
-	protected final void checkWordAttributes(Word word, String id, String category, HeadValue head)
-	{
+	protected final void checkWordAttributes(Word word, String id, String category, HeadValue head) {
 		assertNotNull(word);
 		assertEquals(id, word.getId());
 		assertEquals(category, word.getCategory());
 		assert head == word.getHead();
 	}
 
-	protected final void checkFeatureAttributes(Feature feature, String label, String match)
-	{
+	protected final void checkFeatureAttributes(Feature feature, String label, String match) {
 		assertNotNull(feature);
 		assertEquals(label, feature.getLabel());
 		assertEquals(match, feature.getMatch());
 	}
 
 	@Test
-	public final void saveTest()
-	{
+	public final void saveTest() {
 		FLExTransRuleGenerator ruleGenerator = new FLExTransRuleGenerator();
 		FLExTransRule ftRule = new FLExTransRule();
 		ftRule.setName("Indefinite - Adjective - Noun");
@@ -235,12 +229,11 @@ public class XmlBackEndProviderTests extends ServiceTestBase
 			sExpected = new String(Files.readAllBytes(Paths.get(getRuleGenExpected())), StandardCharsets.UTF_8);
 		} catch (IOException e) {
 			e.printStackTrace();
-		}		
+		}
 		assertEquals(sExpected, sProduced);
 	}
 
-	protected final Word makeWordAttributes(String id, String category, HeadValue head)
-	{
+	protected final Word makeWordAttributes(String id, String category, HeadValue head) {
 		Word word = new Word();
 		word.setId(id);
 		word.setCategory(category);
@@ -248,16 +241,14 @@ public class XmlBackEndProviderTests extends ServiceTestBase
 		return word;
 	}
 
-	protected final Affix makeAffix(AffixType type, ArrayList<Feature> features)
-	{
+	protected final Affix makeAffix(AffixType type, ArrayList<Feature> features) {
 		Affix affix = new Affix();
 		affix.setType(type);
 		affix.setFeatures(features);
 		return affix;
 	}
 
-	protected final Feature makeFeatureAttributes(String label, String match)
-	{
+	protected final Feature makeFeatureAttributes(String label, String match) {
 		Feature feature = new Feature();
 		feature.setLabel(label);
 		feature.setMatch(match);

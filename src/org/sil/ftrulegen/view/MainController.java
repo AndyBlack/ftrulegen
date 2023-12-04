@@ -150,11 +150,9 @@ public class MainController implements Initializable {
 
 	// following lines from
 	// https://stackoverflow.com/questions/32464974/javafx-change-application-language-on-the-run
-	private static final ObservableResourceFactory RESOURCE_FACTORY = ObservableResourceFactory
-			.getInstance();
+	private static final ObservableResourceFactory RESOURCE_FACTORY = ObservableResourceFactory.getInstance();
 	static {
-		RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(Constants.RESOURCE_LOCATION,
-				new Locale("en")));
+		RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(Constants.RESOURCE_LOCATION, new Locale("en")));
 	}
 
 	@Override
@@ -163,13 +161,13 @@ public class MainController implements Initializable {
 		bundle = resources;
 		lvRules.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<FLExTransRule>() {
 			@Override
-			public void changed(ObservableValue<? extends FLExTransRule> observable, FLExTransRule oldValue, FLExTransRule newValue) {
+			public void changed(ObservableValue<? extends FLExTransRule> observable, FLExTransRule oldValue,
+					FLExTransRule newValue) {
 				tfRuleName.setText(newValue.getName());
 				selectedRuleIndex = lvRules.getItems().indexOf(newValue);
 				produceAndShowWebPage(newValue);
 				enableDisableRuleContextMenuItems();
 			}
-
 
 		});
 
@@ -228,8 +226,7 @@ public class MainController implements Initializable {
 		flexProvider.loadFLExDataFromFile(flexDataFile);
 		flexData = flexProvider.getFLExData();
 
-		if (lvRules.getItems().size() > 0)
-		{
+		if (lvRules.getItems().size() > 0) {
 			Platform.runLater(new Runnable() {
 				@Override
 				public void run() {
@@ -241,6 +238,7 @@ public class MainController implements Initializable {
 			});
 		}
 	}
+
 	protected void produceAndShowWebPage(FLExTransRule newValue) {
 		producer = WebPageProducer.getInstance();
 		String html = producer.produceWebPage(newValue, bundle);
@@ -250,13 +248,11 @@ public class MainController implements Initializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 			HandleExceptionMessage.show(bundle.getString("file.error"), bundle.getString("file.error.load.header"),
-					bundle.getString("file.error.load.content")
-					+ webPageFile, true);
+					bundle.getString("file.error.load.content") + webPageFile, true);
 		}
 	}
 
-	void createContextMenuItems()
-	{
+	void createContextMenuItems() {
 		createAffixContextMenuItems();
 		createCategoryContextMenuItems();
 		createFeatureContextMenuItems();
@@ -421,9 +417,8 @@ public class MainController implements Initializable {
 				cmWordDelete);
 	}
 
-	void enableDisableAffixContextMenuItems()
-	{
-		Word word = (Word)affix.getParent();
+	void enableDisableAffixContextMenuItems() {
+		Word word = (Word) affix.getParent();
 		int index = word.getAffixes().indexOf(affix);
 		if (index == 0) {
 			cmAffixMoveLeft.setDisable(true);
@@ -437,8 +432,7 @@ public class MainController implements Initializable {
 		}
 	}
 
-	void enableDisableRuleContextMenuItems()
-	{
+	void enableDisableRuleContextMenuItems() {
 		if (selectedRuleIndex == 0) {
 			cmRuleMoveUp.setDisable(true);
 		} else {
@@ -456,8 +450,7 @@ public class MainController implements Initializable {
 		}
 	}
 
-	void enableDisableWordContextMenuItems()
-	{
+	void enableDisableWordContextMenuItems() {
 		phrase = (Phrase) word.getParent();
 		int index = phrase.getWords().indexOf(word);
 		if (index == 0) {
@@ -483,16 +476,17 @@ public class MainController implements Initializable {
 	}
 
 	public void handleAffixDelete() {
-		word = (Word)affix.getParent();
+		word = (Word) affix.getParent();
 		if (word != null) {
 			int index = word.getAffixes().indexOf(affix);
-			word.deleteAffixAt(index);;
+			word.deleteAffixAt(index);
+			;
 			reportChangesMade();
 		}
 	}
 
 	public void handleAffixDuplicate() {
-		word = (Word)affix.getParent();
+		word = (Word) affix.getParent();
 		if (word != null) {
 			int index = word.getAffixes().indexOf(affix);
 			Affix newAffix = affix.duplicate();
@@ -503,60 +497,60 @@ public class MainController implements Initializable {
 
 	public void handleAffixInsertFeature() {
 		affix.insertNewFeature("", "");
-		feature = affix.getFeatures().get(affix.getFeatures().size()-1);
+		feature = affix.getFeatures().get(affix.getFeatures().size() - 1);
 		feature.setParent(affix);
 		processInsertFeature();
 		reportChangesMade();
 	}
 
 	public void handleAffixInsertPrefixAfter() {
-		word = (Word)affix.getParent();
+		word = (Word) affix.getParent();
 		int index = word.getAffixes().indexOf(affix);
 		index = Math.min(word.getAffixes().size(), index + 1);
 		insertNewAffix(index, AffixType.prefix);
 	}
 
 	public void handleAffixInsertPrefixBefore() {
-		word = (Word)affix.getParent();
+		word = (Word) affix.getParent();
 		int index = word.getAffixes().indexOf(affix);
 		insertNewAffix(index, AffixType.prefix);
 	}
 
 	public void handleAffixInsertSuffixAfter() {
-		word = (Word)affix.getParent();
+		word = (Word) affix.getParent();
 		int index = word.getAffixes().indexOf(affix);
 		index = Math.min(word.getAffixes().size(), index + 1);
 		insertNewAffix(index, AffixType.suffix);
 	}
 
 	public void handleAffixInsertSuffixBefore() {
-		word = (Word)affix.getParent();
+		word = (Word) affix.getParent();
 		int index = word.getAffixes().indexOf(affix);
 		insertNewAffix(index, AffixType.suffix);
 	}
 
 	protected void insertNewAffix(int index, AffixType type) {
 		Affix newAffix = new Affix();
-		word = (Word)affix.getParent();
+		word = (Word) affix.getParent();
 		word.insertAffixAt(newAffix, index);
 		newAffix.setType(type);
 		reportChangesMade();
 	}
 
 	public void handleAffixMoveLeft() {
-		word = (Word)affix.getParent();
+		word = (Word) affix.getParent();
 		int index = word.getAffixes().indexOf(affix);
 		moveAffix(index, index - 1);
 	}
 
 	public void handleAffixMoveRight() {
-		word = (Word)affix.getParent();
+		word = (Word) affix.getParent();
 		int index = word.getAffixes().indexOf(affix);
 		moveAffix(index, index + 1);
 	}
 
 	protected void moveAffix(int index1, int index2) {
-		Word word = (Word)affix.getParent();
+		Word word = (Word) affix.getParent();
 		Collections.swap(word.getAffixes(), index1, index2);
 		reportChangesMade();
 	}
@@ -571,7 +565,7 @@ public class MainController implements Initializable {
 	}
 
 	public void handleCategoryDelete() {
-		word = (Word)category.getParent();
+		word = (Word) category.getParent();
 		if (word != null) {
 			word.deleteCategory();
 			reportChangesMade();
@@ -585,7 +579,7 @@ public class MainController implements Initializable {
 	protected void processInsertCategory() {
 		phrase = category.getPhrase();
 		if (phrase != null) {
-			FLExTransRule rule = (FLExTransRule)phrase.getParent();
+			FLExTransRule rule = (FLExTransRule) phrase.getParent();
 			if (rule != null) {
 				if (phrase == rule.getSource().getPhrase()) {
 					launchCategoryChooser(flexData.getSourceData().getCategories(), bundle);
@@ -617,11 +611,11 @@ public class MainController implements Initializable {
 			FLExCategory cat = controller.getCategoryChosen();
 			if (controller.isOkClicked() && cat != null) {
 				category.setName(cat.getAbbreviation());
-				word = (Word)category.getParent();
+				word = (Word) category.getParent();
 				word.setCategory(cat.getAbbreviation());
 				reportChangesMade();
 			}
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -646,7 +640,7 @@ public class MainController implements Initializable {
 	protected void processInsertFeature() {
 		phrase = feature.getPhrase();
 		if (phrase != null) {
-			FLExTransRule rule = (FLExTransRule)phrase.getParent();
+			FLExTransRule rule = (FLExTransRule) phrase.getParent();
 			if (rule != null) {
 				if (phrase == rule.getSource().getPhrase()) {
 					launchFLExFeatureValueChooser(flexData.getSourceData().getFeatures(), bundle);
@@ -681,12 +675,12 @@ public class MainController implements Initializable {
 				feature.setMatch(featValue.getAbbreviation());
 				reportChangesMade();
 			}
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	public void handleRuleDelete()
-	{
+
+	public void handleRuleDelete() {
 		generator.getFLExTransRules().remove(selectedRuleIndex);
 		lvRules.getItems().remove(selectedRuleIndex);
 		lvRules.requestFocus();
@@ -697,20 +691,19 @@ public class MainController implements Initializable {
 		markAsChanged(true);
 	}
 
-	public void handleRuleDuplicate()
-	{
+	public void handleRuleDuplicate() {
 		FLExTransRule selectedRule = lvRules.getSelectionModel().getSelectedItem();
 		FLExTransRule newRule = selectedRule.duplicate();
 		generator.getFLExTransRules().add(selectedRuleIndex, newRule);
 		lvRules.getItems().add(selectedRuleIndex, newRule);
 		markAsChanged(true);
 	}
-	public void handleRuleInsertAfter()
-	{
+
+	public void handleRuleInsertAfter() {
 		insertNewRule(Math.min(lvRules.getItems().size(), selectedRuleIndex + 1));
 	}
-	public void handleRuleInsertBefore()
-	{
+
+	public void handleRuleInsertBefore() {
 		insertNewRule(selectedRuleIndex);
 	}
 
@@ -725,13 +718,11 @@ public class MainController implements Initializable {
 		markAsChanged(true);
 	}
 
-	public void handleRuleMoveDown()
-	{
+	public void handleRuleMoveDown() {
 		moveRule(selectedRuleIndex, selectedRuleIndex + 1);
 	}
 
-	public void handleRuleMoveUp()
-	{
+	public void handleRuleMoveUp() {
 		moveRule(selectedRuleIndex, selectedRuleIndex - 1);
 	}
 
@@ -743,16 +734,17 @@ public class MainController implements Initializable {
 	}
 
 	public void handleWordDelete() {
-		phrase = (Phrase)word.getParent();
+		phrase = (Phrase) word.getParent();
 		if (phrase != null) {
 			int index = phrase.getWords().indexOf(word);
-			phrase.deleteWordAt(index);;
+			phrase.deleteWordAt(index);
+			;
 			reportChangesMade();
 		}
 	}
 
 	public void handleWordDuplicate() {
-		phrase = (Phrase)word.getParent();
+		phrase = (Phrase) word.getParent();
 		if (phrase != null) {
 			int index = phrase.getWords().indexOf(word);
 			Word newWord = word.duplicate();
@@ -762,13 +754,13 @@ public class MainController implements Initializable {
 	}
 
 	public void handleWordInsertAfter() {
-		phrase = (Phrase)word.getParent();
+		phrase = (Phrase) word.getParent();
 		int index = phrase.getWords().indexOf(word);
 		insertNewWord(Math.min(phrase.getWords().size(), index + 1));
 	}
 
 	public void handleWordInsertBefore() {
-		phrase = (Phrase)word.getParent();
+		phrase = (Phrase) word.getParent();
 		int index = phrase.getWords().indexOf(word);
 		insertNewWord(index);
 	}
@@ -788,7 +780,7 @@ public class MainController implements Initializable {
 
 	public void handleWordInsertFeature() {
 		word.insertNewFeature("", "");
-		feature = word.getFeatures().get(word.getFeatures().size()-1);
+		feature = word.getFeatures().get(word.getFeatures().size() - 1);
 		feature.setParent(word);
 		processInsertFeature();
 		reportChangesMade();
@@ -813,19 +805,19 @@ public class MainController implements Initializable {
 	}
 
 	public void handleWordMoveLeft() {
-		phrase = (Phrase)word.getParent();
+		phrase = (Phrase) word.getParent();
 		int index = phrase.getWords().indexOf(word);
 		moveWord(index, index - 1);
 	}
 
 	public void handleWordMoveRight() {
-		phrase = (Phrase)word.getParent();
+		phrase = (Phrase) word.getParent();
 		int index = phrase.getWords().indexOf(word);
 		moveWord(index, index + 1);
 	}
 
 	protected void moveWord(int index1, int index2) {
-		phrase = (Phrase)word.getParent();
+		phrase = (Phrase) word.getParent();
 		Collections.swap(phrase.getWords(), index1, index2);
 		reportChangesMade();
 	}
@@ -839,8 +831,7 @@ public class MainController implements Initializable {
 		provider.saveDataToFile(ruleGenFile);
 	}
 
-	void markAsChanged(boolean changed)
-	{
+	void markAsChanged(boolean changed) {
 		changesMade = changed;
 		showChangeStatusOnForm();
 	}
@@ -853,24 +844,24 @@ public class MainController implements Initializable {
 		int yCoord = webPageInteractor.getYCoord();
 		switch (sCode) {
 		case "a":
-			affix = (Affix)constituent;
+			affix = (Affix) constituent;
 			enableDisableAffixContextMenuItems();
 			affixEditContextMenu.show(stage, xCoord, yCoord);
 			break;
 		case "c":
-			category = (Category)constituent;
+			category = (Category) constituent;
 			categoryEditContextMenu.show(stage, xCoord, yCoord);
 			break;
 		case "f":
-			feature = (Feature)constituent;
+			feature = (Feature) constituent;
 			featureEditContextMenu.show(stage, xCoord, yCoord);
 			break;
 		case "p":
-			phrase = (Phrase)constituent;
+			phrase = (Phrase) constituent;
 			// nothing else to do
 			break;
 		case "w":
-			word = (Word)constituent;
+			word = (Word) constituent;
 			enableDisableWordContextMenuItems();
 			wordEditContextMenu.show(stage, xCoord, yCoord);
 			break;
@@ -882,16 +873,14 @@ public class MainController implements Initializable {
 		markAsChanged(true);
 	}
 
-	void showChangeStatusOnForm()
-	{
+	void showChangeStatusOnForm() {
 		String title = bundle.getString("main.Title");
 		if (changesMade)
 			title += "*";
 		stage.setTitle(title);
 	}
 
-	public void setStage(Stage stage)
-	{
+	public void setStage(Stage stage) {
 		this.stage = stage;
 	}
 

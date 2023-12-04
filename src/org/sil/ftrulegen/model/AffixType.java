@@ -6,18 +6,14 @@
 
 package org.sil.ftrulegen.model;
 
-public enum AffixType
-{
-	prefix,
-	suffix;
+public enum AffixType {
+	prefix, suffix;
 
-	public int getValue()
-	{
+	public int getValue() {
 		return this.ordinal();
 	}
 
-	public static AffixType forValue(int value)
-	{
+	public static AffixType forValue(int value) {
 		return values()[value];
 	}
 }

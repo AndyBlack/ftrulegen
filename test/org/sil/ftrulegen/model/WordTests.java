@@ -12,13 +12,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class WordTests
-{
+public class WordTests {
 	private Word word;
 
 	@Before
-	public final void setup()
-	{
+	public final void setup() {
 		word = new Word();
 		word.setId("Source 1");
 		word.setCategory("Noun");
@@ -27,8 +25,7 @@ public class WordTests
 	}
 
 	@Test
-	public final void deleteCategoryTest()
-	{
+	public final void deleteCategoryTest() {
 		assert "Noun" == word.getCategory();
 		assertNotNull(word.getCategoryConstituent());
 		assert "Noun" == word.getCategoryConstituent().getName();
@@ -39,8 +36,7 @@ public class WordTests
 	}
 
 	@Test
-	public final void insertCategoryTest()
-	{
+	public final void insertCategoryTest() {
 		word.deleteCategory();
 		assert "" == word.getCategory();
 		assertNotNull(word.getCategoryConstituent());
@@ -52,8 +48,7 @@ public class WordTests
 	}
 
 	@Test
-	public final void deleteAffixAtTest()
-	{
+	public final void deleteAffixAtTest() {
 		createTwoAffixes();
 
 		word.deleteAffixAt(0);
@@ -73,8 +68,7 @@ public class WordTests
 		assert 0 == word.getAffixes().size();
 	}
 
-	private void createTwoAffixes()
-	{
+	private void createTwoAffixes() {
 		word.insertNewAffixAt(AffixType.prefix, 0);
 		word.insertNewAffixAt(AffixType.suffix, 1);
 		assert 2 == word.getAffixes().size();
@@ -83,8 +77,7 @@ public class WordTests
 	}
 
 	@Test
-	public final void insertNewAffixAtTest()
-	{
+	public final void insertNewAffixAtTest() {
 		assert 0 == word.getAffixes().size();
 		word.insertNewAffixAt(AffixType.prefix, 0);
 		assert 1 == word.getAffixes().size();
@@ -98,8 +91,7 @@ public class WordTests
 	}
 
 	@Test
-	public final void insertAffixAtTest()
-	{
+	public final void insertAffixAtTest() {
 		assert 0 == word.getAffixes().size();
 		Affix affix = new Affix();
 		affix.setType(AffixType.prefix);
@@ -115,8 +107,7 @@ public class WordTests
 	}
 
 	@Test
-	public final void deleteFeatureTest()
-	{
+	public final void deleteFeatureTest() {
 		Feature feature = new Feature();
 		feature.setLabel("gender");
 		feature.setMatch("alpha");
@@ -136,8 +127,7 @@ public class WordTests
 	}
 
 	@Test
-	public final void swapPositionOfAffixesTest()
-	{
+	public final void swapPositionOfAffixesTest() {
 		createTwoAffixes();
 		word.swapPositionOfAffixes(-1, 0); // is a no-op
 		assert 2 == word.getAffixes().size();

@@ -17,23 +17,20 @@ import org.sil.ftrulegen.model.*;
 import java.nio.file.Path;
 import java.util.*;
 
-public class XMLFLExDataBackEndProviderTests extends ServiceTestBase
-{
+public class XMLFLExDataBackEndProviderTests extends ServiceTestBase {
 	private XMLFLExDataBackEndProvider providerFLExData;
 	private FLExData flexData;
 
 	@Before
 	@Override
-	public void setup()
-	{
+	public void setup() {
 		super.setup();
 		flexData = new FLExData();
 		providerFLExData = new XMLFLExDataBackEndProvider(flexData, new Locale("en"));
 	}
 
 	@Test
-	public final void loadFLExDataTest()
-	{
+	public final void loadFLExDataTest() {
 		setRuleGenExpected(Path.of(getTestDataDir(), "FLExDataSpanFrench.xml").toString());
 		providerFLExData.loadFLExDataFromFile(getRuleGenExpected());
 		FLExData flexData = providerFLExData.getFLExData();
@@ -86,8 +83,7 @@ public class XMLFLExDataBackEndProviderTests extends ServiceTestBase
 		checkFeatures(target.getFeatures());
 	}
 
-	private void checkFeatures(List<FLExFeature> features)
-	{
+	private void checkFeatures(List<FLExFeature> features) {
 		List<FLExFeature> featList = features;
 		assert 5 == featList.size();
 		List<FLExFeatureValue> values = checkFeatureName(featList, "absolute tense", 0, 4);
@@ -117,15 +113,13 @@ public class XMLFLExDataBackEndProviderTests extends ServiceTestBase
 		checkFeatureValue(values, "3", 2, feat);
 	}
 
-	private void checkFeatureValue(List<FLExFeatureValue> values, String sAbbr, int index, FLExFeature feat)
-	{
+	private void checkFeatureValue(List<FLExFeatureValue> values, String sAbbr, int index, FLExFeature feat) {
 		FLExFeatureValue value = values.get(index);
 		assertEquals(sAbbr, value.getAbbreviation());
 		assertEquals(feat, value.getFeature());
 	}
 
-	private List<FLExFeatureValue> checkFeatureName(List<FLExFeature> features, String sName, int index, int iCount)
-	{
+	private List<FLExFeatureValue> checkFeatureName(List<FLExFeature> features, String sName, int index, int iCount) {
 		FLExFeature feat = features.get(index);
 		assertEquals(sName, feat.getName());
 		List<FLExFeatureValue> valList = feat.getValues();
@@ -133,22 +127,19 @@ public class XMLFLExDataBackEndProviderTests extends ServiceTestBase
 		return valList;
 	}
 
-	private void checkCategory(List<FLExCategory> cats, String sAbbr, int index)
-	{
+	private void checkCategory(List<FLExCategory> cats, String sAbbr, int index) {
 		FLExCategory cat = cats.get(index);
 		assertEquals(sAbbr, cat.getAbbreviation());
 	}
 
-	protected final void checkWordAttributes(Word word, String id, String category, HeadValue head)
-	{
+	protected final void checkWordAttributes(Word word, String id, String category, HeadValue head) {
 		assertNotNull(word);
 		assert id == word.getId();
 		assert category == word.getCategory();
 		assert head == word.getHead();
 	}
 
-	protected final void checkFeatureAttributes(Feature feature, String label, String match)
-	{
+	protected final void checkFeatureAttributes(Feature feature, String label, String match) {
 		assertNotNull(feature);
 		assert label == feature.getLabel();
 		assert match == feature.getMatch();

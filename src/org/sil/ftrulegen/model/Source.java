@@ -6,15 +6,12 @@
 
 package org.sil.ftrulegen.model;
 
-public class Source extends ConstituentWithPhrase
-{
-	public Source()
-	{
+public class Source extends ConstituentWithPhrase {
+	public Source() {
 		getPhrase().setType(PhraseType.source);
 	}
 
-	public final Source duplicate()
-	{
+	public final Source duplicate() {
 		Source newSource = new Source();
 		newSource.setPhrase(getPhrase().duplicate());
 		return newSource;

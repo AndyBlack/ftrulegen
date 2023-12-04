@@ -6,18 +6,14 @@
 
 package org.sil.ftrulegen.model;
 
-public enum HeadValue
-{
-	yes,
-	no;
+public enum HeadValue {
+	yes, no;
 
-	public int getValue()
-	{
+	public int getValue() {
 		return this.ordinal();
 	}
 
-	public static HeadValue forValue(int value)
-	{
+	public static HeadValue forValue(int value) {
 		return values()[value];
 	}
 }

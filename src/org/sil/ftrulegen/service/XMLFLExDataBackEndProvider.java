@@ -15,28 +15,25 @@ import org.sil.utility.HandleExceptionMessage;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Unmarshaller;
 
-public class XMLFLExDataBackEndProvider extends BackEndProvider
-{
+public class XMLFLExDataBackEndProvider extends BackEndProvider {
 	private FLExData flexData;
-	
+
 	public XMLFLExDataBackEndProvider(FLExData flexData, Locale locale) {
 		this.flexData = flexData;
 		setResourceStrings(locale);
 	}
 
-	public FLExData getFLExData()
-	{
+	public FLExData getFLExData() {
 		return flexData;
 	}
-	public void setFLExData(FLExData value)
-	{
+
+	public void setFLExData(FLExData value) {
 		flexData = value;
 	}
 
-	public void loadFLExDataFromFile(String fileName)
-	{
+	public void loadFLExDataFromFile(String fileName) {
 		try {
-			File file = new File(fileName);	
+			File file = new File(fileName);
 			JAXBContext context = JAXBContext.newInstance(FLExData.class);
 			Unmarshaller um = context.createUnmarshaller();
 			// Reading XML from the file and unmarshalling.
@@ -44,8 +41,7 @@ public class XMLFLExDataBackEndProvider extends BackEndProvider
 			flexData.setFeatureInFeatureValues();
 		} catch (Exception e) { // catches ANY exception
 			e.printStackTrace();
-			HandleExceptionMessage.show(sFileError, sFileErrorLoadHeader, sFileErrorLoadContent
-					+ fileName, true);
+			HandleExceptionMessage.show(sFileError, sFileErrorLoadHeader, sFileErrorLoadContent + fileName, true);
 		}
 	}
 }

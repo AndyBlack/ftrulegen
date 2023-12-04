@@ -17,43 +17,43 @@ import org.junit.Test;
 import org.sil.ftrulegen.Constants;
 import org.sil.ftrulegen.model.FLExTransRuleGenerator;
 
-public abstract class ServiceTestBase
-{
+public abstract class ServiceTestBase {
 	protected XmlBackEndProvider provider;
 	protected FLExTransRuleGenerator ruleGenerator;
 	private String TestDataDir;
-	protected final String getTestDataDir()
-	{
+
+	protected final String getTestDataDir() {
 		return Constants.UNIT_TEST_DATA_DIRECTORY;
 	}
-	protected final void setTestDataDir(String value)
-	{
+
+	protected final void setTestDataDir(String value) {
 		TestDataDir = value;
 	}
+
 	private String RuleGenFile;
-	protected final String getRuleGenFile()
-	{
+
+	protected final String getRuleGenFile() {
 		return RuleGenFile;
 	}
-	protected final void setRuleGenFile(String value)
-	{
+
+	protected final void setRuleGenFile(String value) {
 		RuleGenFile = value;
 	}
+
 	private String RuleGenExpected;
-	protected final String getRuleGenExpected()
-	{
+
+	protected final String getRuleGenExpected() {
 		return RuleGenExpected;
 	}
-	protected final void setRuleGenExpected(String value)
-	{
+
+	protected final void setRuleGenExpected(String value) {
 		RuleGenExpected = value;
 	}
 //	protected String expectedFileName = "RuleGenExpected.xml";
 //	protected static final String kTestDir = "RuleGeneratorServiceTests";
 
 	@Before
-	public void setup()
-	{
+	public void setup() {
 		ruleGenerator = new FLExTransRuleGenerator();
 		provider = new XmlBackEndProvider(ruleGenerator, new Locale("en"));
 		setRuleGenExpected(Constants.UNIT_TEST_DATA_FILE_EXPECTED);

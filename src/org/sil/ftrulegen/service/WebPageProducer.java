@@ -10,20 +10,18 @@ import java.util.ResourceBundle;
 
 import org.sil.ftrulegen.model.*;
 
-public class WebPageProducer
-{
+public class WebPageProducer {
 	private static final WebPageProducer instance = new WebPageProducer();
 
 	private RuleIdentifierAndParentSetter ruleIdSetter;
 
 	private FLExTransRule rule;
-	public static WebPageProducer getInstance()
-	{
+
+	public static WebPageProducer getInstance() {
 		return instance;
 	}
 
-	public final String produceWebPage(FLExTransRule rule, ResourceBundle bundle)
-	{
+	public final String produceWebPage(FLExTransRule rule, ResourceBundle bundle) {
 		this.rule = rule;
 		ruleIdSetter = RuleIdentifierAndParentSetter.getInstance();
 		ruleIdSetter.setIdentifiersAndParents(rule);
@@ -34,8 +32,7 @@ public class WebPageProducer
 		return sb.toString();
 	}
 
-	private String htmlBeginning()
-	{
+	private String htmlBeginning() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<!DOCTYPE html SYSTEM \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n");
 		sb.append("<html xmlns=\"http://www.w3.org/1999/xhtml\">\n");
@@ -53,8 +50,7 @@ public class WebPageProducer
 		return sb.toString();
 	}
 
-	private String javaScriptContents()
-	{
+	private String javaScriptContents() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("function toApp(msg,event) {\n");
 //		sb.append("window.chrome.webview.postMessage(msg);\n");
@@ -66,8 +62,7 @@ public class WebPageProducer
 		return sb.toString();
 	}
 
-	private String htmlBody(ResourceBundle bundle)
-	{
+	private String htmlBody(ResourceBundle bundle) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<table>\n");
 		sb.append("<tr>\n");
@@ -81,8 +76,7 @@ public class WebPageProducer
 		return sb.toString();
 	}
 
-	private String phraseHTML(Phrase phrase, ResourceBundle bundle)
-	{
+	private String phraseHTML(Phrase phrase, ResourceBundle bundle) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<td valign=\"top\">\n");
 		sb.append("<div class=\"tf-tree tf-gap-sm\">\n");
@@ -94,8 +88,7 @@ public class WebPageProducer
 		return sb.toString();
 	}
 
-	private String htmlEnding()
-	{
+	private String htmlEnding() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("</body>\n");
 		sb.append("</html>\n");

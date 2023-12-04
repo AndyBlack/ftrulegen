@@ -14,55 +14,50 @@ import org.sil.ftrulegen.Constants;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 
-public class FLExTransRule extends RuleConstituent
-{
+public class FLExTransRule extends RuleConstituent {
 	private Source source = new Source();
-	@XmlElement(name="Source")
-	public final Source getSource()
-	{
+
+	@XmlElement(name = "Source")
+	public final Source getSource() {
 		return source;
 	}
-	
-	public final void setSource(Source value)
-	{
+
+	public final void setSource(Source value) {
 		source = value;
 	}
 
 	private Target target = new Target();
-	@XmlElement(name="Target")
-	public final Target getTarget()
-	{
+
+	@XmlElement(name = "Target")
+	public final Target getTarget() {
 		return target;
 	}
-	public final void setTarget(Target value)
-	{
+
+	public final void setTarget(Target value) {
 		target = value;
 	}
 
 	private String ruleName = "";
-	@XmlAttribute(name="name")
-	public final String getName()
-	{
+
+	@XmlAttribute(name = "name")
+	public final String getName() {
 		return ruleName;
 	}
-	public final void setName(String value)
-	{
+
+	public final void setName(String value) {
 		ruleName = value;
 	}
 
 	@Override
-	public void setLocale(Locale value)
-	{
+	public void setLocale(Locale value) {
 		super.setLocale(value);
 		source.setLocale(value);
 	}
-	
-	public FLExTransRule()
-	{
+
+	public FLExTransRule() {
 	}
 
-	public final FLExTransRule duplicate()
-	{
+	public final FLExTransRule duplicate() {
 		FLExTransRule newRule = new FLExTransRule();
 		newRule.setName(getName());
 		Source newSource = getSource().duplicate();
@@ -73,14 +68,11 @@ public class FLExTransRule extends RuleConstituent
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		String result = getName();
-		if (getName().length() == 0)
-		{
+		if (getName().length() == 0) {
 			if (bundle == null) {
-				bundle = ResourceBundle.getBundle(Constants.RESOURCE_LOCATION,
-						new Locale("en"));
+				bundle = ResourceBundle.getBundle(Constants.RESOURCE_LOCATION, new Locale("en"));
 			}
 			result = bundle.getString("model.namemissing");
 		}
@@ -107,8 +99,7 @@ public class FLExTransRule extends RuleConstituent
 			result = false;
 		else if (!getSource().equals(rule.getSource())) {
 			result = false;
-		} else if (!getTarget().equals(rule.getTarget()))
-		{
+		} else if (!getTarget().equals(rule.getTarget())) {
 			result = false;
 		}
 		return result;

@@ -24,19 +24,18 @@ import javafx.stage.Stage;
  * 
  */
 public class FLExFeatureValueChooserController {
-	
+
 	@FXML
 	ListView<FLExFeatureValue> lvFeatureValues;
-	
+
 	Stage dialogStage;
 	Main main;
 	FLExFeatureValue featureValueChosen = null;
 	boolean okClicked = false;
-    int maxVariables = 4;
+	int maxVariables = 4;
 	String[] variables = { "α", "β", "γ", "δ", "ε", "ζ", "η", "θ", "ι", "κ", "μ", "ν" };
 	int index = 0;
 
-    
 	public int getMaxVariables() {
 		return maxVariables;
 	}
@@ -52,7 +51,7 @@ public class FLExFeatureValueChooserController {
 	public void setDialogStage(Stage value) {
 		dialogStage = value;
 	}
-	
+
 	public void setMain(Main value) {
 		main = value;
 	}
@@ -61,18 +60,18 @@ public class FLExFeatureValueChooserController {
 		lvFeatureValues.getItems().clear();
 		for (FLExFeature feature : features) {
 			lvFeatureValues.getItems().addAll(feature.getValues());
-			for (int i =0; i < maxVariables; i++) {
+			for (int i = 0; i < maxVariables; i++) {
 				FLExFeatureValue variableValue = new FLExFeatureValue(variables[i]);
 				variableValue.setFeature(feature);
 				lvFeatureValues.getItems().add(variableValue);
 			}
 		}
 	}
-	
+
 	public FLExFeatureValue getFeatureValueChosen() {
 		return featureValueChosen;
 	}
-	
+
 	public void selectFLExFeatureValue(Feature feat) {
 		for (int i = 0; i < lvFeatureValues.getItems().size(); i++) {
 			FLExFeatureValue ffv = lvFeatureValues.getItems().get(i);
@@ -100,7 +99,7 @@ public class FLExFeatureValueChooserController {
 		okClicked = true;
 		handleCancel();
 	}
-	
+
 	public void handleCancel() {
 		// set any preferences
 		dialogStage.close();

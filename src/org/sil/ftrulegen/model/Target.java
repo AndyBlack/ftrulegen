@@ -10,15 +10,12 @@ import java.util.Locale;
 
 import jakarta.xml.bind.annotation.XmlElement;
 
-public class Target extends ConstituentWithPhrase
-{
-	public Target()
-	{
+public class Target extends ConstituentWithPhrase {
+	public Target() {
 		getPhrase().setType(PhraseType.target);
 	}
 
-	public final Target duplicate()
-	{
+	public final Target duplicate() {
 		Target newTarget = new Target();
 		newTarget.setPhrase(getPhrase().duplicate());
 		return newTarget;

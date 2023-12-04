@@ -11,8 +11,7 @@ import jakarta.xml.bind.annotation.XmlElement;
 /**
  * 
  */
-public class ConstituentWithPhrase  extends RuleConstituent 
-{
+public class ConstituentWithPhrase extends RuleConstituent {
 
 	protected Phrase phrase = new Phrase();
 

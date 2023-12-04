@@ -6,10 +6,8 @@
 
 package org.sil.ftrulegen.flexmodel;
 
-public class SourceFLExData  extends FLExDataBase
-{
-	public SourceFLExData()
-	{
+public class SourceFLExData extends FLExDataBase {
+	public SourceFLExData() {
 	}
 
 	@Override
@@ -24,11 +22,9 @@ public class SourceFLExData  extends FLExDataBase
 		FLExDataBase flexData = (FLExDataBase) obj;
 		if (!getName().equals(flexData.getName())) {
 			result = false;
-		} else if (!getCategories().equals(flexData.getCategories()))
-		{
+		} else if (!getCategories().equals(flexData.getCategories())) {
 			result = false;
-		} else if (!getFeatures().equals(flexData.getFeatures()))
-		{
+		} else if (!getFeatures().equals(flexData.getFeatures())) {
 			return false;
 		}
 		return result;

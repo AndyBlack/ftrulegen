@@ -17,33 +17,32 @@ public class WebPageInteractor {
 	String sItemClickedOn = "";
 	int xCoord = 0;
 	int yCoord = 0;
-	
-	public WebPageInteractor(MainController controller)
-	{
-		this.controller = controller;		
+
+	public WebPageInteractor(MainController controller) {
+		this.controller = controller;
 	}
 
 	public String getItemClickedOn() {
 		return sItemClickedOn;
 	}
-	
+
 	public void setItemClickedOn(String value) {
 		sItemClickedOn = value;
 		controller.processItemClickedOn(sItemClickedOn);
 	}
 
-	public int getXCoord()
-	{
+	public int getXCoord() {
 		return xCoord;
 	}
+
 	public void setXCoord(int value) {
 		xCoord = value;
 	}
 
-	public int getYCoord()
-	{
+	public int getYCoord() {
 		return yCoord;
 	}
+
 	public void setYCoord(int value) {
 		yCoord = value;
 	}

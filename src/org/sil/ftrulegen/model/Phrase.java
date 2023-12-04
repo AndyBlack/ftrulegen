@@ -12,59 +12,51 @@ import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlTransient;
 
-public class Phrase extends RuleConstituent
-{
+public class Phrase extends RuleConstituent {
 
 	private List<Word> words = new ArrayList<Word>();
-	@XmlElementWrapper(name="Words")
-	@XmlElement(name="Word")
-	public final List<Word> getWords()
-	{
+
+	@XmlElementWrapper(name = "Words")
+	@XmlElement(name = "Word")
+	public final List<Word> getWords() {
 		return words;
 	}
-	public final void setWords(List<Word> value)
-	{
+
+	public final void setWords(List<Word> value) {
 		words = value;
 	}
 
 	private PhraseType phraseType = PhraseType.source;
+
 	@XmlTransient
-	public final PhraseType getType()
-	{
+	public final PhraseType getType() {
 		return phraseType;
 	}
-	public final void setType(PhraseType value)
-	{
+
+	public final void setType(PhraseType value) {
 		phraseType = value;
 	}
 
 	@Override
-	public void setLocale(Locale value)
-	{
+	public void setLocale(Locale value) {
 		super.setLocale(value);
-		for (Word word : words)
-		{
+		for (Word word : words) {
 			word.setLocale(value);
 		}
 	}
 
-	public Phrase()
-	{
+	public Phrase() {
 	}
 
-	public final void deleteWordAt(int index)
-	{
-		if (index < 0 || index >= getWords().size())
-		{
+	public final void deleteWordAt(int index) {
+		if (index < 0 || index >= getWords().size()) {
 			return;
 		}
 		getWords().remove(index);
 	}
 
-	public final void insertNewWordAt(int index)
-	{
-		if (index < 0 || index > getWords().size())
-		{
+	public final void insertNewWordAt(int index) {
+		if (index < 0 || index > getWords().size()) {
 			return;
 		}
 		Word newWord = new Word();
@@ -72,23 +64,18 @@ public class Phrase extends RuleConstituent
 		getWords().add(index, newWord);
 	}
 
-	public final void insertWordAt(Word word, int index)
-	{
-		if (index < 0 || index > getWords().size())
-		{
+	public final void insertWordAt(Word word, int index) {
+		if (index < 0 || index > getWords().size()) {
 			return;
 		}
 		getWords().add(index, word);
 	}
 
-	public final void swapPositionOfWords(int index, int otherIndex)
-	{
-		if (index < 0 | index >= getWords().size())
-		{
+	public final void swapPositionOfWords(int index, int otherIndex) {
+		if (index < 0 | index >= getWords().size()) {
 			return;
 		}
-		if (otherIndex < 0 | otherIndex >= getWords().size())
-		{
+		if (otherIndex < 0 | otherIndex >= getWords().size()) {
 			return;
 		}
 		Word word = getWords().get(index);
@@ -97,45 +84,34 @@ public class Phrase extends RuleConstituent
 		getWords().set(otherIndex, word);
 	}
 
-	public final void markWordAsHead(Word word)
-	{
+	public final void markWordAsHead(Word word) {
 		int index = getWords().indexOf(word);
-		if (index < 0 || index >= getWords().size())
-		{
+		if (index < 0 || index >= getWords().size()) {
 			return;
 		}
-		for (Word w : getWords())
-		{
-			if (w == word)
-			{
+		for (Word w : getWords()) {
+			if (w == word) {
 				w.setHead(HeadValue.yes);
-			}
-			else
-			{
+			} else {
 				w.setHead(HeadValue.no);
 			}
 		}
 	}
 
-	public final String produceHtml(ResourceBundle bundle)
-	{
+	public final String produceHtml(ResourceBundle bundle) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<li>");
 		sb.append(produceSpan("tf-nc", "p"));
 		sb.append(bundle.getString("model.phrase"));
 		sb.append("<span class=\"language\">");
-		if (getType() == PhraseType.source)
-		{
+		if (getType() == PhraseType.source) {
 			sb.append(bundle.getString("model.src"));
-		}
-		else
-		{
+		} else {
 			sb.append(bundle.getString("model.tgt"));
 		}
 		sb.append("</span></span>\n");
 		sb.append("<ul>");
-		for (Word word : getWords())
-		{
+		for (Word word : getWords()) {
 			sb.append(word.produceHtml(bundle));
 		}
 		sb.append("</ul>");
@@ -143,29 +119,23 @@ public class Phrase extends RuleConstituent
 		return sb.toString();
 	}
 
-	public final RuleConstituent findConstituent(int identifier)
-	{
+	public final RuleConstituent findConstituent(int identifier) {
 		RuleConstituent constituent = null;
-		if (getIdentifier() == identifier)
-		{
+		if (getIdentifier() == identifier) {
 			return this;
 		}
-		for (Word word : getWords())
-		{
+		for (Word word : getWords()) {
 			constituent = word.findConstituent(identifier);
-			if (constituent != null)
-			{
+			if (constituent != null) {
 				return constituent;
 			}
 		}
 		return constituent;
 	}
 
-	public final Phrase duplicate()
-	{
+	public final Phrase duplicate() {
 		Phrase newPhrase = new Phrase();
-		for (Word word : getWords())
-		{
+		for (Word word : getWords()) {
 			newPhrase.getWords().add(word.duplicate());
 		}
 		return newPhrase;

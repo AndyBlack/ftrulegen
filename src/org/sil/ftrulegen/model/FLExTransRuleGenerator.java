@@ -12,33 +12,29 @@ import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
-
 @XmlRootElement(name = "FLExTransRuleGenerator")
-public class FLExTransRuleGenerator
-{
+public class FLExTransRuleGenerator {
 	Locale locale;
 
-	public  void setLocale(Locale value)
-	{
+	public void setLocale(Locale value) {
 		locale = value;
-		for (FLExTransRule rule : flexTransRules)
-		{
+		for (FLExTransRule rule : flexTransRules) {
 			rule.setLocale(value);
 		}
 	}
-	private List<FLExTransRule> flexTransRules = new ArrayList<FLExTransRule> ();
+
+	private List<FLExTransRule> flexTransRules = new ArrayList<FLExTransRule>();
+
 	@XmlElementWrapper(name = "FLExTransRules")
-	@XmlElement(name="FLExTransRule")
-	public List<FLExTransRule> getFLExTransRules()
-	{
+	@XmlElement(name = "FLExTransRule")
+	public List<FLExTransRule> getFLExTransRules() {
 		return flexTransRules;
 	}
-	public void setFLExTransRules(List<FLExTransRule> value)
-	{
+
+	public void setFLExTransRules(List<FLExTransRule> value) {
 		flexTransRules = value;
 	}
 
-	public FLExTransRuleGenerator()
-	{
+	public FLExTransRuleGenerator() {
 	}
 }

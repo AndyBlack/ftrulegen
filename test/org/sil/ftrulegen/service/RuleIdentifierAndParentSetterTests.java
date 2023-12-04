@@ -15,8 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.sil.ftrulegen.model.*;
 
-public class RuleIdentifierAndParentSetterTests extends ServiceTestBase
-{
+public class RuleIdentifierAndParentSetterTests extends ServiceTestBase {
 	private RuleIdentifierAndParentSetter idSetter;
 	private FLExTransRuleGenerator ruleGenerator;
 	private FLExTransRule rule;
@@ -28,15 +27,13 @@ public class RuleIdentifierAndParentSetterTests extends ServiceTestBase
 
 	@Before
 	@Override
-	public void setup()
-	{
+	public void setup() {
 		super.setup();
 		idSetter = RuleIdentifierAndParentSetter.getInstance();
 	}
 
 	@Test
-	public final void identifiersForEx1aDefNounTest()
-	{
+	public final void identifiersForEx1aDefNounTest() {
 		final String kFileName = "Ex1a_Def-Noun";
 		setRuleGenExpected(Path.of(getTestDataDir(), kFileName + ".xml").toString());
 		provider.loadDataFromFile(getRuleGenExpected());
@@ -60,8 +57,7 @@ public class RuleIdentifierAndParentSetterTests extends ServiceTestBase
 	}
 
 	@Test
-	public final void identifiersForEx4bIndefAdjNounTest()
-	{
+	public final void identifiersForEx4bIndefAdjNounTest() {
 		final String kFileName = "Ex4b_Indef-Adj-Noun";
 		setRuleGenExpected(Path.of(getTestDataDir(), kFileName + ".xml").toString());
 		provider.loadDataFromFile(getRuleGenExpected());
@@ -98,8 +94,7 @@ public class RuleIdentifierAndParentSetterTests extends ServiceTestBase
 	}
 
 	@Test
-	public final void parentsForEx1aDefNounTest()
-	{
+	public final void parentsForEx1aDefNounTest() {
 		final String kFileName = "Ex1a_Def-Noun";
 		setRuleGenExpected(Path.of(getTestDataDir(), kFileName + ".xml").toString());
 		provider.loadDataFromFile(getRuleGenExpected());
@@ -133,8 +128,7 @@ public class RuleIdentifierAndParentSetterTests extends ServiceTestBase
 	}
 
 	@Test
-	public final void parentsForEx4bIndefAdjNounTest()
-	{
+	public final void parentsForEx4bIndefAdjNounTest() {
 		final String kFileName = "Ex4b_Indef-Adj-Noun";
 		setRuleGenExpected(Path.of(getTestDataDir(), kFileName + ".xml").toString());
 		provider.loadDataFromFile(getRuleGenExpected());

@@ -10,43 +10,38 @@ import java.util.ResourceBundle;
 
 import jakarta.xml.bind.annotation.XmlAttribute;
 
-public class Affix extends ConstituentWithFeatures
-{
+public class Affix extends ConstituentWithFeatures {
 	private AffixType affixType = AffixType.suffix;
-	@XmlAttribute(name="type")
-	public final AffixType getType()
-	{
+
+	@XmlAttribute(name = "type")
+	public final AffixType getType() {
 		return affixType;
 	}
-	public final void setType(AffixType value)
-	{
+
+	public final void setType(AffixType value) {
 		affixType = value;
 	}
 
-	public Affix()
-	{
+	public Affix() {
 	}
 
-	public final RuleConstituent findConstituent(int identifier)
-	{
+	public final RuleConstituent findConstituent(int identifier) {
 		RuleConstituent constituent = null;
-		if (getIdentifier() == identifier)
-		{
+		if (getIdentifier() == identifier) {
 			return this;
 		}
 		constituent = findConstituentInFeatures(identifier);
 		return constituent;
 	}
 
-	public final String produceHtml(ResourceBundle bundle)
-	{
+	public final String produceHtml(ResourceBundle bundle) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<li>");
 		sb.append(produceSpan("tf-nc affix", "a"));
-		sb.append((getType() == AffixType.prefix) ? bundle.getString("model.prefix") : bundle.getString("model.suffix"));
+		sb.append(
+				(getType() == AffixType.prefix) ? bundle.getString("model.prefix") : bundle.getString("model.suffix"));
 		sb.append("</span>");
-		if (getFeatures().size() > 0)
-		{
+		if (getFeatures().size() > 0) {
 			sb.append("<ul>");
 			produceHtmlForFeatures(sb);
 			sb.append("</ul>");
@@ -55,8 +50,7 @@ public class Affix extends ConstituentWithFeatures
 		return sb.toString();
 	}
 
-	public final Affix duplicate()
-	{
+	public final Affix duplicate() {
 		Affix newAffix = new Affix();
 		newAffix.setType(getType());
 		newAffix.setFeatures(duplicateFeatures());

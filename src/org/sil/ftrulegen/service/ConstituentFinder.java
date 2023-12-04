@@ -8,28 +8,21 @@ package org.sil.ftrulegen.service;
 
 import org.sil.ftrulegen.model.*;
 
-public class ConstituentFinder
-{
+public class ConstituentFinder {
 	private static final ConstituentFinder instance = new ConstituentFinder();
 
-	public static ConstituentFinder getInstance()
-	{
+	public static ConstituentFinder getInstance() {
 		return instance;
 	}
 
-	public final RuleConstituent findConstituent(FLExTransRule rule, int identifier)
-	{
+	public final RuleConstituent findConstituent(FLExTransRule rule, int identifier) {
 		RuleConstituent constituent = null;
-		if (identifier < rule.getTarget().getPhrase().getIdentifier())
-		{
+		if (identifier < rule.getTarget().getPhrase().getIdentifier()) {
 			constituent = rule.getSource().getPhrase().findConstituent(identifier);
-			if (constituent != null)
-			{
+			if (constituent != null) {
 				return constituent;
 			}
-		}
-		else
-		{
+		} else {
 			constituent = rule.getTarget().getPhrase().findConstituent(identifier);
 		}
 		return constituent;

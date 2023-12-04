@@ -23,10 +23,10 @@ import javafx.stage.Stage;
  * 
  */
 public class FLExCategoryChooserController {
-	
+
 	@FXML
 	ListView<FLExCategory> lvCategories;
-	
+
 	Stage dialogStage;
 	Main main;
 	FLExCategory catChosen = null;
@@ -39,7 +39,7 @@ public class FLExCategoryChooserController {
 	public void setDialogStage(Stage value) {
 		dialogStage = value;
 	}
-	
+
 	public void setMain(Main value) {
 		main = value;
 	}
@@ -47,7 +47,7 @@ public class FLExCategoryChooserController {
 	public void setCategories(List<FLExCategory> categories) {
 		lvCategories.getItems().addAll(categories);
 	}
-	
+
 	public FLExCategory getCategoryChosen() {
 		return catChosen;
 	}
@@ -72,13 +72,13 @@ public class FLExCategoryChooserController {
 			});
 		}
 	}
-	
+
 	public void handleOK() {
 		catChosen = lvCategories.getSelectionModel().getSelectedItem();
 		okClicked = true;
 		handleCancel();
 	}
-	
+
 	public void handleCancel() {
 		// set any preferences
 		dialogStage.close();

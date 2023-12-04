@@ -13,16 +13,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.sil.ftrulegen.service.RuleIdentifierAndParentSetter;
 
-public class PhraseTests
-{
+public class PhraseTests {
 	private FLExTransRuleGenerator ruleGenerator;
 	private Phrase sourcePhrase;
 	private Word sourceWord;
 	private Word sourceWord2;
 
 	@Before
-	public final void setup()
-	{
+	public final void setup() {
 		ruleGenerator = new FLExTransRuleGenerator();
 		FLExTransRule rule = new FLExTransRule();
 		rule.setName("Rule 1");
@@ -54,8 +52,7 @@ public class PhraseTests
 	}
 
 	@Test
-	public final void deleteWordAtTest()
-	{
+	public final void deleteWordAtTest() {
 		assert 2 == sourcePhrase.getWords().size();
 		sourcePhrase.deleteWordAt(-1); // is a no-op
 		assert 2 == sourcePhrase.getWords().size();
@@ -76,7 +73,7 @@ public class PhraseTests
 		word3.setId("3");
 		sourcePhrase.insertWordAt(word3, -1); // is a no-op
 		assert 2 == sourcePhrase.getWords().size();
-		sourcePhrase.insertWordAt(word3,3); // is a no-op
+		sourcePhrase.insertWordAt(word3, 3); // is a no-op
 		assert 2 == sourcePhrase.getWords().size();
 		sourcePhrase.insertWordAt(word3, 1);
 		assert 3 == sourcePhrase.getWords().size();
@@ -94,8 +91,7 @@ public class PhraseTests
 	}
 
 	@Test
-	public final void insertNewWordAtTest()
-	{
+	public final void insertNewWordAtTest() {
 		assert 2 == sourcePhrase.getWords().size();
 		sourcePhrase.insertNewWordAt(-1); // is a no-op
 		assert 2 == sourcePhrase.getWords().size();
@@ -110,8 +106,7 @@ public class PhraseTests
 	}
 
 	@Test
-	public final void swapPositionOfWordsTest()
-	{
+	public final void swapPositionOfWordsTest() {
 		assert 2 == sourcePhrase.getWords().size();
 		sourcePhrase.swapPositionOfWords(-1, 0); // is a no-op
 		assert 2 == sourcePhrase.getWords().size();
@@ -131,8 +126,7 @@ public class PhraseTests
 	}
 
 	@Test
-	public final void markWordAsHeadTest()
-	{
+	public final void markWordAsHeadTest() {
 		assert HeadValue.yes == sourcePhrase.getWords().get(0).getHead();
 		assert HeadValue.no == sourcePhrase.getWords().get(1).getHead();
 		sourcePhrase.markWordAsHead(sourceWord2);

@@ -1,10 +1,10 @@
 package org.sil.ftrulegen.model;
+
 /**
  * Copyright (c) 2023 SIL International
  * This software is licensed under the LGPL, version 2.1 or later
  * (http: //www.gnu.org/licenses/lgpl-2.1.html)
  */
-
 
 import static org.junit.Assert.*;
 
@@ -14,20 +14,17 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class RuleGeneratorTests
-{
+public class RuleGeneratorTests {
 	private FLExTransRuleGenerator ruleGenerator;
 
 	@Before
-	public final void setup()
-	{
+	public final void setup() {
 		ruleGenerator = new FLExTransRuleGenerator();
 		ruleGenerator.setLocale(new Locale("en"));
 	}
 
 	@Test
-	public final void newOperationTest()
-	{
+	public final void newOperationTest() {
 		assertEquals(0, ruleGenerator.getFLExTransRules().size());
 
 		FLExTransRule rule = new FLExTransRule();
