@@ -144,8 +144,8 @@ public class MainController implements Initializable {
 	XmlBackEndProvider provider;
 	WebPageInteractor webPageInteractor;
 	ConstituentFinder finder;
-	String ruleGenFile = "C:\\Users\\Andy Black\\Documents\\FieldWorks\\FLExTrans\\RuleGenerator\\AndyPlay\\ExampleRules.xml";
-	String flexDataFile = "C:\\Users\\Andy Black\\Documents\\FieldWorks\\FLExTrans\\RuleGenerator\\AndyPlay\\FLExDataSpanFrench.xml";
+	String ruleGenFile = "";
+	String flexDataFile = "";
 	FLExData flexData;
 
 	Affix affix;
@@ -159,6 +159,14 @@ public class MainController implements Initializable {
 	private static final ObservableResourceFactory RESOURCE_FACTORY = ObservableResourceFactory.getInstance();
 	static {
 		RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(Constants.RESOURCE_LOCATION, new Locale("en")));
+	}
+
+	public void setRuleGenFile(String value) {
+		ruleGenFile = value;
+	}
+
+	public void setFLexDataFile(String value) {
+		flexDataFile = value;
 	}
 
 	@Override
@@ -218,7 +226,6 @@ public class MainController implements Initializable {
 			switch (keyEvent.getCode()) {
 			case S:
 				if (keyEvent.isControlDown()) {
-					System.out.println("control s keyed");
 					handleSave();
 				}
 				break;
@@ -229,22 +236,8 @@ public class MainController implements Initializable {
 
 		createContextMenuItems();
 
-//		Alert alert = new Alert(AlertType.INFORMATION, "content", ButtonType.OK);
-//		alert.show();
 		webEngine.load(webPageFileUri);
 		lblRightClickToEdit.setLayoutX(lblRules.getLayoutX() + 40);
-
-		generator = new FLExTransRuleGenerator();
-		provider = new XmlBackEndProvider(generator, bundle.getLocale());
-		provider.loadDataFromFile(ruleGenFile);
-		generator = provider.getRuleGenerator();
-		finder = ConstituentFinder.getInstance();
-		lvRules.getItems().addAll(generator.getFLExTransRules());
-
-		flexData = new FLExData();
-		XMLFLExDataBackEndProvider flexProvider = new XMLFLExDataBackEndProvider(flexData, bundle.getLocale());
-		flexProvider.loadFLExDataFromFile(flexDataFile);
-		flexData = flexProvider.getFLExData();
 
 		if (lvRules.getItems().size() > 0) {
 			Platform.runLater(new Runnable() {
@@ -257,6 +250,20 @@ public class MainController implements Initializable {
 				}
 			});
 		}
+	}
+
+	public void loadDataFiles() {
+		generator = new FLExTransRuleGenerator();
+		provider = new XmlBackEndProvider(generator, bundle.getLocale());
+		provider.loadDataFromFile(ruleGenFile);
+		generator = provider.getRuleGenerator();
+		finder = ConstituentFinder.getInstance();
+		lvRules.getItems().addAll(generator.getFLExTransRules());
+
+		flexData = new FLExData();
+		XMLFLExDataBackEndProvider flexProvider = new XMLFLExDataBackEndProvider(flexData, bundle.getLocale());
+		flexProvider.loadFLExDataFromFile(flexDataFile);
+		flexData = flexProvider.getFLExData();
 	}
 
 	protected void enableDisableCreatePermutationsCheckBox(FLExTransRule rule) {
