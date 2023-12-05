@@ -15,6 +15,17 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 
 public class FLExTransRule extends RuleConstituent {
+	private PermutationsValue createPermutations = PermutationsValue.no;
+
+	@XmlAttribute(name = "create_permutations")
+	public final PermutationsValue getPermutations() {
+		return createPermutations;
+	}
+
+	public final void setPermutations(PermutationsValue value) {
+		createPermutations = value;
+	}
+
 	private Source source = new Source();
 
 	@XmlElement(name = "Source")

@@ -3,7 +3,7 @@
 "FLExTransRuleGenerator.dtd">
 <FLExTransRuleGenerator>
     <FLExTransRules>
-        <FLExTransRule name="Indefinite - Adjective - Noun">
+        <FLExTransRule name="Indefinite - Adjective - Noun" create_permutations="no">
             <Source>
                 <Phrase>
                     <Words>

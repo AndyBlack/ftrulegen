@@ -31,6 +31,7 @@ import org.sil.ftrulegen.model.FLExTransRule;
 import org.sil.ftrulegen.model.FLExTransRuleGenerator;
 import org.sil.ftrulegen.model.Feature;
 import org.sil.ftrulegen.model.HeadValue;
+import org.sil.ftrulegen.model.PermutationsValue;
 import org.sil.ftrulegen.model.Phrase;
 import org.sil.ftrulegen.model.RuleConstituent;
 import org.sil.ftrulegen.model.Word;
@@ -59,6 +60,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -85,6 +87,8 @@ public class MainController implements Initializable {
 	TextField tfRuleName;
 	@FXML
 	ListView<FLExTransRule> lvRules;
+	@FXML
+	CheckBox cbCreatePermutations;
 
 	ContextMenu affixEditContextMenu = new ContextMenu();
 	MenuItem cmAffixDuplicate;
@@ -165,8 +169,13 @@ public class MainController implements Initializable {
 					FLExTransRule newValue) {
 				tfRuleName.setText(newValue.getName());
 				selectedRuleIndex = lvRules.getItems().indexOf(newValue);
+				if (newValue.getPermutations() == PermutationsValue.yes)
+					cbCreatePermutations.setSelected(true);
+				else
+					cbCreatePermutations.setSelected(false);
 				produceAndShowWebPage(newValue);
 				enableDisableRuleContextMenuItems();
+				enableDisableCreatePermutationsCheckBox(newValue);
 			}
 
 		});
@@ -177,8 +186,6 @@ public class MainController implements Initializable {
 		});
 
 		webEngine = browser.getEngine();
-//		webEngine.setOnAlert(event -> showAlert(event.getData()));
-//		webPageInteractor = new WebPageInteractor(language, webEngine, this);
 		webPageInteractor = new WebPageInteractor(this);
 		webEngine.getLoadWorker().stateProperty().addListener(new ChangeListener<State>() {
 			public void changed(ObservableValue ov, State oldState, State newState) {
@@ -186,24 +193,22 @@ public class MainController implements Initializable {
 					Platform.runLater(new Runnable() {
 						@Override
 						public void run() {
-							// TODO: is there a way to associate the Java code
-							// with the
-							// javascript code *before* the page is loaded?
-							// We are working around it by sleeping for 10ms in
-							// the
-							// javascript onload() function.
 							JSObject win = (JSObject) webEngine.executeScript("window");
 							win.setMember("ftRuleGenApp", webPageInteractor);
-//							webEngine.executeScript("Initialize('" + getCurrentLocaleCode() + "')");
-//							updatePageLabels();
-//							// Timeline timeline = new Timeline(new
-//							// KeyFrame(Duration.millis(500), event -> {
-//							// handleRefresh();
-//							// }));
-//							// timeline.play();
 						}
 					});
 				}
+			}
+		});
+
+		cbCreatePermutations.selectedProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				FLExTransRule rule = lvRules.getSelectionModel().getSelectedItem();
+				if (newValue)
+					rule.setPermutations(PermutationsValue.yes);
+				else
+					rule.setPermutations(PermutationsValue.no);
 			}
 		});
 
@@ -236,6 +241,16 @@ public class MainController implements Initializable {
 					lvRules.getSelectionModel().select(selectedRuleIndex);
 				}
 			});
+		}
+	}
+
+	protected void enableDisableCreatePermutationsCheckBox(FLExTransRule rule) {
+		cbCreatePermutations.setDisable(true);
+		List<Word> words = rule.getTarget().getPhrase().getWords();
+		if (words.size() >= 3) {
+			if (words.stream().anyMatch(w -> w.getHead() == HeadValue.yes)) {
+				cbCreatePermutations.setDisable(false);
+			}
 		}
 	}
 
@@ -863,13 +878,16 @@ public class MainController implements Initializable {
 		case "w":
 			word = (Word) constituent;
 			enableDisableWordContextMenuItems();
+			FLExTransRule rule = lvRules.getSelectionModel().getSelectedItem();
+			enableDisableCreatePermutationsCheckBox(rule);
 			wordEditContextMenu.show(stage, xCoord, yCoord);
 			break;
 		}
 	}
 
 	void reportChangesMade() {
-		produceAndShowWebPage(lvRules.getSelectionModel().getSelectedItem());
+		FLExTransRule rule = lvRules.getSelectionModel().getSelectedItem();
+		produceAndShowWebPage(rule);
 		markAsChanged(true);
 	}
 
