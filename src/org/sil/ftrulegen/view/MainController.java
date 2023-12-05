@@ -76,6 +76,8 @@ public class MainController implements Initializable {
 	@FXML
 	Stage stage;
 	@FXML
+	BorderPane mainPane;
+	@FXML
 	private WebView browser;
 	@FXML
 	private WebEngine webEngine;
@@ -209,6 +211,19 @@ public class MainController implements Initializable {
 					rule.setPermutations(PermutationsValue.yes);
 				else
 					rule.setPermutations(PermutationsValue.no);
+			}
+		});
+
+		mainPane.setOnKeyPressed(keyEvent -> {
+			switch (keyEvent.getCode()) {
+			case S:
+				if (keyEvent.isControlDown()) {
+					System.out.println("control s keyed");
+					handleSave();
+				}
+				break;
+			default:
+				break;
 			}
 		});
 
@@ -844,6 +859,7 @@ public class MainController implements Initializable {
 
 	public void handleSave() {
 		provider.saveDataToFile(ruleGenFile);
+		markAsChanged(false);
 	}
 
 	void markAsChanged(boolean changed) {
