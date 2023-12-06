@@ -244,18 +244,6 @@ public class MainController implements Initializable {
 
 		webEngine.load(webPageFileUri);
 		lblRightClickToEdit.setLayoutX(lblRules.getLayoutX() + 40);
-
-		if (lvRules.getItems().size() > 0) {
-			Platform.runLater(new Runnable() {
-				@Override
-				public void run() {
-//					TODO: use application preference to remember and set last used index
-					selectedRuleIndex = 0;
-					lvRules.scrollTo(selectedRuleIndex);
-					lvRules.getSelectionModel().select(selectedRuleIndex);
-				}
-			});
-		}
 	}
 
 	public void loadDataFiles() {
@@ -270,6 +258,18 @@ public class MainController implements Initializable {
 		XMLFLExDataBackEndProvider flexProvider = new XMLFLExDataBackEndProvider(flexData, bundle.getLocale());
 		flexProvider.loadFLExDataFromFile(flexDataFile);
 		flexData = flexProvider.getFLExData();
+
+		if (lvRules.getItems().size() > 0) {
+			Platform.runLater(new Runnable() {
+				@Override
+				public void run() {
+//					TODO: use application preference to remember and set last used index
+					selectedRuleIndex = 0;
+					lvRules.scrollTo(selectedRuleIndex);
+					lvRules.getSelectionModel().select(selectedRuleIndex);
+				}
+			});
+		}
 	}
 
 	protected void enableDisableCreatePermutationsCheckBox(FLExTransRule rule) {
