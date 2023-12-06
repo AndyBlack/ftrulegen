@@ -64,9 +64,9 @@ public class RuleConstituent {
 		sb.append(getIdentifier());
 		sb.append("\" onclick=");
 		sb.append(produceToApp(sType));
-		sb.append(" oncontextmenu=");
+		sb.append(" onmousedown=");
 		sb.append(produceToApp(sType));
-		sb.append("\">");
+		sb.append(">");
 		return sb.toString();
 	}
 

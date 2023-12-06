@@ -69,6 +69,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseButton;
 
 /**
  * 
@@ -202,6 +203,7 @@ public class MainController implements Initializable {
 		});
 
 		webEngine = browser.getEngine();
+		browser.setContextMenuEnabled(false);
 		webPageInteractor = new WebPageInteractor(this);
 		webEngine.getLoadWorker().stateProperty().addListener(new ChangeListener<State>() {
 			public void changed(ObservableValue ov, State oldState, State newState) {
