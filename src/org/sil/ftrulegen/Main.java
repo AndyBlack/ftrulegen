@@ -6,6 +6,7 @@
 
 package org.sil.ftrulegen;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Locale;
@@ -28,8 +29,8 @@ import javafx.scene.web.WebView;
 
 public class Main extends Application {
 	private Locale locale;
-	private static final String kApplicationIconResource = "file:resources/FLExTransWindowIcon.png";
 	static String[] arguments;
+	MainController controller;
 
 	@FXML
 	private BorderPane mainPane;
@@ -58,7 +59,7 @@ public class Main extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(loader.getResources().getString("main.Title"));
 			primaryStage.getIcons().add(getNewMainIconImage());
-			MainController controller = loader.getController();
+			controller = loader.getController();
 			if (controller != null) {
 				controller.setStage(primaryStage);
 				controller.setRuleGenFile(arguments[0]);
@@ -75,6 +76,18 @@ public class Main extends Application {
 		arguments = args;
 		launch(args);
 		return 0;
+	}
+
+	@Override
+	public void stop() throws IOException {
+//		applicationPreferences.setLastWindowParameters(ApplicationPreferences.LAST_WINDOW,
+//				primaryStage);
+//		double[] dividers = controller.getSplitPane().getDividerPositions();
+//		applicationPreferences.setLastSplitPaneDividerPosition(dividers[0]);
+//		applicationPreferences.setLastLocaleLanguage(locale.getLanguage());
+		if (controller.isDirty()) {
+			controller.askAboutSaving();
+		}
 	}
 
 	private Boolean checkArguments(ResourceBundle bundle) {
@@ -97,7 +110,7 @@ public class Main extends Application {
 
 //	@Override
 	public Image getNewMainIconImage() {
-		Image img = ControllerUtilities.getIconImageFromURL(kApplicationIconResource,
+		Image img = ControllerUtilities.getIconImageFromURL(Constants.APPLICATION_ICON_RESOURCE,
 				Constants.RESOURCE_SOURCE_LOCATION);
 		return img;
 	}

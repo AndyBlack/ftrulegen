@@ -16,6 +16,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import netscape.javascript.JSObject;
 
@@ -54,6 +55,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.web.WebEngine;
@@ -159,6 +161,10 @@ public class MainController implements Initializable {
 	private static final ObservableResourceFactory RESOURCE_FACTORY = ObservableResourceFactory.getInstance();
 	static {
 		RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(Constants.RESOURCE_LOCATION, new Locale("en")));
+	}
+
+	public boolean isDirty() {
+		return changesMade;
 	}
 
 	public void setRuleGenFile(String value) {
@@ -642,7 +648,7 @@ public class MainController implements Initializable {
 			Scene scene = new Scene(pane);
 			dialogStage.setScene(scene);
 			dialogStage.setTitle(loader.getResources().getString("chooser.CategoryTitle"));
-			dialogStage.getIcons().add(ControllerUtilities.getIconImageFromURL("file:resources/FLExTransWindowIcon.png",
+			dialogStage.getIcons().add(ControllerUtilities.getIconImageFromURL(Constants.APPLICATION_ICON_RESOURCE,
 					Constants.RESOURCE_SOURCE_LOCATION));
 			dialogStage.showAndWait();
 			FLExCategory cat = controller.getCategoryChosen();
@@ -703,7 +709,7 @@ public class MainController implements Initializable {
 			Scene scene = new Scene(pane);
 			dialogStage.setScene(scene);
 			dialogStage.setTitle(loader.getResources().getString("chooser.FeatureValueTitle"));
-			dialogStage.getIcons().add(ControllerUtilities.getIconImageFromURL("file:resources/FLExTransWindowIcon.png",
+			dialogStage.getIcons().add(ControllerUtilities.getIconImageFromURL(Constants.APPLICATION_ICON_RESOURCE,
 					Constants.RESOURCE_SOURCE_LOCATION));
 			dialogStage.showAndWait();
 			FLExFeatureValue featValue = controller.getFeatureValueChosen();
@@ -923,6 +929,24 @@ public class MainController implements Initializable {
 
 	public void setStage(Stage stage) {
 		this.stage = stage;
+	}
+	public void askAboutSaving() {
+		Alert alert = new Alert(AlertType.CONFIRMATION, "");
+		alert.setTitle(bundle.getString("main.Title"));
+		alert.setHeaderText(RESOURCE_FACTORY.getStringBinding("file.asktosaveheader").get());
+		alert.setContentText(RESOURCE_FACTORY.getStringBinding("file.asktosavecontent").get());
+		ButtonType buttonYes = new ButtonType(bundle.getString("view.yes"), ButtonData.YES);
+		ButtonType buttonNo = new ButtonType(bundle.getString("view.no"), ButtonData.NO);
+		alert.getButtonTypes().setAll(buttonYes, buttonNo);
+
+		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+		stage.getIcons().add(ControllerUtilities.getIconImageFromURL(Constants.APPLICATION_ICON_RESOURCE,
+				Constants.RESOURCE_SOURCE_LOCATION));
+
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.YES) {
+			handleSave();
+		}
 	}
 
 }
