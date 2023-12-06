@@ -1,0 +1,1056 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xlingpaper PUBLIC "-//XMLmind//DTD XLingPap//EN"
+"XLingPap.dtd">
+<xlingpaper
+version="2.24.0"
+><styledPaper
+><lingPaper
+automaticallywrapinterlinears="yes"
+version="2.28.0"
+><frontMatter
+><title
+><object
+type="tAlloGen"
+></object
+> User Documentation</title
+><subtitle
+>UNDER CONSTRUCTION!</subtitle
+><author
+>H. Andrew Black</author
+><affiliation
+>SIL International</affiliation
+><emailAddress
+>blackhandrew@gmail.com</emailAddress
+><date
+>20 October, 2023</date
+><version
+>Copyright © 2023 SIL International</version
+><contents
+></contents
+></frontMatter
+><section1
+id="sIntro"
+><secTitle
+>Introduction</secTitle
+><p
+><object
+type="tAlloGen"
+></object
+> is a tool that works as a utility in <object
+type="tFieldWorks"
+></object
+> (aka <object
+type="tFLEx"
+></object
+>). <object
+type="tAlloGen"
+></object
+> allows you to define operations on a form in an entry to produce new <object
+type="tStemAllos"
+></object
+> in the entry of the matching form. You can use what is in the <object
+type="tCitationForm"
+></object
+>, Lexeme Form, or in the first Etymology Source form for what to match on. It is possible to use a custom field, too. <object
+type="tAlloGen"
+></object
+> defaults to using the <object
+type="tCitationForm"
+></object
+>.</p
+><p
+><object
+type="tAlloGen"
+></object
+> works with version <object
+type="tFLExVersion"
+></object
+> or higher of <object
+type="tFLEx"
+></object
+> and is only available on 64-bit Windows computers.</p
+><p
+>Each operation defined in <object
+type="tAlloGen"
+></object
+> describes a pattern that is used to match the indicated kind of form in the <object
+type="tFLEx"
+></object
+> database. There also is a set of actions that are to be applied to each such form. The result of the action will produce a new <object
+type="tStemAllo"
+></object
+> in that entry.</p
+><section2
+id="sInstallation"
+><secTitle
+>Installation</secTitle
+><p
+>To install <object
+type="tAlloGen"
+></object
+>, obtain the installer from <link
+href="https://github.com/sillsdev/FLExAllomorphGenerator/blob/master/Installer/Output/AllomorphGeneratorDllSetup.exe"
+>https://​github.​com/​sillsdev/​FLExAllomorphGenerator/​blob/​master/​Installer/​Output/​Allomorph​Generator​Dll​Setup.​exe</link
+>. The installer will check to see if you have installed <object
+type="tFieldWorks"
+></object
+> version 9. If not, it will abort.</p
+><p
+>We recommend that you close <object
+type="tFieldWorks"
+></object
+> before running the <object
+type="tAlloGen"
+></object
+> installer.</p
+></section2
+><section2
+id="sInvokingFromFLEx"
+><secTitle
+>Invoking <object
+type="tAlloGen"
+></object
+> from within <object
+type="tFLEx"
+></object
+></secTitle
+><p
+>While running <object
+type="tFLEx"
+></object
+>, use <object
+type="tMenuItem"
+>Tools</object
+> menu item / <object
+type="tMenuItem"
+>Utilities...</object
+>. Find the “Allomorph Generator” item, check it, and then click on the “Run Checked Utilities Now” button.</p
+></section2
+><section2
+id="sAppearance"
+><secTitle
+>Appearance</secTitle
+><p
+><object
+type="tAlloGen"
+></object
+> looks something like what is shown in <exampleRef
+letter="xAlloGenEditTab"
+num="xAlloGenEditTab"
+></exampleRef
+>.</p
+><example
+num="xAlloGenEditTab"
+><chart
+></chart
+></example
+><p
+>The top portion shows the file containing the allomorph generation operations. Below it are three tabs, one for editing the operations, one for running them, and one for editing the master list of replace operations. See section  for information on using the <object
+type="tEditTab"
+></object
+> tab. In one project, the <object
+type="tRunTab"
+></object
+> tab looks like what is in <exampleRef
+letter="xAlloGenRunTab"
+num="xAlloGenRunTab"
+></exampleRef
+>.</p
+><example
+num="xAlloGenRunTab"
+><chart
+></chart
+></example
+><p
+>This tab is explained in section  below. In this same project, the <object
+type="tEditReplaceTab"
+></object
+> tab looks like what is in <exampleRef
+letter="xAlloGenEditReplaceOpTab"
+num="xAlloGenEditReplaceOpTab"
+></exampleRef
+>.</p
+><example
+num="xAlloGenEditReplaceOpTab"
+><chart
+></chart
+></example
+><p
+>This tab is explained in section  below.</p
+><p
+>The “Create New File” button is used to create a new file containing a new set of operations. When saving an <object
+type="tAlloGen"
+></object
+> file, I suggest you put it in a folder under the “My FieldWorks” directory in your “Documents” folder.</p
+><p
+>The “Browse” button is used to select an operations file. <object
+type="tAlloGen"
+></object
+> files by convention have an extension of “.agf” and this is what the file browser uses.</p
+><p
+>The “Help” button is used to get this user documentation file or to show the “About” dialog box.</p
+></section2
+></section1
+><section1
+id="sRemembering"
+><secTitle
+>Restarting <object
+type="tAlloGen"
+></object
+></secTitle
+><p
+>Whenever you exit and restart <object
+type="tAlloGen"
+></object
+>, it will do the following:</p
+><ol
+><li
+>remember its window size, location, and layout;</li
+><li
+>remember which <object
+type="tAlloGen"
+></object
+> file you last chose;</li
+><li
+>remember which tab you last selected;</li
+><li
+>remember which operation you last selected for each tab.</li
+></ol
+></section1
+><section1
+id="sErrorMessage"
+><secTitle
+>Error messages</secTitle
+><p
+>In certain situations, <object
+type="tAlloGen"
+></object
+> will issue an error message.</p
+><p
+>Table <tablenumberedRef
+table="ntErrorMessages"
+></tablenumberedRef
+> lists the errors <object
+type="tAlloGen"
+></object
+> reports along with a brief description of what the error might mean.</p
+><tablenumbered
+id="ntErrorMessages"
+><table
+border="1"
+><caption
+>Error messages</caption
+><tr
+><th
+width="3in"
+>Error</th
+><th
+width="2.85in"
+>Meaning</th
+></tr
+><tr
+><td
+><object
+type="tErrorType"
+>The category '<object
+type="tItalic"
+>category name</object
+>' was not found in the FLEx database</object
+></td
+><td
+>The indicated category is no longer found in the <object
+type="tFLEx"
+> </object
+> project. Try to change it to one that is now present. This can appear when setting a <object
+type="tStemName"
+></object
+> in an action.</td
+></tr
+><tr
+XeLaTeXSpecial="row-separation='-6pt'"
+><td
+> </td
+><td
+> </td
+></tr
+><tr
+><td
+><object
+type="tErrorType"
+>No operations are selected, so there's nothing to do</object
+></td
+><td
+>This is shown when the <object
+type="tApplyOps"
+></object
+> button is pressed but no operations have been checked. Try checking at least one operation.</td
+></tr
+><tr
+XeLaTeXSpecial="row-separation='-6pt'"
+><td
+> </td
+><td
+> </td
+></tr
+><tr
+><td
+><object
+type="tErrorType"
+>The environment '<object
+type="tItalic"
+>environment</object
+>' is no longer found. Please fix it in operation '<object
+type="tItalic"
+>operation name</object
+>'.</object
+></td
+><td
+>The indicated environment is no longer in the <object
+type="tFLEx"
+> </object
+> project. You will need to fix it in the indicated operation.</td
+></tr
+><tr
+XeLaTeXSpecial="row-separation='-6pt'"
+><td
+> </td
+><td
+> </td
+></tr
+><tr
+><td
+><object
+type="tErrorType"
+>The stem name '<object
+type="tItalic"
+>stem name</object
+>' is no longer found. Please fix it in operation '<object
+type="tItalic"
+>operation name</object
+>'.</object
+></td
+><td
+>The indicated <object
+type="tStemName"
+></object
+> is no longer in the <object
+type="tFLEx"
+> </object
+> project. You will need to fix it in the indicated operation.</td
+></tr
+></table
+></tablenumbered
+><p
+>If you get an error message not in the list above, please report it. See section <sectionRef
+sec="sSupport"
+></sectionRef
+>.</p
+></section1
+><section1
+id="sKnownProblems"
+><secTitle
+>Known problems</secTitle
+><p
+>The following items are known to be less than desirable with this version of <object
+type="tAlloGen"
+></object
+>:</p
+><ol
+><li
+><object
+type="tAlloGen"
+></object
+> only works with version <object
+type="tFLExVersion"
+></object
+> or higher of <object
+type="tFLEx"
+></object
+>.</li
+><li
+>The user interface is in English only.</li
+><li
+>When you start <object
+type="tAlloGen"
+></object
+>, if <object
+type="tFLEx"
+></object
+> is showing as full screen, you may not see the <object
+type="tAlloGen"
+></object
+> dialog. You may have to either make <object
+type="tFLEx"
+></object
+> be in its “Restore” mode or find the <object
+type="tAlloGen"
+></object
+> dialog and move it to another screen.</li
+><li
+>Whenever you upgrade your version of <object
+type="tFLEx"
+></object
+>, you may have to re-install <object
+type="tAlloGen"
+></object
+>. In particular, the “Allomorph Generator” item under <object
+type="tMenuItem"
+>Tools</object
+> menu item / <object
+type="tMenuItem"
+>Utilities...</object
+> may not show.</li
+></ol
+></section1
+><section1
+id="sSupport"
+><secTitle
+>Support</secTitle
+><p
+>If you have any questions with <object
+type="tAlloGen"
+></object
+> or find bugs in it, please send an email to <link
+href="mailto:blackhandrew@gmail.com"
+>blackhandrew@gmail.com</link
+>.</p
+></section1
+><backMatter
+><endnotes
+></endnotes
+><references
+></references
+></backMatter
+><languages
+><language
+id="lVernacular"
+name="vernacular"
+></language
+><language
+id="lGloss"
+name="gloss"
+></language
+><language
+id="en"
+></language
+><language
+font-family="Ezra SIL"
+id="lHebrew"
+></language
+><language
+color="black"
+font-family="Courier New"
+id="lTreeExample"
+></language
+></languages
+><types
+><comment
+>The following types are provided as pre-set examples. You may well want to create your own types that refer to one or more of these. You do that by typing in the names of the types in the types attribute of your type.</comment
+><type
+font-weight="bold"
+id="tBold"
+></type
+><type
+font-style="italic"
+font-weight="bold"
+id="tBoldItalic"
+></type
+><type
+font-weight="bold"
+id="tEmphasis"
+></type
+><type
+id="tGrammaticalGloss"
+types="tSmallCaps"
+></type
+><type
+font-style="italic"
+id="tItalic"
+></type
+><type
+cssSpecial="text-decoration:none"
+id="tNoOverline"
+xsl-foSpecial="text-decoration=&quot;no-overline&quot;"
+></type
+><type
+font-variant="normal"
+id="tNoSmallCaps"
+></type
+><type
+cssSpecial="text-decoration:none"
+id="tNoStrikethrough"
+xsl-foSpecial="text-decoration=&quot;no-line-through&quot;"
+></type
+><type
+cssSpecial="text-decoration:none"
+id="tNoUnderline"
+xsl-foSpecial="text-decoration=&quot;no-underline&quot;"
+></type
+><type
+cssSpecial="text-decoration:overline"
+id="tOverline"
+xsl-foSpecial="text-decoration=&quot;overline&quot;"
+></type
+><type
+font-style="normal"
+font-variant="normal"
+font-weight="normal"
+id="tRegular"
+></type
+><type
+font-family="Charis SIL Small Caps"
+id="tSmallCaps"
+></type
+><type
+XeLaTeXSpecial="line-through"
+cssSpecial="text-decoration:line-through"
+id="tStrikethrough"
+xsl-foSpecial="text-decoration=&quot;line-through&quot;"
+></type
+><type
+XeLaTeXSpecial="subscript"
+cssSpecial="vertical-align:sub;"
+font-size="65%"
+id="tSubscript"
+xsl-foSpecial="baseline-shift='sub'"
+></type
+><type
+XeLaTeXSpecial="superscript"
+cssSpecial="vertical-align:super;"
+font-size="65%"
+id="tSuperscript"
+xsl-foSpecial="baseline-shift='super'"
+></type
+><type
+XeLaTeXSpecial="underline"
+cssSpecial="text-decoration:underline"
+id="tUnderline"
+xsl-foSpecial="text-decoration=&quot;underline&quot;"
+></type
+><comment
+>Add your custom types here.</comment
+><type
+before="FLExTrans Rule Generator"
+color="navy"
+font-style="italic"
+id="tAlloGen"
+></type
+><type
+before="“Apply Checked Operations”"
+id="tApplyOps"
+></type
+><type
+before="Citation Form"
+id="tCitationForm"
+></type
+><type
+before="Citation Forms"
+id="tCitationForms"
+></type
+><type
+id="tDialogTitle"
+></type
+><type
+before="Edit Operations"
+id="tEditTab"
+></type
+><type
+before="Edit Replace Operations"
+id="tEditReplaceTab"
+></type
+><type
+color="#800080"
+font-family="Arial"
+font-size="12pt"
+font-style="italic"
+id="tEmpty"
+></type
+><type
+color="black"
+font-style="italic"
+id="tErrorMessageItem"
+></type
+><type
+color="red"
+id="tErrorType"
+></type
+><type
+color="blue"
+font-family="Arial"
+id="tGloss"
+></type
+><type
+color="#009900"
+font-family="Charis SIL"
+font-weight="bold"
+id="tKey"
+></type
+><type
+color="red"
+font-family="Arial"
+font-size="12pt"
+id="tLexical"
+></type
+><type
+color="maroon"
+id="tMenuItem"
+></type
+><type
+color="black"
+font-family="Arial"
+font-size="12pt"
+id="tNonterminal"
+></type
+><type
+before="9.1.18 Beta"
+id="tFLExVersion"
+></type
+><type
+before="700072"
+id="tFWDatabaseVersion"
+></type
+><type
+before="FieldWorks Language Explorer"
+color="navy"
+font-style="italic"
+id="tFieldWorks"
+></type
+><type
+before="FLEx"
+color="navy"
+font-style="italic"
+id="tFLEx"
+></type
+><type
+before="Run Operations"
+id="tRunTab"
+></type
+><type
+before="Stem Allomorph"
+id="tStemAllo"
+></type
+><type
+before="Stem Allomorphs"
+id="tStemAllos"
+></type
+><type
+before="Stem Name"
+id="tStemName"
+></type
+><type
+color="black"
+font-family="Monospaced"
+font-weight="bold"
+id="tSynTagmeme"
+></type
+><type
+color="navy"
+id="tTool"
+></type
+><type
+before="Variant Generator"
+color="navy"
+font-style="italic"
+id="tVarGen"
+></type
+><type
+color="purple"
+id="tView"
+></type
+><type
+before="XMLmind XML Editor"
+color="navy"
+font-style="italic"
+id="tXXE"
+></type
+></types
+></lingPaper
+><publisherStyleSheet
+><publisherStyleSheetName
+>SIL International Paper Stylesheet</publisherStyleSheetName
+><publisherStyleSheetVersion
+>0.4.5</publisherStyleSheetVersion
+><pageLayout
+><pageWidth
+>8.5in</pageWidth
+><pageHeight
+>11in</pageHeight
+><pageTopMargin
+>.7in</pageTopMargin
+><pageBottomMargin
+>.675in</pageBottomMargin
+><pageInsideMargin
+>1.5in</pageInsideMargin
+><pageOutsideMargin
+>1in</pageOutsideMargin
+><useThesisSubmissionStyle
+></useThesisSubmissionStyle
+><headerMargin
+>.25in</headerMargin
+><footerMargin
+>.25in</footerMargin
+><paragraphIndent
+>1em</paragraphIndent
+><blockQuoteIndent
+>.125in</blockQuoteIndent
+><lineSpacing
+></lineSpacing
+><defaultFontFamily
+>Charis SIL</defaultFontFamily
+><basicPointSize
+>12</basicPointSize
+><footnotePointSize
+>10</footnotePointSize
+><footnoteLine
+leaderlength="2in"
+leaderpattern="rule"
+textalign="left"
+></footnoteLine
+><linkLayout
+color="blue"
+decoration="underline"
+><abbrRefLinkLayout
+></abbrRefLinkLayout
+><appendixRefLinkLayout
+></appendixRefLinkLayout
+><citationLinkLayout
+></citationLinkLayout
+><contentsLinkLayout
+></contentsLinkLayout
+><endnoteRefLinkLayout
+></endnoteRefLinkLayout
+><exampleRefLinkLayout
+></exampleRefLinkLayout
+><genericRefLinkLayout
+></genericRefLinkLayout
+><indexLinkLayout
+></indexLinkLayout
+><interlinearRefLinkLayout
+></interlinearRefLinkLayout
+><linkLinkLayout
+></linkLinkLayout
+><sectionRefLinkLayout
+></sectionRefLinkLayout
+><urlLinkLayout
+></urlLinkLayout
+></linkLayout
+><headerFooterPageStyles
+font-family="Times New Roman"
+font-size="9pt"
+font-style="italic"
+><headerFooterFirstPage
+><header
+><leftHeaderFooterItem
+><nothing
+></nothing
+></leftHeaderFooterItem
+><centerHeaderFooterItem
+><nothing
+></nothing
+></centerHeaderFooterItem
+><rightHeaderFooterItem
+><nothing
+></nothing
+></rightHeaderFooterItem
+></header
+><footer
+><leftHeaderFooterItem
+><nothing
+></nothing
+></leftHeaderFooterItem
+><centerHeaderFooterItem
+><pageNumber
+font-size="smaller"
+font-style="italic"
+></pageNumber
+></centerHeaderFooterItem
+><rightHeaderFooterItem
+><nothing
+></nothing
+></rightHeaderFooterItem
+></footer
+></headerFooterFirstPage
+><headerFooterOddEvenPages
+><headerFooterEvenPage
+><header
+><leftHeaderFooterItem
+><pageNumber
+font-size="smaller"
+font-style="italic"
+></pageNumber
+></leftHeaderFooterItem
+><centerHeaderFooterItem
+><nothing
+></nothing
+></centerHeaderFooterItem
+><rightHeaderFooterItem
+><paperTitle
+font-size="smaller"
+font-style="italic"
+></paperTitle
+></rightHeaderFooterItem
+></header
+><footer
+><leftHeaderFooterItem
+><nothing
+></nothing
+></leftHeaderFooterItem
+><centerHeaderFooterItem
+><nothing
+></nothing
+></centerHeaderFooterItem
+><rightHeaderFooterItem
+><nothing
+></nothing
+></rightHeaderFooterItem
+></footer
+></headerFooterEvenPage
+><headerFooterOddPage
+><header
+><leftHeaderFooterItem
+><sectionTitle
+font-size="smaller"
+font-style="italic"
+></sectionTitle
+></leftHeaderFooterItem
+><centerHeaderFooterItem
+><nothing
+></nothing
+></centerHeaderFooterItem
+><rightHeaderFooterItem
+><pageNumber
+font-size="smaller"
+font-style="italic"
+></pageNumber
+></rightHeaderFooterItem
+></header
+><footer
+><leftHeaderFooterItem
+><nothing
+></nothing
+></leftHeaderFooterItem
+><centerHeaderFooterItem
+><nothing
+></nothing
+></centerHeaderFooterItem
+><rightHeaderFooterItem
+><nothing
+></nothing
+></rightHeaderFooterItem
+></footer
+></headerFooterOddPage
+></headerFooterOddEvenPages
+></headerFooterPageStyles
+></pageLayout
+><frontMatterLayout
+><comment
+>Front Matter Layout</comment
+><titleLayout
+font-size="18pt"
+font-weight="bold"
+pagebreakbefore="yes"
+spacebefore="1.25in"
+startonoddpage="yes"
+textalign="center"
+></titleLayout
+><subtitleLayout
+font-size="14pt"
+font-weight="bold"
+textalign="center"
+></subtitleLayout
+><authorLayout
+font-style="italic"
+textalign="center"
+></authorLayout
+><affiliationLayout
+font-style="italic"
+textalign="center"
+></affiliationLayout
+><emailAddressLayout
+font-size="90%"
+textalign="center"
+></emailAddressLayout
+><presentedAtLayout
+font-size="10pt"
+textalign="center"
+textbefore="Presented at "
+></presentedAtLayout
+><dateLayout
+font-size="10pt"
+textalign="center"
+></dateLayout
+><versionLayout
+font-size="10pt"
+textalign="center"
+></versionLayout
+><contentsLayout
+font-size="14pt"
+font-weight="bold"
+spaceafter="12pt"
+spacebefore="24pt"
+textalign="center"
+useperiodafterappendixletter="yes"
+></contentsLayout
+><abstractLayout
+font-size="14pt"
+font-weight="bold"
+spaceafter="12pt"
+spacebefore="24pt"
+textalign="center"
+></abstractLayout
+><acknowledgementsLayout
+font-size="14pt"
+font-weight="bold"
+spaceafter="12pt"
+spacebefore="24pt"
+textalign="center"
+></acknowledgementsLayout
+><prefaceLayout
+font-size="14pt"
+font-weight="bold"
+spaceafter="12pt"
+spacebefore="24pt"
+textalign="center"
+></prefaceLayout
+></frontMatterLayout
+><bodyLayout
+><comment
+>Body Layout</comment
+><section1Layout
+><sectionTitleLayout
+font-size="14pt"
+font-weight="bold"
+spaceafter="12pt"
+spacebefore="24pt"
+textalign="center"
+></sectionTitleLayout
+></section1Layout
+><section2Layout
+><sectionTitleLayout
+font-size="12pt"
+font-weight="bold"
+spaceafter="12pt"
+spacebefore="12pt"
+textalign="start"
+></sectionTitleLayout
+></section2Layout
+><section3Layout
+><sectionTitleLayout
+font-style="italic"
+font-weight="bold"
+spaceafter="12pt"
+spacebefore="12pt"
+textalign="start"
+></sectionTitleLayout
+></section3Layout
+><section4Layout
+><sectionTitleLayout
+font-style="italic"
+spaceafter="12pt"
+spacebefore="12pt"
+textalign="start"
+></sectionTitleLayout
+></section4Layout
+><section5Layout
+ignore="yes"
+><sectionTitleLayout
+></sectionTitleLayout
+></section5Layout
+><section6Layout
+ignore="yes"
+><sectionTitleLayout
+></sectionTitleLayout
+></section6Layout
+></bodyLayout
+><backMatterLayout
+><comment
+>Back Matter Layout</comment
+><acknowledgementsLayout
+font-size="14pt"
+font-weight="bold"
+spaceafter="12pt"
+spacebefore="24pt"
+textalign="center"
+></acknowledgementsLayout
+><appendixLayout
+><appendixTitleLayout
+font-size="14pt"
+font-weight="bold"
+spaceafter="12pt"
+spacebefore="24pt"
+textafterletter=". "
+textalign="center"
+></appendixTitleLayout
+></appendixLayout
+><glossaryLayout
+font-size="14pt"
+font-weight="bold"
+spaceafter="12pt"
+spacebefore="24pt"
+textalign="center"
+></glossaryLayout
+><referencesTitleLayout
+font-size="14pt"
+font-weight="bold"
+spaceafter="12pt"
+spacebefore="24pt"
+textalign="center"
+></referencesTitleLayout
+><xi:include
+href="SILInternationalReferencesStylesheet.xml"
+xpointer="element(/1)"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+></xi:include
+><indexLayout
+font-size="14pt"
+font-weight="bold"
+spaceafter="12pt"
+spacebefore="24pt"
+textalign="center"
+></indexLayout
+></backMatterLayout
+><contentLayout
+><comment
+>Document Content Layout</comment
+><exampleLayout
+indent-after=".125in"
+indent-before=".125in"
+></exampleLayout
+><interlinearSourceStyle
+></interlinearSourceStyle
+><endnoteRefLayout
+></endnoteRefLayout
+><figureLayout
+captionLocation="after"
+><figureLabelLayout
+textafter=" "
+></figureLabelLayout
+><figureNumberLayout
+></figureNumberLayout
+><figureCaptionLayout
+textbefore=" "
+></figureCaptionLayout
+></figureLayout
+><figureRefLayout
+></figureRefLayout
+><tablenumberedLayout
+captionLocation="after"
+><tablenumberedLabelLayout
+font-weight="bold"
+textafter=" "
+></tablenumberedLabelLayout
+><tablenumberedNumberLayout
+textafter=": "
+></tablenumberedNumberLayout
+><tablenumberedCaptionLayout
+font-style="italic"
+textbefore="  "
+></tablenumberedCaptionLayout
+></tablenumberedLayout
+><tablenumberedRefLayout
+></tablenumberedRefLayout
+></contentLayout
+></publisherStyleSheet
+></styledPaper
+></xlingpaper
+>

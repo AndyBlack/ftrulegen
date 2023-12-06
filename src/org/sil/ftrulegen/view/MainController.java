@@ -6,13 +6,14 @@
 
 package org.sil.ftrulegen.view;
 
+import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
+import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -55,6 +56,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -69,7 +71,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseButton;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 /**
  * 
@@ -94,6 +97,8 @@ public class MainController implements Initializable {
 	ListView<FLExTransRule> lvRules;
 	@FXML
 	CheckBox cbCreatePermutations;
+	@FXML
+	Button btnHelp;
 
 	ContextMenu affixEditContextMenu = new ContextMenu();
 	MenuItem cmAffixDuplicate;
@@ -114,6 +119,10 @@ public class MainController implements Initializable {
 	ContextMenu featureEditContextMenu = new ContextMenu();
 	MenuItem cmFeatureEdit;
 	MenuItem cmFeatureDelete;
+
+	ContextMenu helpContextMenu = new ContextMenu();
+	MenuItem cmHelpAbout;
+	MenuItem cmHelpUserDocumentation;
 
 	ContextMenu ruleEditContextMenu = new ContextMenu();
 	MenuItem cmRuleInsertBefore;
@@ -151,6 +160,7 @@ public class MainController implements Initializable {
 	String flexDataFile = "";
 	FLExData flexData;
 	int maxVariables = 4;
+	Image flexTransImage;
 
 	Affix affix;
 	Category category;
@@ -167,6 +177,10 @@ public class MainController implements Initializable {
 
 	public boolean isDirty() {
 		return changesMade;
+	}
+
+	public void setFLExTransImage(Image value) {
+		flexTransImage = value;
 	}
 
 	public void setRuleGenFile(String value) {
@@ -306,6 +320,7 @@ public class MainController implements Initializable {
 		createAffixContextMenuItems();
 		createCategoryContextMenuItems();
 		createFeatureContextMenuItems();
+		createHelpContextMenuItems();
 		createRuleContextMenuItems();
 		createWordContextMenuItems();
 	}
@@ -409,6 +424,18 @@ public class MainController implements Initializable {
 			handleFeatureDelete();
 		});
 		featureEditContextMenu.getItems().addAll(cmFeatureEdit, new SeparatorMenuItem(), cmFeatureDelete);
+	}
+
+	void createHelpContextMenuItems() {
+		cmHelpAbout = new MenuItem(bundle.getString("view.About"));
+		cmHelpAbout.setOnAction((event) -> {
+			handleHelpAbout();
+		});
+		cmHelpUserDocumentation = new MenuItem(bundle.getString("view.UserDocumentation"));
+		cmHelpUserDocumentation.setOnAction((event) -> {
+			handleHelpUserDocumentation();
+		});
+		helpContextMenu.getItems().addAll(cmHelpUserDocumentation, new SeparatorMenuItem(), cmHelpAbout);
 	}
 
 	void createWordContextMenuItems() {
@@ -731,6 +758,51 @@ public class MainController implements Initializable {
 		}
 	}
 
+	public void handleHelp() {
+		helpContextMenu.show(btnHelp, null, 15.0, 15.0);
+	}
+
+	@FXML
+	private void handleHelpAbout() {
+		String sAboutHeader = RESOURCE_FACTORY.getStringBinding("about.header").get();
+		Object[] args = { Constants.VERSION_NUMBER };
+		MessageFormat msgFormatter = new MessageFormat("");
+		msgFormatter.setLocale(new Locale("en"));
+		msgFormatter.applyPattern(RESOURCE_FACTORY.getStringBinding("about.content").get());
+		String sAboutContent = msgFormatter.format(args);
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle(sAboutHeader);
+		alert.setHeaderText(null);
+		alert.setContentText(sAboutContent);
+		Image silLogo = ControllerUtilities.getIconImageFromURL(
+				"file:resources/images/SILLogo.png", Constants.RESOURCE_SOURCE_LOCATION);
+		alert.setGraphic(new ImageView(silLogo));
+		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+		stage.getIcons().add(flexTransImage);
+		alert.showAndWait();
+	}
+
+	@FXML
+	private void handleHelpUserDocumentation() {
+		showFileToUser("doc/FLExTransRuleGenUserDocumentation.pdf");
+	}
+
+	protected void showFileToUser(String sFileToShow) {
+//		if (!mainApp.getOperatingSystem().equals("Mac OS X")) {
+//			HostServicesDelegate hostServices = HostServicesFactory.getInstance(mainApp);
+//			hostServices.showDocument("file:" + sFileToShow);
+//		} else {
+			if (Desktop.isDesktopSupported()) {
+				try {
+					File myFile = new File(sFileToShow);
+					Desktop.getDesktop().open(myFile);
+				} catch (IOException ex) {
+					// no application registered for PDFs
+				}
+			}
+//		}
+	}
+
 	public void handleRuleDelete() {
 		generator.getFLExTransRules().remove(selectedRuleIndex);
 		lvRules.getItems().remove(selectedRuleIndex);
@@ -875,6 +947,7 @@ public class MainController implements Initializable {
 		reportChangesMade();
 	}
 
+	@FXML
 	public void handleSave() {
 		provider.saveDataToFile(ruleGenFile);
 		markAsChanged(false);

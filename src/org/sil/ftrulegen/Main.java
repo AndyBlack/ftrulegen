@@ -34,6 +34,7 @@ public class Main extends Application {
 	static String[] arguments;
 	MainController controller;
 	int maxVariables = 4;
+	Image flexTransImage;
 
 	@FXML
 	private BorderPane mainPane;
@@ -75,6 +76,7 @@ public class Main extends Application {
 				controller.setFLexDataFile(arguments[1]);
 				controller.loadDataFiles();
 				controller.setMaxVariables(maxVariables);
+				controller.setFLExTransImage(flexTransImage);
 			}
 			primaryStage.show();
 		} catch (Exception e) {
@@ -134,9 +136,9 @@ public class Main extends Application {
 
 //	@Override
 	public Image getNewMainIconImage() {
-		Image img = ControllerUtilities.getIconImageFromURL(Constants.APPLICATION_ICON_RESOURCE,
+		flexTransImage = ControllerUtilities.getIconImageFromURL(Constants.APPLICATION_ICON_RESOURCE,
 				Constants.RESOURCE_SOURCE_LOCATION);
-		return img;
+		return flexTransImage;
 	}
 
 	private static void writeHelp(ResourceBundle bundle) {

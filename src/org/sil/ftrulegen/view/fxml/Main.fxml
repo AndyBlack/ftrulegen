@@ -34,7 +34,7 @@
                   <ButtonBar layoutX="852.0" layoutY="21.0" AnchorPane.rightAnchor="13.0">
                      <buttons>
                         <Button mnemonicParsing="false" onAction="#handleSave" text="%view.Save" />
-                        <Button mnemonicParsing="false" text="%view.Help" />
+                        <Button mnemonicParsing="false" onAction="#handleHelp" text="%view.Help" fx:id="btnHelp" />
                      </buttons>
                   </ButtonBar>
                   <Label layoutX="6.0" layoutY="43.0" text="%view.RuleName" />
