@@ -63,7 +63,7 @@ public class FLExFeatureValueChooserController implements Initializable {
 		lvFeatureValues.getItems().clear();
 		for (FLExFeature feature : features) {
 			lvFeatureValues.getItems().addAll(feature.getValues());
-			for (int i = 0; i < maxVariables; i++) {
+			for (int i = 0; i < maxVariables && i < variables.length; i++) {
 				FLExFeatureValue variableValue = new FLExFeatureValue(variables[i]);
 				variableValue.setFeature(feature);
 				lvFeatureValues.getItems().add(variableValue);

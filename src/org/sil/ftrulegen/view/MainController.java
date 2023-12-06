@@ -150,6 +150,7 @@ public class MainController implements Initializable {
 	String ruleGenFile = "";
 	String flexDataFile = "";
 	FLExData flexData;
+	int maxVariables = 4;
 
 	Affix affix;
 	Category category;
@@ -174,6 +175,10 @@ public class MainController implements Initializable {
 
 	public void setFLexDataFile(String value) {
 		flexDataFile = value;
+	}
+
+	public void setMaxVariables(int value) {
+		maxVariables = value;
 	}
 
 	@Override
@@ -706,6 +711,7 @@ public class MainController implements Initializable {
 			AnchorPane pane = loader.load();
 			FLExFeatureValueChooserController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
+			controller.setMaxVariables(maxVariables);
 			controller.setFeatures(features);
 			controller.selectFLExFeatureValue(feature);
 			Scene scene = new Scene(pane);
@@ -729,9 +735,6 @@ public class MainController implements Initializable {
 		generator.getFLExTransRules().remove(selectedRuleIndex);
 		lvRules.getItems().remove(selectedRuleIndex);
 		lvRules.requestFocus();
-//			lvRules.getSelectionModel().select(iListViewindex);
-//			lvRules.getFocusModel().focus(iListViewindex);
-//			lvRules.scrollTo(iListViewindex);
 		lvRules.refresh();
 		markAsChanged(true);
 	}

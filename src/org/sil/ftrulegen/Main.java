@@ -9,6 +9,7 @@ package org.sil.ftrulegen;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -16,6 +17,7 @@ import org.sil.ftrulegen.view.MainController;
 import org.sil.utility.view.ControllerUtilities;
 //import org.sil.utility.view.ControllerUtilities;
 //import org.sil.utility.view.ObservableResourceFactory;
+import org.sil.utility.view.ObservableResourceFactory;
 
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -31,6 +33,7 @@ public class Main extends Application {
 	private Locale locale;
 	static String[] arguments;
 	MainController controller;
+	int maxVariables = 4;
 
 	@FXML
 	private BorderPane mainPane;
@@ -39,6 +42,12 @@ public class Main extends Application {
 	@FXML
 	private WebEngine webEngine;
 
+	// following lines from
+	// https://stackoverflow.com/questions/32464974/javafx-change-application-language-on-the-run
+	private static final ObservableResourceFactory RESOURCE_FACTORY = ObservableResourceFactory.getInstance();
+	static {
+		RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(Constants.RESOURCE_LOCATION, new Locale("en")));
+	}
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -65,6 +74,7 @@ public class Main extends Application {
 				controller.setRuleGenFile(arguments[0]);
 				controller.setFLexDataFile(arguments[1]);
 				controller.loadDataFiles();
+				controller.setMaxVariables(maxVariables);
 			}
 			primaryStage.show();
 		} catch (Exception e) {
@@ -105,6 +115,20 @@ public class Main extends Application {
 			System.out.println(bundle.getString("main.FLExDataSourceTargetFileNotFound"));
 			return false;
 		}
+
+		if (arguments.length >= 3) {
+			try {
+				maxVariables = Integer.parseInt(arguments[2]);
+			} catch (NumberFormatException e) {
+				Object[] args = { arguments[2] };
+				MessageFormat msgFormatter = new MessageFormat("");
+				msgFormatter.setLocale(new Locale("en"));
+				msgFormatter.applyPattern(RESOURCE_FACTORY.getStringBinding("main.MaxVariablesNotAnInteger").get());
+				System.out.println(msgFormatter.format(args));
+				return false;
+			}
+		}
+
 		return true;
 	}
 
