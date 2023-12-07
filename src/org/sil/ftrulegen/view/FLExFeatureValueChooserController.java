@@ -11,11 +11,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import org.sil.ftrulegen.ApplicationPreferences;
-import org.sil.ftrulegen.Main;
-import org.sil.ftrulegen.flexmodel.FLExCategory;
 import org.sil.ftrulegen.flexmodel.FLExFeature;
 import org.sil.ftrulegen.flexmodel.FLExFeatureValue;
-import org.sil.ftrulegen.model.Category;
 import org.sil.ftrulegen.model.Feature;
 
 import javafx.application.Platform;
@@ -34,7 +31,6 @@ public class FLExFeatureValueChooserController implements Initializable {
 
 	Stage dialogStage;
 	ApplicationPreferences prefs;
-	Main main;
 	FLExFeatureValue featureValueChosen = null;
 	boolean okClicked = false;
 	int maxVariables = 4;
@@ -57,10 +53,6 @@ public class FLExFeatureValueChooserController implements Initializable {
 		dialogStage = value;
 		prefs = ApplicationPreferences.getInstance();
 		dialogStage = prefs.getLastWindowParameters(ApplicationPreferences.LAST_FEATURE_CHOOSER, dialogStage, 485.0, 580.0);
-	}
-
-	public void setMain(Main value) {
-		main = value;
 	}
 
 	public void setFeatures(List<FLExFeature> features) {
