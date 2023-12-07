@@ -80,9 +80,8 @@ public class Main extends Application {
 			controller = loader.getController();
 			if (controller != null) {
 				// the position changes somehow, somewhere so not doing this
-//				double dividerPosition = applicationPreferences.getLastSplitPaneDividerPosition();
-//				System.out.println("get: " + dividerPosition);
-//				controller.getSplitPane().setDividerPosition(0, dividerPosition);
+				double dividerPosition = applicationPreferences.getLastSplitPaneDividerPosition();
+				controller.getSplitPane().setDividerPosition(0, dividerPosition);
 				controller.setStage(primaryStage);
 				controller.setRuleGenFile(arguments[0]);
 				controller.setFLexDataFile(arguments[1]);
@@ -107,12 +106,7 @@ public class Main extends Application {
 		applicationPreferences.setLastWindowParameters(ApplicationPreferences.LAST_WINDOW,
 				primaryStage);
 		double[] dividers = controller.getSplitPane().getDividerPositions();
-		System.out.println("dividers:");
-		for (int i = 0; i < dividers.length; i++) {
-			System.out.println("\t" + i + "=" + dividers[i]);
-		}
 		applicationPreferences.setLastSplitPaneDividerPosition(dividers[0]);
-		System.out.println("set: " + dividers[0]);
 		applicationPreferences.setLastLocaleLanguage(locale.getLanguage());
 		if (controller.isDirty()) {
 			controller.askAboutSaving();

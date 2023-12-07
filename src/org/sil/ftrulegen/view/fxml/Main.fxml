@@ -18,7 +18,7 @@
    <center>
       <SplitPane fx:id="splitPane" dividerPositions="0.29797979797979796" prefHeight="500.0" prefWidth="1500.0" BorderPane.alignment="CENTER">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane fx:id="rulesPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
                   <Label fx:id="lblRules" layoutX="10.0" layoutY="46.0" text="%view.Rules" />
                   <ListView fx:id="lvRules" layoutX="28.0" layoutY="71.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="71.0" />
@@ -28,7 +28,7 @@
                      </font></Label>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="1200.0">
+          <AnchorPane fx:id="browserPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="1200.0">
                <children>
                   <WebView fx:id="browser" layoutX="31.0" layoutY="125.0" prefHeight="300.0" prefWidth="1900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="71.0" />
                   <ButtonBar layoutX="852.0" layoutY="21.0" AnchorPane.rightAnchor="13.0">

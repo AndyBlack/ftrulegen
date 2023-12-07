@@ -87,6 +87,10 @@ public class MainController implements Initializable {
 	@FXML
 	SplitPane splitPane;
 	@FXML
+	AnchorPane rulesPane;
+	@FXML
+	AnchorPane browserPane;
+	@FXML
 	private WebView browser;
 	@FXML
 	private WebEngine webEngine;
@@ -270,6 +274,8 @@ public class MainController implements Initializable {
 
 		createContextMenuItems();
 
+		SplitPane.setResizableWithParent(rulesPane, false);
+		SplitPane.setResizableWithParent(browserPane, false);
 		webEngine.load(webPageFileUri);
 		lblRightClickToEdit.setLayoutX(lblRules.getLayoutX() + 40);
 	}
