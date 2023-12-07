@@ -24,6 +24,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.web.WebEngine;
@@ -32,9 +33,11 @@ import javafx.scene.web.WebView;
 public class Main extends Application {
 	private Locale locale;
 	static String[] arguments;
+	private Stage primaryStage;
 	MainController controller;
 	int maxVariables = 4;
 	Image flexTransImage;
+	private ApplicationPreferences applicationPreferences;
 
 	@FXML
 	private BorderPane mainPane;
@@ -49,11 +52,14 @@ public class Main extends Application {
 	static {
 		RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(Constants.RESOURCE_LOCATION, new Locale("en")));
 	}
+
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-//			locale = new Locale(applicationPreferences.getLastLocaleLanguage());
-			locale = new Locale("en");
+			applicationPreferences = ApplicationPreferences.getInstance();
+			applicationPreferences.setObject(this);
+			locale = new Locale(applicationPreferences.getLastLocaleLanguage());
+
 			BorderPane root = new BorderPane();
 			// Load root layout from fxml file.
 			FXMLLoader loader = new FXMLLoader();
@@ -69,8 +75,14 @@ public class Main extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(loader.getResources().getString("main.Title"));
 			primaryStage.getIcons().add(getNewMainIconImage());
+			this.primaryStage = primaryStage;
+			restoreWindowSettings();
 			controller = loader.getController();
 			if (controller != null) {
+				// the position changes somehow, somewhere so not doing this
+//				double dividerPosition = applicationPreferences.getLastSplitPaneDividerPosition();
+//				System.out.println("get: " + dividerPosition);
+//				controller.getSplitPane().setDividerPosition(0, dividerPosition);
 				controller.setStage(primaryStage);
 				controller.setRuleGenFile(arguments[0]);
 				controller.setFLexDataFile(arguments[1]);
@@ -92,11 +104,16 @@ public class Main extends Application {
 
 	@Override
 	public void stop() throws IOException {
-//		applicationPreferences.setLastWindowParameters(ApplicationPreferences.LAST_WINDOW,
-//				primaryStage);
-//		double[] dividers = controller.getSplitPane().getDividerPositions();
-//		applicationPreferences.setLastSplitPaneDividerPosition(dividers[0]);
-//		applicationPreferences.setLastLocaleLanguage(locale.getLanguage());
+		applicationPreferences.setLastWindowParameters(ApplicationPreferences.LAST_WINDOW,
+				primaryStage);
+		double[] dividers = controller.getSplitPane().getDividerPositions();
+		System.out.println("dividers:");
+		for (int i = 0; i < dividers.length; i++) {
+			System.out.println("\t" + i + "=" + dividers[i]);
+		}
+		applicationPreferences.setLastSplitPaneDividerPosition(dividers[0]);
+		System.out.println("set: " + dividers[0]);
+		applicationPreferences.setLastLocaleLanguage(locale.getLanguage());
 		if (controller.isDirty()) {
 			controller.askAboutSaving();
 		}
@@ -132,6 +149,11 @@ public class Main extends Application {
 		}
 
 		return true;
+	}
+
+	private void restoreWindowSettings() {
+		primaryStage = applicationPreferences.getLastWindowParameters(
+				ApplicationPreferences.LAST_WINDOW, primaryStage, 660.0, 1000.);
 	}
 
 //	@Override

@@ -12,6 +12,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Stream;
 
+import org.sil.ftrulegen.ApplicationPreferences;
 import org.sil.ftrulegen.Main;
 import org.sil.ftrulegen.flexmodel.FLExCategory;
 import org.sil.ftrulegen.model.Category;
@@ -31,6 +32,7 @@ public class FLExCategoryChooserController implements Initializable {
 	ListView<FLExCategory> lvCategories;
 
 	Stage dialogStage;
+	ApplicationPreferences prefs;
 	Main main;
 	FLExCategory catChosen = null;
 	boolean okClicked = false;
@@ -41,6 +43,8 @@ public class FLExCategoryChooserController implements Initializable {
 
 	public void setDialogStage(Stage value) {
 		dialogStage = value;
+		prefs = ApplicationPreferences.getInstance();
+		dialogStage = prefs.getLastWindowParameters(ApplicationPreferences.LAST_CATEGORY_CHOOSER, dialogStage, 485.0, 580.0);
 	}
 
 	public void setMain(Main value) {
@@ -105,6 +109,7 @@ public class FLExCategoryChooserController implements Initializable {
 
 	public void handleCancel() {
 		// set any preferences
+		prefs.setLastWindowParameters(ApplicationPreferences.LAST_CATEGORY_CHOOSER, dialogStage);
 		dialogStage.close();
 	}
 }

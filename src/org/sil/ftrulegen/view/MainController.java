@@ -70,6 +70,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -83,6 +84,8 @@ public class MainController implements Initializable {
 	Stage stage;
 	@FXML
 	BorderPane mainPane;
+	@FXML
+	SplitPane splitPane;
 	@FXML
 	private WebView browser;
 	@FXML
@@ -173,6 +176,10 @@ public class MainController implements Initializable {
 	private static final ObservableResourceFactory RESOURCE_FACTORY = ObservableResourceFactory.getInstance();
 	static {
 		RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(Constants.RESOURCE_LOCATION, new Locale("en")));
+	}
+
+	public SplitPane getSplitPane() {
+		return splitPane;
 	}
 
 	public boolean isDirty() {

@@ -10,6 +10,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import org.sil.ftrulegen.ApplicationPreferences;
 import org.sil.ftrulegen.Main;
 import org.sil.ftrulegen.flexmodel.FLExCategory;
 import org.sil.ftrulegen.flexmodel.FLExFeature;
@@ -32,6 +33,7 @@ public class FLExFeatureValueChooserController implements Initializable {
 	ListView<FLExFeatureValue> lvFeatureValues;
 
 	Stage dialogStage;
+	ApplicationPreferences prefs;
 	Main main;
 	FLExFeatureValue featureValueChosen = null;
 	boolean okClicked = false;
@@ -53,6 +55,8 @@ public class FLExFeatureValueChooserController implements Initializable {
 
 	public void setDialogStage(Stage value) {
 		dialogStage = value;
+		prefs = ApplicationPreferences.getInstance();
+		dialogStage = prefs.getLastWindowParameters(ApplicationPreferences.LAST_FEATURE_CHOOSER, dialogStage, 485.0, 580.0);
 	}
 
 	public void setMain(Main value) {
@@ -126,6 +130,7 @@ public class FLExFeatureValueChooserController implements Initializable {
 
 	public void handleCancel() {
 		// set any preferences
+		prefs.setLastWindowParameters(ApplicationPreferences.LAST_FEATURE_CHOOSER, dialogStage);
 		dialogStage.close();
 	}
 }
