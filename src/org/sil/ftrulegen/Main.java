@@ -15,8 +15,6 @@ import java.util.ResourceBundle;
 
 import org.sil.ftrulegen.view.MainController;
 import org.sil.utility.view.ControllerUtilities;
-//import org.sil.utility.view.ControllerUtilities;
-//import org.sil.utility.view.ObservableResourceFactory;
 import org.sil.utility.view.ObservableResourceFactory;
 
 import javafx.application.Application;
@@ -24,11 +22,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
 
 public class Main extends Application {
 	private Locale locale;
@@ -41,10 +36,6 @@ public class Main extends Application {
 
 	@FXML
 	private BorderPane mainPane;
-	@FXML
-	private WebView browser;
-	@FXML
-	private WebEngine webEngine;
 
 	// following lines from
 	// https://stackoverflow.com/questions/32464974/javafx-change-application-language-on-the-run
@@ -60,7 +51,6 @@ public class Main extends Application {
 			applicationPreferences.setObject(this);
 			locale = new Locale(applicationPreferences.getLastLocaleLanguage());
 
-			BorderPane root = new BorderPane();
 			// Load root layout from fxml file.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("view/fxml/Main.fxml"));
