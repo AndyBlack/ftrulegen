@@ -79,9 +79,10 @@ public class Main extends Application {
 			restoreWindowSettings();
 			controller = loader.getController();
 			if (controller != null) {
-				// the position changes somehow, somewhere so not doing this
 				double dividerPosition = applicationPreferences.getLastSplitPaneDividerPosition();
 				controller.getSplitPane().setDividerPosition(0, dividerPosition);
+				int lastSelectedRule = applicationPreferences.getLastSelectedRule();
+				controller.setSelectedRuleIndex(lastSelectedRule);
 				controller.setStage(primaryStage);
 				controller.setRuleGenFile(arguments[0]);
 				controller.setFLexDataFile(arguments[1]);
@@ -108,6 +109,7 @@ public class Main extends Application {
 		double[] dividers = controller.getSplitPane().getDividerPositions();
 		applicationPreferences.setLastSplitPaneDividerPosition(dividers[0]);
 		applicationPreferences.setLastLocaleLanguage(locale.getLanguage());
+		applicationPreferences.setLastSelectedRule(controller.getSelectedRuleIndex());
 		if (controller.isDirty()) {
 			controller.askAboutSaving();
 		}

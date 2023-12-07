@@ -153,7 +153,7 @@ public class MainController implements Initializable {
 	MenuItem cmWordMarkAsHead;
 	MenuItem cmWordRemoveHeadMarking;
 
-	int selectedRuleIndex = -1;
+	int selectedRuleIndex = 0;
 	WebPageProducer producer = null;
 	String webPageFileUri = "file:///C:/ProgramData/SIL/FLExTransRuleGenerator/FLExTransRule.html";
 	String webPageFile = "C:\\ProgramData\\SIL\\FLExTransRuleGenerator\\FLExTransRule.html";
@@ -180,6 +180,14 @@ public class MainController implements Initializable {
 	private static final ObservableResourceFactory RESOURCE_FACTORY = ObservableResourceFactory.getInstance();
 	static {
 		RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(Constants.RESOURCE_LOCATION, new Locale("en")));
+	}
+
+	public int getSelectedRuleIndex() {
+		return selectedRuleIndex;
+	}
+
+	public void setSelectedRuleIndex(int selectedRuleIndex) {
+		this.selectedRuleIndex = selectedRuleIndex;
 	}
 
 	public SplitPane getSplitPane() {
@@ -297,8 +305,7 @@ public class MainController implements Initializable {
 			Platform.runLater(new Runnable() {
 				@Override
 				public void run() {
-//					TODO: use application preference to remember and set last used index
-					selectedRuleIndex = 0;
+					selectedRuleIndex = Math.min(selectedRuleIndex, lvRules.getItems().size() - 1);
 					lvRules.scrollTo(selectedRuleIndex);
 					lvRules.getSelectionModel().select(selectedRuleIndex);
 				}

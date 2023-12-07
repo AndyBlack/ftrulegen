@@ -8,7 +8,6 @@ package org.sil.ftrulegen;
 
 import java.util.prefs.Preferences;
 
-import org.sil.ftrulegen.service.ConstituentFinder;
 import org.sil.utility.ApplicationPreferencesUtilities;
 import org.sil.utility.StringUtilities;
 
@@ -35,6 +34,7 @@ public class ApplicationPreferences extends ApplicationPreferencesUtilities {
 
 	public static final String LAST_CATEGORY_CHOOSER = "lastCategoryChooser";
 	public static final String LAST_FEATURE_CHOOSER = "lastFeatureChooser";
+	public static final String LAST_SELECTED_RULE = "lastSelectedRule";
 
 	private Preferences prefs;
 	
@@ -57,6 +57,14 @@ public class ApplicationPreferences extends ApplicationPreferencesUtilities {
 
 	public void setLastLocaleLanguage(String lastLocaleLanguage) {
 		setPreferencesKey(LAST_LOCALE_LANGUAGE, lastLocaleLanguage);
+	}
+
+	public int getLastSelectedRule() {
+		return prefs.getInt(LAST_SELECTED_RULE, 0);
+	}
+
+	public void setLastSelectedRule(int lastSelectedRule) {
+		prefs.putInt(LAST_SELECTED_RULE, lastSelectedRule);
 	}
 
 	public Stage getLastWindowParameters(String sWindow, Stage stage, Double defaultHeight,
