@@ -38,22 +38,22 @@ public class WebPageProducerTests extends ServiceTestBase {
 	@Test
 	public final void produceFromEx1aDefNounTest() {
 		final String kFileName = "Ex1a_Def-Noun";
-		setRuleGenExpected(Path.of(getTestDataDir(), kFileName + ".xml").toString());
+		setRuleGenExpected(Paths.get(getTestDataDir(), kFileName + ".xml").toString());
 		provider.loadDataFromFile(getRuleGenExpected());
 		ruleGenerator = provider.getRuleGenerator();
 		rule = ruleGenerator.getFLExTransRules().get(0);
-		expectedResultFile = Path.of(getTestDataDir(), kFileName + ".htm").toString();
+		expectedResultFile = Paths.get(getTestDataDir(), kFileName + ".htm").toString();
 		checkResult();
 	}
 
 	@Test
 	public final void produceFromEx4bIndefAdjNounTest() {
 		final String kFileName = "Ex4b_Indef-Adj-Noun";
-		setRuleGenExpected(Path.of(getTestDataDir(), kFileName + ".xml").toString());
+		setRuleGenExpected(Paths.get(getTestDataDir(), kFileName + ".xml").toString());
 		provider.loadDataFromFile(getRuleGenExpected());
 		ruleGenerator = provider.getRuleGenerator();
 		rule = ruleGenerator.getFLExTransRules().get(0);
-		expectedResultFile = Path.of(getTestDataDir(), kFileName + ".htm").toString();
+		expectedResultFile = Paths.get(getTestDataDir(), kFileName + ".htm").toString();
 		checkResult();
 	}
 

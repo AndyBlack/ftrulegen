@@ -15,6 +15,7 @@ import org.sil.ftrulegen.flexmodel.*;
 import org.sil.ftrulegen.model.*;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class XMLFLExDataBackEndProviderTests extends ServiceTestBase {
@@ -31,7 +32,7 @@ public class XMLFLExDataBackEndProviderTests extends ServiceTestBase {
 
 	@Test
 	public final void loadFLExDataTest() {
-		setRuleGenExpected(Path.of(getTestDataDir(), "FLExDataSpanFrench.xml").toString());
+		setRuleGenExpected(Paths.get(getTestDataDir(), "FLExDataSpanFrench.xml").toString());
 		providerFLExData.loadFLExDataFromFile(getRuleGenExpected());
 		FLExData flexData = providerFLExData.getFLExData();
 		assertNotNull(flexData);

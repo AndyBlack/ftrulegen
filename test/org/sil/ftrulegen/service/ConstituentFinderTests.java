@@ -9,6 +9,7 @@ package org.sil.ftrulegen.service;
 import static org.junit.Assert.*;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.junit.After;
 import org.junit.Before;
@@ -38,7 +39,7 @@ public class ConstituentFinderTests extends ServiceTestBase {
 	@Test
 	public final void setForEx1aDefNounTest() {
 		final String kFileName = "Ex1a_Def-Noun";
-		setRuleGenExpected(Path.of(getTestDataDir(), kFileName + ".xml").toString());
+		setRuleGenExpected(Paths.get(getTestDataDir(), kFileName + ".xml").toString());
 		provider.loadDataFromFile(getRuleGenExpected());
 		ruleGenerator = provider.getRuleGenerator();
 		rule = ruleGenerator.getFLExTransRules().get(0);
@@ -101,7 +102,7 @@ public class ConstituentFinderTests extends ServiceTestBase {
 	@Test
 	public final void setForEx4bIndefAdjNounTest() {
 		final String kFileName = "Ex4b_Indef-Adj-Noun";
-		setRuleGenExpected(Path.of(getTestDataDir(), kFileName + ".xml").toString());
+		setRuleGenExpected(Paths.get(getTestDataDir(), kFileName + ".xml").toString());
 		provider.loadDataFromFile(getRuleGenExpected());
 		ruleGenerator = provider.getRuleGenerator();
 		rule = ruleGenerator.getFLExTransRules().get(0);

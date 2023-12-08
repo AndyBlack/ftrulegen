@@ -25,7 +25,7 @@ public class XmlBackEndProviderTests extends ServiceTestBase {
 
 	@Test
 	public final void loadEx1aDefNounTest() {
-		setRuleGenExpected(Path.of(getTestDataDir(), "Ex1a_Def-Noun.xml").toString());
+		setRuleGenExpected(Paths.get(getTestDataDir(), "Ex1a_Def-Noun.xml").toString());
 		provider.loadDataFromFile(getRuleGenExpected());
 		ruleGenerator = provider.getRuleGenerator();
 		assertNotNull(ruleGenerator);
@@ -70,7 +70,7 @@ public class XmlBackEndProviderTests extends ServiceTestBase {
 
 	@Test
 	public final void loadEx4bIndefAdjNounTest() {
-		setRuleGenExpected(Path.of(getTestDataDir(), "Ex4b_Indef-Adj-Noun.xml").toString());
+		setRuleGenExpected(Paths.get(getTestDataDir(), "Ex4b_Indef-Adj-Noun.xml").toString());
 		provider.loadDataFromFile(getRuleGenExpected());
 		FLExTransRuleGenerator ruleGenerator = provider.getRuleGenerator();
 		assertNotNull(ruleGenerator);

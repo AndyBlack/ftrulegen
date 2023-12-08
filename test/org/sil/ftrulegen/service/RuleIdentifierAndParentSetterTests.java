@@ -9,6 +9,7 @@ package org.sil.ftrulegen.service;
 import static org.junit.Assert.*;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.junit.After;
 import org.junit.Before;
@@ -35,7 +36,7 @@ public class RuleIdentifierAndParentSetterTests extends ServiceTestBase {
 	@Test
 	public final void identifiersForEx1aDefNounTest() {
 		final String kFileName = "Ex1a_Def-Noun";
-		setRuleGenExpected(Path.of(getTestDataDir(), kFileName + ".xml").toString());
+		setRuleGenExpected(Paths.get(getTestDataDir(), kFileName + ".xml").toString());
 		provider.loadDataFromFile(getRuleGenExpected());
 		ruleGenerator = provider.getRuleGenerator();
 		rule = ruleGenerator.getFLExTransRules().get(0);
@@ -59,7 +60,7 @@ public class RuleIdentifierAndParentSetterTests extends ServiceTestBase {
 	@Test
 	public final void identifiersForEx4bIndefAdjNounTest() {
 		final String kFileName = "Ex4b_Indef-Adj-Noun";
-		setRuleGenExpected(Path.of(getTestDataDir(), kFileName + ".xml").toString());
+		setRuleGenExpected(Paths.get(getTestDataDir(), kFileName + ".xml").toString());
 		provider.loadDataFromFile(getRuleGenExpected());
 		ruleGenerator = provider.getRuleGenerator();
 		rule = ruleGenerator.getFLExTransRules().get(0);
@@ -96,7 +97,7 @@ public class RuleIdentifierAndParentSetterTests extends ServiceTestBase {
 	@Test
 	public final void parentsForEx1aDefNounTest() {
 		final String kFileName = "Ex1a_Def-Noun";
-		setRuleGenExpected(Path.of(getTestDataDir(), kFileName + ".xml").toString());
+		setRuleGenExpected(Paths.get(getTestDataDir(), kFileName + ".xml").toString());
 		provider.loadDataFromFile(getRuleGenExpected());
 		ruleGenerator = provider.getRuleGenerator();
 		rule = ruleGenerator.getFLExTransRules().get(0);
@@ -130,7 +131,7 @@ public class RuleIdentifierAndParentSetterTests extends ServiceTestBase {
 	@Test
 	public final void parentsForEx4bIndefAdjNounTest() {
 		final String kFileName = "Ex4b_Indef-Adj-Noun";
-		setRuleGenExpected(Path.of(getTestDataDir(), kFileName + ".xml").toString());
+		setRuleGenExpected(Paths.get(getTestDataDir(), kFileName + ".xml").toString());
 		provider.loadDataFromFile(getRuleGenExpected());
 		ruleGenerator = provider.getRuleGenerator();
 		rule = ruleGenerator.getFLExTransRules().get(0);
