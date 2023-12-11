@@ -31,51 +31,48 @@
 		<mkdir dir="externalLibs" />
 	
 		<copy todir="externalLibs">
-			<fileset dir="C:\Users\Andy Black\Documents\eclipse-workspace\RuleGen\libs\JAXB">
+			<fileset dir="..\libs\JAXB">
 				<filename name="jaxb-xjc.jar"/>
 			</fileset>
 		</copy>
 		<copy todir="externalLibs">
-			<fileset dir="C:\Users\Andy Black\Documents\eclipse-workspace\RuleGen\libs\JAXB">
+			<fileset dir="..\libs\JAXB">
 				<filename name="jakarta.xml.bind-api.jar"/>
 			</fileset>
 		</copy>
 		<copy todir="externalLibs">
-			<fileset dir="C:\Users\Andy Black\Downloads\Eclipse\Eclipse4.4\eclipse\plugins\org.junit_4.11.0.v201303080030">
-				<filename name="junit.jar"/>
-			</fileset>
-		</copy>
-		<copy todir="externalLibs">
-			<fileset dir="C:\Users\Andy Black\Documents\eclipse-workspace\RuleGen\libs\JAXB">
+			<fileset dir="..\libs\JAXB">
 				<filename name="jaxb-core.jar"/>
 			</fileset>
 		</copy>
 		<copy todir="externalLibs">
-			<fileset dir="C:\Users\Andy Black\Downloads\Eclipse\Eclipse4.4\eclipse\plugins">
-				<filename name="org.hamcrest.core_1.3.0.v201303031735.jar"/>
-			</fileset>
-		</copy>
-		<copy todir="externalLibs">
-			<fileset dir="C:\Users\Andy Black\Documents\eclipse-workspace\RuleGen\libs\JAXB">
+			<fileset dir="..\libs\JAXB">
 				<filename name="jaxb-jxc.jar"/>
 			</fileset>
 		</copy>
 		<copy todir="externalLibs">
-			<fileset dir="C:\Users\Andy Black\Documents\eclipse-workspace\RuleGen\libs\LibJavaDev">
+			<fileset dir="..\libs\LibJavaDev">
 				<filename name="libjavadev-1.5.0.jar"/>
 			</fileset>
 		</copy>
 		<copy todir="externalLibs">
-			<fileset dir="C:\Users\Andy Black\Documents\eclipse-workspace\RuleGen\libs\JAXB">
+			<fileset dir="..\libs\JAXB">
 				<filename name="jakarta.activation.jar"/>
 			</fileset>
 		</copy>
 		<copy todir="externalLibs">
-			<fileset dir="C:\Users\Andy Black\Documents\eclipse-workspace\RuleGen\libs\JAXB">
+			<fileset dir="..\libs\JAXB">
 				<filename name="jaxb-impl.jar"/>
 			</fileset>
 		</copy>
-	
+
+		<mkdir dir="doc" />
+		<copy todir="doc">
+			<fileset dir="../doc">
+				<include name="FLExTransRuleGenUserDocumentation.pdf" />
+			</fileset>
+		</copy>
+
 		<mkdir dir="project" />
 		<copy todir="project">
 			<fileset dir="..">
@@ -96,11 +93,9 @@
 			<fileset dir="externalLibs">
 				<include name="jakarta.xml.bind-api.jar"/>
 				<include name="jaxb-xjc.jar"/>
-				<include name="org.hamcrest.core_1.3.0.v201303031735.jar"/>
 				<include name="jaxb-core.jar"/>
 				<include name="jaxb-jxc.jar"/>
 				<include name="jakarta.activation.jar"/>
-				<include name="junit.jar"/>
 				<include name="jaxb-impl.jar"/>
 				<include name="libjavadev-1.5.0.jar"/>
 			</fileset>
@@ -146,9 +141,9 @@
 	AppId={{0D1B3C45-644B-4D49-9DF6-C80217810A1B}
 	AppName=FLExTrans Rule Generator
 	AppVersion=${version}
-	AppVerName=${AppName} version ${version}
+	AppVerName=FLExTrans Rule Generator version ${version}
 	AppPublisher=SIL International
-	AppComments=${AppName}
+	AppComments=FLExTrans Rule Generator
 	AppCopyright=Copyright © 2023 SIL International
 	;AppPublisherURL=http://java.com/
 	;AppSupportURL=http://java.com/
@@ -165,14 +160,14 @@
 	LicenseFile=
 	;WinXP or above
 	MinVersion=0,5.1
-	OutputBaseFilename=${AppName}-${version}
+	OutputBaseFilename=FLExTrans Rule Generator-${version}
 	Compression=lzma
 	SolidCompression=yes
 	PrivilegesRequired=admin
 	SetupIconFile=package\windows\FLExTransWindowIcon.ico
 				
 	UninstallDisplayIcon={app}\FLExTransWindowIcon.ico
-	UninstallDisplayName=${AppName} version ${version}
+	UninstallDisplayName=FLExTrans Rule Generator version ${version}
 	WizardImageStretch=No
 	WizardSmallImageFile=package\windows\FLExTrans Rule Generator-setup-icon.bmp
 	ArchitecturesInstallIn64BitMode=${ISSarchitecture}
@@ -188,21 +183,21 @@
 	Name: "english"; MessagesFile: "compiler:Default.isl"
 
 	[Files]
-	Source: "${AppName}.exe"; DestDir: "{app}"; Flags: ignoreversion
-	Source: "${AppName}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+	Source: "FLExTrans Rule Generator.exe"; DestDir: "{app}"; Flags: ignoreversion
+	Source: "FLExTrans Rule Generator\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 	[Icons]
-	Name: "{group}\${AppName}"; Filename: "{app}\${AppName}.exe"; IconFilename: "{app}\${AppName}.ico"; Check: returnTrue()
+	Name: "{group}\FLExTrans Rule Generator"; Filename: "{app}\FLExTrans Rule Generator.exe"; IconFilename: "{app}\FLExTrans Rule Generator.ico"; Check: returnTrue()
 <!--	Name: "{commondesktop}\LingTree"; Filename: "{app}\LingTree.exe";  IconFilename: "{app}\LingTree.ico"; Check: returnTrue() -->
 
 
 	[Run]
-	Filename: "{app}\${AppName}.exe"; Parameters: "-Xappcds:generatecache -Djavax.xml.accessExternalDTD=all"; Check: returnFalse()
-	Filename: "{app}\${AppName}.exe"; Description: "{cm:LaunchProgram,${AppName}}"; Flags: nowait postinstall skipifsilent; Check: returnTrue()
-	Filename: "{app}\${AppName}.exe"; Parameters: "-install -svcName ""${AppName}"" -svcDesc ""A tool to make it easier to write FLExTrans transfer rules."" -mainExe ""${AppName}.exe""  "; Check: returnFalse()
+	Filename: "{app}\FLExTrans Rule Generator.exe"; Parameters: "-Xappcds:generatecache -Djavax.xml.accessExternalDTD=all"; Check: returnFalse()
+	Filename: "{app}\FLExTrans Rule Generator.exe"; Description: "{cm:LaunchProgram,FLExTrans Rule Generator}"; Flags: nowait postinstall skipifsilent; Check: returnTrue()
+	Filename: "{app}\FLExTrans Rule Generator.exe"; Parameters: "-install -svcName ""FLExTrans Rule Generator"" -svcDesc ""A tool to make it easier to write FLExTrans transfer rules."" -mainExe ""FLExTrans Rule Generator.exe""  "; Check: returnFalse()
 
 	[UninstallRun]
-	Filename: "{app}\${AppName}.exe "; Parameters: "-uninstall -svcName ${AppName} -stopOnUninstall"; Check: returnFalse()
+	Filename: "{app}\FLExTrans Rule Generator.exe "; Parameters: "-uninstall -svcName FLExTrans Rule Generator -stopOnUninstall"; Check: returnFalse()
 
 	[Code]
 	function returnTrue(): Boolean;
@@ -243,12 +238,26 @@
 			</fileset>
 		</copy>
 	
+		<mkdir dir="dist/doc" />
+		<copy todir="dist/doc">
+			<fileset dir="..\doc">
+				<include name="FLExTransRuleGenUserDocumentation.pdf" />
+			</fileset>
+		</copy>
 	
+		<copy todir="dist">
+			<fileset dir=".">
+				<include name="FLExTransRuleGenerator.dtd" />
+			</fileset>
+		</copy>
+
 		<fx:resources id="appRes">
 			<fx:fileset dir="dist" includes="ftrulegen.jar"/>
-			<fx:fileset dir="dist" includes="libs/*"/>
+			<fx:fileset dir="dist" includes="doc/FLExTransRuleGenUserDocumentation.pdf"/>
+			<fx:fileset dir="dist" includes="libs/*" excludes="libs/junit.jar libs/org.hamcrest.core_1.3.0.v201303031735.jar"/>
+			<fx:fileset dir="dist" includes="FLExTransRuleGenerator.dtd"/>
 		</fx:resources>
-	
+
 		<fx:application
 			id="ftrulegen"
 			name="FLExTrans Rule Generator"
@@ -286,7 +295,7 @@
 			outdir="${basedir}/deploy"
 			outfile="RuleGen"
 			nativeBundles="${nativeBundles}"
-			verbose="true"
+			verbose="false"
 			updatemode="background">
 
 			<fx:platform basedir="${java.home}">
@@ -295,11 +304,11 @@
 			</fx:platform>
 			<fx:info
 				category="Education"
-				title="RuleGen"
+				title="FLExTrans Rule Generator"
 				vendor="SIL International"
 				license="LGPL"
 				copyright="© 2023 SIL International"
-				description="RuleGen is a tool that makes it easier to write FLExTrans transfer rules.">
+				description="FLExTrans Rule Generator is a tool that makes it easier to write FLExTrans transfer rules.">
 			</fx:info>
 
 			<fx:application refId="ftrulegen" />
