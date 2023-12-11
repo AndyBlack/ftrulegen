@@ -252,6 +252,13 @@
 			</fileset>
 		</copy>
 	
+		<mkdir dir="dist/resources" />
+		   <copy todir="dist/resources">
+		    <fileset dir="../src/org/sil/ftrulegen/resources">
+		       <include name="**" />
+		     </fileset>
+		   </copy>
+
 		<copy todir="dist">
 			<fileset dir=".">
 				<include name="FLExTransRuleGenerator.dtd" />
@@ -267,6 +274,7 @@
 
 		<fx:resources id="appRes">
 			<fx:fileset dir="dist" includes="ftrulegen.jar"/>
+			<fx:fileset dir="dist" includes="resources/**" />
 			<fx:fileset dir="dist" includes="doc/FLExTransRuleGenUserDocumentation.pdf"/>
 			<fx:fileset dir="dist" includes="libs/*" excludes="libs/junit.jar libs/org.hamcrest.core_1.3.0.v201303031735.jar"/>
 			<fx:fileset dir="dist" includes="FLExTransRuleGenerator.dtd"/>
