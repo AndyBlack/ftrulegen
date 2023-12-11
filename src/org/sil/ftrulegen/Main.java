@@ -86,10 +86,9 @@ public class Main extends Application {
 		}
 	}
 
-	public static int main(String[] args) {
+	public static void main(String[] args) {
 		arguments = args;
 		launch(args);
-		return 0;
 	}
 
 	@Override
