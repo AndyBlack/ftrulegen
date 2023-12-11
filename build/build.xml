@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="ftrulegen" default="do-deploy" basedir="."  xmlns:fx="javafx:com.sun.javafx.tools.ant">
+		<property name="nativeBundles" value="exe"/>
+		<property name="processorType" value="-64bit"/>
+		<property name="mainFileName" value="ftrulegen"/>
+		<property name="ISSarchitecture" value="x64"/>
+		<property name="appName" value="FLExTrans Rule Generator"/>
+		<property name="version" value="0.1.0"/>
+
+	<target name="init-fx-tasks">
+		<path id="fxant">
+			<filelist>
+				<file name="." />
+				<file name="${java.home}\..\lib\ant-javafx.jar"/>
+				<file name="${java.home}\lib\jfxrt.jar"/>
+				<file name="${basedir}" />
+			</filelist>
+		</path>
+	
+		<taskdef
+			resource="com/sun/javafx/tools/ant/antlib.xml"
+			uri="javafx:com.sun.javafx.tools.ant"
+			classpathref="fxant"/>
+	</target>	
+	<target name="setup-staging-area">
+		<delete dir="doc" />
+		<delete dir="externalLibs" />
+		<delete dir="project" />
+		<delete dir="projectRefs" />
+	
+		<mkdir dir="externalLibs" />
+	
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Andy Black\Documents\eclipse-workspace\RuleGen\libs\JAXB">
+				<filename name="jaxb-xjc.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Andy Black\Documents\eclipse-workspace\RuleGen\libs\JAXB">
+				<filename name="jakarta.xml.bind-api.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Andy Black\Downloads\Eclipse\Eclipse4.4\eclipse\plugins\org.junit_4.11.0.v201303080030">
+				<filename name="junit.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Andy Black\Documents\eclipse-workspace\RuleGen\libs\JAXB">
+				<filename name="jaxb-core.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Andy Black\Downloads\Eclipse\Eclipse4.4\eclipse\plugins">
+				<filename name="org.hamcrest.core_1.3.0.v201303031735.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Andy Black\Documents\eclipse-workspace\RuleGen\libs\JAXB">
+				<filename name="jaxb-jxc.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Andy Black\Documents\eclipse-workspace\RuleGen\libs\LibJavaDev">
+				<filename name="libjavadev-1.5.0.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Andy Black\Documents\eclipse-workspace\RuleGen\libs\JAXB">
+				<filename name="jakarta.activation.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Andy Black\Documents\eclipse-workspace\RuleGen\libs\JAXB">
+				<filename name="jaxb-impl.jar"/>
+			</fileset>
+		</copy>
+	
+		<mkdir dir="project" />
+		<copy todir="project">
+			<fileset dir="..">
+				<include name="src/**" />
+			</fileset>
+		</copy>
+	
+		<mkdir dir="projectRefs" />
+	</target>
+	<target name='do-compile'>
+		<delete dir="build" />
+		<mkdir dir="build/src" />
+		<mkdir dir="build/libs" />
+		<mkdir dir="build/classes" />
+	
+		<!-- Copy project-libs references -->
+		<copy todir="build/libs">
+			<fileset dir="externalLibs">
+				<include name="jakarta.xml.bind-api.jar"/>
+				<include name="jaxb-xjc.jar"/>
+				<include name="org.hamcrest.core_1.3.0.v201303031735.jar"/>
+				<include name="jaxb-core.jar"/>
+				<include name="jaxb-jxc.jar"/>
+				<include name="jakarta.activation.jar"/>
+				<include name="junit.jar"/>
+				<include name="jaxb-impl.jar"/>
+				<include name="libjavadev-1.5.0.jar"/>
+			</fileset>
+		</copy>
+	
+		<!-- Copy project references -->
+	
+		<!-- Copy project sources itself -->
+		<copy todir="build/src">
+			<fileset dir="project/src">
+				<include name="**/*"/>
+			</fileset>
+		</copy>
+	
+		<javac includeantruntime="false" source="1.8" target="1.8" srcdir="build/src" destdir="build/classes" encoding="UTF-8">
+			<classpath>
+				<fileset dir="build/libs">
+					<include name="*"/>
+				</fileset>
+			</classpath>
+		</javac>
+	
+		<!-- Copy over none Java-Files -->
+		<copy todir="build/classes">
+		<fileset dir="project/src">
+			<exclude name="**/*.java"/>
+		</fileset>
+		</copy>
+	
+		</target>
+		<target name="build-windows-iss-file">
+			<echo message="in create-iss-file"/>
+			<condition property="nativeBundles">
+				<equals arg1="${nativeBundles}" arg2="exe" />
+			</condition>
+			<echo message="after condition in create-iss-file"/>
+
+			<delete file="${basedir}/package/windows/${mainFileName}.iss"/>
+			
+			<concat destfile="${basedir}/package/windows/${mainFileName}.iss" overwrite="true">;This file will be executed next to the application bundle image
+	;I.e. current directory will contain folder FLExTrans Rule Generator with application files
+	[Setup]
+	AppId={{0D1B3C45-644B-4D49-9DF6-C80217810A1B}
+	AppName=FLExTrans Rule Generator
+	AppVersion=${version}
+	AppVerName=${AppName} version ${version}
+	AppPublisher=SIL International
+	AppComments=${AppName}
+	AppCopyright=Copyright © 2023 SIL International
+	;AppPublisherURL=http://java.com/
+	;AppSupportURL=http://java.com/
+	;AppUpdatesURL=http://java.com/
+	DefaultDirName={pf64}\SIL\FLExTransRuleGenerator
+	DisableStartupPrompt=Yes
+	DisableDirPage=No
+	DisableProgramGroupPage=Yes
+	DisableReadyPage=No
+	DisableFinishedPage=No
+	DisableWelcomePage=No
+	DefaultGroupName=SIL International
+	;Optional License
+	LicenseFile=
+	;WinXP or above
+	MinVersion=0,5.1
+	OutputBaseFilename=${AppName}-${version}
+	Compression=lzma
+	SolidCompression=yes
+	PrivilegesRequired=admin
+	SetupIconFile=package\windows\FLExTransWindowIcon.ico
+				
+	UninstallDisplayIcon={app}\FLExTransWindowIcon.ico
+	UninstallDisplayName=${AppName} version ${version}
+	WizardImageStretch=No
+	WizardSmallImageFile=package\windows\FLExTrans Rule Generator-setup-icon.bmp
+	ArchitecturesInstallIn64BitMode=${ISSarchitecture}
+	ChangesAssociations=yes
+
+	[Registry]
+<!--	Root: HKCR; Subkey: ".tre"; ValueType: string; ValueName: ""; ValueData: "LingTreeFile"; Flags: uninsdeletevalue
+	Root: HKCR; Subkey: "Mime\Database\Content Type\text/x-lingtree"; ValueType: string; ValueName: "Extension"; ValueData: ".tre"; Flags: uninsdeletevalue
+	Root: HKCR; Subkey: "LingTreeFile"; ValueType: string; ValueName: ""; ValueData: "LingTree file"; Flags: uninsdeletekey
+	Root: HKCR; Subkey: "LingTreeFile\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\LingTree"" ""%1"""
+-->
+	[Languages]
+	Name: "english"; MessagesFile: "compiler:Default.isl"
+
+	[Files]
+	Source: "${AppName}.exe"; DestDir: "{app}"; Flags: ignoreversion
+	Source: "${AppName}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+
+	[Icons]
+	Name: "{group}\${AppName}"; Filename: "{app}\${AppName}.exe"; IconFilename: "{app}\${AppName}.ico"; Check: returnTrue()
+<!--	Name: "{commondesktop}\LingTree"; Filename: "{app}\LingTree.exe";  IconFilename: "{app}\LingTree.ico"; Check: returnTrue() -->
+
+
+	[Run]
+	Filename: "{app}\${AppName}.exe"; Parameters: "-Xappcds:generatecache -Djavax.xml.accessExternalDTD=all"; Check: returnFalse()
+	Filename: "{app}\${AppName}.exe"; Description: "{cm:LaunchProgram,${AppName}}"; Flags: nowait postinstall skipifsilent; Check: returnTrue()
+	Filename: "{app}\${AppName}.exe"; Parameters: "-install -svcName ""${AppName}"" -svcDesc ""A tool to make it easier to write FLExTrans transfer rules."" -mainExe ""${AppName}.exe""  "; Check: returnFalse()
+
+	[UninstallRun]
+	Filename: "{app}\${AppName}.exe "; Parameters: "-uninstall -svcName ${AppName} -stopOnUninstall"; Check: returnFalse()
+
+	[Code]
+	function returnTrue(): Boolean;
+	begin
+	  Result := True;
+	end;
+
+	function returnFalse(): Boolean;
+	begin
+	  Result := False;
+	end;
+
+	function InitializeSetup(): Boolean;
+	begin
+	// Possible future improvements:
+	//   if version less or same => just launch app
+	//   if upgrade => check if same app is running and wait for it to exit
+	//   Add pack200/unpack200 support?
+	  Result := True;
+	end;
+		</concat>
+
+			<echo message="after concat in create-iss-file"/>
+		</target>
+
+		<target name="do-deploy" depends="setup-staging-area, do-compile, init-fx-tasks">
+		<antcall target="build-windows-iss-file"/>
+			
+		<delete file="dist"/>
+		<delete file="deploy" />
+	
+		<mkdir dir="dist" />
+		<mkdir dir="dist/libs" />
+	
+		<copy todir="dist/libs">
+			<fileset dir="externalLibs">
+				<include name="*" />
+			</fileset>
+		</copy>
+	
+	
+		<fx:resources id="appRes">
+			<fx:fileset dir="dist" includes="ftrulegen.jar"/>
+			<fx:fileset dir="dist" includes="libs/*"/>
+		</fx:resources>
+	
+		<fx:application
+			id="ftrulegen"
+			name="FLExTrans Rule Generator"
+			mainClass="org.sil.ftrulegen.Main"
+			version="0.1.0"
+		/>
+	
+		<mkdir dir="build/classes/META-INF" />
+	
+	
+	
+		<fx:jar destfile="dist/ftrulegen.jar">
+			<fx:application refid="ftrulegen"/>
+			<fileset dir="build/classes">
+			</fileset>
+			<fx:resources refid="appRes"/>
+	
+			<manifest>
+				<attribute name="Implementation-Vendor" value="SIL International"/>
+				<attribute name="Implementation-Title" value="FLExTrans Rule Generator"/>
+				<attribute name="Implementation-Version" value="0.1.0"/>
+				<attribute name="JavaFX-Feature-Proxy" value="None"/>
+			</manifest>
+		</fx:jar>
+	
+	
+		<mkdir dir="deploy" />
+		<echo message="Passing nativeBundles as:${nativeBundles}"/>
+			<!-- Need to use ${basedir} because somehow the ant task is calculating the directory differently -->
+		<fx:deploy
+			embedJNLP="false"
+			extension="false"
+			includeDT="false"
+			offlineAllowed="true"
+			outdir="${basedir}/deploy"
+			outfile="RuleGen"
+			nativeBundles="${nativeBundles}"
+			verbose="true"
+			updatemode="background">
+
+			<fx:platform basedir="${java.home}">
+				<fx:jvmarg value="-Xmx512m" />
+				<fx:jvmarg value="-Djavax.xml.accessExternalDTD=all" />
+			</fx:platform>
+			<fx:info
+				category="Education"
+				title="RuleGen"
+				vendor="SIL International"
+				license="LGPL"
+				copyright="© 2023 SIL International"
+				description="RuleGen is a tool that makes it easier to write FLExTrans transfer rules.">
+			</fx:info>
+
+			<fx:application refId="ftrulegen" />
+			<fx:resources refid="appRes" />
+			<fx:preferences shortcut="true" menu="true" install="true" />
+
+		</fx:deploy>
+	
+	</target>
+</project>
