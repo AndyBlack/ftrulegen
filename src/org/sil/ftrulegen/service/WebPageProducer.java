@@ -78,11 +78,11 @@ public class WebPageProducer {
 	private String phraseHTML(Phrase phrase, ResourceBundle bundle) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<td valign=\"top\">\n");
-		sb.append("<div class=\"tf-tree tf-gap-sm\">\n");
+		sb.append("<span class=\"tf-tree tf-gap-sm\">\n");
 		sb.append("<ul>\n");
 		sb.append(phrase.produceHtml(bundle));
 		sb.append("</ul>\n");
-		sb.append("</div>\n");
+		sb.append("</span>\n");
 		sb.append("</td>\n");
 		return sb.toString();
 	}
