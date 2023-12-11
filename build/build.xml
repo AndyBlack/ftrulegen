@@ -73,6 +73,13 @@
 			</fileset>
 		</copy>
 
+		<mkdir dir="CSSFiles" />
+		<copy todir="CSSFiles">
+			<fileset dir="CSSFiles">
+				<include name="**" />
+			</fileset>
+		</copy>
+
 		<mkdir dir="project" />
 		<copy todir="project">
 			<fileset dir="..">
@@ -251,11 +258,19 @@
 			</fileset>
 		</copy>
 
+		<mkdir dir="dist/CSSFiles" />
+		<copy todir="dist/CSSFiles">
+			<fileset dir="CSSFiles">
+				<include name="**" />
+			</fileset>
+		</copy>
+
 		<fx:resources id="appRes">
 			<fx:fileset dir="dist" includes="ftrulegen.jar"/>
 			<fx:fileset dir="dist" includes="doc/FLExTransRuleGenUserDocumentation.pdf"/>
 			<fx:fileset dir="dist" includes="libs/*" excludes="libs/junit.jar libs/org.hamcrest.core_1.3.0.v201303031735.jar"/>
 			<fx:fileset dir="dist" includes="FLExTransRuleGenerator.dtd"/>
+			<fx:fileset dir="dist" includes="CSSFiles/**"/>
 		</fx:resources>
 
 		<fx:application
