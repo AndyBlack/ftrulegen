@@ -6,8 +6,10 @@
 
 package org.sil.ftrulegen;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.MessageFormat;
 import java.util.Locale;
@@ -59,6 +61,7 @@ public class Main extends Application {
 			if (!checkArguments(bundle)) {
 				System.exit(1);
 			}
+			Path workingFilesPath = checkExistanceOfCSSFiles();
 			mainPane = (BorderPane) loader.load();
 			Scene scene = new Scene(mainPane);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
@@ -79,10 +82,13 @@ public class Main extends Application {
 				controller.loadDataFiles();
 				controller.setMaxVariables(maxVariables);
 				controller.setFLExTransImage(flexTransImage);
+				controller.setWebPageFile(workingFilesPath.toString() + File.separatorChar + Constants.HTML_FILE_NAME);
+				controller.setWebPageFileUri(Paths.get(workingFilesPath.toString()).toUri().toString() + "/" + Constants.HTML_FILE_NAME);
 			}
 			primaryStage.show();
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.print(e.getMessage());
 		}
 	}
 
@@ -136,6 +142,17 @@ public class Main extends Application {
 		return true;
 	}
 
+	private Path checkExistanceOfCSSFiles() throws IOException {
+		String tempDir = System.getProperty("java.io.tmpdir");
+		Path workingFilesPath = Paths.get(tempDir, Constants.CSS_FILES_LOCATION);
+		if (!Files.exists(workingFilesPath)) {
+			String appDir = System.getProperty("user.dir");
+			String cssFiles = appDir + File.separatorChar + "CSSFiles";
+			Main.copyDirectory(cssFiles, workingFilesPath.toString());
+		}
+		return workingFilesPath;
+	}
+
 	private void restoreWindowSettings() {
 		primaryStage = applicationPreferences.getLastWindowParameters(
 				ApplicationPreferences.LAST_WINDOW, primaryStage, 660.0, 1000.);
@@ -156,5 +173,21 @@ public class Main extends Application {
 		System.out.println(bundle.getString("main.RuleFile"));
 		System.out.println(bundle.getString("main.FLExDataSourceTargetFile"));
 		System.out.println(bundle.getString("main.OptionalMaxVariables"));
+	}
+
+//	Following is from <https://www.baeldung.com/java-copy-directory>
+	public static void copyDirectory(String sourceDirectoryLocation,
+			String destinationDirectoryLocation) throws IOException {
+		Files.walk(Paths.get(sourceDirectoryLocation)).forEach(
+				source -> {
+					Path destination = Paths.get(destinationDirectoryLocation, source.toString()
+							.substring(sourceDirectoryLocation.length()));
+					try {
+						Files.copy(source, destination);
+					} catch (IOException e) {
+						e.printStackTrace();
+						System.out.print(e.getMessage());
+					}
+				});
 	}
 }

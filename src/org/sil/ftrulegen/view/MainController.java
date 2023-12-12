@@ -182,6 +182,22 @@ public class MainController implements Initializable {
 		RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(Constants.RESOURCE_LOCATION, new Locale("en")));
 	}
 
+	public String getWebPageFileUri() {
+		return webPageFileUri;
+	}
+
+	public void setWebPageFileUri(String webPageFileUri) {
+		this.webPageFileUri = webPageFileUri;
+	}
+
+	public String getWebPageFile() {
+		return webPageFile;
+	}
+
+	public void setWebPageFile(String webPageFile) {
+		this.webPageFile = webPageFile;
+	}
+
 	public int getSelectedRuleIndex() {
 		return selectedRuleIndex;
 	}

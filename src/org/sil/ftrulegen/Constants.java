@@ -7,11 +7,13 @@
 package org.sil.ftrulegen;
 
 public class Constants {
-	public static final String VERSION_NUMBER = "0.0.1 Beta";
+	public static final String VERSION_NUMBER = "0.1.0 Beta";
 
 	public static final String RESOURCE_LOCATION = "org.sil.ftrulegen.resources.RuleGen";
 	public static final String RESOURCE_SOURCE_LOCATION = "src/org/sil/ftrulegen/";
 	public static final String APPLICATION_ICON_RESOURCE = "file:resources/images/FLExTransWindowIcon.png";
+	public static final String CSS_FILES_LOCATION = "ftrulegenCSSFiles";
+	public static final String HTML_FILE_NAME = "FLExTransRule.html";
 
 	// Unit Testing constants
 	public static final String UNIT_TEST_DATA_FILE_NAME = "test/org/sil/ftrulegen/testdata/Ex1a_Def-Noun.";
