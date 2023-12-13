@@ -6,15 +6,14 @@ version="2.24.0"
 ><styledPaper
 ><lingPaper
 automaticallywrapinterlinears="yes"
+useImageWidthSetToWidthOfExampleFigureOrChart="no"
 version="2.28.0"
 ><frontMatter
 ><title
 ><object
-type="tAlloGen"
+type="tRuleGen"
 ></object
 > User Documentation</title
-><subtitle
->UNDER CONSTRUCTION!</subtitle
 ><author
 >H. Andrew Black</author
 ><affiliation
@@ -22,7 +21,7 @@ type="tAlloGen"
 ><emailAddress
 >blackhandrew@gmail.com</emailAddress
 ><date
->20 October, 2023</date
+>13 December, 2023</date
 ><version
 >Copyright © 2023 SIL International</version
 ><contents
@@ -34,97 +33,73 @@ id="sIntro"
 >Introduction</secTitle
 ><p
 ><object
-type="tAlloGen"
+type="tRuleGen"
 ></object
-> is a tool that works as a utility in <object
-type="tFieldWorks"
+> is a tool that enables you to write some <object
+type="tFLExTrans"
 ></object
-> (aka <object
-type="tFLEx"
-></object
->). <object
-type="tAlloGen"
-></object
-> allows you to define operations on a form in an entry to produce new <object
-type="tStemAllos"
-></object
-> in the entry of the matching form. You can use what is in the <object
-type="tCitationForm"
-></object
->, Lexeme Form, or in the first Etymology Source form for what to match on. It is possible to use a custom field, too. <object
-type="tAlloGen"
-></object
-> defaults to using the <object
-type="tCitationForm"
-></object
->.</p
+> transfer rules in a more linguist-friendly manner.</p
 ><p
 ><object
-type="tAlloGen"
+type="tRuleGen"
 ></object
-> works with version <object
-type="tFLExVersion"
-></object
-> or higher of <object
-type="tFLEx"
-></object
-> and is only available on 64-bit Windows computers.</p
+> is currently only available on 64-bit Windows computers.</p
 ><p
->Each operation defined in <object
-type="tAlloGen"
+>Each rule defined in <object
+type="tRuleGen"
 ></object
-> describes a pattern that is used to match the indicated kind of form in the <object
-type="tFLEx"
-></object
-> database. There also is a set of actions that are to be applied to each such form. The result of the action will produce a new <object
-type="tStemAllo"
-></object
-> in that entry.</p
+> describes a pattern that is used to match a source language structure and then map it to a transfer language structure.</p
 ><section2
 id="sInstallation"
 ><secTitle
 >Installation</secTitle
 ><p
 >To install <object
-type="tAlloGen"
+type="tRuleGen"
 ></object
 >, obtain the installer from <link
-href="https://github.com/sillsdev/FLExAllomorphGenerator/blob/master/Installer/Output/AllomorphGeneratorDllSetup.exe"
->https://​github.​com/​sillsdev/​FLExAllomorphGenerator/​blob/​master/​Installer/​Output/​Allomorph​Generator​Dll​Setup.​exe</link
->. The installer will check to see if you have installed <object
-type="tFieldWorks"
-></object
-> version 9. If not, it will abort.</p
+href="https://drive.google.com/file/d/1sFHyqW5gs-bLzAJS9lDTi09uagKf9z-n/view"
+>https://​drive.​google.​com/​file/​d/​1sFHyqW5gs-bLzAJS9lDTi09uagKf9z-n/​view</link
+>.</p
 ><p
->We recommend that you close <object
-type="tFieldWorks"
+>Note that <object
+type="tRuleGen"
 ></object
-> before running the <object
-type="tAlloGen"
+> needs to be invoked from within <object
+type="tFLExTrans"
 ></object
-> installer.</p
+>.</p
 ></section2
 ><section2
-id="sInvokingFromFLEx"
+id="sInvocation"
 ><secTitle
->Invoking <object
-type="tAlloGen"
-></object
-> from within <object
-type="tFLEx"
-></object
-></secTitle
+>Invocation</secTitle
 ><p
->While running <object
-type="tFLEx"
+>You use a command line to invoke <object
+type="tRuleGen"
 ></object
->, use <object
-type="tMenuItem"
->Tools</object
-> menu item / <object
-type="tMenuItem"
->Utilities...</object
->. Find the “Allomorph Generator” item, check it, and then click on the “Run Checked Utilities Now” button.</p
+>. The arguments are as in <exampleRef
+letter="xCommandLine"
+num="xCommandLine"
+></exampleRef
+>.</p
+><example
+num="xCommandLine"
+><chart
+>FLExTransRuleGenerator &lt;rule-file&gt; &lt;source/target-FLEx-category/features&gt; (&lt;max vars&gt;)<br
+></br
+><br
+></br
+>&lt;rule-file&gt; Specifies the FLExTrans transfer rule file.<br
+></br
+><br
+></br
+>&lt;source/target-FLEx-category/features&gt; Specifies the XML file with both source and target categories and features.<br
+></br
+><br
+></br
+>(max vars&gt; Specifies the optional max number of variables to show in values (default is 4)</chart
+></example
 ></section2
 ><section2
 id="sAppearance"
@@ -132,219 +107,290 @@ id="sAppearance"
 >Appearance</secTitle
 ><p
 ><object
-type="tAlloGen"
+type="tRuleGen"
 ></object
 > looks something like what is shown in <exampleRef
-letter="xAlloGenEditTab"
-num="xAlloGenEditTab"
+letter="xRuleGenOverview"
+num="xRuleGenOverview"
 ></exampleRef
 >.</p
 ><example
-num="xAlloGenEditTab"
+num="xRuleGenOverview"
 ><chart
+><img
+XeLaTeXSpecial="scaled='650'"
+src="Resources/RuleGen.png"
+></img
 ></chart
 ></example
 ><p
->The top portion shows the file containing the allomorph generation operations. Below it are three tabs, one for editing the operations, one for running them, and one for editing the master list of replace operations. See section  for information on using the <object
-type="tEditTab"
-></object
-> tab. In one project, the <object
-type="tRunTab"
-></object
-> tab looks like what is in <exampleRef
-letter="xAlloGenRunTab"
-num="xAlloGenRunTab"
-></exampleRef
->.</p
-><example
-num="xAlloGenRunTab"
-><chart
-></chart
-></example
+>There are two panes. The left one contains one transfer rule per line. The right pane shows a tree diagram of the selected rule.</p
 ><p
->This tab is explained in section  below. In this same project, the <object
-type="tEditReplaceTab"
-></object
-> tab looks like what is in <exampleRef
-letter="xAlloGenEditReplaceOpTab"
-num="xAlloGenEditReplaceOpTab"
-></exampleRef
->.</p
-><example
-num="xAlloGenEditReplaceOpTab"
-><chart
-></chart
-></example
-><p
->This tab is explained in section  below.</p
-><p
->The “Create New File” button is used to create a new file containing a new set of operations. When saving an <object
-type="tAlloGen"
-></object
-> file, I suggest you put it in a folder under the “My FieldWorks” directory in your “Documents” folder.</p
-><p
->The “Browse” button is used to select an operations file. <object
-type="tAlloGen"
-></object
-> files by convention have an extension of “.agf” and this is what the file browser uses.</p
+>The “Save” button is used to save changes made to rules or newly added rules.</p
 ><p
 >The “Help” button is used to get this user documentation file or to show the “About” dialog box.</p
+></section2
+></section1
+><section1
+id="sEditRules"
+><secTitle
+>Editing rules</secTitle
+><p
+>You can create new rules, rearrange them, or delete them by right-clicking on one. You will then see a context menu like what is in <exampleRef
+letter="xRulesContextMenu"
+num="xRulesContextMenu"
+></exampleRef
+>.</p
+><example
+num="xRulesContextMenu"
+><chart
+><img
+XeLaTeXSpecial="scaled='1250'"
+src="Resources/RuleContextMenu.png"
+></img
+></chart
+></example
+><p
+>Use the "Rule Name:" text box to add or edit the name of a rule.</p
+></section1
+><section1
+id="sEditTree"
+><secTitle
+>Editing trees</secTitle
+><p
+>The right pane contains a simplified tree diagram. Each such diagram has two parts: a source phrase is on the left and the corresponding target phrase is on the right. Every phrase will always have at least one word in it.</p
+><p
+></p
+><section2
+id="sEditWord"
+><secTitle
+>Editing a word</secTitle
+><p
+>When you click (or double-click or right-click) on a word item in the tree, the context menu shown in <exampleRef
+letter="xWordContrextMenu"
+num="xWordContrextMenu"
+></exampleRef
+> appears.</p
+><example
+num="xWordContrextMenu"
+><chart
+><img
+XeLaTeXSpecial="scaled='1250'"
+src="Resources/WordContextMenu.png"
+></img
+></chart
+></example
+><p
+>Select the item you wish to use.  They are as follows:</p
+><ul
+><li
+>Duplicate: creates a complete copy of the current word.</li
+><li
+>Mark as head: labels this word as being the head of the phrase.</li
+><li
+>Remove head marking: removes any head marking on this word.</li
+><li
+>Insert new before: inserts a new word item before the selected word.</li
+><li
+>Insert new after: inserts a new word item after the selected word.</li
+><li
+>Insert prefix: inserts an affix item labeled as a prefix.  This is available only if the selected word has no affix items yet.</li
+><li
+>Insert suffix: inserts an affix item labeled as a suffix.  This is available only if the selected word has no affix items yet.</li
+><li
+>Insert category: inserts a category item.  This is available only if the selected word has no category item yet.</li
+><li
+>Insert feature: inserts a feature item.</li
+><li
+>Move left: moves the selected word to the left.</li
+><li
+>Move right: moves the selected word to the right.</li
+><li
+>Delete: removes the selected word.</li
+></ul
+></section2
+><section2
+id="sEditCategory"
+><secTitle
+>Editing a category</secTitle
+><p
+>When you click (or double-click or right-click) on a word item in the tree, the context menu shown in <exampleRef
+letter="xCategoryContextMenu"
+num="xCategoryContextMenu"
+></exampleRef
+> appears.</p
+><example
+num="xCategoryContextMenu"
+><chart
+><img
+XeLaTeXSpecial="scaled='1250'"
+src="Resources/CategoryContextMenu.png"
+></img
+></chart
+></example
+><p
+>The Category chooser appears if you choose “Edit.” Which categories are listed in the chooser depends on whether the category is in the source or the target portion of the tree diagram. <object
+type="tFLExTrans"
+></object
+> gives <object
+type="tRuleGen"
+></object
+> the list of categories for the source <object
+type="tFLEx"
+></object
+> project and the target <object
+type="tFLEx"
+></object
+> project. In one case, the category chooser looked like what is in example <exampleRef
+letter="xCategoryChooser"
+num="xCategoryChooser"
+></exampleRef
+>.</p
+><example
+num="xCategoryChooser"
+><chart
+><img
+XeLaTeXSpecial="scaled='1250'"
+src="Resources/CategoryChooser.png"
+></img
+></chart
+></example
+><p
+>If you choose “Delete,” the category item will be deleted.</p
+></section2
+><section2
+id="sEditFeature"
+><secTitle
+>Editing a feature</secTitle
+><p
+>When you click (or double-click or right-click) on a word item in the tree, the context menu shown in <exampleRef
+letter="xFeatureContextMenu"
+num="xFeatureContextMenu"
+></exampleRef
+> appears.</p
+><example
+num="xFeatureContextMenu"
+><chart
+><img
+XeLaTeXSpecial="scaled='1250'"
+src="Resources/CategoryContextMenu.png"
+></img
+></chart
+></example
+><p
+>The Feature chooser appears if you choose “Edit.” Which features are listed in the chooser depends on whether the feature is in the source or the target portion of the tree diagram. <object
+type="tFLExTrans"
+></object
+> gives <object
+type="tRuleGen"
+></object
+> the list of features for the source <object
+type="tFLEx"
+></object
+> project and the target <object
+type="tFLEx"
+></object
+> project. In one case, the category chooser looked like what is in example <exampleRef
+letter="xFeatureChooser"
+num="xFeatureChooser"
+></exampleRef
+>.</p
+><example
+num="xFeatureChooser"
+><chart
+><img
+XeLaTeXSpecial="scaled='1250'"
+src="Resources/FeatureChooser.png"
+></img
+></chart
+></example
+><p
+>The number of Greek letter variable values shown defaults to four. You can set the number via the optional third command line parameter. See section <sectionRef
+sec="sInvocation"
+></sectionRef
+>.</p
+><p
+>If you choose “Delete,” the feature item will be deleted.</p
+></section2
+><section2
+id="sEditAffix"
+><secTitle
+>Editing an affix</secTitle
+><p
+>When you click (or double-click or right-click) on an affix item in the tree, the context menu shown in <exampleRef
+letter="xAffixContrextMenu"
+num="xAffixContrextMenu"
+></exampleRef
+> appears.</p
+><example
+num="xAffixContrextMenu"
+><chart
+><img
+XeLaTeXSpecial="scaled='1250'"
+src="Resources/AffixContextMenu.png"
+></img
+></chart
+></example
+><p
+>Select the item you wish to use. They are as follows:</p
+><ul
+><li
+>Duplicate: creates a complete copy of the current affix.</li
+><li
+>Toggle affix type: changes the type from prefix to suffix or from suffix to prefix.</li
+><li
+>Insert feature: inserts a feature item.</li
+><li
+>Insert new prefix before: inserts a new affix item labeled as a prefix before the selected affix.</li
+><li
+>Insert new prefix after: inserts a new affix item labeled as a prefix after the selected affix.</li
+><li
+>Insert new suffix before: inserts a new affix item labeled as a suffix before the selected affix.</li
+><li
+>Insert new suffix after: inserts a new affix item labeled as a suffix after the selected affix.</li
+><li
+>Move left: moves the selected affix to the left.</li
+><li
+>Move right: moves the selected affix to the right.</li
+><li
+>Delete: removes the selected affix.</li
+></ul
+><p
+></p
+></section2
+><section2
+id="sCreatePermutations"
+><secTitle
+>Create permutations check box</secTitle
+><p
+>To the right of the rule name is a check box labeled "Create permutations." This check box is enabled only when the target portion has at least three words and one of them is marked as the head. If you want <object
+type="tFLExTrans"
+></object
+> to create separate rules for each possible combination of the three or more word items, check this box.</p
 ></section2
 ></section1
 ><section1
 id="sRemembering"
 ><secTitle
 >Restarting <object
-type="tAlloGen"
+type="tRuleGen"
 ></object
 ></secTitle
 ><p
 >Whenever you exit and restart <object
-type="tAlloGen"
+type="tRuleGen"
 ></object
 >, it will do the following:</p
 ><ol
 ><li
 >remember its window size, location, and layout;</li
 ><li
->remember which <object
-type="tAlloGen"
-></object
-> file you last chose;</li
+>remember which rule you last chose;</li
 ><li
->remember which tab you last selected;</li
+>remember the category chooser size, location, and layout;</li
 ><li
->remember which operation you last selected for each tab.</li
+>remember feature chooser size, location, and layout;.</li
 ></ol
-></section1
-><section1
-id="sErrorMessage"
-><secTitle
->Error messages</secTitle
-><p
->In certain situations, <object
-type="tAlloGen"
-></object
-> will issue an error message.</p
-><p
->Table <tablenumberedRef
-table="ntErrorMessages"
-></tablenumberedRef
-> lists the errors <object
-type="tAlloGen"
-></object
-> reports along with a brief description of what the error might mean.</p
-><tablenumbered
-id="ntErrorMessages"
-><table
-border="1"
-><caption
->Error messages</caption
-><tr
-><th
-width="3in"
->Error</th
-><th
-width="2.85in"
->Meaning</th
-></tr
-><tr
-><td
-><object
-type="tErrorType"
->The category '<object
-type="tItalic"
->category name</object
->' was not found in the FLEx database</object
-></td
-><td
->The indicated category is no longer found in the <object
-type="tFLEx"
-> </object
-> project. Try to change it to one that is now present. This can appear when setting a <object
-type="tStemName"
-></object
-> in an action.</td
-></tr
-><tr
-XeLaTeXSpecial="row-separation='-6pt'"
-><td
-> </td
-><td
-> </td
-></tr
-><tr
-><td
-><object
-type="tErrorType"
->No operations are selected, so there's nothing to do</object
-></td
-><td
->This is shown when the <object
-type="tApplyOps"
-></object
-> button is pressed but no operations have been checked. Try checking at least one operation.</td
-></tr
-><tr
-XeLaTeXSpecial="row-separation='-6pt'"
-><td
-> </td
-><td
-> </td
-></tr
-><tr
-><td
-><object
-type="tErrorType"
->The environment '<object
-type="tItalic"
->environment</object
->' is no longer found. Please fix it in operation '<object
-type="tItalic"
->operation name</object
->'.</object
-></td
-><td
->The indicated environment is no longer in the <object
-type="tFLEx"
-> </object
-> project. You will need to fix it in the indicated operation.</td
-></tr
-><tr
-XeLaTeXSpecial="row-separation='-6pt'"
-><td
-> </td
-><td
-> </td
-></tr
-><tr
-><td
-><object
-type="tErrorType"
->The stem name '<object
-type="tItalic"
->stem name</object
->' is no longer found. Please fix it in operation '<object
-type="tItalic"
->operation name</object
->'.</object
-></td
-><td
->The indicated <object
-type="tStemName"
-></object
-> is no longer in the <object
-type="tFLEx"
-> </object
-> project. You will need to fix it in the indicated operation.</td
-></tr
-></table
-></tablenumbered
-><p
->If you get an error message not in the list above, please report it. See section <sectionRef
-sec="sSupport"
-></sectionRef
->.</p
 ></section1
 ><section1
 id="sKnownProblems"
@@ -352,54 +398,17 @@ id="sKnownProblems"
 >Known problems</secTitle
 ><p
 >The following items are known to be less than desirable with this version of <object
-type="tAlloGen"
+type="tRuleGen"
 ></object
 >:</p
 ><ol
 ><li
 ><object
-type="tAlloGen"
+type="tRuleGen"
 ></object
-> only works with version <object
-type="tFLExVersion"
-></object
-> or higher of <object
-type="tFLEx"
-></object
->.</li
+> only works on WIndows.</li
 ><li
->The user interface is in English only.</li
-><li
->When you start <object
-type="tAlloGen"
-></object
->, if <object
-type="tFLEx"
-></object
-> is showing as full screen, you may not see the <object
-type="tAlloGen"
-></object
-> dialog. You may have to either make <object
-type="tFLEx"
-></object
-> be in its “Restore” mode or find the <object
-type="tAlloGen"
-></object
-> dialog and move it to another screen.</li
-><li
->Whenever you upgrade your version of <object
-type="tFLEx"
-></object
->, you may have to re-install <object
-type="tAlloGen"
-></object
->. In particular, the “Allomorph Generator” item under <object
-type="tMenuItem"
->Tools</object
-> menu item / <object
-type="tMenuItem"
->Utilities...</object
-> may not show.</li
+>The user interface is in English only (but can potentially be translated into other languages).</li
 ></ol
 ></section1
 ><section1
@@ -408,7 +417,7 @@ id="sSupport"
 >Support</secTitle
 ><p
 >If you have any questions with <object
-type="tAlloGen"
+type="tRuleGen"
 ></object
 > or find bugs in it, please send an email to <link
 href="mailto:blackhandrew@gmail.com"
@@ -530,12 +539,6 @@ xsl-foSpecial="text-decoration=&quot;underline&quot;"
 ><comment
 >Add your custom types here.</comment
 ><type
-before="FLExTrans Rule Generator"
-color="navy"
-font-style="italic"
-id="tAlloGen"
-></type
-><type
 before="“Apply Checked Operations”"
 id="tApplyOps"
 ></type
@@ -620,6 +623,18 @@ before="FLEx"
 color="navy"
 font-style="italic"
 id="tFLEx"
+></type
+><type
+before="FLExTrans"
+color="navy"
+font-style="italic"
+id="tFLExTrans"
+></type
+><type
+before="FLExTrans Rule Generator"
+color="navy"
+font-style="italic"
+id="tRuleGen"
 ></type
 ><type
 before="Run Operations"
