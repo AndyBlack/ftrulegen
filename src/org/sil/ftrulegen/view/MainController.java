@@ -595,7 +595,11 @@ public class MainController implements Initializable {
 			cmWordInsertSuffix.setDisable(true);
 			cmWordInsertFeature.setDisable(true);
 		} else {
-			cmWordMarkAsHead.setDisable(false);
+			if (word.getHead() == HeadValue.yes) {
+				cmWordMarkAsHead.setDisable(true);
+			} else {
+				cmWordMarkAsHead.setDisable(false);
+			}
 			cmWordRemoveHeadMarking.setDisable(false);
 			cmWordInsertPrefix.setDisable(false);
 			cmWordInsertSuffix.setDisable(false);
@@ -971,6 +975,11 @@ public class MainController implements Initializable {
 	}
 
 	public void handleWordMarkAsHead() {
+		for (Word w : phrase.getWords()) {
+			if (w.getHead() == HeadValue.yes) {
+				w.setHead(HeadValue.no);
+			}
+		}
 		word.setHead(HeadValue.yes);
 		reportChangesMade();
 	}
