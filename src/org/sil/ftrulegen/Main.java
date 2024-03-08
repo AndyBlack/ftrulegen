@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 SIL International
+ * Copyright (c) 2023-2024 SIL International
  * This software is licensed under the LGPL, version 2.1 or later
  * (http://www.gnu.org/licenses/lgpl-2.1.html)
  */
@@ -11,7 +11,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.text.MessageFormat;
+import java.util.Comparator;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -145,11 +147,13 @@ public class Main extends Application {
 	private Path checkExistanceOfCSSFiles() throws IOException {
 		String tempDir = System.getProperty("java.io.tmpdir");
 		Path workingFilesPath = Paths.get(tempDir, Constants.CSS_FILES_LOCATION);
-		if (!Files.exists(workingFilesPath)) {
-			String appDir = System.getProperty("user.dir");
-			String cssFiles = appDir + File.separatorChar + "CSSFiles";
-			Main.copyDirectory(cssFiles, workingFilesPath.toString());
+		// Always copy these; sometimes Ron's got removed from temp directory
+		if (Files.exists(workingFilesPath)) {
+			Main.deleteDirectory(workingFilesPath);
 		}
+		String appDir = System.getProperty("user.dir");
+		String cssFiles = appDir + File.separatorChar + "CSSFiles";
+		Main.copyDirectory(cssFiles, workingFilesPath.toString());
 		return workingFilesPath;
 	}
 
@@ -183,11 +187,23 @@ public class Main extends Application {
 					Path destination = Paths.get(destinationDirectoryLocation, source.toString()
 							.substring(sourceDirectoryLocation.length()));
 					try {
-						Files.copy(source, destination);
+						Files.copy(source, destination,StandardCopyOption.REPLACE_EXISTING);
 					} catch (IOException e) {
 						e.printStackTrace();
 						System.out.print(e.getMessage());
 					}
 				});
+	}
+	// Following is from https://www.baeldung.com/java-delete-directory
+	public static void deleteDirectory(Path pathToBeDeleted) {
+		try {
+			Files.walk(pathToBeDeleted)
+			  .sorted(Comparator.reverseOrder())
+			  .map(Path::toFile)
+			  .forEach(File::delete);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
