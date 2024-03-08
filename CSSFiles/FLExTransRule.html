@@ -1,0 +1,107 @@
+<!DOCTYPE html SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head><title>TreeFlex test</title>
+<!--        <meta charset="utf-8"/>-->
+<!--        <link rel="stylesheet" href="https://unpkg.com/treeflex/dist/css/treeflex.css"/>-->
+<!--        <link rel="stylesheet" href="treeflex.css"/>-->
+        <link rel="stylesheet" href="node_modules/treeflex/dist/css/treeflex.css"/>
+        <link rel="stylesheet" href="rulegen.css"/>
+        <script>
+            function me() {
+            alert("in me");
+            /* var me = "ddddddddd";
+            document.getElementById('demo1').style.color = 'yellow'; */
+            window.chrome.webview.postMessage('dellmaddddddddddddddddddd');
+            alert("after posting message");
+            }
+        </script>
+    </head>
+    <body>
+        <p>FLExTrans test</p>
+        <table>
+            <tr>
+                <td>
+                    <div class="tf-tree">
+                        <ul>
+                            <li onclick="me()">
+                                <span class="tf-nc">phrase with click<span class="language">src</span></span>
+                                <ul>
+                                    <li>
+                                        <span class="tf-nc">word<span class="index">1</span></span>
+                                        <ul>
+                                            <li><span class="tf-nc category">cat:adj</span></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <span class="tf-nc">word<span class="index">2</span></span>
+                                        <ul>
+                                            <li><span class="tf-nc category">cat:unknown</span></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>        
+                </td>
+                <td>
+                    <span class="arrow"/>
+                </td>
+                <td>
+                    <div class="tf-tree">
+                        <ul>
+                            <li>
+                                <span class="tf-nc">phrase<span class="language">tgt</span></span>
+                                <ul>
+                                    <li>
+                                        <span class="tf-nc">word<span class="index">1</span><span class="head"> </span></span>
+                                        <ul>
+                                            <li><span class="tf-nc feature">gender:ɑ</span></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <span class="tf-nc">word<span class="index">2</span></span>
+                                        <ul>
+                                            <li><span class="tf-nc feature">gender:ɑ</span></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>        
+                    
+                </td>
+            </tr>
+        </table>
+        <p>Treeflex test</p>
+        <div class="tf-tree">
+            <ul>
+                <li>
+                    <span class="tf-nc">1</span>
+                    <ul>
+                        <li>
+                            <span class="tf-nc">2 and so on and etc.</span>
+                            <ul>
+                                <li><span class="tf-nc">4</span></li>
+                                <li>
+                                    <span class="tf-nc">5</span>
+                                    <ul>
+                                        <li><span class="tf-nc">9</span></li>
+                                        <li><span class="tf-nc">10</span></li>
+                                    </ul>
+                                </li>
+                                <li><span class="tf-nc">6</span></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="tf-nc">3</span>
+                            <ul>
+                                <li><span class="tf-nc" style="color:blue;">This one is very, very, very, long</span></li>
+                                <li><span class="tf-nc">8</span></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>        
+    </body>
+</html>
