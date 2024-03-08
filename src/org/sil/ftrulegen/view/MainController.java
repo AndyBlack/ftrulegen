@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 SIL International
+ * Copyright (c) 2023-2024 SIL International
  * This software is licensed under the LGPL, version 2.1 or later
  * (http://www.gnu.org/licenses/lgpl-2.1.html)
  */
@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
 import netscape.javascript.JSObject;
 
 import org.sil.ftrulegen.*;
@@ -35,6 +36,7 @@ import org.sil.ftrulegen.model.Feature;
 import org.sil.ftrulegen.model.HeadValue;
 import org.sil.ftrulegen.model.PermutationsValue;
 import org.sil.ftrulegen.model.Phrase;
+import org.sil.ftrulegen.model.PhraseType;
 import org.sil.ftrulegen.model.RuleConstituent;
 import org.sil.ftrulegen.model.Word;
 import org.sil.ftrulegen.service.ConstituentFinder;
@@ -581,10 +583,23 @@ public class MainController implements Initializable {
 		} else {
 			cmWordDelete.setDisable(false);
 		}
-		if (word.getCategory().length() > 0) {
+		if (phrase.getType() == PhraseType.target || word.getCategory().length() > 0) {
 			cmWordInsertCategory.setDisable(true);
 		} else {
 			cmWordInsertCategory.setDisable(false);
+		}
+		if (phrase.getType() == PhraseType.source) {
+			cmWordMarkAsHead.setDisable(true);
+			cmWordRemoveHeadMarking.setDisable(true);
+			cmWordInsertPrefix.setDisable(true);
+			cmWordInsertSuffix.setDisable(true);
+			cmWordInsertFeature.setDisable(true);
+		} else {
+			cmWordMarkAsHead.setDisable(false);
+			cmWordRemoveHeadMarking.setDisable(false);
+			cmWordInsertPrefix.setDisable(false);
+			cmWordInsertSuffix.setDisable(false);
+			cmWordInsertFeature.setDisable(false);
 		}
 	}
 
