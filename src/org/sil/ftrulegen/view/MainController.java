@@ -1013,6 +1013,18 @@ public class MainController implements Initializable {
 		markAsChanged(false);
 	}
 
+	@FXML
+	public void handleSaveCreate() {
+		provider.saveDataToFile(ruleGenFile);
+		markAsChanged(false);
+	}
+
+	@FXML
+	public void handleSaveCreateAll() {
+		provider.saveDataToFile(ruleGenFile);
+		markAsChanged(false);
+	}
+
 	void markAsChanged(boolean changed) {
 		changesMade = changed;
 		showChangeStatusOnForm();

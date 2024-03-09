@@ -31,10 +31,12 @@
           <AnchorPane fx:id="browserPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="1200.0">
                <children>
                   <WebView fx:id="browser" layoutX="31.0" layoutY="125.0" prefHeight="300.0" prefWidth="1900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="71.0" />
-                  <ButtonBar layoutX="852.0" layoutY="21.0" AnchorPane.rightAnchor="13.0">
+                  <ButtonBar layoutX="852.0" layoutY="5.0" prefHeight="25.0" prefWidth="506.0" AnchorPane.rightAnchor="13.0">
                      <buttons>
                         <Button mnemonicParsing="false" onAction="#handleSave" text="%view.Save" />
-                        <Button mnemonicParsing="false" onAction="#handleHelp" text="%view.Help" fx:id="btnHelp" />
+                        <Button mnemonicParsing="false" onAction="#handleSaveCreate" text="%view.SaveCreate" />
+                        <Button mnemonicParsing="false" onAction="#handleSaveCreateAll" text="%view.SaveCreateAll" />
+                        <Button fx:id="btnHelp" mnemonicParsing="false" onAction="#handleHelp" text="%view.Help" />
                      </buttons>
                   </ButtonBar>
                   <Label layoutX="6.0" layoutY="43.0" text="%view.RuleName" />

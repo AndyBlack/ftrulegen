@@ -21,9 +21,11 @@ type="tRuleGen"
 ><emailAddress
 >blackhandrew@gmail.com</emailAddress
 ><date
->13 December, 2023</date
+>9 March, 2023</date
 ><version
->Copyright © 2023 SIL International</version
+>Version 0.2.0  Beta</version
+><version
+>Copyright © 2023-2024 SIL International</version
 ><contents
 ></contents
 ></frontMatter
@@ -128,6 +130,32 @@ src="Resources/RuleGen.png"
 ><p
 >The “Save” button is used to save changes made to rules or newly added rules.</p
 ><p
+>The “Save &amp; Create” button is used to save changes made to rules or newly added rules and then create the currently selected rule in the <object
+type="tFLExTrans"
+></object
+> rule file.<endnote
+id="nCreate"
+><p
+>The current version does not yet create any <object
+type="tFLExTrans"
+></object
+> rules.</p
+></endnote
+></p
+><p
+>The “Save &amp; Create All” button is used to save changes made to rules or newly added rules and then create all the rules in the <object
+type="tFLExTrans"
+></object
+> rule file.<endnote
+id="nCreateAll"
+><p
+>The current version does not yet create any <object
+type="tFLExTrans"
+></object
+> rules.</p
+></endnote
+></p
+><p
 >The “Help” button is used to get this user documentation file or to show the “About” dialog box.</p
 ></section2
 ></section1
@@ -181,7 +209,7 @@ src="Resources/WordContextMenu.png"
 ></chart
 ></example
 ><p
->Select the item you wish to use.  They are as follows:</p
+>Select the item you wish to use. They are as follows:</p
 ><ul
 ><li
 >Duplicate: creates a complete copy of the current word.</li
@@ -194,11 +222,11 @@ src="Resources/WordContextMenu.png"
 ><li
 >Insert new after: inserts a new word item after the selected word.</li
 ><li
->Insert prefix: inserts an affix item labeled as a prefix.  This is available only if the selected word has no affix items yet.</li
+>Insert prefix: inserts an affix item labeled as a prefix. This is available only if the selected word has no affix items yet.</li
 ><li
->Insert suffix: inserts an affix item labeled as a suffix.  This is available only if the selected word has no affix items yet.</li
+>Insert suffix: inserts an affix item labeled as a suffix. This is available only if the selected word has no affix items yet.</li
 ><li
->Insert category: inserts a category item.  This is available only if the selected word has no category item yet.</li
+>Insert category: inserts a category item. This is available only if the selected word has no category item yet.</li
 ><li
 >Insert feature: inserts a feature item.</li
 ><li
