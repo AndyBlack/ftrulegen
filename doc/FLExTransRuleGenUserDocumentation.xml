@@ -21,9 +21,9 @@ type="tRuleGen"
 ><emailAddress
 >blackhandrew@gmail.com</emailAddress
 ><date
->9 March, 2023</date
+>13 March, 2023</date
 ><version
->Version 0.2.0  Beta</version
+>Version 0.2.0 Beta</version
 ><version
 >Copyright © 2023-2024 SIL International</version
 ><contents
@@ -212,29 +212,70 @@ src="Resources/WordContextMenu.png"
 >Select the item you wish to use. They are as follows:</p
 ><ul
 ><li
->Duplicate: creates a complete copy of the current word.</li
+><object
+type="tBold"
+>Duplicate</object
+>: creates a complete copy of the current word.</li
 ><li
->Mark as head: labels this word as being the head of the phrase.</li
+><object
+type="tBold"
+>Change number</object
+>: modifies the word's number. If you choose a number of another word, then that other word will be set to the original number of the word you are changing.</li
 ><li
->Remove head marking: removes any head marking on this word.</li
+><object
+type="tBold"
+>Mark as head</object
+>: labels this word as being the head of the phrase. This is only available for target words.  If another word had been marked as being the head, then that other word will no longer be marked as the head.  That is, only one word can be marked as the head.</li
 ><li
->Insert new before: inserts a new word item before the selected word.</li
+><object
+type="tBold"
+>Remove head marking</object
+>: removes any head marking on this word. This is only available for target words.</li
 ><li
->Insert new after: inserts a new word item after the selected word.</li
+><object
+type="tBold"
+>Insert new before</object
+>: inserts a new word item before the selected word.</li
 ><li
->Insert prefix: inserts an affix item labeled as a prefix. This is available only if the selected word has no affix items yet.</li
+><object
+type="tBold"
+>Insert new after</object
+>: inserts a new word item after the selected word.</li
 ><li
->Insert suffix: inserts an affix item labeled as a suffix. This is available only if the selected word has no affix items yet.</li
+><object
+type="tBold"
+>Insert prefix</object
+>: inserts an affix item labeled as a prefix. This is available only if the selected word has no affix items yet and is a target word.</li
 ><li
->Insert category: inserts a category item. This is available only if the selected word has no category item yet.</li
+><object
+type="tBold"
+>Insert suffix</object
+>: inserts an affix item labeled as a suffix. This is available only if the selected word has no affix items yet and is a target word.</li
 ><li
->Insert feature: inserts a feature item.</li
+><object
+type="tBold"
+>Insert category</object
+>: inserts a category item. This is available only if the selected word has no category item yet and is a source word.</li
 ><li
->Move left: moves the selected word to the left.</li
+><object
+type="tBold"
+>Insert feature</object
+>: inserts a feature item. This is only available for target words.</li
 ><li
->Move right: moves the selected word to the right.</li
+><object
+type="tBold"
+>Move left</object
+>: moves the selected word to the left.</li
 ><li
->Delete: removes the selected word.</li
+><object
+type="tBold"
+>Move right</object
+>: moves the selected word to the right.</li
+><li
+><object
+type="tBold"
+>Delete</object
+>: removes the selected word.</li
 ></ul
 ></section2
 ><section2

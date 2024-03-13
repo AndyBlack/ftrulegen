@@ -62,11 +62,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Font;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -918,8 +920,23 @@ public class MainController implements Initializable {
 		phrase = (Phrase) word.getParent();
 		if (phrase != null) {
 			int index = phrase.getWords().indexOf(word);
-//			phrase.;
-			reportChangesMade();
+			final String[] idNumbers = new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9",
+					"10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20" };
+			ChoiceDialog<String> dialog = new ChoiceDialog<>("1", idNumbers);
+			dialog.setTitle(RESOURCE_FACTORY.getStringBinding("idchooser.header").get());
+			dialog.setHeaderText(RESOURCE_FACTORY.getStringBinding("idchooser.content").get());
+			dialog.setContentText(RESOURCE_FACTORY.getStringBinding("idchooser.choose").get());
+			String oldId = word.getId();
+			dialog.setSelectedItem(word.getId());
+			Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+			stage.getIcons().add(
+					ControllerUtilities.getIconImageFromURL(Constants.APPLICATION_ICON_RESOURCE,
+							Constants.RESOURCE_SOURCE_LOCATION));
+			Optional<String> result = dialog.showAndWait();
+			if (result.isPresent()) {
+				phrase.changeIdOfWord(index, oldId, result.get());
+				reportChangesMade();
+			}
 		}
 	}
 
