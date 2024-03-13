@@ -147,6 +147,7 @@ public class MainController implements Initializable {
 	MenuItem cmWordInsertAfter;
 	MenuItem cmWordMoveLeft;
 	MenuItem cmWordMoveRight;
+	MenuItem cmWordChangeNumber;
 	MenuItem cmWordDelete;
 	MenuItem cmWordInsertPrefix;
 	MenuItem cmWordInsertSuffix;
@@ -497,6 +498,10 @@ public class MainController implements Initializable {
 		cmWordMoveRight.setOnAction((event) -> {
 			handleWordMoveRight();
 		});
+		cmWordChangeNumber = new MenuItem(bundle.getString("view.cmChangeNumber"));
+		cmWordChangeNumber.setOnAction((event) -> {
+			handleWordChangeNumber();
+		});
 		cmWordDelete = new MenuItem(bundle.getString("view.cmDelete"));
 		cmWordDelete.setOnAction((event) -> {
 			handleWordDelete();
@@ -525,11 +530,12 @@ public class MainController implements Initializable {
 		cmWordRemoveHeadMarking.setOnAction((event) -> {
 			handleWordRemoveHeadMarking();
 		});
-		wordEditContextMenu.getItems().addAll(cmWordDuplicate, new SeparatorMenuItem(), cmWordMarkAsHead,
-				cmWordRemoveHeadMarking, new SeparatorMenuItem(), cmWordInsertBefore, cmWordInsertAfter,
-				new SeparatorMenuItem(), cmWordInsertPrefix, cmWordInsertSuffix, cmWordInsertCategory,
-				cmWordInsertFeature, new SeparatorMenuItem(), cmWordMoveLeft, cmWordMoveRight, new SeparatorMenuItem(),
-				cmWordDelete);
+		wordEditContextMenu.getItems().addAll(cmWordDuplicate, new SeparatorMenuItem(),
+				cmWordChangeNumber, cmWordMarkAsHead, cmWordRemoveHeadMarking,
+				new SeparatorMenuItem(), cmWordInsertBefore, cmWordInsertAfter,
+				new SeparatorMenuItem(), cmWordInsertPrefix, cmWordInsertSuffix,
+				cmWordInsertCategory, cmWordInsertFeature, new SeparatorMenuItem(), cmWordMoveLeft,
+				cmWordMoveRight, new SeparatorMenuItem(), cmWordDelete);
 	}
 
 	void enableDisableAffixContextMenuItems() {
@@ -908,12 +914,20 @@ public class MainController implements Initializable {
 		markAsChanged(true);
 	}
 
+	public void handleWordChangeNumber() {
+		phrase = (Phrase) word.getParent();
+		if (phrase != null) {
+			int index = phrase.getWords().indexOf(word);
+//			phrase.;
+			reportChangesMade();
+		}
+	}
+
 	public void handleWordDelete() {
 		phrase = (Phrase) word.getParent();
 		if (phrase != null) {
 			int index = phrase.getWords().indexOf(word);
 			phrase.deleteWordAt(index);
-			;
 			reportChangesMade();
 		}
 	}

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 SIL International
+ * Copyright (c) 2023-2024 SIL International
  * This software is licensed under the LGPL, version 2.1 or later
  * (http: //www.gnu.org/licenses/lgpl-2.1.html)
  */
@@ -123,6 +123,23 @@ public class PhraseTests {
 		sourcePhrase.swapPositionOfWords(1, 0);
 		assert "Source 1" == sourcePhrase.getWords().get(0).getId();
 		assert "Source 2" == sourcePhrase.getWords().get(1).getId();
+	}
+
+	@Test
+	public final void changeIdOfWordTest() {
+		assert 2 == sourcePhrase.getWords().size();
+		sourcePhrase.changeIdOfWord(-1, "Source 1", "Source 2"); // is a no-op
+		assertEquals("Source 1", sourcePhrase.getWords().get(0).getId());
+		assertEquals("Source 2", sourcePhrase.getWords().get(1).getId());
+		sourcePhrase.changeIdOfWord(2, "Source 1", "Source 2"); // is a no-op
+		assertEquals("Source 1", sourcePhrase.getWords().get(0).getId());
+		assertEquals("Source 2", sourcePhrase.getWords().get(1).getId());
+		sourcePhrase.changeIdOfWord(0, "Source 1", "Source 2");
+		assertEquals("Source 2", sourcePhrase.getWords().get(0).getId());
+		assertEquals("Source 1", sourcePhrase.getWords().get(1).getId());
+		sourcePhrase.changeIdOfWord(0, "Source 2", "1");
+		assertEquals("1", sourcePhrase.getWords().get(0).getId());
+		assertEquals("Source 1", sourcePhrase.getWords().get(1).getId());
 	}
 
 	@Test

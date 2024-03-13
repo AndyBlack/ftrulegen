@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 SIL International
+ * Copyright (c) 2023-2024 SIL International
  * This software is licensed under the LGPL, version 2.1 or later
  * (http://www.gnu.org/licenses/lgpl-2.1.html)
  */
@@ -82,6 +82,19 @@ public class Phrase extends RuleConstituent {
 		Word otherWord = getWords().get(otherIndex);
 		getWords().set(index, otherWord);
 		getWords().set(otherIndex, word);
+	}
+
+	public final void changeIdOfWord(int index, String oldId, String newId) {
+		if (index < 0 | index >= getWords().size()) {
+			return;
+		}
+		Optional<Word> optional = getWords().stream().filter(w -> w.getId().equals(newId)).findFirst();
+		if (optional.isPresent()) {
+			Word otherWord = optional.get();
+			int indexOther = getWords().indexOf(otherWord);
+			getWords().get(indexOther).setId(oldId);
+		}
+		getWords().get(index).setId(newId);
 	}
 
 	public final void markWordAsHead(Word word) {
