@@ -1048,12 +1048,18 @@ public class MainController implements Initializable {
 	public void handleSaveCreate() {
 		provider.saveDataToFile(ruleGenFile);
 		markAsChanged(false);
+		// TODO: add code to create the current rule in Apertium format
+		Platform.exit();
+		System.exit(1);
 	}
 
 	@FXML
 	public void handleSaveCreateAll() {
 		provider.saveDataToFile(ruleGenFile);
 		markAsChanged(false);
+		// TODO: add code to create all rules in Apertium format
+		Platform.exit();
+		System.exit(2);
 	}
 
 	void markAsChanged(boolean changed) {
