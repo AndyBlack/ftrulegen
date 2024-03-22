@@ -605,10 +605,11 @@ public class MainController implements Initializable {
 		} else {
 			if (word.getHead() == HeadValue.yes) {
 				cmWordMarkAsHead.setDisable(true);
+				cmWordRemoveHeadMarking.setDisable(false);
 			} else {
 				cmWordMarkAsHead.setDisable(false);
+				cmWordRemoveHeadMarking.setDisable(true);
 			}
-			cmWordRemoveHeadMarking.setDisable(false);
 			cmWordInsertPrefix.setDisable(false);
 			cmWordInsertSuffix.setDisable(false);
 			cmWordInsertFeature.setDisable(false);
