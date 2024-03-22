@@ -1132,7 +1132,7 @@ public class MainController implements Initializable {
 				Constants.RESOURCE_SOURCE_LOCATION));
 
 		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.YES) {
+		if (result.get().getButtonData() == ButtonData.YES) {
 			handleSave();
 		}
 	}
