@@ -8,16 +8,23 @@ package org.sil.ftrulegen.model;
 
 import static org.junit.Assert.*;
 
-import org.junit.After;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.sil.ftrulegen.flexmodel.FLExFeature;
+import org.sil.ftrulegen.flexmodel.FLExFeatureValue;
 import org.sil.ftrulegen.service.RuleIdentifierAndParentSetter;
+import org.sil.ftrulegen.service.ServiceTestBase;
 
-public class PhraseTests {
+public class PhraseTests extends ServiceTestBase {
 	private FLExTransRuleGenerator ruleGenerator;
 	private Phrase sourcePhrase;
 	private Word sourceWord;
 	private Word sourceWord2;
+	private Phrase targetPhrase;
+	private Word targetWord;
+	private Word targetWord2;
 
 	@Before
 	public final void setup() {
@@ -38,13 +45,13 @@ public class PhraseTests {
 		sourceWord2.setHead(HeadValue.no);
 		sourcePhrase.getWords().add(sourceWord2);
 		Target target = rule.getTarget();
-		Phrase targetPhrase = target.getPhrase();
-		Word targetWord = new Word();
+		targetPhrase = target.getPhrase();
+		targetWord = new Word();
 		targetWord.setId("Target 1");
 		targetWord.setCategory("Det");
 		targetWord.setHead(HeadValue.no);
 		targetPhrase.getWords().add(targetWord);
-		Word targetWord2 = new Word();
+		targetWord2 = new Word();
 		targetWord2.setId("Target 2");
 		targetWord2.setCategory("Noun");
 		targetWord2.setHead(HeadValue.yes);
@@ -157,6 +164,48 @@ public class PhraseTests {
 		Category cat = sourceWord.getCategoryConstituent();
 		Phrase phrase = cat.getPhrase();
 		assertEquals(sourcePhrase, phrase);
+	}
+
+	@Test
+	public final void getFeaturesInUseTest() {
+		List<FLExFeature> featuresInUse = targetPhrase.getFeaturesInUse();
+		assertEquals(0, featuresInUse.size());
+		targetWord.insertNewFeature("gender", "m");
+		featuresInUse = targetPhrase.getFeaturesInUse();
+		assertEquals(1, featuresInUse.size());
+		FLExFeature ff = featuresInUse.get(0);
+		assertEquals("gender", ff.getName());
+		assertEquals(1, ff.getValues().size());
+		FLExFeatureValue fv = ff.getValues().get(0);
+		assertEquals("m", fv.getAbbreviation());
+
+		targetWord.insertNewFeature("number", "sg");
+		featuresInUse = targetPhrase.getFeaturesInUse();
+		assertEquals(2, featuresInUse.size());
+		ff = featuresInUse.get(0);
+		assertEquals("gender", ff.getName());
+		assertEquals(1, ff.getValues().size());
+		fv = ff.getValues().get(0);
+		assertEquals("m", fv.getAbbreviation());
+		ff = featuresInUse.get(1);
+		assertEquals("number", ff.getName());
+		assertEquals(1, ff.getValues().size());
+		fv = ff.getValues().get(0);
+		assertEquals("sg", fv.getAbbreviation());
+
+		targetWord.insertNewFeature("gender", "m");
+		featuresInUse = targetPhrase.getFeaturesInUse();
+		assertEquals(2, featuresInUse.size());
+		ff = featuresInUse.get(0);
+		assertEquals("gender", ff.getName());
+		assertEquals(1, ff.getValues().size());
+		fv = ff.getValues().get(0);
+		assertEquals("m", fv.getAbbreviation());
+		ff = featuresInUse.get(1);
+		assertEquals("number", ff.getName());
+		assertEquals(1, ff.getValues().size());
+		fv = ff.getValues().get(0);
+		assertEquals("sg", fv.getAbbreviation());
 	}
 
 	@Test

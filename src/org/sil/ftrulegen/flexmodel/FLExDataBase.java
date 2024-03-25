@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 SIL International
+ * Copyright (c) 2023-2024 SIL International
  * This software is licensed under the LGPL, version 2.1 or later
  * (http: //www.gnu.org/licenses/lgpl-2.1.html)
  */
@@ -17,6 +17,26 @@ public abstract class FLExDataBase {
 	private String name = "";
 	protected List<FLExCategory> categories = new ArrayList<FLExCategory>();
 	protected List<FLExFeature> features = new ArrayList<FLExFeature>();
+	protected int maxVariables = 4;
+	protected String[] variables = { "α", "β", "γ", "δ", "ε", "ζ", "η", "θ", "ι", "κ", "μ", "ν" };
+
+	public int getMaxVariables() {
+		return maxVariables;
+	}
+
+	public void setMaxVariables(int maxVariables) {
+		this.maxVariables = maxVariables;
+	}
+
+	public void addVariableValuesToFeatures() {
+		for (FLExFeature feature : features) {
+			for (int i = 0; i < maxVariables && i < variables.length; i++) {
+				FLExFeatureValue variableValue = new FLExFeatureValue(variables[i]);
+				variableValue.setFeature(feature);
+				feature.getValues().add(variableValue);
+			}
+		}
+	}
 
 	@XmlAttribute(name = "name")
 	public final String getName() {

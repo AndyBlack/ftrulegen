@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 SIL International
+ * Copyright (c) 2023-2024 SIL International
  * This software is licensed under the LGPL, version 2.1 or later
  * (http://www.gnu.org/licenses/lgpl-2.1.html)
  */
@@ -33,17 +33,7 @@ public class FLExFeatureValueChooserController implements Initializable {
 	ApplicationPreferences prefs;
 	FLExFeatureValue featureValueChosen = null;
 	boolean okClicked = false;
-	int maxVariables = 4;
-	String[] variables = { "α", "β", "γ", "δ", "ε", "ζ", "η", "θ", "ι", "κ", "μ", "ν" };
 	int index = 0;
-
-	public int getMaxVariables() {
-		return maxVariables;
-	}
-
-	public void setMaxVariables(int maxVariables) {
-		this.maxVariables = maxVariables;
-	}
 
 	public boolean isOkClicked() {
 		return okClicked;
@@ -59,11 +49,6 @@ public class FLExFeatureValueChooserController implements Initializable {
 		lvFeatureValues.getItems().clear();
 		for (FLExFeature feature : features) {
 			lvFeatureValues.getItems().addAll(feature.getValues());
-			for (int i = 0; i < maxVariables && i < variables.length; i++) {
-				FLExFeatureValue variableValue = new FLExFeatureValue(variables[i]);
-				variableValue.setFeature(feature);
-				lvFeatureValues.getItems().add(variableValue);
-			}
 		}
 	}
 

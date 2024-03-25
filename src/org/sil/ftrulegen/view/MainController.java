@@ -14,6 +14,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -62,7 +63,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.text.Font;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
@@ -265,7 +265,7 @@ public class MainController implements Initializable {
 		browser.setContextMenuEnabled(false);
 		webPageInteractor = new WebPageInteractor(this);
 		webEngine.getLoadWorker().stateProperty().addListener(new ChangeListener<State>() {
-			public void changed(ObservableValue ov, State oldState, State newState) {
+			public void changed(@SuppressWarnings("rawtypes") ObservableValue ov, State oldState, State newState) {
 				if (newState == State.SUCCEEDED) {
 					Platform.runLater(new Runnable() {
 						@Override
@@ -321,6 +321,8 @@ public class MainController implements Initializable {
 		XMLFLExDataBackEndProvider flexProvider = new XMLFLExDataBackEndProvider(flexData, bundle.getLocale());
 		flexProvider.loadFLExDataFromFile(flexDataFile);
 		flexData = flexProvider.getFLExData();
+		flexData.getTargetData().setMaxVariables(maxVariables);
+		flexData.getTargetData().addVariableValuesToFeatures();
 
 		if (lvRules.getItems().size() > 0) {
 			Platform.runLater(new Runnable() {
@@ -786,7 +788,12 @@ public class MainController implements Initializable {
 				if (phrase == rule.getSource().getPhrase()) {
 					launchFLExFeatureValueChooser(flexData.getSourceData().getFeatures(), bundle);
 				} else {
-					launchFLExFeatureValueChooser(flexData.getTargetData().getFeatures(), bundle);
+					List<FLExFeature> featuresInUse = rule.getTarget().getPhrase()
+							.getFeaturesInUse();
+					List<FLExFeature> featuresToShow = new ArrayList<FLExFeature>();
+					featuresToShow.addAll(featuresInUse);
+					featuresToShow.addAll(flexData.getTargetData().getFeatures());
+					launchFLExFeatureValueChooser(featuresToShow, bundle);
 				}
 			}
 		}
@@ -802,7 +809,6 @@ public class MainController implements Initializable {
 			AnchorPane pane = loader.load();
 			FLExFeatureValueChooserController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
-			controller.setMaxVariables(maxVariables);
 			controller.setFeatures(features);
 			controller.selectFLExFeatureValue(feature);
 			Scene scene = new Scene(pane);

@@ -6,7 +6,11 @@
 
 package org.sil.ftrulegen.model;
 
+
 import java.util.*;
+
+import org.sil.ftrulegen.flexmodel.FLExFeature;
+import org.sil.ftrulegen.flexmodel.FLExFeatureValue;
 
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
@@ -15,6 +19,7 @@ import jakarta.xml.bind.annotation.XmlTransient;
 public class Phrase extends RuleConstituent {
 
 	private List<Word> words = new ArrayList<Word>();
+	private List<FLExFeature> featuresInUse = new ArrayList<FLExFeature>();
 
 	@XmlElementWrapper(name = "Words")
 	@XmlElement(name = "Word")
@@ -24,6 +29,41 @@ public class Phrase extends RuleConstituent {
 
 	public final void setWords(List<Word> value) {
 		words = value;
+	}
+
+	public List<FLExFeature> getFeaturesInUse() {
+		featuresInUse.clear();
+		for (Word w : words) {
+			for (Feature feat : w.getFeatures()) {
+				if (featureAlreadyInUse(feat) | isNewlyInsertedFeature(feat)) {
+					continue;
+				}
+				List<FLExFeatureValue> values = new ArrayList<FLExFeatureValue>();
+				FLExFeatureValue fv = new FLExFeatureValue(feat.getMatch());
+				values.add(fv);
+				FLExFeature existingFLExFeature = new FLExFeature(feat.getLabel(), values);
+				existingFLExFeature.setFeatureInFeatureValues();
+				featuresInUse.add(existingFLExFeature);
+			}
+		}
+		return featuresInUse;
+	}
+
+	private boolean featureAlreadyInUse(Feature feat) {
+		for (FLExFeature ff : featuresInUse) {
+			if (ff.getName().equals(feat.getLabel())
+					&& ff.getValues().get(0).getAbbreviation().equals(feat.getMatch())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean isNewlyInsertedFeature(Feature feat) {
+		if (feat.getLabel().equals("") && feat.getMatch().equals("")) {
+			return true;
+		}
+		return false;
 	}
 
 	private PhraseType phraseType = PhraseType.source;
