@@ -78,7 +78,7 @@ public class XmlBackEndProvider extends BackEndProvider {
 			String result = new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8);
 			sb.append("<FLExTransRuleGenerator>\n");
 			sb.append(result.substring(81));
-			Files.write(file.toPath(), sb.toString().getBytes(), StandardOpenOption.WRITE);
+			Files.write(file.toPath(), sb.toString().getBytes(StandardCharsets.UTF_8), StandardOpenOption.WRITE);
 		} catch (Exception e) { // catches ANY exception
 			e.printStackTrace();
 			HandleExceptionMessage.show(sFileError, sFileErrorSaveHeader, sFileErrorSaveContent + fileName, true);
