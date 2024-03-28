@@ -4,8 +4,8 @@
 	<import file="${basedir}/build-setup-staging-area.xml" as="nested"/>
 	<import file="${basedir}/build-do-compile.xml" as="nested"/>
 
-	<property name="appName" value="FLExTrans Rule Generator"/>
-	<property name="version" value="0.2.2"/>
+	<property name="appName" value="FLExTrans Rule Assistant"/>
+	<property name="version" value="0.3.0"/>
 
 	<target name="do-deploy" depends="nested.setup-staging-area, nested.do-compile, nested.init-fx-tasks">
 		<antcall target="build-windows-iss-file"/> 
@@ -93,7 +93,7 @@
 			includeDT="false"
 			offlineAllowed="true"
 			outdir="${basedir}/deploy"
-			outfile="FLExTrans Rule Generator"
+			outfile="FLExTrans Rule Assistant"
 			nativeBundles="${nativeBundles}"
 			verbose="false"
 			updatemode="background">
@@ -104,11 +104,11 @@
 			</fx:platform>
 			<fx:info
 				category="Education"
-				title="FLExTrans Rule Generator"
+				title="FLExTrans Rule Assistant"
 				vendor="SIL International"
 				license="LGPL"
-				copyright="© 2023 SIL International"
-				description="FLExTrans Rule Generator is a tool that makes it easier to write FLExTrans transfer rules.">
+				copyright="© 2023-2024 SIL International"
+				description="FLExTrans Rule Assistant is a tool that makes it easier to write FLExTrans transfer rules.">
 			</fx:info>
 
 			<fx:application refId="fxApplication" />

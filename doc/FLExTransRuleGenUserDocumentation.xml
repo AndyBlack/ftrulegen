@@ -21,9 +21,9 @@ type="tRuleGen"
 ><emailAddress
 >blackhandrew@gmail.com</emailAddress
 ><date
->13 March, 2023</date
+>28 March, 2023</date
 ><version
->Version 0.2.0 Beta</version
+>Version 0.3.0 Beta</version
 ><version
 >Copyright © 2023-2024 SIL International</version
 ><contents
@@ -88,7 +88,7 @@ num="xCommandLine"
 ><example
 num="xCommandLine"
 ><chart
->FLExTransRuleGenerator &lt;rule-file&gt; &lt;source/target-FLEx-category/features&gt; (&lt;max vars&gt;)<br
+>FLExTransRuleAssistant &lt;rule-file&gt; &lt;source/target-FLEx-category/features&gt; (&lt;max vars&gt;)<br
 ></br
 ><br
 ></br
@@ -225,7 +225,7 @@ type="tBold"
 ><object
 type="tBold"
 >Mark as head</object
->: labels this word as being the head of the phrase. This is only available for target words.  If another word had been marked as being the head, then that other word will no longer be marked as the head.  That is, only one word can be marked as the head.</li
+>: labels this word as being the head of the phrase. This is only available for target words. If another word had been marked as being the head, then that other word will no longer be marked as the head. That is, only one word can be marked as the head.</li
 ><li
 ><object
 type="tBold"
@@ -700,7 +700,7 @@ font-style="italic"
 id="tFLExTrans"
 ></type
 ><type
-before="FLExTrans Rule Generator"
+before="FLExTrans Rule Assistant"
 color="navy"
 font-style="italic"
 id="tRuleGen"
