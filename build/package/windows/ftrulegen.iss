@@ -1,10 +1,10 @@
 ;This file will be executed next to the application bundle image
-;I.e. current directory will contain folder FLExTrans Rule Generator with application files
+;I.e. current directory will contain folder FLExTrans Rule Assistant with application files
 [Setup]
-AppId={{0D1B3C45-644B-4D49-9DF6-C80217810A1B}
+AppId={{76BEFB7D-1F55-46E9-88B7-B6DFAA8CF97C}
 AppName=FLExTrans Rule Generator
-AppVersion=0.3.0
-AppVerName=FLExTrans Rule Generator version 0.3.0
+AppVersion=0.4.0
+AppVerName=FLExTrans Rule Generator version 0.4.0
 AppPublisher=SIL International
 AppComments=FLExTrans Rule Generator
 AppCopyright=Copyright © 2023 SIL International
@@ -23,14 +23,14 @@ DefaultGroupName=SIL International
 LicenseFile=
 ;WinXP or above
 MinVersion=0,5.1
-OutputBaseFilename=FLExTrans Rule Generator-0.3.0
+OutputBaseFilename=FLExTrans Rule Generator-0.4.0
 Compression=lzma
 SolidCompression=yes
 PrivilegesRequired=admin
 SetupIconFile=package\windows\FLExTransWindowIcon.ico
 			
 UninstallDisplayIcon={app}\FLExTransWindowIcon.ico
-UninstallDisplayName=FLExTrans Rule Generator version 0.3.0
+UninstallDisplayName=FLExTrans Rule Generator version 0.4.0
 WizardImageStretch=No
 WizardSmallImageFile=package\windows\FLExTrans Rule Generator-setup-icon.bmp
 ArchitecturesInstallIn64BitMode=x64

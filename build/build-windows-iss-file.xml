@@ -10,9 +10,9 @@
 		<delete file="${basedir}/package/windows/${mainFileName}.iss"/>
 		
 		<concat destfile="${basedir}/package/windows/${mainFileName}.iss" overwrite="true">;This file will be executed next to the application bundle image
-;I.e. current directory will contain folder FLExTrans Rule Generator with application files
+;I.e. current directory will contain folder FLExTrans Rule Assistant with application files
 [Setup]
-AppId={{0D1B3C45-644B-4D49-9DF6-C80217810A1B}
+AppId={{76BEFB7D-1F55-46E9-88B7-B6DFAA8CF97C}
 AppName=FLExTrans Rule Generator
 AppVersion=${version}
 AppVerName=FLExTrans Rule Generator version ${version}
