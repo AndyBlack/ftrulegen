@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 SIL International
+ * Copyright (c) 2023-2024 SIL International
  * This software is licensed under the LGPL, version 2.1 or later
  * (http://www.gnu.org/licenses/lgpl-2.1.html)
  */
@@ -180,11 +180,18 @@ public class Word extends ConstituentWithFeatures {
 		sb.append("</td>\n");
 		sb.append("</tr>\n");
 		if (getCategory().length() > 0) {
-			sb.append("<tr>\n");
-			sb.append("<td align=\"center\">");
-			sb.append(getCategoryConstituent().produceHtml(bundle));
-			sb.append("</td>\n");
-			sb.append("</tr>\n");
+			produceHtmlOfCategory(getCategoryConstituent(), bundle, sb, true);
+		} else {
+			if (getParent() != null) {
+				Phrase phrase = (Phrase) getParent();
+				if (phrase != null) {
+					Category cat = phrase.getCategoryOfWordWithId(wordId);
+					if (cat != null && cat.getName().length() > 0) {
+						produceHtmlOfCategory(cat, bundle, sb, false);
+					}
+				}
+			}
+
 		}
 		sb.append("</table>\n");
 		if (getFeatures().size() > 0 || getAffixes().size() > 0) {
@@ -197,6 +204,18 @@ public class Word extends ConstituentWithFeatures {
 		}
 		sb.append("</li>");
 		return sb.toString();
+	}
+
+	protected void produceHtmlOfCategory(Category cat, ResourceBundle bundle, StringBuilder sb, boolean isSource) {
+		sb.append("<tr>\n");
+		sb.append("<td align=\"center\">");
+		if (isSource) {
+			sb.append(cat.produceHtml(bundle));
+		} else {
+			sb.append(cat.produceHtmlTarget(bundle));
+		}
+		sb.append("</td>\n");
+		sb.append("</tr>\n");
 	}
 
 	public final Word duplicate() {

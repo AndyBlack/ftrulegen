@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 SIL International
+ * Copyright (c) 2023-2024 SIL International
  * This software is licensed under the LGPL, version 2.1 or later
  * (http://www.gnu.org/licenses/lgpl-2.1.html)
  */
@@ -49,12 +49,23 @@ public class Category extends RuleConstituent {
 	public final String produceHtml(ResourceBundle bundle) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(produceSpan("category", "c"));
+		produceHtmlCatValue(bundle, sb);
+		return sb.toString();
+	}
+
+	public final String produceHtmlTarget(ResourceBundle bundle) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<span class=\"categorytgt\">");
+		produceHtmlCatValue(bundle, sb);
+		return sb.toString();
+	}
+
+	protected void produceHtmlCatValue(ResourceBundle bundle, StringBuilder sb) {
 		sb.append(bundle.getString("model.cat"));
 		sb.append(":");
 		sb.append(getName());
 		sb.append("</span>\n");
 		sb.append("</span>\n");
-		return sb.toString();
 	}
 
 	public final Category duplicate() {

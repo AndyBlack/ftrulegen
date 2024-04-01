@@ -37,13 +37,16 @@ public class PhraseTests extends ServiceTestBase {
 		sourceWord = new Word();
 		sourceWord.setId("Source 1");
 		sourceWord.setCategory("Noun");
+		sourceWord.getCategoryConstituent().setName("Noun");
 		sourceWord.setHead(HeadValue.yes);
 		sourcePhrase.getWords().add(sourceWord);
 		sourceWord2 = new Word();
 		sourceWord2.setId("Source 2");
 		sourceWord2.setCategory("Det");
+		sourceWord2.getCategoryConstituent().setName("Det");
 		sourceWord2.setHead(HeadValue.no);
 		sourcePhrase.getWords().add(sourceWord2);
+		sourcePhrase.setParent(rule);
 		Target target = rule.getTarget();
 		targetPhrase = target.getPhrase();
 		targetWord = new Word();
@@ -56,6 +59,9 @@ public class PhraseTests extends ServiceTestBase {
 		targetWord2.setCategory("Noun");
 		targetWord2.setHead(HeadValue.yes);
 		targetPhrase.getWords().add(targetWord2);
+		targetPhrase.setParent(rule);
+		source.setParent(rule);
+		target.setParent(rule);
 	}
 
 	@Test
@@ -219,6 +225,18 @@ public class PhraseTests extends ServiceTestBase {
 		assertEquals(sourcePhrase, phrase);
 		phrase = affixFeature.getPhrase();
 		assertEquals(sourcePhrase, phrase);
+	}
+
+	@Test
+	public final void getCategoryOfWordWithIdTest() {
+		Category cat = sourcePhrase.getCategoryOfWordWithId("Source 1");
+		assertNull(cat);
+		cat = targetPhrase.getCategoryOfWordWithId("Source 1");
+		assertNotNull(cat);
+		assertEquals("Noun", cat.getName());
+		cat = targetPhrase.getCategoryOfWordWithId("Source 2");
+		assertNotNull(cat);
+		assertEquals("Det", cat.getName());
 	}
 
 	private void setRuleIdsAndParents() {
