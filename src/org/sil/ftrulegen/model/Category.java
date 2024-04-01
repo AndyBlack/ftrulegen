@@ -48,12 +48,12 @@ public class Category extends RuleConstituent {
 
 	public final String produceHtml(ResourceBundle bundle) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<li>");
-		sb.append(produceSpan("tf-nc category", "c"));
+		sb.append(produceSpan("category", "c"));
 		sb.append(bundle.getString("model.cat"));
 		sb.append(":");
 		sb.append(getName());
-		sb.append("</span></li>\n");
+		sb.append("</span>\n");
+		sb.append("</span>\n");
 		return sb.toString();
 	}
 

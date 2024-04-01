@@ -16,6 +16,13 @@
     color:red;
 }
 
+.categorytgt {
+    color:red;
+    font-style: italic;
+    opacity: 0.75;
+    filter: grayscale(50%);
+}
+
 .feature {
     color:blue;
 }

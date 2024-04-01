@@ -171,13 +171,16 @@ public class Word extends ConstituentWithFeatures {
 		if (getId().length() > 0) {
 			sb.append("<span class=\"index\">");
 			sb.append(getId());
-			sb.append("</span></span>\n");
+			sb.append("</span>\n");
 		}
-		if (getCategory().length() > 0 || getFeatures().size() > 0 || getAffixes().size() > 0) {
+		if (getCategory().length() > 0) {
+			sb.append("<br/>");
+			sb.append(getCategoryConstituent().produceHtml(bundle));
+		} else {
+			sb.append("</span>");
+		}
+		if (getFeatures().size() > 0 || getAffixes().size() > 0) {
 			sb.append("<ul>\n");
-			if (getCategory().length() > 0) {
-				sb.append(getCategoryConstituent().produceHtml(bundle));
-			}
 			produceHtmlForFeatures(sb);
 			for (Affix affix : getAffixes()) {
 				sb.append(affix.produceHtml(bundle));
