@@ -159,7 +159,10 @@ public class Word extends ConstituentWithFeatures {
 	public final String produceHtml(ResourceBundle bundle) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<li>");
-		sb.append(produceSpan("tf-nc", "w"));
+		sb.append("<table class=\"tf-nc\">\n");
+		sb.append ("<tr>\n");
+		sb.append ("<td align=\"center\">");
+		sb.append(produceSpan("", "w"));
 		sb.append(bundle.getString("model.word"));
 		if (getHead() == HeadValue.yes) {
 			sb.append("(");
@@ -173,12 +176,17 @@ public class Word extends ConstituentWithFeatures {
 			sb.append(getId());
 			sb.append("</span>\n");
 		}
+		sb.append("</span>\n");
+		sb.append("</td>\n");
+		sb.append("</tr>\n");
 		if (getCategory().length() > 0) {
-			sb.append("<br/>");
+			sb.append("<tr>\n");
+			sb.append("<td align=\"center\">");
 			sb.append(getCategoryConstituent().produceHtml(bundle));
-		} else {
-			sb.append("</span>");
+			sb.append("</td>\n");
+			sb.append("</tr>\n");
 		}
+		sb.append("</table>\n");
 		if (getFeatures().size() > 0 || getAffixes().size() > 0) {
 			sb.append("<ul>\n");
 			produceHtmlForFeatures(sb);
