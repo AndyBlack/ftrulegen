@@ -3,8 +3,8 @@
 [Setup]
 AppId={{76BEFB7D-1F55-46E9-88B7-B6DFAA8CF97C}
 AppName=FLExTrans Rule Generator
-AppVersion=0.4.0
-AppVerName=FLExTrans Rule Generator version 0.4.0
+AppVersion=0.5.0
+AppVerName=FLExTrans Rule Generator version 0.5.0
 AppPublisher=SIL International
 AppComments=FLExTrans Rule Generator
 AppCopyright=Copyright © 2023 SIL International
@@ -23,14 +23,14 @@ DefaultGroupName=SIL International
 LicenseFile=
 ;WinXP or above
 MinVersion=0,5.1
-OutputBaseFilename=FLExTrans Rule Generator-0.4.0
+OutputBaseFilename=FLExTrans Rule Generator-0.5.0
 Compression=lzma
 SolidCompression=yes
 PrivilegesRequired=admin
 SetupIconFile=package\windows\FLExTransWindowIcon.ico
 			
 UninstallDisplayIcon={app}\FLExTransWindowIcon.ico
-UninstallDisplayName=FLExTrans Rule Generator version 0.4.0
+UninstallDisplayName=FLExTrans Rule Generator version 0.5.0
 WizardImageStretch=No
 WizardSmallImageFile=package\windows\FLExTrans Rule Generator-setup-icon.bmp
 ArchitecturesInstallIn64BitMode=x64

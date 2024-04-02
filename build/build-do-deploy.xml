@@ -5,7 +5,7 @@
 	<import file="${basedir}/build-do-compile.xml" as="nested"/>
 
 	<property name="appName" value="FLExTrans Rule Assistant"/>
-	<property name="version" value="0.4.0"/>
+	<property name="version" value="0.5.0"/>
 
 	<target name="do-deploy" depends="nested.setup-staging-area, nested.do-compile, nested.init-fx-tasks">
 		<antcall target="build-windows-iss-file"/> 
@@ -117,10 +117,10 @@
 
 		</fx:deploy>
 
-		<echo message="Renaming from '${basedir}/deploy/bundles/${mainFileName}-${version}.${nativeBundles}' to '${basedir}/deploy/bundles/${mainFileName}${processorType}-${version}.${nativeBundles}'"/>
+		<echo message="Renaming from '${basedir}/deploy/bundles/${appName}-${version}.${nativeBundles}' to '${basedir}/deploy/bundles/${appName}${processorType}-${version}.${nativeBundles}'"/>
 		<!-- Note: at least on Windows 10, we have to overtly delete the target file or the move operation fails if it already exists. -->
-		<delete file="${basedir}/deploy/bundles/${mainFileName}${processorType}-${version}.${nativeBundles}"/>
-		<move file="${basedir}/deploy/bundles/${mainFileName}-${version}.${nativeBundles}" toFile="${basedir}/deploy/bundles/${mainFileName}${processorType}-${version}.${nativeBundles}"/>
+		<delete file="${basedir}/deploy/bundles/${appName}${processorType}-${version}.${nativeBundles}"/>
+		<move file="${basedir}/deploy/bundles/${appName}-${version}.${nativeBundles}" toFile="${basedir}/deploy/bundles/${appName}${processorType}-${version}.${nativeBundles}"/>
 
 		</target>
 </project>

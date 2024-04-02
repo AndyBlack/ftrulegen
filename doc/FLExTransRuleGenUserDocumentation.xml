@@ -21,9 +21,9 @@ type="tRuleGen"
 ><emailAddress
 >blackhandrew@gmail.com</emailAddress
 ><date
->1 April, 2024</date
+>2 April, 2024</date
 ><version
->Version 0.4.0 Beta</version
+>Version 0.5.0 Beta</version
 ><version
 >Copyright © 2023-2024 SIL International</version
 ><contents
@@ -126,7 +126,9 @@ src="Resources/RuleGen.png"
 ></chart
 ></example
 ><p
->There are two panes. The left one contains one transfer rule per line. The right pane shows a tree diagram of the selected rule. The right pane has two phrases.  The left one is the source phrase and the right is the target phrase.  In the source phrase, when a word has a category, it is shown in red immediately below the word.  In the target phrase, a word with a category is shown in a grayed out red and in italics.  While one can edit the category of a word in the source phrase, one cannot edit the category of a word in the target phrase.</p
+>There are two panes. The left one contains one transfer rule per line. The right pane shows a tree diagram of the selected rule. The right pane has two phrases. The left one is the source phrase and the right is the target phrase. In the source phrase, when a word has a category, it is shown in red immediately below the word. In the target phrase, a word with a category is shown in a grayed out red and in italics. While one can edit the category of a word in the source phrase, one cannot edit the category of a word in the target phrase.</p
+><p
+>When a target word is marked as being the head, it is shown in bold, as are any of its features.</p
 ><p
 >The “Save” button is used to save changes made to rules or newly added rules.</p
 ><p
