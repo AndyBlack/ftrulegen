@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 SIL International
+ * Copyright (c) 2023-2024 SIL International
  * This software is licensed under the LGPL, version 2.1 or later
  * (http://www.gnu.org/licenses/lgpl-2.1.html)
  */
@@ -59,9 +59,19 @@ public abstract class ConstituentWithFeatures extends RuleConstituent {
 		return constituent;
 	}
 
-	protected final void produceHtmlForFeatures(StringBuilder sb) {
-		for (Feature feature : getFeatures()) {
-			sb.append(feature.produceHtml());
+	protected final void produceHtmlForFeatures(ResourceBundle bundle, StringBuilder sb, boolean isHead) {
+		if (getFeatures().size() > 0) {
+			sb.append("<li>");
+			sb.append("<table class=\"tf-nc\">\n");
+			for (Feature feature : getFeatures()) {
+				sb.append ("<tr>\n");
+				sb.append ("<td align=\"left\">");
+				sb.append(feature.produceHtml(bundle, isHead));
+				sb.append("</td>\n");
+				sb.append("</tr>\n");
+			}
+			sb.append("</table>\n");
+			sb.append("</li>\n");
 		}
 	}
 

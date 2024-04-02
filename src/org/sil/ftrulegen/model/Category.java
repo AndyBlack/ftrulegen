@@ -65,7 +65,6 @@ public class Category extends RuleConstituent {
 		sb.append(":");
 		sb.append(getName());
 		sb.append("</span>\n");
-		sb.append("</span>\n");
 	}
 
 	public final Category duplicate() {

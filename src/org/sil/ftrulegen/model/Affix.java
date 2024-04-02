@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 SIL International
+ * Copyright (c) 2023-2024 SIL International
  * This software is licensed under the LGPL, version 2.1 or later
  * (http://www.gnu.org/licenses/lgpl-2.1.html)
  */
@@ -43,11 +43,21 @@ public class Affix extends ConstituentWithFeatures {
 		sb.append("</span>");
 		if (getFeatures().size() > 0) {
 			sb.append("<ul>");
-			produceHtmlForFeatures(sb);
+			produceHtmlForFeatures(bundle, sb, isHead());
 			sb.append("</ul>");
 		}
 		sb.append("</li>\n");
 		return sb.toString();
+	}
+
+	private boolean isHead() {
+		boolean result = false;
+		RuleConstituent parent = getParent();
+		if (parent instanceof Word) {
+			Word word = (Word) parent;
+			result = word.getHead() == HeadValue.yes;
+		}
+		return result;
 	}
 
 	public final Affix duplicate() {

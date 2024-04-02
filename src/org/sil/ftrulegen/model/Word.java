@@ -162,7 +162,8 @@ public class Word extends ConstituentWithFeatures {
 		sb.append("<table class=\"tf-nc\">\n");
 		sb.append ("<tr>\n");
 		sb.append ("<td align=\"center\">");
-		sb.append(produceSpan("", "w"));
+		String sClass = wordHead == HeadValue.yes ? "headword" : "";
+		sb.append(produceSpan(sClass, "w"));
 		sb.append(bundle.getString("model.word"));
 		if (getHead() == HeadValue.yes) {
 			sb.append("(");
@@ -191,12 +192,11 @@ public class Word extends ConstituentWithFeatures {
 					}
 				}
 			}
-
 		}
 		sb.append("</table>\n");
 		if (getFeatures().size() > 0 || getAffixes().size() > 0) {
 			sb.append("<ul>\n");
-			produceHtmlForFeatures(sb);
+			produceHtmlForFeatures(bundle, sb, wordHead == HeadValue.yes);
 			for (Affix affix : getAffixes()) {
 				sb.append(affix.produceHtml(bundle));
 			}
