@@ -53,7 +53,7 @@
 
 		<mkdir dir="CSSFiles" />
 		<copy todir="CSSFiles">
-			<fileset dir="CSSFiles">
+			<fileset dir="..\CSSFiles">
 				<include name="**" />
 			</fileset>
 		</copy>
