@@ -21,9 +21,9 @@ type="tRuleGen"
 ><emailAddress
 >blackhandrew@gmail.com</emailAddress
 ><date
->10 April, 2024</date
+>10 May, 2024</date
 ><version
->Version 0.6.0 Beta</version
+>Version 0.7.0 Beta</version
 ><version
 >Copyright © 2023-2024 SIL International</version
 ><contents
@@ -196,7 +196,7 @@ id="sEditWord"
 ><secTitle
 >Editing a word</secTitle
 ><p
->When you click (or double-click or right-click) on a word item in the tree, the context menu shown in <exampleRef
+>When you click on a word item in the tree, the context menu shown in <exampleRef
 letter="xWordContrextMenu"
 num="xWordContrextMenu"
 ></exampleRef
@@ -285,7 +285,7 @@ id="sEditCategory"
 ><secTitle
 >Editing a category</secTitle
 ><p
->When you click (or double-click or right-click) on a category item in a word in the source phrase, the context menu shown in <exampleRef
+>When you click on a category item in a word in the source phrase, the context menu shown in <exampleRef
 letter="xCategoryContextMenu"
 num="xCategoryContextMenu"
 ></exampleRef
@@ -334,7 +334,7 @@ id="sEditFeature"
 ><secTitle
 >Editing a feature</secTitle
 ><p
->When you click (or double-click or right-click) on a word item in the tree, the context menu shown in <exampleRef
+>When you click on a word item in the tree, the context menu shown in <exampleRef
 letter="xFeatureContextMenu"
 num="xFeatureContextMenu"
 ></exampleRef
@@ -388,7 +388,7 @@ id="sEditAffix"
 ><secTitle
 >Editing an affix</secTitle
 ><p
->When you click (or double-click or right-click) on an affix item in the tree, the context menu shown in <exampleRef
+>When you click on an affix item in the tree, the context menu shown in <exampleRef
 letter="xAffixContrextMenu"
 num="xAffixContrextMenu"
 ></exampleRef

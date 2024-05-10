@@ -64,8 +64,10 @@ public class RuleConstituent {
 		sb.append(getIdentifier());
 		sb.append("\" onclick=");
 		sb.append(produceToApp(sType));
-		sb.append(" onmousedown=");
-		sb.append(produceToApp(sType));
+		// skipping these: if one uses a left click, then two messages get passed and
+		// the context menu loses its right and bottom lines
+//		sb.append(" onmousedown=");
+//		sb.append(produceToApp(sType));
 		sb.append(">");
 		return sb.toString();
 	}
