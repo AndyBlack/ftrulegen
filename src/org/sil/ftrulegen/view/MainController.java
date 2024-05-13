@@ -311,7 +311,7 @@ public class MainController implements Initializable {
 
 	public void loadDataFiles() {
 		generator = new FLExTransRuleGenerator();
-		provider = new XmlBackEndProvider(generator, bundle.getLocale());
+		provider = new XmlBackEndProvider(generator, bundle);
 		provider.loadDataFromFile(ruleGenFile);
 		generator = provider.getRuleGenerator();
 		finder = ConstituentFinder.getInstance();

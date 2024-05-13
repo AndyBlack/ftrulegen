@@ -9,7 +9,10 @@ package org.sil.ftrulegen.service;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.nio.file.attribute.FileAttribute;
 import java.util.*;
 
 import org.sil.ftrulegen.model.*;
@@ -21,10 +24,12 @@ import jakarta.xml.bind.Unmarshaller;
 
 public class XmlBackEndProvider extends BackEndProvider {
 	private FLExTransRuleGenerator ruleGenerator;
+	ResourceBundle bundle;
 
-	public XmlBackEndProvider(FLExTransRuleGenerator ruleGenerator, Locale locale) {
+	public XmlBackEndProvider(FLExTransRuleGenerator ruleGenerator, ResourceBundle bundle) {
 		this.ruleGenerator = ruleGenerator;
-		setResourceStrings(locale);
+		this.bundle = bundle;
+		setResourceStrings(bundle.getLocale());
 	}
 
 	public FLExTransRuleGenerator getRuleGenerator() {
@@ -38,15 +43,28 @@ public class XmlBackEndProvider extends BackEndProvider {
 	public final void loadDataFromFile(String fileName) {
 		try {
 			File file = new File(fileName);
-			JAXBContext context = JAXBContext.newInstance(FLExTransRuleGenerator.class);
-			Unmarshaller um = context.createUnmarshaller();
-			// Reading XML from the file and unmarshalling.
-			ruleGenerator = (FLExTransRuleGenerator) um.unmarshal(file);
-			// Not sure we need this, but otherwise the target phrase type is set to source
-			for (FLExTransRule rule : getRuleGenerator().getFLExTransRules()) {
-				rule.getTarget().getPhrase().setType(PhraseType.target);
-				setCategoryConstituentInWords(rule.getSource().getPhrase().getWords());
-				setCategoryConstituentInWords(rule.getTarget().getPhrase().getWords());
+			if (file.exists()) {
+				JAXBContext context = JAXBContext.newInstance(FLExTransRuleGenerator.class);
+				Unmarshaller um = context.createUnmarshaller();
+				// Reading XML from the file and unmarshalling.
+				ruleGenerator = (FLExTransRuleGenerator) um.unmarshal(file);
+				// Not sure we need this, but otherwise the target phrase type is set to source
+				for (FLExTransRule rule : getRuleGenerator().getFLExTransRules()) {
+					rule.getTarget().getPhrase().setType(PhraseType.target);
+					setCategoryConstituentInWords(rule.getSource().getPhrase().getWords());
+					setCategoryConstituentInWords(rule.getTarget().getPhrase().getWords());
+				}
+			} else {
+				Path filePath = Paths.get(fileName);
+				Files.createFile(filePath);
+//				// ensure there is at least one (empty) rule
+				FLExTransRule newRule = new FLExTransRule();
+				ruleGenerator.getFLExTransRules().add(newRule);
+				newRule.getSource().getPhrase().insertNewWordAt(0);
+				newRule.getTarget().getPhrase().insertNewWordAt(0);
+				newRule.setBundle(bundle);
+				saveDataToFile(fileName);
+				loadDataFromFile(fileName);
 			}
 		} catch (Exception e) { // catches ANY exception
 			e.printStackTrace();

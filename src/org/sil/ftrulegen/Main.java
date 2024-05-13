@@ -118,10 +118,11 @@ public class Main extends Application {
 			return false;
 		}
 
-		if (!Files.exists(Paths.get(arguments[0]))) {
-			System.out.println(bundle.getString("main.RuleFileNotFound"));
-			return false;
-		}
+		// do not check for this file here; we will create a new one if it is not already there
+//		if (!Files.exists(Paths.get(arguments[0]))) {
+//			System.out.println(bundle.getString("main.RuleFileNotFound"));
+//			return false;
+//		}
 
 		if (!Files.exists(Paths.get(arguments[1]))) {
 			System.out.println(bundle.getString("main.FLExDataSourceTargetFileNotFound"));

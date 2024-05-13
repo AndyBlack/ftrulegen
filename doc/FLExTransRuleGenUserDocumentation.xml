@@ -21,9 +21,9 @@ type="tRuleGen"
 ><emailAddress
 >blackhandrew@gmail.com</emailAddress
 ><date
->10 May, 2024</date
+>13 May, 2024</date
 ><version
->Version 0.7.0 Beta</version
+>Version 0.8.0 Beta</version
 ><version
 >Copyright © 2023-2024 SIL International</version
 ><contents
@@ -102,6 +102,11 @@ num="xCommandLine"
 ></br
 >(max vars&gt; Specifies the optional max number of variables to show in values (default is 4)</chart
 ></example
+><pc
+>If the &lt;rule-file&gt; does not already exist, then <object
+type="tRuleGen"
+></object
+> will create it.</pc
 ></section2
 ><section2
 id="sAppearance"

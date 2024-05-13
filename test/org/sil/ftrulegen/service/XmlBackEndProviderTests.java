@@ -11,6 +11,7 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.sil.ftrulegen.Constants;
 import org.sil.ftrulegen.model.*;
 
 import java.io.File;
@@ -253,5 +254,27 @@ public class XmlBackEndProviderTests extends ServiceTestBase {
 		feature.setLabel(label);
 		feature.setMatch(match);
 		return feature;
+	}
+
+	@Test
+	public final void loadNonExistingFileTest() {
+		try {
+			ruleGenerator = new FLExTransRuleGenerator();
+			ResourceBundle bundle = ResourceBundle.getBundle(Constants.RESOURCE_LOCATION, new Locale("en"));
+			provider = new XmlBackEndProvider(ruleGenerator, bundle);
+			String sMissingFile = Constants.UNIT_TEST_MISSING_DATA_FILE;
+			Path missingPath = Paths.get(sMissingFile);
+			Files.deleteIfExists(missingPath);
+			provider.loadDataFromFile(sMissingFile);
+			File missingFile = new File(sMissingFile);
+			assertEquals(true, missingFile.exists());
+			FLExTransRuleGenerator ftGen = provider.getRuleGenerator();
+			assertEquals(1, ftGen.getFLExTransRules().size());
+			FLExTransRule rule = ftGen.getFLExTransRules().get(0);
+			assertEquals("", rule.getName());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
