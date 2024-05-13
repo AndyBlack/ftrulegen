@@ -23,6 +23,7 @@ import java.util.ResourceBundle;
 
 import netscape.javascript.JSObject;
 
+import org.hamcrest.core.IsInstanceOf;
 import org.sil.ftrulegen.*;
 import org.sil.ftrulegen.flexmodel.FLExCategory;
 import org.sil.ftrulegen.flexmodel.FLExData;
@@ -642,7 +643,7 @@ public class MainController implements Initializable {
 		affix.insertNewFeature("", "");
 		feature = affix.getFeatures().get(affix.getFeatures().size() - 1);
 		feature.setParent(affix);
-		processInsertFeature();
+		processInsertFeature(true);
 		reportChangesMade();
 	}
 
@@ -777,29 +778,29 @@ public class MainController implements Initializable {
 	}
 
 	public void handleFeatureEdit() {
-		processInsertFeature();
+		processInsertFeature(false);
 	}
 
-	protected void processInsertFeature() {
+	protected void processInsertFeature(boolean inserting) {
 		phrase = feature.getPhrase();
 		if (phrase != null) {
 			FLExTransRule rule = (FLExTransRule) phrase.getParent();
 			if (rule != null) {
 				if (phrase == rule.getSource().getPhrase()) {
-					launchFLExFeatureValueChooser(flexData.getSourceData().getFeatures(), bundle);
+					launchFLExFeatureValueChooser(flexData.getSourceData().getFeatures(), bundle, inserting);
 				} else {
 					List<FLExFeature> featuresInUse = rule.getTarget().getPhrase()
 							.getFeaturesInUse();
 					List<FLExFeature> featuresToShow = new ArrayList<FLExFeature>();
 					featuresToShow.addAll(featuresInUse);
 					featuresToShow.addAll(flexData.getTargetData().getFeatures());
-					launchFLExFeatureValueChooser(featuresToShow, bundle);
+					launchFLExFeatureValueChooser(featuresToShow, bundle, inserting);
 				}
 			}
 		}
 	}
 
-	void launchFLExFeatureValueChooser(List<FLExFeature> features, ResourceBundle bundle) {
+	void launchFLExFeatureValueChooser(List<FLExFeature> features, ResourceBundle bundle, boolean inserting) {
 		try {
 			Stage dialogStage = new Stage();
 			// Load root layout from fxml file.
@@ -822,6 +823,14 @@ public class MainController implements Initializable {
 				feature.setLabel(featValue.getFeature().getName());
 				feature.setMatch(featValue.getAbbreviation());
 				reportChangesMade();
+			} else if (inserting ){
+				// undo addition of this feature
+				RuleConstituent rc = feature.getParent();
+				if (rc instanceof Word) {
+					word.deleteFeature(feature);
+				} else if (rc instanceof Affix) {
+					affix.deleteFeature(feature);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -995,7 +1004,7 @@ public class MainController implements Initializable {
 		word.insertNewFeature("", "");
 		feature = word.getFeatures().get(word.getFeatures().size() - 1);
 		feature.setParent(word);
-		processInsertFeature();
+		processInsertFeature(true);
 		reportChangesMade();
 	}
 
