@@ -23,7 +23,6 @@ import java.util.ResourceBundle;
 
 import netscape.javascript.JSObject;
 
-import org.hamcrest.core.IsInstanceOf;
 import org.sil.ftrulegen.*;
 import org.sil.ftrulegen.flexmodel.FLExCategory;
 import org.sil.ftrulegen.flexmodel.FLExData;
