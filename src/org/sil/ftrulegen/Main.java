@@ -86,6 +86,7 @@ public class Main extends Application {
 				controller.setFLExTransImage(flexTransImage);
 				controller.setWebPageFile(workingFilesPath.toString() + File.separatorChar + Constants.HTML_FILE_NAME);
 				controller.setWebPageFileUri(Paths.get(workingFilesPath.toString()).toUri().toString() + "/" + Constants.HTML_FILE_NAME);
+				controller.setMainApp(this);
 			}
 			primaryStage.show();
 		} catch (Exception e) {
@@ -101,15 +102,19 @@ public class Main extends Application {
 
 	@Override
 	public void stop() throws IOException {
+		rememberApplicationPreferences();
+		if (controller.isDirty()) {
+			controller.askAboutSaving();
+		}
+	}
+
+	public void rememberApplicationPreferences() {
 		applicationPreferences.setLastWindowParameters(ApplicationPreferences.LAST_WINDOW,
 				primaryStage);
 		double[] dividers = controller.getSplitPane().getDividerPositions();
 		applicationPreferences.setLastSplitPaneDividerPosition(dividers[0]);
 		applicationPreferences.setLastLocaleLanguage(locale.getLanguage());
 		applicationPreferences.setLastSelectedRule(controller.getSelectedRuleIndex());
-		if (controller.isDirty()) {
-			controller.askAboutSaving();
-		}
 	}
 
 	private Boolean checkArguments(ResourceBundle bundle) {

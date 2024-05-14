@@ -21,9 +21,9 @@ type="tRuleGen"
 ><emailAddress
 >blackhandrew@gmail.com</emailAddress
 ><date
->13 May, 2024</date
+>14 May, 2024</date
 ><version
->Version 0.8.0 Beta</version
+>Version 0.9.0 Beta</version
 ><version
 >Copyright © 2023-2024 SIL International</version
 ><contents
@@ -143,10 +143,7 @@ type="tFLExTrans"
 > rule file.<endnote
 id="nCreate"
 ><p
->The current version does not yet create any <object
-type="tFLExTrans"
-></object
-> rules.</p
+>There will be two numbers separated by a space output to stdout with this option.  The first will always be a 1.  The second will be the zero-based index of the currently selected rule.</p
 ></endnote
 ></p
 ><p
@@ -156,10 +153,7 @@ type="tFLExTrans"
 > rule file.<endnote
 id="nCreateAll"
 ><p
->The current version does not yet create any <object
-type="tFLExTrans"
-></object
-> rules.</p
+>The number 2 will be output to stdout.</p
 ></endnote
 ></p
 ><p

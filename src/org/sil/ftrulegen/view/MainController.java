@@ -180,6 +180,7 @@ public class MainController implements Initializable {
 	Phrase phrase;
 	Word word;
 
+	Main mainApp;
 	// following lines from
 	// https://stackoverflow.com/questions/32464974/javafx-change-application-language-on-the-run
 	private static final ObservableResourceFactory RESOURCE_FACTORY = ObservableResourceFactory.getInstance();
@@ -233,6 +234,10 @@ public class MainController implements Initializable {
 
 	public void setMaxVariables(int value) {
 		maxVariables = value;
+	}
+
+	public void setMainApp(Main value) {
+		this.mainApp = value;
 	}
 
 	@Override
@@ -1061,20 +1066,20 @@ public class MainController implements Initializable {
 
 	@FXML
 	public void handleSaveCreate() {
+		saveAndExit(1 + " " + getSelectedRuleIndex());
+	}
+
+	public void saveAndExit(String exitCode) {
 		provider.saveDataToFile(ruleGenFile);
 		markAsChanged(false);
-		// TODO: add code to create the current rule in Apertium format
+		mainApp.rememberApplicationPreferences();
 		Platform.exit();
-		System.exit(1);
+		System.out.println(exitCode);
 	}
 
 	@FXML
 	public void handleSaveCreateAll() {
-		provider.saveDataToFile(ruleGenFile);
-		markAsChanged(false);
-		// TODO: add code to create all rules in Apertium format
-		Platform.exit();
-		System.exit(2);
+		saveAndExit("2");
 	}
 
 	void markAsChanged(boolean changed) {
