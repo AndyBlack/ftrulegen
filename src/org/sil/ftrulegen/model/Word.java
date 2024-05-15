@@ -212,7 +212,7 @@ public class Word extends ConstituentWithFeatures {
 		if (isSource) {
 			sb.append(cat.produceHtml(bundle));
 		} else {
-			sb.append(cat.produceHtmlTarget(bundle));
+			sb.append(cat.produceHtmlTarget(bundle, getIdentifier()));
 		}
 		sb.append("</td>\n");
 		sb.append("</tr>\n");

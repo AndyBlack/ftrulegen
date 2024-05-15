@@ -53,10 +53,28 @@ public class Category extends RuleConstituent {
 		return sb.toString();
 	}
 
-	public final String produceHtmlTarget(ResourceBundle bundle) {
+	public final String produceHtmlTarget(ResourceBundle bundle, int wordId) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<span class=\"categorytgt\">");
+		sb.append(produceSpanForTarget("categorytgt", "w", wordId));
 		produceHtmlCatValue(bundle, sb);
+		return sb.toString();
+	}
+
+	protected String produceSpanForTarget(String sClass, String sType, int wordId) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<span class=\"");
+		sb.append(sClass);
+		sb.append("\" id=\"");
+		sb.append(sType);
+		sb.append(".");
+		sb.append(wordId);
+		sb.append("\" onclick=");
+		sb.append("\"toApp('");
+		sb.append(sType);
+		sb.append(".");
+		sb.append(wordId);
+		sb.append("',event)\"");
+		sb.append(">");
 		return sb.toString();
 	}
 

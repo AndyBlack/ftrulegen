@@ -21,9 +21,9 @@ type="tRuleGen"
 ><emailAddress
 >blackhandrew@gmail.com</emailAddress
 ><date
->14 May, 2024</date
+>15 May, 2024</date
 ><version
->Version 0.9.0 Beta</version
+>Version 0.10.0 Beta</version
 ><version
 >Copyright © 2023-2024 SIL International</version
 ><contents
@@ -143,7 +143,7 @@ type="tFLExTrans"
 > rule file.<endnote
 id="nCreate"
 ><p
->There will be two numbers separated by a space output to stdout with this option.  The first will always be a 1.  The second will be the zero-based index of the currently selected rule.</p
+>There will be two numbers separated by a space output to stdout with this option. The first will always be a 1. The second will be the zero-based index of the currently selected rule.</p
 ></endnote
 ></p
 ><p
@@ -327,6 +327,12 @@ src="Resources/CategoryChooser.png"
 ></example
 ><p
 >If you choose “Delete,” the category item will be deleted.</p
+><p
+>When you click on a category item in a word in the target phrase, the context menu shown in <exampleRef
+letter="xWordContrextMenu"
+num="xWordContrextMenu"
+></exampleRef
+> appears.  This is the same as if you had clicked on the word item.</p
 ></section2
 ><section2
 id="sEditFeature"
