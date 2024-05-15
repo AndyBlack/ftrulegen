@@ -57,8 +57,10 @@ public class DuplicateTests {
 	public final void ruleDuplicateTest() {
 		assert 1 == ruleGenerator.getFLExTransRules().size();
 		FLExTransRule rule = ruleGenerator.getFLExTransRules().get(0);
+		rule.setPermutations(PermutationsValue.yes);
 		FLExTransRule rule2 = rule.duplicate();
 		assert rule.getName() == rule2.getName();
+		assert rule.getPermutations() == rule2.getPermutations();
 		assert rule.getSource().getPhrase().getWords().size() == rule2.getSource().getPhrase().getWords().size();
 		assert rule.getTarget().getPhrase().getWords().size() == rule2.getTarget().getPhrase().getWords().size();
 	}

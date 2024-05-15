@@ -75,6 +75,7 @@ public class FLExTransRule extends RuleConstituent {
 		newRule.setSource(newSource);
 		Target newTarget = getTarget().duplicate();
 		newRule.setTarget(newTarget);
+		newRule.setPermutations(getPermutations());
 		return newRule;
 	}
 
