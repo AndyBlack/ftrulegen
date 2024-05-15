@@ -1032,6 +1032,7 @@ public class MainController implements Initializable {
 			}
 		}
 		word.setHead(HeadValue.yes);
+		enableDisableCreatePermutationsCheckBox(lvRules.getItems().get(selectedRuleIndex));
 		reportChangesMade();
 	}
 
@@ -1055,6 +1056,7 @@ public class MainController implements Initializable {
 
 	public void handleWordRemoveHeadMarking() {
 		word.setHead(HeadValue.no);
+		enableDisableCreatePermutationsCheckBox(lvRules.getItems().get(selectedRuleIndex));
 		reportChangesMade();
 	}
 
