@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 SIL International
+ * Copyright (c) 2023-2024 SIL International
  * This software is licensed under the LGPL, version 2.1 or later
  * (http: //www.gnu.org/licenses/lgpl-2.1.html)
  */
@@ -8,7 +8,6 @@ package org.sil.ftrulegen.model;
 
 import static org.junit.Assert.*;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.sil.ftrulegen.service.RuleIdentifierAndParentSetter;
@@ -61,8 +60,25 @@ public class DuplicateTests {
 		FLExTransRule rule2 = rule.duplicate();
 		assert rule.getName() == rule2.getName();
 		assert rule.getPermutations() == rule2.getPermutations();
-		assert rule.getSource().getPhrase().getWords().size() == rule2.getSource().getPhrase().getWords().size();
-		assert rule.getTarget().getPhrase().getWords().size() == rule2.getTarget().getPhrase().getWords().size();
+		assertEquals(PhraseType.target, rule2.getTarget().getPhrase().getType());
+		assertEquals(rule.getSource().getPhrase().getWords().size(),
+				rule2.getSource().getPhrase().getWords().size());
+		assertEquals(rule.getTarget().getPhrase().getWords().size(),
+				rule2.getTarget().getPhrase().getWords().size());
+		Word wordT1 = rule.getTarget().getPhrase().getWords().get(0);
+		Word wordT2 = rule.getTarget().getPhrase().getWords().get(1);
+		Word word2T1 = rule2.getTarget().getPhrase().getWords().get(0);
+		Word word2T2 = rule2.getTarget().getPhrase().getWords().get(1);
+		assertEquals(wordT1, word2T1);
+		assertEquals(wordT2, word2T2);
+		assertEquals("Det", wordT1.getCategory());
+		assertEquals("Noun", wordT2.getCategory());
+		assertEquals("Det", word2T1.getCategory());
+		assertEquals("Noun", word2T2.getCategory());
+		assertEquals("Target 1", wordT1.getId());
+		assertEquals("Target 2", wordT2.getId());
+		assertEquals("Target 1", word2T1.getId());
+		assertEquals("Target 2", word2T2.getId());
 	}
 
 	@Test
@@ -71,7 +87,7 @@ public class DuplicateTests {
 		setter.setIdentifiersAndParents(rule);
 		Word newWord = sourceWord.duplicate();
 		assert "Source 1" == sourceWord.getId();
-		assertEquals("3", newWord.getId());
+		assertEquals("Source 1", newWord.getId());
 		assert "Noun" == sourceWord.getCategory();
 		assert "Noun" == newWord.getCategory();
 		Category sourceCat = sourceWord.getCategoryConstituent();

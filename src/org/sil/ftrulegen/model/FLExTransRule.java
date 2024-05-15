@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 SIL International
+ * Copyright (c) 2023-2024 SIL International
  * This software is licensed under the LGPL, version 2.1 or later
  * (http://www.gnu.org/licenses/lgpl-2.1.html)
  */
@@ -75,6 +75,8 @@ public class FLExTransRule extends RuleConstituent {
 		newRule.setSource(newSource);
 		Target newTarget = getTarget().duplicate();
 		newRule.setTarget(newTarget);
+		// need to be sure to set this phrase as target
+		newTarget.getPhrase().setType(PhraseType.target);
 		newRule.setPermutations(getPermutations());
 		return newRule;
 	}
@@ -93,7 +95,7 @@ public class FLExTransRule extends RuleConstituent {
 
 	@Override
 	public int hashCode() {
-		String sCombo = ruleName + source.hashCode() + target.hashCode();
+		String sCombo = ruleName + source.hashCode() + target.hashCode() + createPermutations.hashCode();
 		return sCombo.hashCode();
 	}
 
@@ -112,6 +114,8 @@ public class FLExTransRule extends RuleConstituent {
 		else if (!getSource().equals(rule.getSource())) {
 			result = false;
 		} else if (!getTarget().equals(rule.getTarget())) {
+			result = false;
+		} else if (!getPermutations().equals(rule.getPermutations())) {
 			result = false;
 		}
 		return result;
