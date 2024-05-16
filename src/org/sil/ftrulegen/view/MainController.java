@@ -965,6 +965,7 @@ public class MainController implements Initializable {
 		if (phrase != null) {
 			int index = phrase.getWords().indexOf(word);
 			phrase.deleteWordAt(index);
+			enableDisableCreatePermutationsCheckBox(lvRules.getItems().get(selectedRuleIndex));
 			reportChangesMade();
 		}
 	}
@@ -993,6 +994,7 @@ public class MainController implements Initializable {
 
 	protected void insertNewWord(int index) {
 		phrase.insertNewWordAt(index);
+		enableDisableCreatePermutationsCheckBox(lvRules.getItems().get(selectedRuleIndex));
 		reportChangesMade();
 	}
 
