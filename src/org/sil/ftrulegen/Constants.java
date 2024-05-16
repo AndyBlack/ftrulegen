@@ -11,7 +11,7 @@ public class Constants {
 
 	public static final String RESOURCE_LOCATION = "org.sil.ftrulegen.resources.RuleGen";
 	public static final String RESOURCE_SOURCE_LOCATION = "src/org/sil/ftrulegen/";
-	public static final String APPLICATION_ICON_RESOURCE = "file:resources/images/FLExTransWindowIcon.png";
+	public static final String APPLICATION_ICON_RESOURCE = "file:resources/images/FLExTransIcon.png";
 	public static final String CSS_FILES_LOCATION = "ftrulegenCSSFiles";
 	public static final String HTML_FILE_NAME = "FLExTransRule.html";
 
