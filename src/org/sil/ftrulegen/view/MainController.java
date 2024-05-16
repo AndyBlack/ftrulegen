@@ -330,15 +330,19 @@ public class MainController implements Initializable {
 		flexData.getTargetData().addVariableValuesToFeatures();
 
 		if (lvRules.getItems().size() > 0) {
-			Platform.runLater(new Runnable() {
-				@Override
-				public void run() {
-					selectedRuleIndex = Math.min(selectedRuleIndex, lvRules.getItems().size() - 1);
-					lvRules.scrollTo(selectedRuleIndex);
-					lvRules.getSelectionModel().select(selectedRuleIndex);
-				}
-			});
+			scrollToSelectedIndex();
 		}
+	}
+
+	protected void scrollToSelectedIndex() {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				selectedRuleIndex = Math.min(selectedRuleIndex, lvRules.getItems().size() - 1);
+				lvRules.scrollTo(selectedRuleIndex);
+				lvRules.getSelectionModel().select(selectedRuleIndex);
+			}
+		});
 	}
 
 	protected void enableDisableCreatePermutationsCheckBox(FLExTransRule rule) {
@@ -899,6 +903,7 @@ public class MainController implements Initializable {
 		FLExTransRule newRule = selectedRule.duplicate();
 		generator.getFLExTransRules().add(selectedRuleIndex, newRule);
 		lvRules.getItems().add(selectedRuleIndex, newRule);
+		scrollToSelectedIndex();
 		markAsChanged(true);
 	}
 
