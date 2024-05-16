@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 SIL International
+ * Copyright (c) 2023-2024 SIL International
  * This software is licensed under the LGPL, version 2.1 or later
  * (http://www.gnu.org/licenses/lgpl-2.1.html)
  */
@@ -80,5 +80,11 @@ public class RuleConstituent {
 		sb.append(getIdentifier());
 		sb.append("',event)\"");
 		return sb.toString();
+	}
+
+	protected void ensureBundleExists() {
+		if (bundle == null) {
+			bundle = ResourceBundle.getBundle(Constants.RESOURCE_LOCATION, new Locale("en"));
+		}
 	}
 }

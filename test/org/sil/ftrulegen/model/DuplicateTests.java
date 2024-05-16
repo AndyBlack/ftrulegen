@@ -8,8 +8,12 @@ package org.sil.ftrulegen.model;
 
 import static org.junit.Assert.*;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.sil.ftrulegen.Constants;
 import org.sil.ftrulegen.service.RuleIdentifierAndParentSetter;
 
 public class DuplicateTests {
@@ -17,6 +21,7 @@ public class DuplicateTests {
 	private FLExTransRule rule;
 	private Word sourceWord;
 	private Word sourceWord2;
+	ResourceBundle bundle;
 
 	@Before
 	public final void setup() {
@@ -50,6 +55,7 @@ public class DuplicateTests {
 		targetWord2.setCategory("Noun");
 		targetWord2.setHead(HeadValue.yes);
 		targetPhrase.getWords().add(targetWord2);
+		bundle = ResourceBundle.getBundle(Constants.RESOURCE_LOCATION, new Locale("en"));
 	}
 
 	@Test
@@ -58,7 +64,7 @@ public class DuplicateTests {
 		FLExTransRule rule = ruleGenerator.getFLExTransRules().get(0);
 		rule.setPermutations(PermutationsValue.yes);
 		FLExTransRule rule2 = rule.duplicate();
-		assert rule.getName() == rule2.getName();
+		assertEquals(rule.getName() + bundle.getString("model.ruleduplicated"), rule2.getName());
 		assert rule.getPermutations() == rule2.getPermutations();
 		assertEquals(PhraseType.target, rule2.getTarget().getPhrase().getType());
 		assertEquals(rule.getSource().getPhrase().getWords().size(),
