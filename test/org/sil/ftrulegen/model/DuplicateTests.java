@@ -92,8 +92,8 @@ public class DuplicateTests {
 		RuleIdentifierAndParentSetter setter = RuleIdentifierAndParentSetter.getInstance();
 		setter.setIdentifiersAndParents(rule);
 		Word newWord = sourceWord.duplicate();
-		assert "Source 1" == sourceWord.getId();
-		assertEquals("Source 1", newWord.getId());
+		assertEquals("Source 1", sourceWord.getId());
+		assertEquals("3", newWord.getId());
 		assert "Noun" == sourceWord.getCategory();
 		assert "Noun" == newWord.getCategory();
 		Category sourceCat = sourceWord.getCategoryConstituent();

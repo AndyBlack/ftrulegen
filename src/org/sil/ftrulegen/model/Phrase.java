@@ -100,7 +100,7 @@ public class Phrase extends RuleConstituent {
 			return;
 		}
 		Word newWord = new Word();
-		newWord.setId(Integer.toString(getWords().size() + 1));
+		newWord.setId(getIdOfNewlyAddedWord());
 		getWords().add(index, newWord);
 	}
 
@@ -109,6 +109,10 @@ public class Phrase extends RuleConstituent {
 			return;
 		}
 		getWords().add(index, word);
+	}
+
+	public String getIdOfNewlyAddedWord() {
+		return Integer.toString(getWords().size() + 1);
 	}
 
 	public final void swapPositionOfWords(int index, int otherIndex) {

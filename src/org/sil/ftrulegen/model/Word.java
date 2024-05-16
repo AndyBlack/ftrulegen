@@ -220,7 +220,13 @@ public class Word extends ConstituentWithFeatures {
 
 	public final Word duplicate() {
 		Word newWord = new Word();
-		newWord.setId(getId());
+		String sId = getId();
+		RuleConstituent parent = getParent();
+		if (parent instanceof Phrase) {
+			Phrase phrase = (Phrase)parent;
+			sId = phrase.getIdOfNewlyAddedWord();
+		}
+		newWord.setId(sId);
 		newWord.setCategory(getCategory());
 		newWord.setCategoryConstituent(getCategoryConstituent().duplicate());
 		newWord.setHead(getHead());
