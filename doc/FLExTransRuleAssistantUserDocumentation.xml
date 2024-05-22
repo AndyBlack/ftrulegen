@@ -21,9 +21,9 @@ type="tRuleGen"
 ><emailAddress
 >blackhandrew@gmail.com</emailAddress
 ><date
->15 May, 2024</date
+>22 May, 2024</date
 ><version
->Version 0.10.0 Beta</version
+>Version 0.11.0 Beta</version
 ><version
 >Copyright © 2023-2024 SIL International</version
 ><contents
@@ -332,7 +332,7 @@ src="Resources/CategoryChooser.png"
 letter="xWordContrextMenu"
 num="xWordContrextMenu"
 ></exampleRef
-> appears.  This is the same as if you had clicked on the word item.</p
+> appears. This is the same as if you had clicked on the word item.</p
 ></section2
 ><section2
 id="sEditFeature"

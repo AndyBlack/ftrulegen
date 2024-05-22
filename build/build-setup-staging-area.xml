@@ -47,7 +47,7 @@
 		<mkdir dir="doc" />
 		<copy todir="doc">
 			<fileset dir="../doc">
-				<include name="FLExTransRuleGenUserDocumentation.pdf" />
+				<include name="FLExTransRuleAssistantUserDocumentation.pdf" />
 			</fileset>
 		</copy>
 

@@ -2,16 +2,16 @@
 ;I.e. current directory will contain folder FLExTrans Rule Assistant with application files
 [Setup]
 AppId={{76BEFB7D-1F55-46E9-88B7-B6DFAA8CF97C}
-AppName=FLExTrans Rule Generator
-AppVersion=0.10.1
-AppVerName=FLExTrans Rule Generator version 0.10.1
+AppName=FLExTransRuleAssistant
+AppVersion=0.11.0
+AppVerName=FLExTransRuleAssistant version 0.11.0
 AppPublisher=SIL International
-AppComments=FLExTrans Rule Generator
-AppCopyright=Copyright © 2023 SIL International
+AppComments=FLExTransRuleAssistant
+AppCopyright=Copyright © 2023-2024 SIL International
 ;AppPublisherURL=http://java.com/
 ;AppSupportURL=http://java.com/
 ;AppUpdatesURL=http://java.com/
-DefaultDirName={pf}\SIL\FLExTransRuleGenerator
+DefaultDirName={pf}\SIL\FLExTransRuleAssistant
 DisableStartupPrompt=Yes
 DisableDirPage=No
 DisableProgramGroupPage=Yes
@@ -23,16 +23,16 @@ DefaultGroupName=SIL International
 LicenseFile=
 ;WinXP or above
 MinVersion=0,5.1
-OutputBaseFilename=FLExTrans Rule Generator-0.10.1
+OutputBaseFilename=FLExTransRuleAssistant-0.11.0
 Compression=lzma
 SolidCompression=yes
 PrivilegesRequired=admin
-SetupIconFile=package\windows\FLExTransWindowIcon.ico
+SetupIconFile=package\windows\FLExTransRuleAssistant.ico
 			
-UninstallDisplayIcon={app}\FLExTransWindowIcon.ico
-UninstallDisplayName=FLExTrans Rule Generator version 0.10.1
+UninstallDisplayIcon={app}\FLExTransRuleAssistant.ico
+UninstallDisplayName=FLExTransRuleAssistant version 0.11.0
 WizardImageStretch=No
-WizardSmallImageFile=package\windows\FLExTrans Rule Generator-setup-icon.bmp
+WizardSmallImageFile=package\windows\FLExTransRuleAssistant-setup-icon.bmp
 ArchitecturesInstallIn64BitMode=x64
 ChangesAssociations=yes
 
@@ -42,21 +42,21 @@ ChangesAssociations=yes
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
-Source: "FLExTrans Rule Generator.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "FLExTrans Rule Generator\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "FLExTransRuleAssistant.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "FLExTransRuleAssistant\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
-Name: "{group}\FLExTrans Rule Generator"; Filename: "{app}\FLExTrans Rule Generator.exe"; IconFilename: "{app}\FLExTrans Rule Generator.ico"; Check: returnTrue()
+Name: "{group}\FLExTransRuleAssistant"; Filename: "{app}\FLExTransRuleAssistant.exe"; IconFilename: "{app}\FLExTransRuleAssistant.ico"; Check: returnTrue()
 
 
 
 [Run]
-Filename: "{app}\FLExTrans Rule Generator.exe"; Parameters: "-Xappcds:generatecache -Djavax.xml.accessExternalDTD=all"; Check: returnFalse()
-Filename: "{app}\FLExTrans Rule Generator.exe"; Description: "{cm:LaunchProgram,FLExTrans Rule Generator}"; Flags: nowait postinstall skipifsilent; Check: returnTrue()
-Filename: "{app}\FLExTrans Rule Generator.exe"; Parameters: "-install -svcName ""FLExTrans Rule Generator"" -svcDesc ""A tool to make it easier to write FLExTrans transfer rules."" -mainExe ""FLExTrans Rule Generator.exe""  "; Check: returnFalse()
+Filename: "{app}\FLExTransRuleAssistant.exe"; Parameters: "-Xappcds:generatecache -Djavax.xml.accessExternalDTD=all"; Check: returnFalse()
+Filename: "{app}\FLExTransRuleAssistant.exe"; Description: "{cm:LaunchProgram,FLExTransRuleAssistant}"; Flags: nowait postinstall skipifsilent; Check: returnTrue()
+Filename: "{app}\FLExTransRuleAssistant.exe"; Parameters: "-install -svcName ""FLExTransRuleAssistant"" -svcDesc ""A tool to make it easier to write FLExTrans transfer rules."" -mainExe ""FLExTransRuleAssistant.exe""  "; Check: returnFalse()
 
 [UninstallRun]
-Filename: "{app}\FLExTrans Rule Generator.exe "; Parameters: "-uninstall -svcName FLExTrans Rule Generator -stopOnUninstall"; Check: returnFalse()
+Filename: "{app}\FLExTransRuleAssistant.exe "; Parameters: "-uninstall -svcName FLExTransRuleAssistant -stopOnUninstall"; Check: returnFalse()
 
 [Code]
 function returnTrue(): Boolean;

@@ -899,7 +899,7 @@ public class MainController implements Initializable {
 
 	@FXML
 	private void handleHelpUserDocumentation() {
-		showFileToUser("doc/FLExTransRuleGenUserDocumentation.pdf");
+		showFileToUser("doc/FLExTransRuleAssistantUserDocumentation.pdf");
 	}
 
 	protected void showFileToUser(String sFileToShow) {

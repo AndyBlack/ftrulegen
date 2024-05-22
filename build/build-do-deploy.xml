@@ -4,8 +4,8 @@
 	<import file="${basedir}/build-setup-staging-area.xml" as="nested"/>
 	<import file="${basedir}/build-do-compile.xml" as="nested"/>
 
-	<property name="appName" value="FLExTrans Rule Assistant"/>
-	<property name="version" value="0.10.1"/>
+	<property name="appName" value="FLExTransRuleAssistant"/>
+	<property name="version" value="0.11.0"/>
 
 	<target name="do-deploy" depends="nested.setup-staging-area, nested.do-compile, nested.init-fx-tasks">
 		<antcall target="build-windows-iss-file"/> 
@@ -25,7 +25,7 @@
 		<mkdir dir="dist/doc" />
 		<copy todir="dist/doc">
 			<fileset dir="..\doc">
-				<include name="FLExTransRuleGenUserDocumentation.pdf" />
+				<include name="FLExTransRuleAssistantUserDocumentation.pdf" />
 			</fileset>
 		</copy>
 
@@ -52,7 +52,7 @@
 		<fx:resources id="appRes">
 			<fx:fileset dir="dist" includes="ftrulegen.jar"/>
 			<fx:fileset dir="dist" includes="resources/**" />
-			<fx:fileset dir="dist" includes="doc/FLExTransRuleGenUserDocumentation.pdf"/>
+			<fx:fileset dir="dist" includes="doc/FLExTransRuleAssistantUserDocumentation.pdf"/>
 			<fx:fileset dir="dist" includes="libs/*" excludes="libs/junit.jar libs/org.hamcrest.core_1.3.0.v201303031735.jar"/>
 			<fx:fileset dir="dist" includes="FLExTransRuleGenerator.dtd"/>
 			<fx:fileset dir="dist" includes="CSSFiles/**"/>
@@ -93,7 +93,7 @@
 			includeDT="false"
 			offlineAllowed="true"
 			outdir="${basedir}/deploy"
-			outfile="FLExTrans Rule Assistant"
+			outfile="FLExTransRuleAssistant"
 			nativeBundles="${nativeBundles}"
 			verbose="false"
 			updatemode="background">
