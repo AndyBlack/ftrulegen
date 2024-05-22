@@ -156,6 +156,20 @@ public class Word extends ConstituentWithFeatures {
 		return constituent;
 	}
 
+	public Category getCategoryOfTargetWord() {
+		Category result = null;
+		if (getParent() != null) {
+			Phrase phrase = (Phrase) getParent();
+			if (phrase != null) {
+				Category cat = phrase.getCategoryOfWordWithId(wordId);
+				if (cat != null && cat.getName().length() > 0) {
+					result = cat;
+				}
+			}
+		}
+		return result;
+	}
+
 	public final String produceHtml(ResourceBundle bundle) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<li>");
@@ -183,14 +197,9 @@ public class Word extends ConstituentWithFeatures {
 		if (getCategory().length() > 0) {
 			produceHtmlOfCategory(getCategoryConstituent(), bundle, sb, true);
 		} else {
-			if (getParent() != null) {
-				Phrase phrase = (Phrase) getParent();
-				if (phrase != null) {
-					Category cat = phrase.getCategoryOfWordWithId(wordId);
-					if (cat != null && cat.getName().length() > 0) {
-						produceHtmlOfCategory(cat, bundle, sb, false);
-					}
-				}
+			Category cat = getCategoryOfTargetWord();
+			if (cat != null) {
+				produceHtmlOfCategory(cat, bundle, sb, false);
 			}
 		}
 		sb.append("</table>\n");

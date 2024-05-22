@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='utf-8'?>
+<FLExData>
+  <SourceData name="French-FLExTrans-Exp5">
+    <Categories>
+      <FLExCategory abbr="adj" />
+      <FLExCategory abbr="adv" />
+      <FLExCategory abbr="conj" />
+      <FLExCategory abbr="coordconj" />
+      <FLExCategory abbr="cop" />
+      <FLExCategory abbr="def" />
+      <FLExCategory abbr="det" />
+      <FLExCategory abbr="existmrkr" />
+      <FLExCategory abbr="indf" />
+      <FLExCategory abbr="n" />
+      <FLExCategory abbr="nprop" />
+      <FLExCategory abbr="prep" />
+      <FLExCategory abbr="prepart" />
+      <FLExCategory abbr="pro" />
+      <FLExCategory abbr="v" />
+    </Categories>
+    <Features>
+      <FLExFeature name="absolute tense">
+        <Values>
+          <FLExFeatureValue abbr="fut" />
+          <FLExFeatureValue abbr="pret" />
+          <FLExFeatureValue abbr="prs" />
+          <FLExFeatureValue abbr="pst" />
+        </Values>
+      </FLExFeature>
+      <FLExFeature name="case">
+        <Values>
+          <FLExFeatureValue abbr="acc" />
+          <FLExFeatureValue abbr="dat" />
+          <FLExFeatureValue abbr="nom" />
+        </Values>
+      </FLExFeature>
+      <FLExFeature name="gender">
+        <Values>
+          <FLExFeatureValue abbr="?" />
+          <FLExFeatureValue abbr="f" />
+          <FLExFeatureValue abbr="m" />
+        </Values>
+      </FLExFeature>
+      <FLExFeature name="number">
+        <Values>
+          <FLExFeatureValue abbr="pl" />
+          <FLExFeatureValue abbr="sg" />
+        </Values>
+      </FLExFeature>
+      <FLExFeature name="person">
+        <Values>
+          <FLExFeatureValue abbr="1" />
+          <FLExFeatureValue abbr="2" />
+          <FLExFeatureValue abbr="3" />
+        </Values>
+      </FLExFeature>
+    </Features>
+  </SourceData>
+  <TargetData name="Spanish-FLExTrans-Exp5">
+    <!-- using faked valid feature types for testing purposes -->
+    <Categories>
+      <FLExCategory abbr="adj">
+        <ValidFeatures>
+          <ValidFeature name="gender" type="prefix" />
+          <ValidFeature name="number" type="suffix" />
+        </ValidFeatures>
+      </FLExCategory>
+      <FLExCategory abbr="adv" />
+      <FLExCategory abbr="conj" />
+      <FLExCategory abbr="coordconj" />
+      <FLExCategory abbr="cop" />
+      <FLExCategory abbr="def">
+        <ValidFeatures>
+          <ValidFeature name="gender" type="stem" />
+          <ValidFeature name="number" type="prefix|stem" />
+        </ValidFeatures>
+      </FLExCategory>
+      <FLExCategory abbr="det" />
+      <FLExCategory abbr="existmrkr" />
+      <FLExCategory abbr="indf" />
+      <FLExCategory abbr="n">
+        <ValidFeatures>
+          <ValidFeature name="gender" type="prefix|stem|suffix" />
+          <ValidFeature name="number" type="prefix|suffix" />
+        </ValidFeatures>
+      </FLExCategory>
+      <FLExCategory abbr="nprop" />
+      <FLExCategory abbr="prep" />
+      <FLExCategory abbr="prepart">
+        <ValidFeatures>
+          <ValidFeature name="gender" type="stem" />
+          <ValidFeature name="number" type="stem|suffix" />
+        </ValidFeatures>
+      </FLExCategory>
+      <FLExCategory abbr="pro">
+        <ValidFeatures>
+          <ValidFeature name="gender" type="stem" />
+          <ValidFeature name="person" type="stem" />
+        </ValidFeatures>
+      </FLExCategory>
+      <FLExCategory abbr="v">
+        <ValidFeatures>
+          <ValidFeature name="absolute tense" type="suffix" />
+          <ValidFeature name="number" type="suffix" />
+          <ValidFeature name="person" type="suffix" />
+        </ValidFeatures>
+      </FLExCategory>
+    </Categories>
+    <Features>
+      <FLExFeature name="absolute tense">
+        <Values>
+          <FLExFeatureValue abbr="fut" />
+          <FLExFeatureValue abbr="pret" />
+          <FLExFeatureValue abbr="prs" />
+          <FLExFeatureValue abbr="pst" />
+        </Values>
+      </FLExFeature>
+      <FLExFeature name="case">
+        <Values>
+          <FLExFeatureValue abbr="acc" />
+          <FLExFeatureValue abbr="dat" />
+          <FLExFeatureValue abbr="nom" />
+        </Values>
+      </FLExFeature>
+      <FLExFeature name="gender">
+        <Values>
+          <FLExFeatureValue abbr="?" />
+          <FLExFeatureValue abbr="f" />
+          <FLExFeatureValue abbr="m" />
+        </Values>
+      </FLExFeature>
+      <FLExFeature name="number">
+        <Values>
+          <FLExFeatureValue abbr="pl" />
+          <FLExFeatureValue abbr="sg" />
+        </Values>
+      </FLExFeature>
+      <FLExFeature name="person">
+        <Values>
+          <FLExFeatureValue abbr="1" />
+          <FLExFeatureValue abbr="2" />
+          <FLExFeatureValue abbr="3" />
+        </Values>
+      </FLExFeature>
+    </Features>
+  </TargetData>
+</FLExData>

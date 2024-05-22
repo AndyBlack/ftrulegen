@@ -8,6 +8,9 @@ package org.sil.ftrulegen.flexmodel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import org.sil.ftrulegen.model.Category;
 
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
@@ -91,6 +94,22 @@ public abstract class FLExDataBase {
 	}
 
 	public FLExDataBase() {
+	}
+
+	public List<FLExFeature> getFeaturesForCategory(Category cat) {
+		List<FLExFeature> featuresForCategory = new ArrayList<FLExFeature>();
+		Optional<FLExCategory> catOp = categories.stream().filter(c -> c.getAbbreviation().equals(cat.getName())).findFirst();
+		if (catOp.isPresent()) {
+			FLExCategory flexCat = catOp.get();
+			for (ValidFeature feat : flexCat.getValidFeatures()) {
+				Optional<FLExFeature> featOp = features.stream().filter(f -> f.getName().equals(feat.getName())).findFirst();
+				if (featOp.isPresent()) {
+					FLExFeature flexFeat = featOp.get();
+					featuresForCategory.add(flexFeat);
+				}
+			}
+		}
+		return featuresForCategory;
 	}
 
 	@Override

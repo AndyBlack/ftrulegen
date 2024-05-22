@@ -35,9 +35,9 @@
             </FLExFeature>
             <FLExFeature name="gender">
                 <Values>
+                    <FLExFeatureValue abbr="?"/>
                     <FLExFeatureValue abbr="f"/>
                     <FLExFeatureValue abbr="m"/>
-                    <FLExFeatureValue abbr="?"/>
                 </Values>
             </FLExFeature>
             <FLExFeature name="number">
@@ -91,9 +91,9 @@
             </FLExFeature>
             <FLExFeature name="gender">
                 <Values>
-                    <FLExFeatureValue abbr="f"/>
-                    <FLExFeatureValue abbr="m"/>
-                    <FLExFeatureValue abbr="?"/>
+                    <FLExFeatureValue abbr="?" />
+                    <FLExFeatureValue abbr="f" />
+                    <FLExFeatureValue abbr="m" />
                 </Values>
             </FLExFeature>
             <FLExFeature name="number">
