@@ -9,8 +9,10 @@ package org.sil.ftrulegen.model;
 
 import java.util.*;
 
+import org.sil.ftrulegen.flexmodel.FLExCategory;
 import org.sil.ftrulegen.flexmodel.FLExFeature;
 import org.sil.ftrulegen.flexmodel.FLExFeatureValue;
+import org.sil.ftrulegen.flexmodel.ValidFeature;
 
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
@@ -57,6 +59,38 @@ public class Phrase extends RuleConstituent {
 			}
 		}
 		return false;
+	}
+
+	public List<FLExFeature> getFeaturesInUseForCategory(List<FLExCategory> categories, Category cat) {
+		featuresInUse.clear();
+		for (Word w : words) {
+			for (Feature feat : w.getFeatures()) {
+				if (featureAlreadyInUse(feat) | isNewlyInsertedFeature(feat)) {
+					continue;
+				}
+				Optional<FLExCategory> flexCatOp = categories.stream()
+						.filter(c -> c.getAbbreviation().equals(cat.getName())).findFirst();
+				List<ValidFeature> validFeatures = new ArrayList<ValidFeature>();
+				if (flexCatOp.isPresent()) {
+					FLExCategory flexCat = flexCatOp.get();
+					validFeatures = flexCat.getValidFeatures();
+				}
+				for (ValidFeature vf : validFeatures) {
+					Optional<FLExFeature> ffOp = featuresInUse.stream().filter(f -> f.getName().equals(vf.getName())).findFirst();
+					if (!ffOp.isPresent()) {
+						// only include valid features for the category
+						continue;
+					}
+				}
+				List<FLExFeatureValue> values = new ArrayList<FLExFeatureValue>();
+				FLExFeatureValue fv = new FLExFeatureValue(feat.getMatch());
+				values.add(fv);
+				FLExFeature existingFLExFeature = new FLExFeature(feat.getLabel(), values);
+				existingFLExFeature.setFeatureInFeatureValues();
+				featuresInUse.add(existingFLExFeature);
+			}
+		}
+		return featuresInUse;
 	}
 
 	private boolean isNewlyInsertedFeature(Feature feat) {

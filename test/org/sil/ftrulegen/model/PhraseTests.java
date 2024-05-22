@@ -8,14 +8,18 @@ package org.sil.ftrulegen.model;
 
 import static org.junit.Assert.*;
 
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.Locale;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.sil.ftrulegen.flexmodel.FLExData;
 import org.sil.ftrulegen.flexmodel.FLExFeature;
 import org.sil.ftrulegen.flexmodel.FLExFeatureValue;
 import org.sil.ftrulegen.service.RuleIdentifierAndParentSetter;
 import org.sil.ftrulegen.service.ServiceTestBase;
+import org.sil.ftrulegen.service.XMLFLExDataBackEndProvider;
 
 public class PhraseTests extends ServiceTestBase {
 	private FLExTransRuleGenerator ruleGenerator;
@@ -212,6 +216,34 @@ public class PhraseTests extends ServiceTestBase {
 		assertEquals(1, ff.getValues().size());
 		fv = ff.getValues().get(0);
 		assertEquals("sg", fv.getAbbreviation());
+	}
+
+	@Test
+	public final void getFeaturesInUseForCategoryTest() {
+		XMLFLExDataBackEndProvider providerFLExData;
+		FLExData flexData = new FLExData();
+		providerFLExData = new XMLFLExDataBackEndProvider(flexData, new Locale("en"));
+		setRuleGenExpected(Paths.get(getTestDataDir(), "FLExDataFrenchSpan.xml").toString());
+		providerFLExData.loadFLExDataFromFile(getRuleGenExpected());
+		flexData = providerFLExData.getFLExData();
+		assertNotNull(flexData);
+		targetWord.insertNewFeature("gender", "m");
+		targetWord.insertNewFeature("number", "sg");
+
+		Category cat = new Category("Noun");
+		List<FLExFeature> featuresForCategory = targetPhrase.getFeaturesInUseForCategory(flexData
+				.getTargetData().getCategories(), cat);
+		assertNotNull(featuresForCategory);
+		assertEquals(2, featuresForCategory.size());
+		checkFeature(featuresForCategory, 0, "gender", 1);
+		checkFeature(featuresForCategory, 1, "number", 1);
+	}
+
+	protected void checkFeature(List<FLExFeature> featuresForCategory, int index, String name,
+			int valueSize) {
+		FLExFeature flexFeature = featuresForCategory.get(index);
+		assertEquals(name, flexFeature.getName());
+		assertEquals(valueSize, flexFeature.getValues().size());
 	}
 
 	@Test

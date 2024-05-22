@@ -623,8 +623,27 @@ public class MainController implements Initializable {
 			}
 			cmWordInsertPrefix.setDisable(false);
 			cmWordInsertSuffix.setDisable(false);
-			cmWordInsertFeature.setDisable(false);
+			if (word.getFeatures().size() == 0 && flexCategoryHasValidFeatures()) {
+				cmWordInsertFeature.setDisable(false);
+			} else {
+				cmWordInsertFeature.setDisable(true);
+			}
 		}
+	}
+
+	protected boolean flexCategoryHasValidFeatures() {
+		Category cat = word.getCategoryOfTargetWord();
+		if (cat == null) {
+			return false;
+		}
+		String sCat = cat.getName();
+		Optional<FLExCategory> flexCatOp = flexData.getTargetData().getCategories().stream()
+				.filter(c -> c.getAbbreviation().equals(sCat)).findFirst();
+		if (flexCatOp.isPresent()) {
+			FLExCategory flexCat = flexCatOp.get();
+			return flexCat.getValidFeatures().size() > 0;
+		}
+		return false;
 	}
 
 	public void handleAffixDelete() {
@@ -797,11 +816,20 @@ public class MainController implements Initializable {
 				if (phrase == rule.getSource().getPhrase()) {
 					launchFLExFeatureValueChooser(flexData.getSourceData().getFeatures(), bundle, inserting);
 				} else {
+					if (word == null) {
+						if (feature.getParent() instanceof Word) {
+							word = (Word) feature.getParent();
+						} else {
+							Affix affix = (Affix) feature.getParent();
+							word = (Word) affix.getParent();
+						}
+					}
+					Category cat = word.getCategoryOfTargetWord();
 					List<FLExFeature> featuresInUse = rule.getTarget().getPhrase()
-							.getFeaturesInUse();
+							.getFeaturesInUseForCategory(flexData.getTargetData().getCategories(), cat);
 					List<FLExFeature> featuresToShow = new ArrayList<FLExFeature>();
 					featuresToShow.addAll(featuresInUse);
-					featuresToShow.addAll(flexData.getTargetData().getFeatures());
+					featuresToShow.addAll(flexData.getTargetData().getFeaturesForCategory(cat));
 					launchFLExFeatureValueChooser(featuresToShow, bundle, inserting);
 				}
 			}
