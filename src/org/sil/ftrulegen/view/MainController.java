@@ -326,6 +326,8 @@ public class MainController implements Initializable {
 		XMLFLExDataBackEndProvider flexProvider = new XMLFLExDataBackEndProvider(flexData, bundle.getLocale());
 		flexProvider.loadFLExDataFromFile(flexDataFile);
 		flexData = flexProvider.getFLExData();
+		flexData.getSourceData().setMaxVariables(maxVariables);
+		flexData.getSourceData().addVariableValuesToFeatures();
 		flexData.getTargetData().setMaxVariables(maxVariables);
 		flexData.getTargetData().addVariableValuesToFeatures();
 
@@ -586,6 +588,7 @@ public class MainController implements Initializable {
 
 	void enableDisableWordContextMenuItems() {
 		phrase = (Phrase) word.getParent();
+		PhraseType phraseType = phrase.getType();
 		int index = phrase.getWords().indexOf(word);
 		if (index == 0) {
 			cmWordMoveLeft.setDisable(true);
@@ -602,17 +605,16 @@ public class MainController implements Initializable {
 		} else {
 			cmWordDelete.setDisable(false);
 		}
-		if (phrase.getType() == PhraseType.target || word.getCategory().length() > 0) {
+		if (phraseType == PhraseType.target || word.getCategory().length() > 0) {
 			cmWordInsertCategory.setDisable(true);
 		} else {
 			cmWordInsertCategory.setDisable(false);
 		}
-		if (phrase.getType() == PhraseType.source) {
+		if (phraseType == PhraseType.source) {
 			cmWordMarkAsHead.setDisable(true);
 			cmWordRemoveHeadMarking.setDisable(true);
 			cmWordInsertPrefix.setDisable(true);
 			cmWordInsertSuffix.setDisable(true);
-			cmWordInsertFeature.setDisable(true);
 		} else {
 			if (word.getHead() == HeadValue.yes) {
 				cmWordMarkAsHead.setDisable(true);
@@ -623,21 +625,22 @@ public class MainController implements Initializable {
 			}
 			cmWordInsertPrefix.setDisable(false);
 			cmWordInsertSuffix.setDisable(false);
-			if (word.getFeatures().size() == 0 && flexCategoryHasValidFeatures()) {
-				cmWordInsertFeature.setDisable(false);
-			} else {
-				cmWordInsertFeature.setDisable(true);
-			}
+		}
+		List<FLExCategory> flexCategories = flexData.getFLExCategoriesForPhrase(phraseType);
+		if (flexCategoryHasValidFeatures(flexCategories)) {
+			cmWordInsertFeature.setDisable(false);
+		} else {
+			cmWordInsertFeature.setDisable(true);
 		}
 	}
 
-	protected boolean flexCategoryHasValidFeatures() {
-		Category cat = word.getCategoryOfTargetWord();
+	protected boolean flexCategoryHasValidFeatures(List<FLExCategory> flexCategories) {
+		Category cat = word.getCategoryOfWord();
 		if (cat == null) {
 			return false;
 		}
 		String sCat = cat.getName();
-		Optional<FLExCategory> flexCatOp = flexData.getTargetData().getCategories().stream()
+		Optional<FLExCategory> flexCatOp = flexCategories.stream()
 				.filter(c -> c.getAbbreviation().equals(sCat)).findFirst();
 		if (flexCatOp.isPresent()) {
 			FLExCategory flexCat = flexCatOp.get();
@@ -813,9 +816,9 @@ public class MainController implements Initializable {
 		if (phrase != null) {
 			FLExTransRule rule = (FLExTransRule) phrase.getParent();
 			if (rule != null) {
-				if (phrase == rule.getSource().getPhrase()) {
-					launchFLExFeatureValueChooser(flexData.getSourceData().getFeatures(), bundle, inserting);
-				} else {
+//				if (phrase == rule.getSource().getPhrase()) {
+//					launchFLExFeatureValueChooser(flexData.getSourceData().getFeatures(), bundle, inserting);
+//				} else {
 					if (word == null) {
 						if (feature.getParent() instanceof Word) {
 							word = (Word) feature.getParent();
@@ -824,14 +827,14 @@ public class MainController implements Initializable {
 							word = (Word) affix.getParent();
 						}
 					}
-					Category cat = word.getCategoryOfTargetWord();
-					List<FLExFeature> featuresInUse = rule.getTarget().getPhrase()
-							.getFeaturesInUseForCategory(flexData.getTargetData().getCategories(), cat);
+					Category cat = word.getCategoryOfWord();
+					List<FLExFeature> featuresInUse = phrase //rule.getTarget().getPhrase()
+							.getFeaturesInUseForCategory(flexData.getFLExCategoriesForPhrase(phrase.getType()), cat);
 					List<FLExFeature> featuresToShow = new ArrayList<FLExFeature>();
 					featuresToShow.addAll(featuresInUse);
-					featuresToShow.addAll(flexData.getTargetData().getFeaturesForCategory(cat));
+					featuresToShow.addAll(flexData.getFeaturesInPhraseForCategory(phrase.getType(), cat));
 					launchFLExFeatureValueChooser(featuresToShow, bundle, inserting);
-				}
+//				}
 			}
 		}
 	}

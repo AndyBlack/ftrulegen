@@ -262,7 +262,8 @@ public class PhraseTests extends ServiceTestBase {
 	@Test
 	public final void getCategoryOfWordWithIdTest() {
 		Category cat = sourcePhrase.getCategoryOfWordWithId("Source 1");
-		assertNull(cat);
+		assertNotNull(cat);
+		assertEquals("Noun", cat.getName());
 		cat = targetPhrase.getCategoryOfWordWithId("Source 1");
 		assertNotNull(cat);
 		assertEquals("Noun", cat.getName());

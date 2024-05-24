@@ -234,15 +234,14 @@ public class Phrase extends RuleConstituent {
 
 	public Category getCategoryOfWordWithId(String wordId) {
 		Category cat = null;
-		if (phraseType == PhraseType.target) {
-			RuleConstituent parent = getParent();
-			if (parent instanceof FLExTransRule) {
-				Phrase phrase = ((FLExTransRule) parent).getSource().getPhrase();
-				Optional<Word> optWord = phrase.getWords().stream().filter(w -> w.getId().equals(wordId)).findFirst();
-				if (optWord.isPresent()) {
-					Word word = optWord.get();
-					return word.getCategoryConstituent();
-				}
+		RuleConstituent parent = getParent();
+		if (parent instanceof FLExTransRule) {
+			Phrase phrase = ((FLExTransRule) parent).getSource().getPhrase();
+			Optional<Word> optWord = phrase.getWords().stream()
+					.filter(w -> w.getId().equals(wordId)).findFirst();
+			if (optWord.isPresent()) {
+				Word word = optWord.get();
+				return word.getCategoryConstituent();
 			}
 		}
 		return cat;

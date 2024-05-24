@@ -2,7 +2,12 @@
 <FLExData>
   <SourceData name="French-FLExTrans-Exp5">
     <Categories>
-      <FLExCategory abbr="adj" />
+      <FLExCategory abbr="adj">
+        <ValidFeatures>
+          <ValidFeature name="gender" type="prefix" />
+          <ValidFeature name="number" type="suffix" />
+        </ValidFeatures>
+      </FLExCategory>
       <FLExCategory abbr="adv" />
       <FLExCategory abbr="conj" />
       <FLExCategory abbr="coordconj" />
@@ -11,7 +16,13 @@
       <FLExCategory abbr="det" />
       <FLExCategory abbr="existmrkr" />
       <FLExCategory abbr="indf" />
-      <FLExCategory abbr="n" />
+      <FLExCategory abbr="n">
+        <ValidFeatures>
+          <ValidFeature name="case" type="prefix|stem|suffix" />
+          <ValidFeature name="gender" type="prefix|stem|suffix" />
+          <ValidFeature name="number" type="prefix|suffix" />
+        </ValidFeatures>
+      </FLExCategory>
       <FLExCategory abbr="nprop" />
       <FLExCategory abbr="prep" />
       <FLExCategory abbr="prepart" />

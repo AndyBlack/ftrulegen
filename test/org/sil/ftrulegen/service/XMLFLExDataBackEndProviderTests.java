@@ -96,7 +96,10 @@ public class XMLFLExDataBackEndProviderTests extends ServiceTestBase {
 		assertNotNull(source.getCategories());
 		List<FLExCategory> catList = source.getCategories();
 		assertEquals(15, catList.size());
-		checkCategory(catList, "adj", 0, 0);
+		checkCategory(catList, "adj", 0, 2);
+		FLExCategory cat = catList.get(0);
+		checkValidFeature(cat.getValidFeatures().get(0), "gender", ValidFeatureType.prefix);
+		checkValidFeature(cat.getValidFeatures().get(1), "number", ValidFeatureType.suffix);
 		checkCategory(catList, "adv", 1, 0);
 		checkCategory(catList, "conj", 2, 0);
 		checkCategory(catList, "coordconj", 3, 0);
@@ -105,7 +108,11 @@ public class XMLFLExDataBackEndProviderTests extends ServiceTestBase {
 		checkCategory(catList, "det", 6, 0);
 		checkCategory(catList, "existmrkr", 7, 0);
 		checkCategory(catList, "indf", 8, 0);
-		checkCategory(catList, "n", 9, 0);
+		checkCategory(catList, "n", 9, 3);
+		cat = catList.get(9);
+		checkValidFeature(cat.getValidFeatures().get(0), "case", ValidFeatureType.prefixstemsuffix);
+		checkValidFeature(cat.getValidFeatures().get(1), "gender", ValidFeatureType.prefixstemsuffix);
+		checkValidFeature(cat.getValidFeatures().get(2), "number", ValidFeatureType.prefixsuffix);
 		checkCategory(catList, "nprop", 10, 0);
 		checkCategory(catList, "prep", 11, 0);
 		checkCategory(catList, "prepart", 12, 0);
@@ -120,7 +127,7 @@ public class XMLFLExDataBackEndProviderTests extends ServiceTestBase {
 		catList = target.getCategories();
 		assertEquals(15, catList.size());
 		checkCategory(catList, "adj", 0, 2);
-		FLExCategory cat = catList.get(0);
+		cat = catList.get(0);
 		checkValidFeature(cat.getValidFeatures().get(0), "gender", ValidFeatureType.prefix);
 		checkValidFeature(cat.getValidFeatures().get(1), "number", ValidFeatureType.suffix);
 

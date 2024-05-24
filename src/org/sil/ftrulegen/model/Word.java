@@ -156,7 +156,7 @@ public class Word extends ConstituentWithFeatures {
 		return constituent;
 	}
 
-	public Category getCategoryOfTargetWord() {
+	public Category getCategoryOfWord() {
 		Category result = null;
 		if (getParent() != null) {
 			Phrase phrase = (Phrase) getParent();
@@ -197,7 +197,7 @@ public class Word extends ConstituentWithFeatures {
 		if (getCategory().length() > 0) {
 			produceHtmlOfCategory(getCategoryConstituent(), bundle, sb, true);
 		} else {
-			Category cat = getCategoryOfTargetWord();
+			Category cat = getCategoryOfWord();
 			if (cat != null) {
 				produceHtmlOfCategory(cat, bundle, sb, false);
 			}
