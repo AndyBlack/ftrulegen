@@ -21,9 +21,9 @@ type="tRuleGen"
 ><emailAddress
 >blackhandrew@gmail.com</emailAddress
 ><date
->22 May, 2024</date
+>24 May, 2024</date
 ><version
->Version 0.11.0 Beta</version
+>Version 0.12.0 Beta</version
 ><version
 >Copyright © 2023-2024 SIL International</version
 ><contents
@@ -261,7 +261,10 @@ type="tBold"
 ><object
 type="tBold"
 >Insert feature</object
->: inserts a feature item. This is only available for target words.</li
+>: inserts a feature item. This is only available when a category has been set. The list of available features depends on the set of valid features defined in <object
+type="tFLEx"
+></object
+> for the category of the word.</li
 ><li
 ><object
 type="tBold"
@@ -411,25 +414,58 @@ src="Resources/AffixContextMenu.png"
 >Select the item you wish to use. They are as follows:</p
 ><ul
 ><li
->Duplicate: creates a complete copy of the current affix.</li
+><object
+type="tBold"
+>Duplicate</object
+>: creates a complete copy of the current affix.</li
 ><li
->Toggle affix type: changes the type from prefix to suffix or from suffix to prefix.</li
+><object
+type="tBold"
+>Toggle affix type</object
+>: changes the type from prefix to suffix or from suffix to prefix.</li
 ><li
->Insert feature: inserts a feature item.</li
+><object
+type="tBold"
+>Insert feature</object
+>: inserts a feature item. This is only available when a category has been set for the word this affix is a part of. The list of available features depends on the set of valid features defined in <object
+type="tFLEx"
+></object
+> for the category of the word.</li
 ><li
->Insert new prefix before: inserts a new affix item labeled as a prefix before the selected affix.</li
+><object
+type="tBold"
+>Insert new prefix before</object
+>: inserts a new affix item labeled as a prefix before the selected affix.</li
 ><li
->Insert new prefix after: inserts a new affix item labeled as a prefix after the selected affix.</li
+><object
+type="tBold"
+>Insert new prefix after</object
+>: inserts a new affix item labeled as a prefix after the selected affix.</li
 ><li
->Insert new suffix before: inserts a new affix item labeled as a suffix before the selected affix.</li
+><object
+type="tBold"
+>Insert new suffix before</object
+>: inserts a new affix item labeled as a suffix before the selected affix.</li
 ><li
->Insert new suffix after: inserts a new affix item labeled as a suffix after the selected affix.</li
+><object
+type="tBold"
+>Insert new suffix after</object
+>: inserts a new affix item labeled as a suffix after the selected affix.</li
 ><li
->Move left: moves the selected affix to the left.</li
+><object
+type="tBold"
+>Move left</object
+>: moves the selected affix to the left.</li
 ><li
->Move right: moves the selected affix to the right.</li
+><object
+type="tBold"
+>Move right</object
+>: moves the selected affix to the right.</li
 ><li
->Delete: removes the selected affix.</li
+><object
+type="tBold"
+>Delete</object
+>: removes the selected affix.</li
 ></ul
 ><p
 ></p
