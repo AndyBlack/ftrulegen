@@ -631,8 +631,13 @@ public class MainController implements Initializable {
 				cmWordMarkAsHead.setDisable(false);
 				cmWordRemoveHeadMarking.setDisable(true);
 			}
-			cmWordInsertPrefix.setDisable(false);
-			cmWordInsertSuffix.setDisable(false);
+			if (word.getAffixes().size() == 0) {
+				cmWordInsertPrefix.setDisable(false);
+				cmWordInsertSuffix.setDisable(false);
+			} else {
+				cmWordInsertPrefix.setDisable(true);
+				cmWordInsertSuffix.setDisable(true);
+			}
 		}
 		List<FLExCategory> flexCategories = flexData.getFLExCategoriesForPhrase(phraseType);
 		if (flexCategoryHasValidFeatures(flexCategories)) {
