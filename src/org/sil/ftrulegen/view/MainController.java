@@ -554,7 +554,7 @@ public class MainController implements Initializable {
 	}
 
 	void enableDisableAffixContextMenuItems() {
-		Word word = (Word) affix.getParent();
+		word = (Word) affix.getParent();
 		int index = word.getAffixes().indexOf(affix);
 		if (index == 0) {
 			cmAffixMoveLeft.setDisable(true);
@@ -565,6 +565,14 @@ public class MainController implements Initializable {
 			cmAffixMoveRight.setDisable(true);
 		} else {
 			cmAffixMoveRight.setDisable(false);
+		}
+		phrase = (Phrase) word.getParent();
+		PhraseType phraseType = phrase.getType();
+		List<FLExCategory> flexCategories = flexData.getFLExCategoriesForPhrase(phraseType);
+		if (flexCategoryHasValidFeatures(flexCategories)) {
+			cmAffixInsertFeature.setDisable(false);
+		} else {
+			cmAffixInsertFeature.setDisable(true);
 		}
 	}
 
