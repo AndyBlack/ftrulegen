@@ -227,7 +227,7 @@ public class Phrase extends RuleConstituent {
 	public final Phrase duplicate() {
 		Phrase newPhrase = new Phrase();
 		for (Word word : getWords()) {
-			newPhrase.getWords().add(word.duplicate());
+			newPhrase.getWords().add(word.duplicate(false));
 		}
 		return newPhrase;
 	}

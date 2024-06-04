@@ -227,13 +227,15 @@ public class Word extends ConstituentWithFeatures {
 		sb.append("</tr>\n");
 	}
 
-	public final Word duplicate() {
+	public final Word duplicate(boolean assignNewId) {
 		Word newWord = new Word();
 		String sId = getId();
-		RuleConstituent parent = getParent();
-		if (parent instanceof Phrase) {
-			Phrase phrase = (Phrase)parent;
-			sId = phrase.getIdOfNewlyAddedWord();
+		if (assignNewId) {
+			RuleConstituent parent = getParent();
+			if (parent instanceof Phrase) {
+				Phrase phrase = (Phrase)parent;
+				sId = phrase.getIdOfNewlyAddedWord();
+			}
 		}
 		newWord.setId(sId);
 		newWord.setCategory(getCategory());
