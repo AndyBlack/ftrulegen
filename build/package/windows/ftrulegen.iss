@@ -3,8 +3,8 @@
 [Setup]
 AppId={{76BEFB7D-1F55-46E9-88B7-B6DFAA8CF97C}
 AppName=FLExTransRuleAssistant
-AppVersion=0.12.1
-AppVerName=FLExTransRuleAssistant version 0.12.1
+AppVersion=0.12.2
+AppVerName=FLExTransRuleAssistant version 0.12.2
 AppPublisher=SIL International
 AppComments=FLExTransRuleAssistant
 AppCopyright=Copyright © 2023-2024 SIL International
@@ -23,14 +23,14 @@ DefaultGroupName=SIL International
 LicenseFile=
 ;WinXP or above
 MinVersion=0,5.1
-OutputBaseFilename=FLExTransRuleAssistant-0.12.1
+OutputBaseFilename=FLExTransRuleAssistant-0.12.2
 Compression=lzma
 SolidCompression=yes
 PrivilegesRequired=admin
 SetupIconFile=package\windows\FLExTransRuleAssistant.ico
 			
 UninstallDisplayIcon={app}\FLExTransRuleAssistant.ico
-UninstallDisplayName=FLExTransRuleAssistant version 0.12.1
+UninstallDisplayName=FLExTransRuleAssistant version 0.12.2
 WizardImageStretch=No
 WizardSmallImageFile=package\windows\FLExTransRuleAssistant-setup-icon.bmp
 ArchitecturesInstallIn64BitMode=x64
