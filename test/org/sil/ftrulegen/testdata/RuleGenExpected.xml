@@ -30,24 +30,24 @@
                             <Affixes>
 <Affix type="suffix">
     <Features>
-        <Feature label="gender" match="α"/>
+        <Feature label="gender" match="α" value=""/>
     </Features>
 </Affix>
 <Affix type="suffix">
     <Features>
-        <Feature label="number" match="β"/>
+        <Feature label="number" match="β" value=""/>
     </Features>
 </Affix>
                             </Affixes>
                         </Word>
                         <Word category="" head="yes" id="3">
                             <Features>
-<Feature label="gender" match="α"/>
+<Feature label="gender" match="α" value=""/>
                             </Features>
                             <Affixes>
 <Affix type="suffix">
     <Features>
-        <Feature label="number" match="β"/>
+        <Feature label="number" match="β" value=""/>
     </Features>
 </Affix>
                             </Affixes>
@@ -57,12 +57,12 @@
                             <Affixes>
 <Affix type="suffix">
     <Features>
-        <Feature label="gender" match="α"/>
+        <Feature label="gender" match="α" value=""/>
     </Features>
 </Affix>
 <Affix type="suffix">
     <Features>
-        <Feature label="number" match="β"/>
+        <Feature label="number" match="β" value=""/>
     </Features>
 </Affix>
                             </Affixes>

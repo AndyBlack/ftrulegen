@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 SIL International
+ * Copyright (c) 2023-2024 SIL International
  * This software is licensed under the LGPL, version 2.1 or later
  * (http: //www.gnu.org/licenses/lgpl-2.1.html)
  */
@@ -7,6 +7,7 @@
 package org.sil.ftrulegen.flexmodel;
 
 import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlTransient;
 
 public class FLExFeatureValue {
 	private String abbreviation = "";
@@ -28,6 +29,17 @@ public class FLExFeatureValue {
 
 	public final void setFeature(FLExFeature value) {
 		feature = value;
+	}
+
+	@XmlTransient()
+	private boolean greek = false;
+
+	public boolean isGreek() {
+		return greek;
+	}
+
+	public void setGreek(boolean greek) {
+		this.greek = greek;
 	}
 
 	public FLExFeatureValue() {

@@ -80,7 +80,8 @@ public class FLExFeatureValueChooserController implements Initializable {
 	public void selectFLExFeatureValue(Feature feat) {
 		for (int i = 0; i < lvFeatureValues.getItems().size(); i++) {
 			FLExFeatureValue ffv = lvFeatureValues.getItems().get(i);
-			if (ffv.getAbbreviation().equals(feat.getMatch()) && ffv.getFeature().getName().equals(feat.getLabel())) {
+			if (ffv.getFeature().getName().equals(feat.getLabel())
+					&& ffv.getAbbreviation().equals(feat.getMatchOrValue())) {
 				featureValueChosen = ffv;
 				index = i;
 				break;

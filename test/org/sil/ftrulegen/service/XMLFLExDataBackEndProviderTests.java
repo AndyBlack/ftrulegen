@@ -230,6 +230,8 @@ public class XMLFLExDataBackEndProviderTests extends ServiceTestBase {
 		assertNotNull(feature);
 		assert label == feature.getLabel();
 		assert match == feature.getMatch();
+		assert match == feature.getMatchOrValue();
+		assert "" == feature.getValue();
 	}
 
 	protected final void checkValidFeature(ValidFeature validFeature, String name, ValidFeatureType vType) {

@@ -41,7 +41,7 @@ public class Phrase extends RuleConstituent {
 					continue;
 				}
 				List<FLExFeatureValue> values = new ArrayList<FLExFeatureValue>();
-				FLExFeatureValue fv = new FLExFeatureValue(feat.getMatch());
+				FLExFeatureValue fv = new FLExFeatureValue(feat.getMatchOrValue());
 				values.add(fv);
 				FLExFeature existingFLExFeature = new FLExFeature(feat.getLabel(), values);
 				existingFLExFeature.setFeatureInFeatureValues();
@@ -53,8 +53,17 @@ public class Phrase extends RuleConstituent {
 
 	private boolean featureAlreadyInUse(Feature feat) {
 		for (FLExFeature ff : featuresInUse) {
-			if (ff.getName().equals(feat.getLabel())
-					&& ff.getValues().get(0).getAbbreviation().equals(feat.getMatch())) {
+			if (featureFound(feat, ff)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean featureFound(Feature feat, FLExFeature ff) {
+		if (ff.getName().equals(feat.getLabel())) {
+			FLExFeatureValue fv = ff.getValues().get(0);
+			if (fv.getAbbreviation().equals(feat.getMatchOrValue()) ) {
 				return true;
 			}
 		}
@@ -83,7 +92,7 @@ public class Phrase extends RuleConstituent {
 					}
 				}
 				List<FLExFeatureValue> values = new ArrayList<FLExFeatureValue>();
-				FLExFeatureValue fv = new FLExFeatureValue(feat.getMatch());
+				FLExFeatureValue fv = new FLExFeatureValue(feat.getMatchOrValue());
 				values.add(fv);
 				FLExFeature existingFLExFeature = new FLExFeature(feat.getLabel(), values);
 				existingFLExFeature.setFeatureInFeatureValues();
@@ -94,7 +103,7 @@ public class Phrase extends RuleConstituent {
 	}
 
 	private boolean isNewlyInsertedFeature(Feature feat) {
-		if (feat.getLabel().equals("") && feat.getMatch().equals("")) {
+		if (feat.getLabel().equals("") && feat.getMatchOrValue().equals("")) {
 			return true;
 		}
 		return false;

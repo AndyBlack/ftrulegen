@@ -34,6 +34,17 @@ public class Feature extends RuleConstituent {
 		featureLabel = value;
 	}
 
+	private String featureValue = "";
+
+	@XmlAttribute(name = "value")
+	public final String getValue() {
+		return featureValue;
+	}
+
+	public final void setValue(String value) {
+		featureValue = value;
+	}
+
 	public Feature() {
 	}
 
@@ -64,21 +75,30 @@ public class Feature extends RuleConstituent {
 		return constituent;
 	}
 
+	public String getMatchOrValue() {
+		if (getMatch().length() > 0) {
+			return getMatch();
+		} else {
+			return getValue();
+		}
+	}
+
 	public final String produceHtml(ResourceBundle bundle, boolean isHead) {
 		StringBuilder sb = new StringBuilder();
 		String sClass = isHead ? ksFeatureClass + " headfeature" : ksFeatureClass;
 		sb.append(produceSpan(sClass, "f"));
 		sb.append((getLabel().length() > 0) ? getLabel() : bundle.getString("model.FeatureX"));
 		sb.append(":");
-		sb.append((getMatch().length() > 0) ? getMatch() : bundle.getString("model.MatchX"));
+		sb.append(getMatchOrValue());
 		sb.append("</span>");
 		return sb.toString();
 	}
 
 	public final Feature duplicate() {
 		Feature newFeature = new Feature();
-		newFeature.setMatch(getMatch());
 		newFeature.setLabel(getLabel());
+		newFeature.setMatch(getMatch());
+		newFeature.setLabel(getValue());
 		return newFeature;
 	}
 }

@@ -1,7 +1,7 @@
 package org.sil.ftrulegen.model;
 
 /**
- * Copyright (c) 2023 SIL International
+ * Copyright (c) 2023-2024 SIL International
  * This software is licensed under the LGPL, version 2.1 or later
  * (http: //www.gnu.org/licenses/lgpl-2.1.html)
  */
@@ -70,6 +70,7 @@ public class RuleGeneratorTests {
 		affix.getFeatures().add(affixFeature);
 		assert 1 == affix.getFeatures().size();
 		assert "" == affixFeature.getMatch();
+		assert "" == affixFeature.getValue();
 		assert "" == affixFeature.getLabel();
 	}
 }

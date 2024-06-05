@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 SIL International
+ * Copyright (c) 2023-2024 SIL International
  * This software is licensed under the LGPL, version 2.1 or later
  * (http: //www.gnu.org/licenses/lgpl-2.1.html)
  */
@@ -81,6 +81,8 @@ public class ConstituentFinderTests extends ServiceTestBase {
 		assert feature != null;
 		assertEquals("gender", feature.getLabel());
 		assertEquals("α", feature.getMatch());
+		assertEquals("", feature.getValue());
+		assertEquals("α", feature.getMatchOrValue());
 
 		constituent = finder.findConstituent(rule, 10);
 		word = (Word) ((constituent instanceof Word) ? constituent : null);
@@ -94,6 +96,8 @@ public class ConstituentFinderTests extends ServiceTestBase {
 		assert feature != null;
 		assertEquals("gender", feature.getLabel());
 		assertEquals("α", feature.getMatch());
+		assertEquals("", feature.getValue());
+		assertEquals("α", feature.getMatchOrValue());
 
 		constituent = finder.findConstituent(rule, 13);
 		assert constituent == null;

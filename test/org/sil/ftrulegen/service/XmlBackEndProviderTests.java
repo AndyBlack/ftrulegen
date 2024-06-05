@@ -8,8 +8,6 @@ package org.sil.ftrulegen.service;
 
 import static org.junit.Assert.*;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.sil.ftrulegen.Constants;
 import org.sil.ftrulegen.model.*;
@@ -156,6 +154,8 @@ public class XmlBackEndProviderTests extends ServiceTestBase {
 		assertNotNull(feature);
 		assertEquals(label, feature.getLabel());
 		assertEquals(match, feature.getMatch());
+		assertEquals(match, feature.getMatchOrValue());
+		assertEquals("", feature.getValue());
 	}
 
 	@Test

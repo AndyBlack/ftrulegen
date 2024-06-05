@@ -113,18 +113,21 @@ public class DuplicateTests {
 	public final void affixDuplicateTest() {
 		final String kLabel = "gender";
 		final String kMatch = "alpha";
+		final String kValue = "";
 		Affix affix = new Affix();
 		affix.setType(AffixType.prefix);
 		Feature feature = new Feature();
 		feature.setLabel(kLabel);
 		feature.setMatch(kMatch);
+		feature.setValue(kValue);
 		affix.getFeatures().add(feature);
 
 		Affix newAffix = affix.duplicate();
 		assert AffixType.prefix == newAffix.getType();
 		assert 1 == newAffix.getFeatures().size();
 		Feature newFeature = affix.getFeatures().get(0);
-		assert kLabel == newFeature.getLabel();
-		assert kMatch == newFeature.getMatch();
+		assertEquals(kLabel, newFeature.getLabel());
+		assertEquals(kMatch, newFeature.getMatch());
+		assertEquals(kValue, newFeature.getValue());
 	}
 }

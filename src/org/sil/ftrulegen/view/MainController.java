@@ -873,7 +873,13 @@ public class MainController implements Initializable {
 			FLExFeatureValue featValue = controller.getFeatureValueChosen();
 			if (controller.isOkClicked() && featValue != null) {
 				feature.setLabel(featValue.getFeature().getName());
-				feature.setMatch(featValue.getAbbreviation());
+				if (featValue.isGreek()) {
+					feature.setMatch(featValue.getAbbreviation());
+					feature.setValue("");
+				} else {
+					feature.setMatch("");
+					feature.setValue(featValue.getAbbreviation());
+				}
 				reportChangesMade();
 			} else if (inserting ){
 				// undo addition of this feature
