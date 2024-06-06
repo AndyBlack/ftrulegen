@@ -49,6 +49,8 @@ import org.sil.utility.HandleExceptionMessage;
 import org.sil.utility.view.ControllerUtilities;
 import org.sil.utility.view.ObservableResourceFactory;
 
+import com.sun.org.apache.xalan.internal.xsltc.util.IntegerArray;
+
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -63,6 +65,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Font;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
@@ -130,8 +133,10 @@ public class MainController implements Initializable {
 	ContextMenu featureEditContextMenu = new ContextMenu();
 	MenuItem cmFeatureEdit;
 	MenuItem cmFeatureEditUnmarked;
+	MenuItem cmFeatureEditRanking;
 	MenuItem cmFeatureDelete;
 	MenuItem cmFeatureDeleteUnmarked;
+	MenuItem cmFeatureDeleteRanking;
 
 	ContextMenu helpContextMenu = new ContextMenu();
 	MenuItem cmHelpAbout;
@@ -479,6 +484,10 @@ public class MainController implements Initializable {
 		cmFeatureEditUnmarked.setOnAction((event) -> {
 			handleFeatureEditUnmarked();
 		});
+		cmFeatureEditRanking = new MenuItem(bundle.getString("view.cmEditRanking"));
+		cmFeatureEditRanking.setOnAction((event) -> {
+			handleFeatureEditRanking();
+		});
 		cmFeatureDelete = new MenuItem(bundle.getString("view.cmDelete"));
 		cmFeatureDelete.setOnAction((event) -> {
 			handleFeatureDelete();
@@ -487,8 +496,12 @@ public class MainController implements Initializable {
 		cmFeatureDeleteUnmarked.setOnAction((event) -> {
 			handleFeatureDeleteUnmarked();
 		});
-		featureEditContextMenu.getItems().addAll(cmFeatureEdit, cmFeatureEditUnmarked,
-				new SeparatorMenuItem(), cmFeatureDelete, cmFeatureDeleteUnmarked);
+		cmFeatureDeleteRanking = new MenuItem(bundle.getString("view.cmDeleteRanking"));
+		cmFeatureDeleteRanking.setOnAction((event) -> {
+			handleFeatureDeleteRanking();
+		});
+		featureEditContextMenu.getItems().addAll(cmFeatureEdit, cmFeatureEditUnmarked, cmFeatureEditRanking,
+				new SeparatorMenuItem(), cmFeatureDelete, cmFeatureDeleteUnmarked, cmFeatureDeleteRanking);
 	}
 
 	void createHelpContextMenuItems() {
@@ -601,13 +614,24 @@ public class MainController implements Initializable {
 		}
 		if (thisWord.getHead() == HeadValue.yes) {
 			cmFeatureEditUnmarked.setDisable(false);
+			if (thisWord.hasMoreThanOneFeature()) {
+				cmFeatureEditRanking.setDisable(false);
+			} else {
+				cmFeatureEditRanking.setDisable(true);
+			}
 		} else {
 			cmFeatureEditUnmarked.setDisable(true);
+			cmFeatureEditRanking.setDisable(true);
 		}
 		if (feature.getUnmarked().length() > 0) {
 			cmFeatureDeleteUnmarked.setDisable(false);
 		} else {
 			cmFeatureDeleteUnmarked.setDisable(true);
+		}
+		if (feature.getRanking() > 0) {
+			cmFeatureDeleteRanking.setDisable(false);
+		} else {
+			cmFeatureDeleteRanking.setDisable(true);
 		}
 	}
 
@@ -862,6 +886,13 @@ public class MainController implements Initializable {
 		}
 	}
 
+	public void handleFeatureDeleteRanking() {
+		if (feature != null) {
+			feature.setRanking(0);
+			reportChangesMade();
+		}
+	}
+
 	public void handleFeatureEdit() {
 		processInsertFeature(false);
 	}
@@ -874,6 +905,28 @@ public class MainController implements Initializable {
 			FLExFeature ff = ffOpt.get();
 			featuresToShow.add(ff);
 			launchFLExFeatureValueChooser(featuresToShow, bundle, false, true);
+		}
+	}
+
+	public void handleFeatureEditRanking() {
+		Integer[] rankings = new Integer[5];
+		word = feature.getWord();
+		for (int i = 1, j = 0; i < 6; i++) {
+			if (word.rankingIsAvailable(i)) {
+				rankings[j++] = i;
+			}
+		}
+		ChoiceDialog<Integer> dialog = new ChoiceDialog<Integer>(0, rankings);
+		dialog.setTitle(RESOURCE_FACTORY.getStringBinding("featureranking.header").get());
+		dialog.setHeaderText(RESOURCE_FACTORY.getStringBinding("featureranking.content").get());
+		dialog.setContentText(RESOURCE_FACTORY.getStringBinding("featureranking.choose").get());
+		dialog.setSelectedItem(feature.getRanking());
+		Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+		stage.getIcons().add(mainApp.getNewMainIconImage());
+		Optional<Integer> result = dialog.showAndWait();
+		if (result.isPresent()) {
+			feature.setRanking(result.get());
+			reportChangesMade();
 		}
 	}
 

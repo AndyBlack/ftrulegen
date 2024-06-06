@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 SIL International
+ * Copyright (c) 2023-2024 SIL International
  * This software is licensed under the LGPL, version 2.1 or later
  * (http: //www.gnu.org/licenses/lgpl-2.1.html)
  */
@@ -155,5 +155,76 @@ public class WordTests {
 		assert 2 == word.getAffixes().size();
 		assert AffixType.prefix == word.getAffixes().get(0).getType();
 		assert AffixType.suffix == word.getAffixes().get(1).getType();
+	}
+
+	@Test
+	public final void hasMoreThanOneFeatureTest() {
+		assertEquals(false, word.hasMoreThanOneFeature());
+		Feature feature = new Feature();
+		feature.setLabel("gender");
+		feature.setMatch("alpha");
+		word.getFeatures().add(feature);
+		assertEquals(false, word.hasMoreThanOneFeature());
+		Feature feature2 = new Feature();
+		feature2.setLabel("number");
+		feature2.setMatch("singular");
+		word.getFeatures().add(feature2);
+		assertEquals(true, word.hasMoreThanOneFeature());
+		word.deleteFeature(feature);
+		assertEquals(false, word.hasMoreThanOneFeature());
+		createTwoAffixes();
+		assertEquals(false, word.hasMoreThanOneFeature());
+		Affix affix = word.getAffixes().get(0);
+		affix.getFeatures().add(feature);
+		assertEquals(true, word.hasMoreThanOneFeature());
+		word.deleteFeature(feature2);
+		assertEquals(false, word.hasMoreThanOneFeature());
+		affix.getFeatures().add(feature2);
+		assertEquals(true, word.hasMoreThanOneFeature());
+	}
+
+	@Test
+	public final void isRankingAvailableTest() {
+		checkRankings(true, true, true, true, true);
+		Feature feature = new Feature();
+		feature.setLabel("gender");
+		feature.setMatch("alpha");
+		word.getFeatures().add(feature);
+		checkRankings(true, true, true, true, true);
+		feature.setRanking(1);
+		checkRankings(false, true, true, true, true);
+		feature.setRanking(2);
+		checkRankings(true, false, true, true, true);
+		feature.setRanking(3);
+		checkRankings(true, true, false, true, true);
+		feature.setRanking(4);
+		checkRankings(true, true, true, false, true);
+		feature.setRanking(5);
+		checkRankings(true, true, true, true, false);
+
+		Feature feature2 = new Feature();
+		feature2.setLabel("number");
+		feature2.setMatch("singular");
+		word.getFeatures().add(feature2);
+		checkRankings(true, true, true, true, false);
+		feature2.setRanking(1);
+		checkRankings(false, true, true, true, false);
+
+		createTwoAffixes();
+		checkRankings(false, true, true, true, false);
+		Affix affix = word.getAffixes().get(0);
+		Feature feature3 = new Feature();
+		affix.getFeatures().add(feature3);
+		checkRankings(false, true, true, true, false);
+		feature3.setRanking(4);
+		checkRankings(false, true, true, false, false);
+	}
+
+	void checkRankings(boolean one, boolean two, boolean three, boolean four, boolean five) {
+		assertEquals(one, word.rankingIsAvailable(1));
+		assertEquals(two, word.rankingIsAvailable(2));
+		assertEquals(three, word.rankingIsAvailable(3));
+		assertEquals(four, word.rankingIsAvailable(4));
+		assertEquals(five, word.rankingIsAvailable(5));
 	}
 }

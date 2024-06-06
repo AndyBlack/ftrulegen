@@ -56,6 +56,17 @@ public class Feature extends RuleConstituent {
 		featureDefault = Default;
 	}
 
+	private int ranking = 0;
+
+	@XmlAttribute(name = "ranking")
+	public int getRanking() {
+		return ranking;
+	}
+
+	public void setRanking(int ranking) {
+		this.ranking = ranking;
+	}
+
 	public Feature() {
 	}
 
@@ -76,6 +87,20 @@ public class Feature extends RuleConstituent {
 			}
 		}
 		return phrase;
+	}
+
+	public Word getWord() {
+		Word word = null;
+		RuleConstituent constituent = getParent();
+		if (constituent instanceof Word) {
+			word = (Word) constituent;
+		} else if (constituent instanceof Affix) {
+			Affix affix = (Affix) constituent;
+			if (affix != null) {
+				word = (Word) affix.getParent();
+			}
+		}
+		return word;
 	}
 
 	public final RuleConstituent findConstituent(int identifier) {
@@ -101,6 +126,13 @@ public class Feature extends RuleConstituent {
 		sb.append((getLabel().length() > 0) ? getLabel() : bundle.getString("model.FeatureX"));
 		sb.append(":");
 		sb.append(getMatchOrValue());
+		if (getRanking() > 0) {
+			sb.append("<span class=\"ranking ");
+			sb.append(ksFeatureClass);
+			sb.append("\">");
+			sb.append(getRanking());
+			sb.append("</span>");
+		}
 		if (getUnmarked().length() > 0) {
 			formatUnmarked(bundle, sb);
 		}

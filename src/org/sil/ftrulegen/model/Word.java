@@ -170,6 +170,33 @@ public class Word extends ConstituentWithFeatures {
 		return result;
 	}
 
+	public boolean hasMoreThanOneFeature() {
+		int count = getFeatures().size();
+		for (Affix affix : getAffixes()) {
+			count += affix.getFeatures().size();
+		}
+		if (count > 1) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean rankingIsAvailable(int ranking) {
+		for (Feature feat : getFeatures()) {
+			if (feat.getRanking() == ranking) {
+				return false;
+			}
+		}
+		for (Affix affix : getAffixes()) {
+			for (Feature feat : affix.getFeatures()) {
+				if (feat.getRanking() == ranking) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
 	public final String produceHtml(ResourceBundle bundle) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<li>");
