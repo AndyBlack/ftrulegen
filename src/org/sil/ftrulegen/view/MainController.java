@@ -129,7 +129,9 @@ public class MainController implements Initializable {
 
 	ContextMenu featureEditContextMenu = new ContextMenu();
 	MenuItem cmFeatureEdit;
+	MenuItem cmFeatureEditUnmarked;
 	MenuItem cmFeatureDelete;
+	MenuItem cmFeatureDeleteUnmarked;
 
 	ContextMenu helpContextMenu = new ContextMenu();
 	MenuItem cmHelpAbout;
@@ -473,11 +475,20 @@ public class MainController implements Initializable {
 		cmFeatureEdit.setOnAction((event) -> {
 			handleFeatureEdit();
 		});
+		cmFeatureEditUnmarked = new MenuItem(bundle.getString("view.cmEditUnmarked"));
+		cmFeatureEditUnmarked.setOnAction((event) -> {
+			handleFeatureEditUnmarked();
+		});
 		cmFeatureDelete = new MenuItem(bundle.getString("view.cmDelete"));
 		cmFeatureDelete.setOnAction((event) -> {
 			handleFeatureDelete();
 		});
-		featureEditContextMenu.getItems().addAll(cmFeatureEdit, new SeparatorMenuItem(), cmFeatureDelete);
+		cmFeatureDeleteUnmarked = new MenuItem(bundle.getString("view.cmDeleteUnmarked"));
+		cmFeatureDeleteUnmarked.setOnAction((event) -> {
+			handleFeatureDeleteUnmarked();
+		});
+		featureEditContextMenu.getItems().addAll(cmFeatureEdit, cmFeatureEditUnmarked,
+				new SeparatorMenuItem(), cmFeatureDelete, cmFeatureDeleteUnmarked);
 	}
 
 	void createHelpContextMenuItems() {
@@ -573,6 +584,30 @@ public class MainController implements Initializable {
 			cmAffixInsertFeature.setDisable(false);
 		} else {
 			cmAffixInsertFeature.setDisable(true);
+		}
+	}
+
+	void enableDisableFeatureContextMenuItems() {
+		Word thisWord = new Word();
+		RuleConstituent rc = feature.getParent();
+		if (rc instanceof Word) {
+			thisWord = (Word) rc;
+		} else if (rc instanceof Affix) {
+			Affix thisAffix = (Affix) rc;
+			RuleConstituent rc2 = thisAffix.getParent();
+			if (rc2 instanceof Word) {
+				thisWord = (Word)rc2;
+			}
+		}
+		if (thisWord.getHead() == HeadValue.yes) {
+			cmFeatureEditUnmarked.setDisable(false);
+		} else {
+			cmFeatureEditUnmarked.setDisable(true);
+		}
+		if (feature.getUnmarked().length() > 0) {
+			cmFeatureDeleteUnmarked.setDisable(false);
+		} else {
+			cmFeatureDeleteUnmarked.setDisable(true);
 		}
 	}
 
@@ -820,8 +855,26 @@ public class MainController implements Initializable {
 		}
 	}
 
+	public void handleFeatureDeleteUnmarked() {
+		if (feature != null) {
+			feature.setUnmarked("");
+			reportChangesMade();
+		}
+	}
+
 	public void handleFeatureEdit() {
 		processInsertFeature(false);
+	}
+
+	public void handleFeatureEditUnmarked() {
+		List<FLExFeature> featuresToShow = new ArrayList<FLExFeature>();
+		Optional<FLExFeature> ffOpt = flexData.getTargetData().getFeaturesWithoutVariables()
+				.stream().filter(ff -> ff.getName().equals(feature.getLabel())).findFirst();
+		if (ffOpt.isPresent()) {
+			FLExFeature ff = ffOpt.get();
+			featuresToShow.add(ff);
+			launchFLExFeatureValueChooser(featuresToShow, bundle, false, true);
+		}
 	}
 
 	protected void processInsertFeature(boolean inserting) {
@@ -846,13 +899,13 @@ public class MainController implements Initializable {
 					List<FLExFeature> featuresToShow = new ArrayList<FLExFeature>();
 					featuresToShow.addAll(featuresInUse);
 					featuresToShow.addAll(flexData.getFeaturesInPhraseForCategory(phrase.getType(), cat));
-					launchFLExFeatureValueChooser(featuresToShow, bundle, inserting);
+					launchFLExFeatureValueChooser(featuresToShow, bundle, inserting, false);
 //				}
 			}
 		}
 	}
 
-	void launchFLExFeatureValueChooser(List<FLExFeature> features, ResourceBundle bundle, boolean inserting) {
+	void launchFLExFeatureValueChooser(List<FLExFeature> features, ResourceBundle bundle, boolean inserting, boolean unmarked) {
 		try {
 			Stage dialogStage = new Stage();
 			// Load root layout from fxml file.
@@ -872,13 +925,17 @@ public class MainController implements Initializable {
 			dialogStage.showAndWait();
 			FLExFeatureValue featValue = controller.getFeatureValueChosen();
 			if (controller.isOkClicked() && featValue != null) {
-				feature.setLabel(featValue.getFeature().getName());
-				if (featValue.isGreek()) {
-					feature.setMatch(featValue.getAbbreviation());
-					feature.setValue("");
+				if (unmarked) {
+					feature.setUnmarked(featValue.getAbbreviation());
 				} else {
-					feature.setMatch("");
-					feature.setValue(featValue.getAbbreviation());
+					feature.setLabel(featValue.getFeature().getName());
+					if (featValue.isGreek()) {
+						feature.setMatch(featValue.getAbbreviation());
+						feature.setValue("");
+					} else {
+						feature.setMatch("");
+						feature.setValue(featValue.getAbbreviation());
+					}
 				}
 				reportChangesMade();
 			} else if (inserting ){
@@ -1165,6 +1222,7 @@ public class MainController implements Initializable {
 		case "f":
 			feature = (Feature) constituent;
 			featureEditContextMenu.show(stage, xCoord, yCoord);
+			enableDisableFeatureContextMenuItems();
 			break;
 		case "p":
 			phrase = (Phrase) constituent;

@@ -45,6 +45,17 @@ public class Feature extends RuleConstituent {
 		featureValue = value;
 	}
 
+	private String featureDefault = "";
+
+	@XmlAttribute(name = "unmarked_default")
+	public final String getUnmarked() {
+		return featureDefault;
+	}
+
+	public final void setUnmarked(String Default) {
+		featureDefault = Default;
+	}
+
 	public Feature() {
 	}
 
@@ -90,8 +101,21 @@ public class Feature extends RuleConstituent {
 		sb.append((getLabel().length() > 0) ? getLabel() : bundle.getString("model.FeatureX"));
 		sb.append(":");
 		sb.append(getMatchOrValue());
+		if (getUnmarked().length() > 0) {
+			formatUnmarked(bundle, sb);
+		}
 		sb.append("</span>");
 		return sb.toString();
+	}
+
+	protected void formatUnmarked(ResourceBundle bundle, StringBuilder sb) {
+		sb.append("\n<span class=\"unmarked ");
+		sb.append(ksFeatureClass);
+		sb.append("\">");
+		sb.append(bundle.getString("model.unmarked"));
+		sb.append(":");
+		sb.append(getUnmarked());
+		sb.append("</span>");
 	}
 
 	public final Feature duplicate() {
@@ -99,6 +123,7 @@ public class Feature extends RuleConstituent {
 		newFeature.setLabel(getLabel());
 		newFeature.setMatch(getMatch());
 		newFeature.setLabel(getValue());
+		newFeature.setUnmarked(getUnmarked());
 		return newFeature;
 	}
 }

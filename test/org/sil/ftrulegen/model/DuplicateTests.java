@@ -114,12 +114,14 @@ public class DuplicateTests {
 		final String kLabel = "gender";
 		final String kMatch = "alpha";
 		final String kValue = "";
+		final String kDefault = "m";
 		Affix affix = new Affix();
 		affix.setType(AffixType.prefix);
 		Feature feature = new Feature();
 		feature.setLabel(kLabel);
 		feature.setMatch(kMatch);
 		feature.setValue(kValue);
+		feature.setUnmarked(kDefault);
 		affix.getFeatures().add(feature);
 
 		Affix newAffix = affix.duplicate();
@@ -129,5 +131,6 @@ public class DuplicateTests {
 		assertEquals(kLabel, newFeature.getLabel());
 		assertEquals(kMatch, newFeature.getMatch());
 		assertEquals(kValue, newFeature.getValue());
+		assertEquals(kDefault, newFeature.getUnmarked());
 	}
 }

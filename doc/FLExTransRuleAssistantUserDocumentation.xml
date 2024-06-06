@@ -21,9 +21,9 @@ type="tRuleGen"
 ><emailAddress
 >blackhandrew@gmail.com</emailAddress
 ><date
->24 May, 2024</date
+>6 June, 2024</date
 ><version
->Version 0.12.0 Beta</version
+>Version 0.13.0 Beta</version
 ><version
 >Copyright © 2023-2024 SIL International</version
 ><contents
@@ -342,7 +342,7 @@ id="sEditFeature"
 ><secTitle
 >Editing a feature</secTitle
 ><p
->When you click on a word item in the tree, the context menu shown in <exampleRef
+>When you click on a feature item in the tree, the context menu shown in <exampleRef
 letter="xFeatureContextMenu"
 num="xFeatureContextMenu"
 ></exampleRef
@@ -352,7 +352,7 @@ num="xFeatureContextMenu"
 ><chart
 ><img
 XeLaTeXSpecial="scaled='1250'"
-src="Resources/CategoryContextMenu.png"
+src="Resources/FeatureContextMenu.png"
 ></img
 ></chart
 ></example
@@ -390,6 +390,8 @@ sec="sInvocation"
 >.</p
 ><p
 >If you choose “Delete,” the feature item will be deleted.</p
+><p
+>If the word this feature is for (whether the feature is on the word or one of the word's affixes) is marked as the head, then the context menu has two other options.  “Edit unmarked" allows you to choose an overt value (not a Greek variable) for this feature.  Doing this indicates what the unmarked or default value is for this feature.  "Delete unmarked" is enabled only when there is already an unmarked feature value.  You can use this to remove or delete this unmarked value.</p
 ></section2
 ><section2
 id="sEditAffix"

@@ -15,11 +15,13 @@ import org.sil.ftrulegen.model.Category;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
+import jakarta.xml.bind.annotation.XmlTransient;
 
 public abstract class FLExDataBase {
 	private String name = "";
 	protected List<FLExCategory> categories = new ArrayList<FLExCategory>();
 	protected List<FLExFeature> features = new ArrayList<FLExFeature>();
+	protected List<FLExFeature> featuresWithoutVariables = new ArrayList<FLExFeature>();
 	protected int maxVariables = 4;
 	protected String[] variables = { "α", "β", "γ", "δ", "ε", "ζ", "η", "θ", "ι", "κ", "μ", "ν" };
 
@@ -33,6 +35,12 @@ public abstract class FLExDataBase {
 
 	public void addVariableValuesToFeatures() {
 		for (FLExFeature feature : features) {
+			FLExFeature featureWithoutVariables = new FLExFeature();
+			featureWithoutVariables.setName(feature.getName());
+			for (FLExFeatureValue v : feature.getValues()) {
+				featureWithoutVariables.getValues().add(v);
+			}
+			featuresWithoutVariables.add(featureWithoutVariables);
 			for (int i = 0; i < maxVariables && i < variables.length; i++) {
 				FLExFeatureValue variableValue = new FLExFeatureValue(variables[i]);
 				variableValue.setFeature(feature);
@@ -73,6 +81,11 @@ public abstract class FLExDataBase {
 	@XmlElement(name = "FLExFeature")
 	public List<FLExFeature> getFeatures() {
 		return features;
+	}
+
+	@XmlTransient
+	public List<FLExFeature> getFeaturesWithoutVariables() {
+		return featuresWithoutVariables;
 	}
 
 	/**
