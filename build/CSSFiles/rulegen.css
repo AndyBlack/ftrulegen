@@ -59,6 +59,18 @@
     vertical-align:sub;
 }
 
+.ranking:before {
+	content:" (rank:"
+}
+.ranking {
+	margin-left:1em;
+	font-weight:normal;
+	font-size:smaller;
+}
+.ranking:after {
+	content:")"
+}
+
 .unmarked {
 	margin-left:1em;
 	font-weight:normal;
