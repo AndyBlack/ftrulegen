@@ -1,7 +1,7 @@
-# FLExTrans Rule Generator
+# FLExTrans Rule Assistant
 A tool to make it easier to write some FLExTrans transfer rules.
 
-*FLExTransRuleGenerator* is a 64-bit Windows program using Java FX 8.  It currently is only built for Windows.
+*FLExTransRuleAssistant* is a 64-bit Windows program using Java FX 8.  It currently is only built for Windows.
 
 <!---
 See https://github.com/sillsdev/pcpatrflex/tree/master/PcPatrFLExDll/doc/UserDocumentation.pdf for more.
