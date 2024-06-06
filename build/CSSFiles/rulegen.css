@@ -58,3 +58,9 @@
     font-style:italic;
     vertical-align:sub;
 }
+
+.unmarked {
+	margin-left:1em;
+	font-weight:normal;
+	font-size:smaller;
+}
