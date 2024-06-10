@@ -154,8 +154,9 @@ public class Feature extends RuleConstituent {
 		Feature newFeature = new Feature();
 		newFeature.setLabel(getLabel());
 		newFeature.setMatch(getMatch());
-		newFeature.setLabel(getValue());
+		newFeature.setValue(getValue());
 		newFeature.setUnmarked(getUnmarked());
+		newFeature.setRanking(getRanking());
 		return newFeature;
 	}
 }

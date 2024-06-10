@@ -115,6 +115,7 @@ public class DuplicateTests {
 		final String kMatch = "alpha";
 		final String kValue = "";
 		final String kDefault = "m";
+		final int kRanking = 2;
 		Affix affix = new Affix();
 		affix.setType(AffixType.prefix);
 		Feature feature = new Feature();
@@ -122,15 +123,17 @@ public class DuplicateTests {
 		feature.setMatch(kMatch);
 		feature.setValue(kValue);
 		feature.setUnmarked(kDefault);
+		feature.setRanking(kRanking);
 		affix.getFeatures().add(feature);
 
 		Affix newAffix = affix.duplicate();
 		assert AffixType.prefix == newAffix.getType();
 		assert 1 == newAffix.getFeatures().size();
-		Feature newFeature = affix.getFeatures().get(0);
+		Feature newFeature = newAffix.getFeatures().get(0);
 		assertEquals(kLabel, newFeature.getLabel());
 		assertEquals(kMatch, newFeature.getMatch());
 		assertEquals(kValue, newFeature.getValue());
 		assertEquals(kDefault, newFeature.getUnmarked());
+		assertEquals(kRanking, newFeature.getRanking());
 	}
 }
