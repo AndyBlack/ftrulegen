@@ -41,6 +41,7 @@ import org.sil.ftrulegen.model.PhraseType;
 import org.sil.ftrulegen.model.RuleConstituent;
 import org.sil.ftrulegen.model.Word;
 import org.sil.ftrulegen.service.ConstituentFinder;
+import org.sil.ftrulegen.service.ValidityChecker;
 import org.sil.ftrulegen.service.WebPageInteractor;
 import org.sil.ftrulegen.service.WebPageProducer;
 import org.sil.ftrulegen.service.XMLFLExDataBackEndProvider;
@@ -48,8 +49,6 @@ import org.sil.ftrulegen.service.XmlBackEndProvider;
 import org.sil.utility.HandleExceptionMessage;
 import org.sil.utility.view.ControllerUtilities;
 import org.sil.utility.view.ObservableResourceFactory;
-
-import com.sun.org.apache.xalan.internal.xsltc.util.IntegerArray;
 
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -1235,20 +1234,68 @@ public class MainController implements Initializable {
 
 	@FXML
 	public void handleSaveCreate() {
-		saveAndExit(1 + " " + getSelectedRuleIndex());
+		boolean isValid = ruleIsValid(lvRules.getItems().get(selectedRuleIndex));
+		saveAndExitIfValid(1 + " " + getSelectedRuleIndex(), isValid);
 	}
 
-	public void saveAndExit(String exitCode) {
+	public void saveAndExitIfValid(String exitCode, boolean isValid) {
 		provider.saveDataToFile(ruleGenFile);
 		markAsChanged(false);
 		mainApp.rememberApplicationPreferences();
-		Platform.exit();
-		System.out.println(exitCode);
+		if (isValid) {
+			Platform.exit();
+			System.out.println(exitCode);
+		}
 	}
 
 	@FXML
 	public void handleSaveCreateAll() {
-		saveAndExit("2");
+		boolean isValid = true;
+		for (FLExTransRule rule : lvRules.getItems()) {
+			if (!ruleIsValid(rule)) {
+				isValid = false;
+				break;
+			}
+		}
+		saveAndExitIfValid("2", isValid);
+	}
+
+	boolean ruleIsValid(FLExTransRule rule) {
+		ValidityChecker checker = ValidityChecker.getInstance();
+		checker.setBundle(bundle);
+		checker.setRule(rule);
+		if (!checker.checkSourceWordsHaveCategories()) {
+			showValidityMessage("validity.category",
+					rule.getName(), RESOURCE_FACTORY.getStringBinding("validity.SourceWordMissingCategory").get());
+			return false;
+		}
+		if (!checker.checkTargetHasFeature()) {
+			showValidityMessage("validity.feature",
+					rule.getName(), RESOURCE_FACTORY.getStringBinding("validity.NoFeaturesOnTargetWordsOrAffixes").get());
+			return false;
+		}
+		if (!checker.checkTargetWordMarkedAsHead()) {
+			showValidityMessage("validity.head",
+					rule.getName(), RESOURCE_FACTORY.getStringBinding("validity.NoHeadWordInTarget").get());
+			return false;
+		}
+		return true;
+	}
+
+	void showValidityMessage(String sType, String sRuleName, String sContent) {
+		String sValidityHeader = RESOURCE_FACTORY.getStringBinding("validity.header").get();
+		Object[] args = { sRuleName };
+		MessageFormat msgFormatter = new MessageFormat("");
+		msgFormatter.setLocale(new Locale("en"));
+		msgFormatter.applyPattern(RESOURCE_FACTORY.getStringBinding(sType).get());
+		String sTypeMessage = msgFormatter.format(args);
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle(sValidityHeader);
+		alert.setHeaderText(sTypeMessage);
+		alert.setContentText(sContent);
+		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+		stage.getIcons().add(flexTransImage);
+		alert.showAndWait();
 	}
 
 	void markAsChanged(boolean changed) {
