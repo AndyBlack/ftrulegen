@@ -145,4 +145,26 @@ public class FLExDataTests extends ServiceTestBase {
 		assertEquals("sg", value.getAbbreviation());
 	}
 
+	@Test
+	public void isGreekTest() {
+		assertEquals(true, FLExFeatureValue.isGreek("α"));
+		assertEquals(true, FLExFeatureValue.isGreek("β"));
+		assertEquals(true, FLExFeatureValue.isGreek("γ"));
+		assertEquals(true, FLExFeatureValue.isGreek("δ"));
+		assertEquals(true, FLExFeatureValue.isGreek("ε"));
+		assertEquals(true, FLExFeatureValue.isGreek("ζ"));
+		assertEquals(true, FLExFeatureValue.isGreek("η"));
+		assertEquals(true, FLExFeatureValue.isGreek("θ"));
+		assertEquals(true, FLExFeatureValue.isGreek("ι"));
+		assertEquals(true, FLExFeatureValue.isGreek("κ"));
+		assertEquals(true, FLExFeatureValue.isGreek("μ"));
+		assertEquals(true, FLExFeatureValue.isGreek("ν"));
+		assertEquals(false, FLExFeatureValue.isGreek("π"));
+		assertEquals(false, FLExFeatureValue.isGreek("m"));
+		assertEquals(false, FLExFeatureValue.isGreek("n"));
+		assertEquals(false, FLExFeatureValue.isGreek("sg"));
+		assertEquals(false, FLExFeatureValue.isGreek("pl"));
+		assertEquals(false, FLExFeatureValue.isGreek("acc"));
+		assertEquals(false, FLExFeatureValue.isGreek("gen"));
+	}
 }

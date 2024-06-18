@@ -6,8 +6,9 @@
 
 package org.sil.ftrulegen.flexmodel;
 
+import org.sil.ftrulegen.Constants;
+
 import jakarta.xml.bind.annotation.XmlAttribute;
-import jakarta.xml.bind.annotation.XmlTransient;
 
 public class FLExFeatureValue {
 	private String abbreviation = "";
@@ -31,15 +32,13 @@ public class FLExFeatureValue {
 		feature = value;
 	}
 
-	@XmlTransient()
-	private boolean greek = false;
-
-	public boolean isGreek() {
-		return greek;
-	}
-
-	public void setGreek(boolean greek) {
-		this.greek = greek;
+	public static boolean isGreek(String sAbbreviation) {
+		for (int i = 0; i < Constants.GREEK_VARIABLES.length; i++) {
+			if (Constants.GREEK_VARIABLES[i].equals(sAbbreviation)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public FLExFeatureValue() {

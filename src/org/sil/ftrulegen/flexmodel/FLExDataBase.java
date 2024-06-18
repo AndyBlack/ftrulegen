@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.sil.ftrulegen.Constants;
 import org.sil.ftrulegen.model.Category;
 
 import jakarta.xml.bind.annotation.XmlAttribute;
@@ -23,8 +24,6 @@ public abstract class FLExDataBase {
 	protected List<FLExFeature> features = new ArrayList<FLExFeature>();
 	protected List<FLExFeature> featuresWithoutVariables = new ArrayList<FLExFeature>();
 	protected int maxVariables = 4;
-	protected String[] variables = { "α", "β", "γ", "δ", "ε", "ζ", "η", "θ", "ι", "κ", "μ", "ν" };
-
 	public int getMaxVariables() {
 		return maxVariables;
 	}
@@ -41,8 +40,8 @@ public abstract class FLExDataBase {
 				featureWithoutVariables.getValues().add(v);
 			}
 			featuresWithoutVariables.add(featureWithoutVariables);
-			for (int i = 0; i < maxVariables && i < variables.length; i++) {
-				FLExFeatureValue variableValue = new FLExFeatureValue(variables[i]);
+			for (int i = 0; i < maxVariables && i < Constants.GREEK_VARIABLES.length; i++) {
+				FLExFeatureValue variableValue = new FLExFeatureValue(Constants.GREEK_VARIABLES[i]);
 				variableValue.setFeature(feature);
 				feature.getValues().add(variableValue);
 			}

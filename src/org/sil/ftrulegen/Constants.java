@@ -14,6 +14,7 @@ public class Constants {
 	public static final String APPLICATION_ICON_RESOURCE = "file:resources/images/FLExTransIcon.png";
 	public static final String CSS_FILES_LOCATION = "ftrulegenCSSFiles";
 	public static final String HTML_FILE_NAME = "FLExTransRule.html";
+	public static final String[] GREEK_VARIABLES = { "α", "β", "γ", "δ", "ε", "ζ", "η", "θ", "ι", "κ", "μ", "ν" };
 
 	// Unit Testing constants
 	public static final String UNIT_TEST_DATA_FILE_NAME = "test/org/sil/ftrulegen/testdata/Ex1a_Def-Noun.";

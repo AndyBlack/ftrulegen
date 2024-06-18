@@ -64,7 +64,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.text.Font;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
@@ -946,7 +945,7 @@ public class MainController implements Initializable {
 						}
 					}
 					Category cat = word.getCategoryOfWord();
-					List<FLExFeature> featuresInUse = phrase //rule.getTarget().getPhrase()
+					List<FLExFeature> featuresInUse = phrase
 							.getFeaturesInUseForCategory(flexData.getFLExCategoriesForPhrase(phrase.getType()), cat);
 					List<FLExFeature> featuresToShow = new ArrayList<FLExFeature>();
 					featuresToShow.addAll(featuresInUse);
@@ -981,7 +980,7 @@ public class MainController implements Initializable {
 					feature.setUnmarked(featValue.getAbbreviation());
 				} else {
 					feature.setLabel(featValue.getFeature().getName());
-					if (featValue.isGreek()) {
+					if (FLExFeatureValue.isGreek(featValue.getAbbreviation())) {
 						feature.setMatch(featValue.getAbbreviation());
 						feature.setValue("");
 					} else {
