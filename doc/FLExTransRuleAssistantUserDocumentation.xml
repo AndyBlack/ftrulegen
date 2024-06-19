@@ -21,9 +21,9 @@ type="tRuleGen"
 ><emailAddress
 >blackhandrew@gmail.com</emailAddress
 ><date
->12 June, 2024</date
+>19 June, 2024</date
 ><version
->Version 0.15.0 Beta</version
+>Version 0.16.0 Beta</version
 ><version
 >Copyright © 2023-2024 SIL International</version
 ><contents
@@ -145,7 +145,7 @@ id="nCreate"
 ><p
 >There will be two numbers separated by a space output to stdout with this option. The first will always be a 1. The second will be the zero-based index of the currently selected rule.</p
 ></endnote
-> A validity check will also be applied to this rule.  If any issue is found, an error dialog message will be shown with an explanation of what the issue is.  The program will not exit until all validity checks pass.</p
+> A validity check will also be applied to this rule. If any issue is found, an error dialog message will be shown with an explanation of what the issue is. The program will not exit until all validity checks pass.</p
 ><p
 >The “Save &amp; Create All” button is used to save changes made to rules or newly added rules and then create all the rules in the <object
 type="tFLExTrans"
@@ -155,7 +155,7 @@ id="nCreateAll"
 ><p
 >The number 2 will be output to stdout.</p
 ></endnote
->  A validity check will also be applied to every rule.  If any issue is found, an error dialog message will be shown with an explanation of what the issue is.  It will also indicate which rule had the problem.  The program will not exit until all validity checks pass.</p
+> A validity check will also be applied to every rule. If any issue is found, an error dialog message will be shown with an explanation of what the issue is. It will also indicate which rule had the problem. The program will not exit until all validity checks pass.</p
 ><p
 >The “Help” button is used to get this user documentation file or to show the “About” dialog box.</p
 ><p
@@ -248,12 +248,12 @@ type="tBold"
 ><object
 type="tBold"
 >Insert prefix</object
->: inserts an affix item labeled as a prefix. This is available only if the selected word has no affix items yet and is a target word.</li
+>: inserts an affix item labeled as a prefix. This is available only if the selected word has no affix items yet.</li
 ><li
 ><object
 type="tBold"
 >Insert suffix</object
->: inserts an affix item labeled as a suffix. This is available only if the selected word has no affix items yet and is a target word.</li
+>: inserts an affix item labeled as a suffix. This is available only if the selected word has no affix items yet.</li
 ><li
 ><object
 type="tBold"

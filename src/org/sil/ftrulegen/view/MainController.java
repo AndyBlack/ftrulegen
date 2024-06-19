@@ -678,8 +678,6 @@ public class MainController implements Initializable {
 		if (phraseType == PhraseType.source) {
 			cmWordMarkAsHead.setDisable(true);
 			cmWordRemoveHeadMarking.setDisable(true);
-			cmWordInsertPrefix.setDisable(true);
-			cmWordInsertSuffix.setDisable(true);
 		} else {
 			if (word.getHead() == HeadValue.yes) {
 				cmWordMarkAsHead.setDisable(true);
@@ -688,13 +686,13 @@ public class MainController implements Initializable {
 				cmWordMarkAsHead.setDisable(false);
 				cmWordRemoveHeadMarking.setDisable(true);
 			}
-			if (word.getAffixes().size() == 0) {
-				cmWordInsertPrefix.setDisable(false);
-				cmWordInsertSuffix.setDisable(false);
-			} else {
-				cmWordInsertPrefix.setDisable(true);
-				cmWordInsertSuffix.setDisable(true);
-			}
+		}
+		if (word.getAffixes().size() == 0) {
+			cmWordInsertPrefix.setDisable(false);
+			cmWordInsertSuffix.setDisable(false);
+		} else {
+			cmWordInsertPrefix.setDisable(true);
+			cmWordInsertSuffix.setDisable(true);
 		}
 		List<FLExCategory> flexCategories = flexData.getFLExCategoriesForPhrase(phraseType);
 		if (flexCategoryHasValidFeatures(flexCategories)) {
