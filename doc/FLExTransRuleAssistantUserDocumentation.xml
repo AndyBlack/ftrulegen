@@ -21,9 +21,9 @@ type="tRuleGen"
 ><emailAddress
 >blackhandrew@gmail.com</emailAddress
 ><date
->19 June, 2024</date
+>21 June, 2024</date
 ><version
->Version 0.16.0 Beta</version
+>Version 0.17.0 Beta</version
 ><version
 >Copyright © 2023-2024 SIL International</version
 ><contents
@@ -395,7 +395,7 @@ sec="sInvocation"
 ><p
 >If the word this feature is for (whether the feature is on the word or one of the word's affixes) is marked as the head, then the context menu has two other options. “Edit unmarked” allows you to choose an overt value (not a Greek variable) for this feature. Doing this indicates what the unmarked or default value is for this feature. “Delete unmarked” is enabled only when there is already an unmarked feature value. You can use this to remove or delete this unmarked value.</p
 ><p
->Further, if the word is the head, then you can use the “Edit ranking” option to specify the relative ranking of the feature for when the value for a feature may be missing in a given instance. When you click on “Edit ranking,” it brings up a chooser dialog showing which ranking values are available. The maximum number allowed is five. You can use “Delete ranking” to remove a ranking from a feature.</p
+>Further, if the word is in the target phrase, then you can use the “Edit ranking” option to specify the relative ranking of the feature for when the value for a feature may be missing in a given instance. When you click on “Edit ranking,” it brings up a chooser dialog showing which ranking values are available. The maximum number allowed is five. You can use “Delete ranking” to remove a ranking from a feature.</p
 ></section2
 ><section2
 id="sEditAffix"

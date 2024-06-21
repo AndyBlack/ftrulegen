@@ -611,16 +611,15 @@ public class MainController implements Initializable {
 			}
 		}
 		if (thisWord.getHead() == HeadValue.yes) {
-			cmFeatureEditUnmarked.setDisable(false);
 			if (thisWord.hasMoreThanOneFeature()) {
 				cmFeatureEditRanking.setDisable(false);
 			} else {
 				cmFeatureEditRanking.setDisable(true);
 			}
 		} else {
-			cmFeatureEditUnmarked.setDisable(true);
 			cmFeatureEditRanking.setDisable(true);
 		}
+		cmFeatureEditUnmarked.setDisable(false);
 		if (feature.getUnmarked().length() > 0) {
 			cmFeatureDeleteUnmarked.setDisable(false);
 		} else {
