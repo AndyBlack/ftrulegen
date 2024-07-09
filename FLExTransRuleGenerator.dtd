@@ -3,11 +3,13 @@
 
 <!ELEMENT  FLExTransRules (FLExTransRule+)>
 
-<!ELEMENT FLExTransRule (Source, Target)>
+<!ELEMENT FLExTransRule (Description, Source, Target)>
 <!ATTLIST FLExTransRule
   name CDATA #REQUIRED
   create_permutations (yes | no) "no"
 >
+
+<!ELEMENT Description (#PCDATA) >
 
 <!ELEMENT Source (Phrase) >
 
