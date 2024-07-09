@@ -31,6 +31,7 @@ public class XmlBackEndProviderTests extends ServiceTestBase {
 		assertEquals(1, ruleGenerator.getFLExTransRules().size());
 		FLExTransRule ftRule = ruleGenerator.getFLExTransRules().get(0);
 		assertEquals("Definite - Noun", ftRule.getName());
+		assertEquals("Ensure definite article gets gender of head noun.", ftRule.getDescription());
 
 		Source source = ftRule.getSource();
 		assertNotNull(source);
@@ -76,6 +77,7 @@ public class XmlBackEndProviderTests extends ServiceTestBase {
 		assert 1 == ruleGenerator.getFLExTransRules().size();
 		FLExTransRule ftRule = ruleGenerator.getFLExTransRules().get(0);
 		assertEquals("Indefinite - Adjective - Noun", ftRule.getName());
+		assertEquals("Ensure indefinite article and adjective gets gender and number of head noun.", ftRule.getDescription());
 
 		Source source = ftRule.getSource();
 		assertNotNull(source);
@@ -163,6 +165,7 @@ public class XmlBackEndProviderTests extends ServiceTestBase {
 		FLExTransRuleGenerator ruleGenerator = new FLExTransRuleGenerator();
 		FLExTransRule ftRule = new FLExTransRule();
 		ftRule.setName("Indefinite - Adjective - Noun");
+		ftRule.setDescription("Ensure indefinite article and adjective gets gender and number of head noun.");
 		Source source = new Source();
 		Phrase sourcePhrase = new Phrase();
 		Word word1 = makeWordAttributes("1", "indef", HeadValue.no);
@@ -272,6 +275,7 @@ public class XmlBackEndProviderTests extends ServiceTestBase {
 			assertEquals(1, ftGen.getFLExTransRules().size());
 			FLExTransRule rule = ftGen.getFLExTransRules().get(0);
 			assertEquals("", rule.getName());
+			assertEquals("", rule.getDescription());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

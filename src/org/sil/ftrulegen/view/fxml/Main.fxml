@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -30,7 +31,7 @@
             </AnchorPane>
           <AnchorPane fx:id="browserPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="1200.0">
                <children>
-                  <WebView fx:id="browser" layoutX="31.0" layoutY="125.0" prefHeight="300.0" prefWidth="1900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="71.0" />
+                  <WebView fx:id="browser" layoutX="31.0" layoutY="145.0" prefHeight="353.0" prefWidth="1049.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="145.0" />
                   <ButtonBar layoutX="852.0" layoutY="5.0" prefHeight="25.0" prefWidth="506.0" AnchorPane.rightAnchor="13.0">
                      <buttons>
                         <Button mnemonicParsing="false" onAction="#handleSave" text="%view.Save" />
@@ -42,6 +43,8 @@
                   <Label layoutX="6.0" layoutY="43.0" text="%view.RuleName" />
                   <TextField fx:id="tfRuleName" layoutX="93.0" layoutY="39.0" prefHeight="25.0" prefWidth="247.0" promptText="%view.RuleName" text="%view.RuleNameNeeded" />
                   <CheckBox fx:id="cbCreatePermutations" layoutX="375.0" layoutY="43.0" mnemonicParsing="false" text="%view.CreatePermutations" />
+                  <Label layoutX="6.0" layoutY="71.0" text="%view.RuleDescription" />
+                  <TextArea fx:id="tfRuleDescription" layoutX="93.0" layoutY="72.0" prefHeight="65.0" prefWidth="426.0" promptText="%view.RuleDescription" text="%view.RuleDescriptionNeeded" />
                </children>
             </AnchorPane>
         </items>

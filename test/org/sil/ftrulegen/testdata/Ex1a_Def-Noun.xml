@@ -4,6 +4,7 @@
 <FLExTransRuleGenerator>
     <FLExTransRules>
         <FLExTransRule name="Definite - Noun">
+            <Description>Ensure definite article gets gender of head noun.</Description>
             <Source>
                 <Phrase>
                     <Words>

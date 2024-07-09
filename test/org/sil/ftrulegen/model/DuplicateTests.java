@@ -28,6 +28,7 @@ public class DuplicateTests {
 		ruleGenerator = new FLExTransRuleGenerator();
 		rule = new FLExTransRule();
 		rule.setName("Rule 1");
+		rule.setDescription("test 1");
 		ruleGenerator.getFLExTransRules().add(rule);
 		Source source = rule.getSource();
 		Phrase sourcePhrase = source.getPhrase();
@@ -65,6 +66,7 @@ public class DuplicateTests {
 		rule.setPermutations(PermutationsValue.yes);
 		FLExTransRule rule2 = rule.duplicate();
 		assertEquals(rule.getName() + bundle.getString("model.ruleduplicated"), rule2.getName());
+		assertEquals(rule.getDescription(), rule2.getDescription());
 		assert rule.getPermutations() == rule2.getPermutations();
 		assertEquals(PhraseType.target, rule2.getTarget().getPhrase().getType());
 		assertEquals(rule.getSource().getPhrase().getWords().size(),

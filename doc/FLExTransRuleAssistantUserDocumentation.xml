@@ -21,9 +21,9 @@ type="tRuleGen"
 ><emailAddress
 >blackhandrew@gmail.com</emailAddress
 ><date
->21 June, 2024</date
+>9 July, 2024</date
 ><version
->Version 0.17.0 Beta</version
+>Version 0.18.0 Beta</version
 ><version
 >Copyright © 2023-2024 SIL International</version
 ><contents
@@ -183,6 +183,8 @@ src="Resources/RuleContextMenu.png"
 ></example
 ><p
 >Use the "Rule Name:" text box to add or edit the name of a rule.</p
+><p
+>Use the “Description” text box to more thoroughly describe the rule, indicate what motivated the rule, and/or give some examples.</p
 ></section1
 ><section1
 id="sEditTree"

@@ -4,6 +4,7 @@
 <FLExTransRuleGenerator>
   <FLExTransRules>
     <FLExTransRule name="Indefinite - Adjective - Noun">
+            <Description>Ensure indefinite article and adjective gets gender and number of head noun.</Description>
       <Source>
         <Phrase>
           <Words>

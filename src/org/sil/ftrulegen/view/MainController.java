@@ -76,6 +76,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -105,6 +106,8 @@ public class MainController implements Initializable {
 	private Label lblRightClickToEdit;
 	@FXML
 	TextField tfRuleName;
+	@FXML
+	TextArea tfRuleDescription;
 	@FXML
 	ListView<FLExTransRule> lvRules;
 	@FXML
@@ -259,6 +262,7 @@ public class MainController implements Initializable {
 					cbCreatePermutations.setSelected(true);
 				else
 					cbCreatePermutations.setSelected(false);
+				tfRuleDescription.setText(newValue.getDescription());
 				produceAndShowWebPage(newValue);
 				enableDisableRuleContextMenuItems();
 				enableDisableCreatePermutationsCheckBox(newValue);
@@ -269,6 +273,10 @@ public class MainController implements Initializable {
 		tfRuleName.textProperty().addListener((observable, oldValue, newValue) -> {
 			lvRules.getSelectionModel().getSelectedItem().setName(newValue);
 			lvRules.refresh();
+		});
+
+		tfRuleDescription.textProperty().addListener((observable, oldValue, newValue) -> {
+			lvRules.getSelectionModel().getSelectedItem().setDescription(newValue);
 		});
 
 		webEngine = browser.getEngine();

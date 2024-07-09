@@ -56,6 +56,17 @@ public class FLExTransRule extends RuleConstituent {
 		ruleName = value;
 	}
 
+	private String ruleDescription = "";
+
+	@XmlElement(name = "Description")
+	public final String getDescription() {
+		return ruleDescription;
+	}
+
+	public final void setDescription(String value) {
+		ruleDescription = value;
+	}
+
 	@Override
 	public void setLocale(Locale value) {
 		super.setLocale(value);
@@ -69,6 +80,7 @@ public class FLExTransRule extends RuleConstituent {
 		FLExTransRule newRule = new FLExTransRule();
 		ensureBundleExists();
 		newRule.setName(getName() + bundle.getString("model.ruleduplicated"));
+		newRule.setDescription(getDescription());
 		Source newSource = getSource().duplicate();
 		newRule.setSource(newSource);
 		Target newTarget = getTarget().duplicate();
@@ -91,7 +103,7 @@ public class FLExTransRule extends RuleConstituent {
 
 	@Override
 	public int hashCode() {
-		String sCombo = ruleName + source.hashCode() + target.hashCode() + createPermutations.hashCode();
+		String sCombo = ruleName + ruleDescription + source.hashCode() + target.hashCode() + createPermutations.hashCode();
 		return sCombo.hashCode();
 	}
 
@@ -106,6 +118,8 @@ public class FLExTransRule extends RuleConstituent {
 		boolean result = true;
 		FLExTransRule rule = (FLExTransRule) obj;
 		if (!ruleName.equals(rule.getName()))
+			result = false;
+		else if (!getDescription().equals(rule.getDescription()))
 			result = false;
 		else if (!getSource().equals(rule.getSource())) {
 			result = false;
