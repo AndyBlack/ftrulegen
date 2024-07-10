@@ -618,7 +618,8 @@ public class MainController implements Initializable {
 				thisWord = (Word)rc2;
 			}
 		}
-		if (thisWord.getHead() == HeadValue.yes) {
+		Phrase phrase = (Phrase)thisWord.getParent();
+		if (phrase != null && phrase.getType() == PhraseType.target) {
 			if (thisWord.hasMoreThanOneFeature()) {
 				cmFeatureEditRanking.setDisable(false);
 			} else {
