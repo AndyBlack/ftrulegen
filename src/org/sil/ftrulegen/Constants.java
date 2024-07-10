@@ -7,12 +7,12 @@
 package org.sil.ftrulegen;
 
 public class Constants {
-	public static final String VERSION_NUMBER = "0.18.0 Beta";
+	public static final String VERSION_NUMBER = "0.19.0 Beta";
 
 	public static final String RESOURCE_LOCATION = "org.sil.ftrulegen.resources.RuleGen";
 	public static final String RESOURCE_SOURCE_LOCATION = "src/org/sil/ftrulegen/";
 	public static final String APPLICATION_ICON_RESOURCE = "file:resources/images/FLExTransIcon.png";
-	public static final String CSS_FILES_LOCATION = "ftrulegenCSSFiles";
+	public static final String CSS_FILES_LOCATION = "trulegenCSSFiles";
 	public static final String HTML_FILE_NAME = "FLExTransRule.html";
 	public static final String[] GREEK_VARIABLES = { "α", "β", "γ", "δ", "ε", "ζ", "η", "θ", "ι", "κ", "μ", "ν" };
 
