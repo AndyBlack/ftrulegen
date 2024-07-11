@@ -44,7 +44,7 @@
                   <TextField fx:id="tfRuleName" layoutX="93.0" layoutY="39.0" prefHeight="25.0" prefWidth="247.0" promptText="%view.RuleName" text="%view.RuleNameNeeded" />
                   <CheckBox fx:id="cbCreatePermutations" layoutX="375.0" layoutY="43.0" mnemonicParsing="false" text="%view.CreatePermutations" />
                   <Label layoutX="6.0" layoutY="71.0" text="%view.RuleDescription" />
-                  <TextArea fx:id="tfRuleDescription" layoutX="93.0" layoutY="72.0" prefHeight="65.0" prefWidth="426.0" promptText="%view.RuleDescription" text="%view.RuleDescriptionNeeded" />
+                  <TextArea fx:id="tfRuleDescription" layoutX="93.0" layoutY="72.0" prefHeight="65.0" prefWidth="426.0" promptText="%view.RuleDescription" text="%view.RuleDescriptionNeeded" wrapText="true" />
                </children>
             </AnchorPane>
         </items>
