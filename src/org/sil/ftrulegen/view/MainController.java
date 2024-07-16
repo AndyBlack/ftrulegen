@@ -39,6 +39,7 @@ import org.sil.ftrulegen.model.PermutationsValue;
 import org.sil.ftrulegen.model.Phrase;
 import org.sil.ftrulegen.model.PhraseType;
 import org.sil.ftrulegen.model.RuleConstituent;
+import org.sil.ftrulegen.model.UseDisjointGenderFeaturesValue;
 import org.sil.ftrulegen.model.Word;
 import org.sil.ftrulegen.service.ConstituentFinder;
 import org.sil.ftrulegen.service.ValidityChecker;
@@ -112,6 +113,10 @@ public class MainController implements Initializable {
 	ListView<FLExTransRule> lvRules;
 	@FXML
 	CheckBox cbCreatePermutations;
+	@FXML
+	CheckBox cbUseDisjointGenderFeatures;
+	@FXML
+	Button btnDisjointGenderFeatures;
 	@FXML
 	Button btnHelp;
 
@@ -262,6 +267,10 @@ public class MainController implements Initializable {
 					cbCreatePermutations.setSelected(true);
 				else
 					cbCreatePermutations.setSelected(false);
+				if (newValue.getUseDisjointGenderFeatures() == UseDisjointGenderFeaturesValue.yes)
+					cbUseDisjointGenderFeatures.setSelected(true);
+				else
+					cbUseDisjointGenderFeatures.setSelected(false);
 				tfRuleDescription.setText(newValue.getDescription());
 				produceAndShowWebPage(newValue);
 				enableDisableRuleContextMenuItems();
@@ -304,6 +313,18 @@ public class MainController implements Initializable {
 					rule.setPermutations(PermutationsValue.yes);
 				else
 					rule.setPermutations(PermutationsValue.no);
+			}
+		});
+
+		cbUseDisjointGenderFeatures.selectedProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				FLExTransRule rule = lvRules.getSelectionModel().getSelectedItem();
+				if (newValue)
+					rule.setUseDisjointGenderFeatures(UseDisjointGenderFeaturesValue.yes);
+				else
+					rule.setUseDisjointGenderFeatures(UseDisjointGenderFeaturesValue.no);
+				enableDisableUseDisjointGenderFeatures(rule);
 			}
 		});
 
@@ -368,6 +389,13 @@ public class MainController implements Initializable {
 				cbCreatePermutations.setDisable(false);
 			}
 		}
+	}
+
+	protected void enableDisableUseDisjointGenderFeatures(FLExTransRule rule) {
+		if (cbUseDisjointGenderFeatures.isSelected())
+			btnDisjointGenderFeatures.setDisable(false);
+		else
+			btnDisjointGenderFeatures.setDisable(true);
 	}
 
 	protected void produceAndShowWebPage(FLExTransRule newValue) {
@@ -868,6 +896,10 @@ public class MainController implements Initializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void handleDisjointGenderFeatures() {
+		int i =0;
 	}
 
 	public void handleFeatureDelete() {
