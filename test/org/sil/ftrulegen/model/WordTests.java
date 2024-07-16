@@ -227,4 +227,35 @@ public class WordTests {
 		assertEquals(four, word.rankingIsAvailable(4));
 		assertEquals(five, word.rankingIsAvailable(5));
 	}
+
+	@Test
+	public final void getFeaturesTest() {
+		assertEquals(0, word.getFeatures().size());
+		word.insertNewFeature("gender", "α");
+		assertEquals(1, word.getFeatures().size());
+		assertEquals(1, word.getAllFeaturesInWord().size());
+
+		word.insertNewAffixAt(AffixType.prefix, 0);
+		assertEquals(1, word.getAffixes().size());
+		assertEquals(1, word.getFeatures().size());
+		Affix prefix = word.getAffixes().get(0);
+		prefix.insertNewFeature("number", "β");
+		assertEquals(1, prefix.getFeatures().size());
+		assertEquals(1, word.getFeatures().size());
+		assertEquals(2, word.getAllFeaturesInWord().size());
+
+		prefix.insertNewFeature("case", "γ");
+		assertEquals(2, prefix.getFeatures().size());
+		assertEquals(1, word.getFeatures().size());
+		assertEquals(3, word.getAllFeaturesInWord().size());
+W
+		word.insertNewAffixAt(AffixType.suffix, 1);
+		assertEquals(2, word.getAffixes().size());
+		Affix suffix = word.getAffixes().get(1);
+		suffix.insertNewFeature("tense", "fut");
+		assertEquals(1, suffix.getFeatures().size());
+		assertEquals(2, prefix.getFeatures().size());
+		assertEquals(1, word.getFeatures().size());
+		assertEquals(4, word.getAllFeaturesInWord().size());
+	}
 }

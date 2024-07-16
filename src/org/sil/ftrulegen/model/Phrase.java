@@ -73,7 +73,7 @@ public class Phrase extends RuleConstituent {
 	public List<FLExFeature> getFeaturesInUseForCategory(List<FLExCategory> categories, Category cat) {
 		featuresInUse.clear();
 		for (Word w : words) {
-			for (Feature feat : w.getFeatures()) {
+			for (Feature feat : w.getAllFeaturesInWord()) {
 				if (featureAlreadyInUse(feat) | isNewlyInsertedFeature(feat)) {
 					continue;
 				}

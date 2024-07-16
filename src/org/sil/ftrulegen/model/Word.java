@@ -170,6 +170,15 @@ public class Word extends ConstituentWithFeatures {
 		return result;
 	}
 
+	public List<Feature> getAllFeaturesInWord() {
+		List<Feature> features = new ArrayList<Feature>();
+		features.addAll(getFeatures());
+		for (Affix affix: getAffixes()) {
+			features.addAll(affix.getFeatures());
+		}
+		return features;
+	}
+
 	public boolean hasMoreThanOneFeature() {
 		int count = getFeatures().size();
 		for (Affix affix : getAffixes()) {
