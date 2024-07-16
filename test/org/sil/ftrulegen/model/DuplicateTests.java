@@ -33,13 +33,13 @@ public class DuplicateTests {
 		Source source = rule.getSource();
 		Phrase sourcePhrase = source.getPhrase();
 		sourceWord = new Word();
-		sourceWord.setId("Source 1");
+		sourceWord.setId("1");
 		sourceWord.setCategory("Noun");
 		sourceWord.setCategoryConstituent(new Category(sourceWord.getCategory()));
 		sourceWord.setHead(HeadValue.yes);
 		sourcePhrase.getWords().add(sourceWord);
 		sourceWord2 = new Word();
-		sourceWord2.setId("Source 2");
+		sourceWord2.setId("2");
 		sourceWord2.setCategory("Det");
 		sourceWord2.setCategoryConstituent(new Category(sourceWord2.getCategory()));
 		sourceWord2.setHead(HeadValue.no);
@@ -94,7 +94,7 @@ public class DuplicateTests {
 		RuleIdentifierAndParentSetter setter = RuleIdentifierAndParentSetter.getInstance();
 		setter.setIdentifiersAndParents(rule);
 		Word newWord = sourceWord.duplicate(true);
-		assertEquals("Source 1", sourceWord.getId());
+		assertEquals("1", sourceWord.getId());
 		assertEquals("3", newWord.getId());
 		assertEquals("Noun", sourceWord.getCategory());
 		assertEquals("Noun", newWord.getCategory());
@@ -107,8 +107,8 @@ public class DuplicateTests {
 		assertEquals(0, sourceWord.getFeatures().size());
 		assertEquals(0, newWord.getFeatures().size());
 		newWord = sourceWord.duplicate(false);
-		assertEquals("Source 1", sourceWord.getId());
-		assertEquals("Source 1", newWord.getId());
+		assertEquals("1", sourceWord.getId());
+		assertEquals("1", newWord.getId());
 	}
 
 	@Test

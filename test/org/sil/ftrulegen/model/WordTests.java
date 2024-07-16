@@ -18,7 +18,7 @@ public class WordTests {
 	@Before
 	public final void setup() {
 		word = new Word();
-		word.setId("Source 1");
+		word.setId("1");
 		word.setCategory("Noun");
 		word.setCategoryConstituent(new Category(word.getCategory()));
 		word.setHead(HeadValue.yes);

@@ -155,6 +155,19 @@ public class Phrase extends RuleConstituent {
 	}
 
 	public String getIdOfNewlyAddedWord() {
+		for (int i = 0; i < getWords().size(); i++) {
+			String sId = Integer.toString(i+1);
+			boolean foundIt = false;
+			for (Word word : getWords()) {
+				if (word.getId().equals(sId)) {
+					foundIt = true;
+					break;
+				}
+			}
+			if (!foundIt) {
+				return Integer.toString(i+1);
+			}
+		}
 		return Integer.toString(getWords().size() + 1);
 	}
 
