@@ -79,14 +79,11 @@ public class Phrase extends RuleConstituent {
 				}
 				Optional<FLExCategory> flexCatOp = categories.stream()
 						.filter(c -> c.getAbbreviation().equals(cat.getName())).findFirst();
-				List<ValidFeature> validFeatures = new ArrayList<ValidFeature>();
 				if (flexCatOp.isPresent()) {
 					FLExCategory flexCat = flexCatOp.get();
-					validFeatures = flexCat.getValidFeatures();
-				}
-				for (ValidFeature vf : validFeatures) {
-					Optional<FLExFeature> ffOp = featuresInUse.stream().filter(f -> f.getName().equals(vf.getName())).findFirst();
-					if (!ffOp.isPresent()) {
+					Optional<ValidFeature> vfOp = flexCat.getValidFeatures().stream()
+							.filter(vf -> vf.getName().equals(feat.getLabel())).findFirst();
+					if (!vfOp.isPresent()) {
 						// only include valid features for the category
 						continue;
 					}

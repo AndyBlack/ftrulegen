@@ -143,7 +143,7 @@ public class XMLFLExDataBackEndProviderTests extends ServiceTestBase {
 		checkCategory(catList, "det", 6, 0);
 		checkCategory(catList, "existmrkr", 7, 0);
 		checkCategory(catList, "indf", 8, 0);
-		checkCategory(catList, "n", 9, 2);
+		checkCategory(catList, "n", 9, 3);
 		cat = catList.get(9);
 		checkValidFeature(cat.getValidFeatures().get(0), "gender", ValidFeatureType.prefixstemsuffix);
 		checkValidFeature(cat.getValidFeatures().get(1), "number", ValidFeatureType.prefixsuffix);

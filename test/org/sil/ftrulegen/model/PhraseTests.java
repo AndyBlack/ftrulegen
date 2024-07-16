@@ -254,6 +254,25 @@ public class PhraseTests extends ServiceTestBase {
 		assertEquals(2, featuresForCategory.size());
 		checkFeature(featuresForCategory, 0, "gender", 1);
 		checkFeature(featuresForCategory, 1, "number", 1);
+
+		targetWord2.insertNewFeature("case", "acc");
+		assertEquals(1, targetWord2.getFeatures().size());
+		featuresForCategory = targetPhrase.getFeaturesInUseForCategory(flexData
+				.getTargetData().getCategories(), cat);
+		assertNotNull(featuresForCategory);
+		assertEquals(3, featuresForCategory.size());
+		checkFeature(featuresForCategory, 0, "gender", 1);
+		checkFeature(featuresForCategory, 1, "number", 1);
+		checkFeature(featuresForCategory, 2, "case", 1);
+
+		targetWord.setCategory("adj");
+		cat.setName("adj");
+		featuresForCategory = targetPhrase.getFeaturesInUseForCategory(flexData
+				.getTargetData().getCategories(), cat);
+		assertNotNull(featuresForCategory);
+		assertEquals(2, featuresForCategory.size());
+		checkFeature(featuresForCategory, 0, "gender", 1);
+		checkFeature(featuresForCategory, 1, "number", 1);
 	}
 
 	protected void checkFeature(List<FLExFeature> featuresForCategory, int index, String name,

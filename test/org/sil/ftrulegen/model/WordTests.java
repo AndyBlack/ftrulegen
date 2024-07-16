@@ -248,7 +248,7 @@ public class WordTests {
 		assertEquals(2, prefix.getFeatures().size());
 		assertEquals(1, word.getFeatures().size());
 		assertEquals(3, word.getAllFeaturesInWord().size());
-W
+
 		word.insertNewAffixAt(AffixType.suffix, 1);
 		assertEquals(2, word.getAffixes().size());
 		Affix suffix = word.getAffixes().get(1);
