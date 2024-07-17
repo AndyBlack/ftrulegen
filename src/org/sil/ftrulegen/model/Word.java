@@ -156,8 +156,8 @@ public class Word extends ConstituentWithFeatures {
 		return constituent;
 	}
 
-	public Category getCategoryOfWord() {
-		Category result = null;
+	public Category getCategoryOfWordOrCorrespondingSourceWord() {
+		Category result = CategoryConstituent;
 		if (getParent() != null) {
 			Phrase phrase = (Phrase) getParent();
 			if (phrase != null) {
@@ -233,8 +233,8 @@ public class Word extends ConstituentWithFeatures {
 		if (getCategory().length() > 0) {
 			produceHtmlOfCategory(getCategoryConstituent(), bundle, sb, true);
 		} else {
-			Category cat = getCategoryOfWord();
-			if (cat != null) {
+			Category cat = getCategoryOfWordOrCorrespondingSourceWord();
+			if (cat != null && cat.getName().length() > 0) {
 				produceHtmlOfCategory(cat, bundle, sb, false);
 			}
 		}
