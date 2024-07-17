@@ -92,7 +92,7 @@ public class FLExDataTests extends ServiceTestBase {
 		Category cat = new Category("n");
 		List<FLExFeature> flexFeatures = flexData.getFeaturesInPhraseForCategory(PhraseType.target, cat);
 		assertNotNull(flexFeatures);
-		assertEquals(2, flexFeatures.size());
+		assertEquals(3, flexFeatures.size());
 
 		FLExFeature flexFeature = flexFeatures.get(0);
 		assertEquals("gender", flexFeature.getName());

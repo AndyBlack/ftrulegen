@@ -73,20 +73,17 @@ public class Phrase extends RuleConstituent {
 	public List<FLExFeature> getFeaturesInUseForCategory(List<FLExCategory> categories, Category cat) {
 		featuresInUse.clear();
 		for (Word w : words) {
-			for (Feature feat : w.getFeatures()) {
+			for (Feature feat : w.getAllFeaturesInWord()) {
 				if (featureAlreadyInUse(feat) | isNewlyInsertedFeature(feat)) {
 					continue;
 				}
 				Optional<FLExCategory> flexCatOp = categories.stream()
 						.filter(c -> c.getAbbreviation().equals(cat.getName())).findFirst();
-				List<ValidFeature> validFeatures = new ArrayList<ValidFeature>();
 				if (flexCatOp.isPresent()) {
 					FLExCategory flexCat = flexCatOp.get();
-					validFeatures = flexCat.getValidFeatures();
-				}
-				for (ValidFeature vf : validFeatures) {
-					Optional<FLExFeature> ffOp = featuresInUse.stream().filter(f -> f.getName().equals(vf.getName())).findFirst();
-					if (!ffOp.isPresent()) {
+					Optional<ValidFeature> vfOp = flexCat.getValidFeatures().stream()
+							.filter(vf -> vf.getName().equals(feat.getLabel())).findFirst();
+					if (!vfOp.isPresent()) {
 						// only include valid features for the category
 						continue;
 					}
@@ -155,6 +152,19 @@ public class Phrase extends RuleConstituent {
 	}
 
 	public String getIdOfNewlyAddedWord() {
+		for (int i = 0; i < getWords().size(); i++) {
+			String sId = Integer.toString(i+1);
+			boolean foundIt = false;
+			for (Word word : getWords()) {
+				if (word.getId().equals(sId)) {
+					foundIt = true;
+					break;
+				}
+			}
+			if (!foundIt) {
+				return Integer.toString(i+1);
+			}
+		}
 		return Integer.toString(getWords().size() + 1);
 	}
 

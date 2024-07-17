@@ -93,6 +93,7 @@
         <ValidFeatures>
           <ValidFeature name="gender" type="prefix|stem|suffix" />
           <ValidFeature name="number" type="prefix|suffix" />
+          <ValidFeature name="case" type="prefix|stem|suffix" />
         </ValidFeatures>
       </FLExCategory>
       <FLExCategory abbr="nprop" />
