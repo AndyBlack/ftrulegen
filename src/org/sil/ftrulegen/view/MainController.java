@@ -678,7 +678,7 @@ public class MainController implements Initializable {
 		} else {
 			cmWordDelete.setDisable(false);
 		}
-		if (phraseType == PhraseType.target || word.getCategory().length() > 0) {
+		if (word.getCategoryOfWordOrCorrespondingSourceWord().getName().length() > 0) {
 			cmWordInsertCategory.setDisable(true);
 		} else {
 			cmWordInsertCategory.setDisable(false);
@@ -711,7 +711,7 @@ public class MainController implements Initializable {
 	}
 
 	protected boolean flexCategoryHasValidFeatures(List<FLExCategory> flexCategories) {
-		Category cat = word.getCategoryOfWord();
+		Category cat = word.getCategoryOfWordOrCorrespondingSourceWord();
 		if (cat == null) {
 			return false;
 		}
@@ -950,7 +950,7 @@ public class MainController implements Initializable {
 							word = (Word) affix.getParent();
 						}
 					}
-					Category cat = word.getCategoryOfWord();
+					Category cat = word.getCategoryOfWordOrCorrespondingSourceWord();
 					List<FLExFeature> featuresInUse = phrase
 							.getFeaturesInUseForCategory(flexData.getFLExCategoriesForPhrase(phrase.getType()), cat);
 					List<FLExFeature> featuresToShow = new ArrayList<FLExFeature>();
