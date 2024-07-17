@@ -13,7 +13,6 @@ import jakarta.xml.bind.annotation.XmlElement;
 
 public class FLExTransRule extends RuleConstituent {
 	private PermutationsValue createPermutations = PermutationsValue.no;
-	private UseDisjointGenderFeaturesValue useDisjointGenderFeatures = UseDisjointGenderFeaturesValue.no;
 
 	@XmlAttribute(name = "create_permutations")
 	public final PermutationsValue getPermutations() {
@@ -22,15 +21,6 @@ public class FLExTransRule extends RuleConstituent {
 
 	public final void setPermutations(PermutationsValue value) {
 		createPermutations = value;
-	}
-
-	@XmlAttribute(name = "use_disjoint_gender_features")
-	public final UseDisjointGenderFeaturesValue getUseDisjointGenderFeatures() {
-		return useDisjointGenderFeatures;
-	}
-
-	public final void setUseDisjointGenderFeatures(UseDisjointGenderFeaturesValue value) {
-		useDisjointGenderFeatures = value;
 	}
 
 	private Source source = new Source();

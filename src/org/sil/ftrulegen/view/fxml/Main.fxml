@@ -21,12 +21,13 @@
         <items>
           <AnchorPane fx:id="rulesPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <Label fx:id="lblRules" layoutX="10.0" layoutY="46.0" text="%view.Rules" />
-                  <ListView fx:id="lvRules" layoutX="28.0" layoutY="71.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="71.0" />
-                  <Label fx:id="lblRightClickToEdit" layoutX="100.0" layoutY="47.0" text="%view.RightCLickToEdit">
+                  <Label fx:id="lblRules" layoutX="10.0" layoutY="13.0" text="%view.Rules" />
+                  <ListView fx:id="lvRules" layoutX="28.0" layoutY="40.0" prefHeight="417.0" prefWidth="443.0" AnchorPane.bottomAnchor="41.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
+                  <Label fx:id="lblRightClickToEdit" layoutX="100.0" layoutY="14.0" text="%view.RightCLickToEdit">
                      <font>
                         <Font name="System Italic" size="12.0" />
                      </font></Label>
+                  <Button fx:id="btnDisjointGenderFeatures" disable="false" layoutX="5.0" layoutY="467.0" mnemonicParsing="false" onAction="#handleDisjointGenderFeatures" text="%view.DisjointGenderFeatures" AnchorPane.bottomAnchor="6.0" />
                </children>
             </AnchorPane>
           <AnchorPane fx:id="browserPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="1200.0">
@@ -45,8 +46,6 @@
                   <CheckBox fx:id="cbCreatePermutations" layoutX="375.0" layoutY="43.0" mnemonicParsing="false" text="%view.CreatePermutations" />
                   <Label layoutX="6.0" layoutY="71.0" text="%view.RuleDescription" />
                   <TextArea fx:id="tfRuleDescription" layoutX="93.0" layoutY="72.0" prefHeight="65.0" prefWidth="426.0" promptText="%view.RuleDescription" text="%view.RuleDescriptionNeeded" wrapText="true" />
-                  <CheckBox fx:id="cbUseDisjointGenderFeatures" layoutX="537.0" layoutY="75.0" mnemonicParsing="false" text="%view.UseDisjointGenderFeatures" />
-                  <Button fx:id="btnDisjointGenderFeatures" layoutX="537.0" layoutY="105.0" mnemonicParsing="false" text="%view.DisjointGenderFeatures" onAction="#handleDisjointGenderFeatures" disable="true" />
                </children>
             </AnchorPane>
         </items>
