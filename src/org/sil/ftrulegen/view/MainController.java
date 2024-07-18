@@ -874,8 +874,8 @@ public class MainController implements Initializable {
 		}
 	}
 
-	public void handleDisjointGenderFeatures() {
-		int i =0;
+	public void handleDisjointFeatures() {
+		System.out.println("clicked disjoint button");
 	}
 
 	public void handleFeatureDelete() {

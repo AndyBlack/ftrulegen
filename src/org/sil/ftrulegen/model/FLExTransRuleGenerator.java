@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 SIL International
+ * Copyright (c) 2023-2024 SIL International
  * This software is licensed under the LGPL, version 2.1 or later
  * (http://www.gnu.org/licenses/lgpl-2.1.html)
  */
@@ -33,6 +33,17 @@ public class FLExTransRuleGenerator {
 
 	public void setFLExTransRules(List<FLExTransRule> value) {
 		flexTransRules = value;
+	}
+
+	private List<DisjointFeatures> disjointFeatures = new ArrayList<DisjointFeatures>();
+
+	@XmlElement(name = "DisjointFeatures")
+	public List<DisjointFeatures> getDisjointGenderFeatures() {
+		return disjointFeatures;
+	}
+
+	public void setDisjointGenderFeatures(List<DisjointFeatures> value) {
+		disjointFeatures = value;
 	}
 
 	public FLExTransRuleGenerator() {
