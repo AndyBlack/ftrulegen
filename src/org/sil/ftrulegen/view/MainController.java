@@ -64,6 +64,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
@@ -180,7 +181,7 @@ public class MainController implements Initializable {
 	XmlBackEndProvider provider;
 	WebPageInteractor webPageInteractor;
 	ConstituentFinder finder;
-	String ruleGenFile = "";
+	String ruleAssistantFile = "";
 	String flexDataFile = "";
 	FLExData flexData;
 	int maxVariables = 4;
@@ -237,7 +238,7 @@ public class MainController implements Initializable {
 	}
 
 	public void setRuleGenFile(String value) {
-		ruleGenFile = value;
+		ruleAssistantFile = value;
 	}
 
 	public void setFLexDataFile(String value) {
@@ -334,7 +335,7 @@ public class MainController implements Initializable {
 	public void loadDataFiles() {
 		generator = new FLExTransRuleGenerator();
 		provider = new XmlBackEndProvider(generator, bundle);
-		provider.loadDataFromFile(ruleGenFile);
+		provider.loadDataFromFile(ruleAssistantFile);
 		generator = provider.getRuleGenerator();
 		finder = ConstituentFinder.getInstance();
 		lvRules.getItems().addAll(generator.getFLExTransRules());
@@ -875,7 +876,52 @@ public class MainController implements Initializable {
 	}
 
 	public void handleDisjointFeatures() {
-		System.out.println("clicked disjoint button");
+		try {
+			Stage dialogStage = new Stage();
+			// Load root layout from fxml file.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("view/fxml/DisjointFeaturesEditor.fxml"));
+			loader.setResources(bundle);
+			StackPane pane = loader.load();
+			DisjointFeaturesEditorController controller = loader.getController();
+			controller.setData(generator.getDisjointFeatures());
+			controller.setDialogStage(dialogStage);
+//			controller.setFeatures(features);
+//			controller.selectFLExFeatureValue(feature);
+			Scene scene = new Scene(pane);
+			dialogStage.setScene(scene);
+			dialogStage.setTitle(loader.getResources().getString("chooser.FeatureValueTitle"));
+			dialogStage.getIcons().add(ControllerUtilities.getIconImageFromURL(Constants.APPLICATION_ICON_RESOURCE,
+					Constants.RESOURCE_SOURCE_LOCATION));
+			dialogStage.showAndWait();
+//			FLExFeatureValue featValue = controller.getFeatureValueChosen();
+//			if (controller.isOkClicked() && featValue != null) {
+//				if (unmarked) {
+//					feature.setUnmarked(featValue.getAbbreviation());
+//				} else {
+//					feature.setLabel(featValue.getFeature().getName());
+//					if (FLExFeatureValue.isGreek(featValue.getAbbreviation())) {
+//						feature.setMatch(featValue.getAbbreviation());
+//						feature.setValue("");
+//					} else {
+//						feature.setMatch("");
+//						feature.setValue(featValue.getAbbreviation());
+//					}
+//				}
+				reportChangesMade();
+//			} else if (inserting ){
+//				// undo addition of this feature
+//				RuleConstituent rc = feature.getParent();
+//				if (rc instanceof Word) {
+//					word.deleteFeature(feature);
+//				} else if (rc instanceof Affix) {
+//					affix.deleteFeature(feature);
+//				}
+//			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	public void handleFeatureDelete() {
@@ -1241,7 +1287,7 @@ public class MainController implements Initializable {
 
 	@FXML
 	public void handleSave() {
-		provider.saveDataToFile(ruleGenFile);
+		provider.saveDataToFile(ruleAssistantFile);
 		markAsChanged(false);
 	}
 
@@ -1252,7 +1298,7 @@ public class MainController implements Initializable {
 	}
 
 	public void saveAndExitIfValid(String exitCode, boolean isValid) {
-		provider.saveDataToFile(ruleGenFile);
+		provider.saveDataToFile(ruleAssistantFile);
 		markAsChanged(false);
 		mainApp.rememberApplicationPreferences();
 		if (isValid) {

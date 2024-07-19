@@ -6,8 +6,10 @@
 
 package org.sil.ftrulegen.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import jakarta.xml.bind.annotation.XmlElement;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * @author Andy Black
@@ -15,5 +17,15 @@ import java.util.List;
  */
 public class DisjointFeatures {
 
-	List<DisjointFeatureSet> disjointFeatureSets = new ArrayList<>();
+	private ObservableList<DisjointFeatureSet> disjointFeatureSets =  FXCollections.observableArrayList();
+
+	@XmlElement(name = "DisjointFeatureSets")
+	public ObservableList<DisjointFeatureSet> getDisjointFeatureSets() {
+		return disjointFeatureSets;
+	}
+
+	public void setDisjointGenderFeatures(ObservableList<DisjointFeatureSet> value) {
+		disjointFeatureSets = value;
+	}
+
 }

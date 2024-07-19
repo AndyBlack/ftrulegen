@@ -35,6 +35,8 @@ public class ApplicationPreferences extends ApplicationPreferencesUtilities {
 	public static final String LAST_CATEGORY_CHOOSER = "lastCategoryChooser";
 	public static final String LAST_FEATURE_CHOOSER = "lastFeatureChooser";
 	public static final String LAST_SELECTED_RULE = "lastSelectedRule";
+	public static final String LAST_SELECTED_DISJOINT_FEATURE_SET = "lastSelectedDisjointFeatureSet";
+	public static final String DISJOINT_FEATURE_EDITOR = "DISJOINT_FEATURE_EDITOR_";
 
 	private Preferences prefs;
 	
@@ -65,6 +67,14 @@ public class ApplicationPreferences extends ApplicationPreferencesUtilities {
 
 	public void setLastSelectedRule(int lastSelectedRule) {
 		prefs.putInt(LAST_SELECTED_RULE, lastSelectedRule);
+	}
+
+	public int getLastDisjointFeatureSetItemUsed() {
+		return prefs.getInt(LAST_SELECTED_DISJOINT_FEATURE_SET, 0);
+	}
+
+	public void setLastDisjointFeatureSetItemUsed(int lastSelectedRule) {
+		prefs.putInt(LAST_SELECTED_DISJOINT_FEATURE_SET, lastSelectedRule);
 	}
 
 	public Stage getLastWindowParameters(String sWindow, Stage stage, Double defaultHeight,
@@ -101,7 +111,7 @@ public class ApplicationPreferences extends ApplicationPreferencesUtilities {
 		setPreferencesKey(LAST_SPLIT_PANE_POSITION, position);
 	}
 
-	private void setPreferencesKey(String key, boolean value) {
+	public void setPreferencesKey(String key, boolean value) {
 		if (!StringUtilities.isNullOrEmpty(key)) {
 			if (key != null) {
 				prefs.putBoolean(key, value);
@@ -112,7 +122,7 @@ public class ApplicationPreferences extends ApplicationPreferencesUtilities {
 		}
 	}
 
-	private void setPreferencesKey(String key, Double value) {
+	public void setPreferencesKey(String key, Double value) {
 		if (!StringUtilities.isNullOrEmpty(key)) {
 			if (key != null && value != null) {
 				prefs.putDouble(key, value);
@@ -123,7 +133,7 @@ public class ApplicationPreferences extends ApplicationPreferencesUtilities {
 		}
 	}
 
-	private void setPreferencesKey(String key, String value) {
+	public void setPreferencesKey(String key, String value) {
 		if (!StringUtilities.isNullOrEmpty(key) && !StringUtilities.isNullOrEmpty(value)) {
 			prefs.put(key, value);
 
@@ -141,6 +151,22 @@ public class ApplicationPreferences extends ApplicationPreferencesUtilities {
 	@Override
 	public void setLastOpenedDirectoryPath(String arg0) {
 		// Not needed since the file is given
+	}
+
+	public boolean getBooleanValue(String sKey, boolean defaultValue) {
+		return prefs.getBoolean(sKey, defaultValue);
+	}
+
+	public Double getDoubleValue(String sKey, Double defaultValue) {
+		return prefs.getDouble(sKey, defaultValue);
+	}
+
+	public int getIntegerValue(String sKey, int defaultValue) {
+		return prefs.getInt(sKey, defaultValue);
+	}
+
+	public String getStringValue(String sKey, String defaultValue) {
+		return prefs.get(sKey, defaultValue);
 	}
 
 }

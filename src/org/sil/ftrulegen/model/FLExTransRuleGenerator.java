@@ -35,14 +35,14 @@ public class FLExTransRuleGenerator {
 		flexTransRules = value;
 	}
 
-	private List<DisjointFeatures> disjointFeatures = new ArrayList<DisjointFeatures>();
+	private DisjointFeatures disjointFeatures = new DisjointFeatures();
 
 	@XmlElement(name = "DisjointFeatures")
-	public List<DisjointFeatures> getDisjointGenderFeatures() {
+	public DisjointFeatures getDisjointFeatures() {
 		return disjointFeatures;
 	}
 
-	public void setDisjointGenderFeatures(List<DisjointFeatures> value) {
+	public void setDisjointFeatures(DisjointFeatures value) {
 		disjointFeatures = value;
 	}
 

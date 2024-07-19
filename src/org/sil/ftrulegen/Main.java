@@ -18,6 +18,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.sil.ftrulegen.view.MainController;
+import org.sil.utility.MainAppUtilities;
 import org.sil.utility.view.ControllerUtilities;
 import org.sil.utility.view.ObservableResourceFactory;
 
@@ -29,7 +30,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 
-public class Main extends Application {
+public class Main extends Application implements MainAppUtilities {
 	private Locale locale;
 	static String[] arguments;
 	private Stage primaryStage;
@@ -211,5 +212,41 @@ public class Main extends Application {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public ApplicationPreferences getApplicationPreferences() {
+		return applicationPreferences;
+	}
+	public static void reportException(Exception ex, ResourceBundle bundle) {
+		String sTitle = "Error Found!";
+		String sHeader = "A serious error happened.";
+		String sContent = "Please copy the exception information below, email it to blackhandrew@gmail.com along with a description of what you were doing.";
+		String sLabel = "The exception stacktrace was:";
+		if (bundle != null) {
+			sTitle = bundle.getString("exception.title");
+			sHeader = bundle.getString("exception.header");
+			sContent = bundle.getString("exception.content");
+			sLabel = bundle.getString("exception.label");
+		}
+		ControllerUtilities.showExceptionInErrorDialog(ex, sTitle, sHeader, sContent, sLabel);
+		System.exit(1);
+	}
+
+	@Override
+	public Stage getPrimaryStage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void saveFile(File arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateStageTitle(File arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }
