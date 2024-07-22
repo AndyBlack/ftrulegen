@@ -8,16 +8,21 @@ package org.sil.ftrulegen.view;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.sil.ftrulegen.ApplicationPreferences;
 import org.sil.ftrulegen.Constants;
 import org.sil.ftrulegen.Main;
+import org.sil.ftrulegen.flexmodel.FLExData;
+import org.sil.ftrulegen.flexmodel.FLExFeature;
 import org.sil.ftrulegen.model.DisjointFeatureSet;
-import org.sil.ftrulegen.model.DisjointFeatureSetKind;
 import org.sil.ftrulegen.model.DisjointFeatures;
+import org.sil.ftrulegen.model.FLExTransRuleGenerator;
+import org.sil.ftrulegen.model.PhraseType;
 import org.sil.utility.StringUtilities;
 import org.sil.utility.view.ControllerUtilities;
 
@@ -33,6 +38,7 @@ import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.IndexRange;
 import javafx.scene.control.Label;
@@ -92,22 +98,16 @@ public class DisjointFeaturesEditorController implements Initializable {
 	@FXML
 	private TableColumn<DisjointFeatureSet, String> nameColumn;
 	@FXML
-	private TableColumn<DisjointFeatureSet, String> featureColumn;
+	private TableColumn<DisjointFeatureSet, String> coFeatureColumn;
 	@FXML
-	private TableColumn<DisjointFeatureSet, String> valuesColumn;
+	private TableColumn<DisjointFeatureSet, String> pairingsColumn;
 	@FXML
-	private TableColumn<DisjointFeatureSet, Boolean> kindColumn;
+	private TableColumn<DisjointFeatureSet, Boolean> languageColumn;
 
 	@FXML
 	private TextField nameField;
 	@FXML
-	private TextField featureField;
-	@FXML
-	private FlowPane valuesField;
-	@FXML
-	private TextFlow valuesTextFlow;
-	@FXML
-	private Button valuesButton;
+	private ComboBox<String> coFeatureNameComboBox;
 	@FXML
 	protected ToggleGroup group;
 	@FXML
@@ -128,6 +128,7 @@ public class DisjointFeaturesEditorController implements Initializable {
 	protected Locale locale;
 	protected Clipboard systemClipboard = Clipboard.getSystemClipboard();
 	protected DisjointFeatures disjointFeatures;
+	protected FLExData flexData;
 
 	public DisjointFeaturesEditorController() {
 
@@ -492,17 +493,17 @@ public class DisjointFeaturesEditorController implements Initializable {
 		});
 
 		nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-		valuesColumn.setCellValueFactory(cellData -> cellData.getValue()
+		pairingsColumn.setCellValueFactory(cellData -> cellData.getValue()
 				.valuesRepresentationProperty());
-		featureColumn
-				.setCellValueFactory(cellData -> cellData.getValue().splitOnProperty());
+		coFeatureColumn
+				.setCellValueFactory(cellData -> cellData.getValue().CoFeatureNameProperty());
 
 		// Custom rendering of the table cell.
 //		nameColumn.setCellFactory(column -> {
 //			return new AnalysisWrappingTableCell();
 //		});
 
-		valuesColumn.setCellFactory(column -> {
+		pairingsColumn.setCellFactory(column -> {
 			return new TableCell<DisjointFeatureSet, String>() {
 				// We override computePrefHeight because by default, the graphic's height
 				// gets set to the height of all items in the TextFlow as if none of them
@@ -539,9 +540,18 @@ public class DisjointFeaturesEditorController implements Initializable {
 //			return new AnalysisWrappingTableCell();
 //		});
 
+		coFeatureNameComboBox.getSelectionModel().selectedItemProperty()
+		.addListener((options, oldValue, newValue) -> {
+			   System.out.println(newValue);
+			   if (currentFeatureSet != null)
+				currentFeatureSet.setCoFeatureName(newValue);
+
+		});
+		coFeatureNameComboBox.setPromptText(resources.getString("disjoint.cofeaturename"));
+
 		makeColumnHeaderWrappable(nameColumn);
-		makeColumnHeaderWrappable(valuesColumn);
-		makeColumnHeaderWrappable(featureColumn);
+		makeColumnHeaderWrappable(pairingsColumn);
+		makeColumnHeaderWrappable(coFeatureColumn);
 
 		// Clear cv natural class details.
 		showFeaturesSetDetails(null);
@@ -559,18 +569,10 @@ public class DisjointFeaturesEditorController implements Initializable {
 				currentFeatureSet.setName(nameField.getText());
 			}
 		});
-		featureField.textProperty().addListener((observable, oldValue, newValue) -> {
-			if (currentFeatureSet != null) {
-				currentFeatureSet.setSplitOn(featureField.getText());
-			}
-		});
 
 		// Use of Enter move focus to next item.
 		nameField.setOnAction((event) -> {
-			featureField.requestFocus();
-		});
-		featureField.setOnAction((event) -> {
-			targetRadioButton.requestFocus();
+			coFeatureNameComboBox.requestFocus();
 		});
 
 		nameField.requestFocus();
@@ -592,16 +594,25 @@ public class DisjointFeaturesEditorController implements Initializable {
 	 */
 	private void showFeaturesSetDetails(DisjointFeatureSet featureSet) {
 		currentFeatureSet = featureSet;
+		List<String> flexFeatureNames = new ArrayList<String>();
+		List<FLExFeature> flexFeatures = new ArrayList<FLExFeature>();
 		if (featureSet != null) {
-			// Fill the text fields with info from the person object.
+			// Fill the text fields with info from the featureSet object.
 			nameField.setText(featureSet.getName());
-			featureField.setText(featureSet.getSplitOn());
-			showValuesContent();
+			if (featureSet.getLanguage() == PhraseType.target) {
+				flexFeatures = flexData.getTargetData().getFeaturesWithoutVariables();
+			} else {
+				flexFeatures = flexData.getSourceData().getFeaturesWithoutVariables();
+			}
+			for (FLExFeature ff : flexFeatures) {
+				flexFeatureNames.add(ff.getName());
+			}
+			coFeatureNameComboBox.getItems().setAll(flexFeatureNames);
+			coFeatureNameComboBox.getSelectionModel().select(featureSet.getCoFeatureName());
 		} else {
-			// Segment is null, remove all the text.
+			// FeatureSet is null, remove all the text.
 			nameField.setText("");
-			featureField.setText("");
-			valuesTextFlow.getChildren().clear();
+			coFeatureNameComboBox.getSelectionModel().select("??");
 		}
 
 		if (featureSet != null) {
@@ -609,14 +620,6 @@ public class DisjointFeaturesEditorController implements Initializable {
 			prefs.setLastDisjointFeatureSetItemUsed(
 						iCurrentIndex);
 		}
-	}
-
-	private void showValuesContent() {
-		StringBuilder sb = new StringBuilder();
-		valuesTextFlow.getChildren().clear();
-		ObservableList<String> segmentsOrNaturalClasses = currentFeatureSet.getValuesAsListOfStrings();
-		fillSncTextFlow(sb, segmentsOrNaturalClasses);
-		currentFeatureSet.setValuesRepresentation(sb.toString());
 	}
 
 	protected void fillSncTextFlow(StringBuilder sb,
@@ -629,7 +632,7 @@ public class DisjointFeaturesEditorController implements Initializable {
 			t = new Text(snc);
 			Text tBar = new Text(" | ");
 			tBar.setStyle("-fx-stroke: lightgrey;");
-			valuesTextFlow.getChildren().addAll(t, tBar);
+//			valuesTextFlow.getChildren().addAll(t, tBar);
 			if (i++ < iCount) {
 				sb.append(", ");
 			}
@@ -651,7 +654,7 @@ public class DisjointFeaturesEditorController implements Initializable {
 
 	public void setFeatureSet(DisjointFeatureSet featureSet) {
 		nameField.setText(featureSet.getName());
-		featureField.setText(featureSet.getSplitOn());
+		coFeatureNameComboBox.getSelectionModel().select(featureSet.getCoFeatureName());
 	}
 
 	/**
@@ -659,7 +662,8 @@ public class DisjointFeaturesEditorController implements Initializable {
 	 * @param approachType = which approach invoked this
 	 * @param cvApproachController = CV data
 	 */
-	public void setData(DisjointFeatures disjointFeatures) {
+	public void setData(DisjointFeatures disjointFeatures, FLExData flexData) {
+		this.flexData = flexData;
 		this.disjointFeatures = disjointFeatures;
 		if (disjointFeatures.getDisjointFeatureSets().size() == 0) {
 			currentFeatureSet = new DisjointFeatureSet();
@@ -715,7 +719,7 @@ public class DisjointFeaturesEditorController implements Initializable {
 	@FXML
 	void handleLaunchValuesChooser() {
 		showValuesChooser();
-		showValuesContent();
+//		showValuesContent();
 	}
 	
 	@FXML
@@ -726,7 +730,7 @@ public class DisjointFeaturesEditorController implements Initializable {
 //		boolean currentValue = f.getAction().isDoRepair();
 //		f.getAction().setDoRepair(!currentValue);
 		sourceRadioButton.setSelected(true);
-		currentFeatureSet.setKind(DisjointFeatureSetKind.source);
+		currentFeatureSet.setLanguage(PhraseType.source);
 //		fAllowSlotPosition = true;
 //		processRepresentationFieldContents();
 //		showTypeWarning(f);
@@ -735,7 +739,7 @@ public class DisjointFeaturesEditorController implements Initializable {
 	@FXML
 	void handleTargetRadioButton() {
 		targetRadioButton.setSelected(true); // needed by test for some
-		currentFeatureSet.setKind(DisjointFeatureSetKind.target);
+		currentFeatureSet.setLanguage(PhraseType.target);
 	}
 	
 	/**
@@ -767,7 +771,7 @@ public class DisjointFeaturesEditorController implements Initializable {
 	// code taken from
 	// http://bekwam.blogspot.com/2014/10/cut-copy-and-paste-from-javafx-menubar.html
 	TextField[] createTextFields() {
-		return new TextField[] { nameField, featureField };
+		return new TextField[] { nameField };
 	}
 
 }

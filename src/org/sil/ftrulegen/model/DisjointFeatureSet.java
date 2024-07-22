@@ -20,15 +20,15 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 public class DisjointFeatureSet {
 
 	private StringProperty name;
-	private StringProperty splitOn;
-	private DisjointFeatureSetKind setKind = DisjointFeatureSetKind.target;
+	private StringProperty coFeatureName;
+	private PhraseType language = PhraseType.target;
 	private final SimpleListProperty<String> valuesList;
 	private final StringProperty valuesRepresentation;
 	ObservableList<String> valuesAsListOfStrings = FXCollections.observableArrayList();
 
 	public DisjointFeatureSet() {
 		this.name = new SimpleStringProperty("");
-		this.splitOn = new SimpleStringProperty("");
+		this.coFeatureName = new SimpleStringProperty("");
 		this.valuesList = new SimpleListProperty<String>();
 		this.valuesRepresentation = new SimpleStringProperty("");
 	}
@@ -46,26 +46,26 @@ public class DisjointFeatureSet {
 		return name;
 	}
 
-	@XmlAttribute(name = "SplitOn")
-	public final String getSplitOn() {
-		return splitOn.get();
+	@XmlAttribute(name = "coFeatureName")
+	public final String getCoFeatureName() {
+		return coFeatureName.get();
 	}
 
-	public final void setSplitOn(String value) {
-		splitOn.set(value);;
+	public final void setCoFeatureName(String value) {
+		coFeatureName.set(value);;
 	}
 
-	public StringProperty splitOnProperty() {
-		return splitOn;
+	public StringProperty CoFeatureNameProperty() {
+		return coFeatureName;
 	}
 
-	@XmlAttribute(name = "kind")
-	public final DisjointFeatureSetKind getKind() {
-		return setKind;
+	@XmlAttribute(name = "language")
+	public final PhraseType getLanguage() {
+		return language;
 	}
 
-	public final void setKind(DisjointFeatureSetKind value) {
-		setKind = value;
+	public final void setLanguage(PhraseType value) {
+		language = value;
 	}
 
 	public SimpleListProperty<String> valuesListProperty() {

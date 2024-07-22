@@ -884,7 +884,7 @@ public class MainController implements Initializable {
 			loader.setResources(bundle);
 			StackPane pane = loader.load();
 			DisjointFeaturesEditorController controller = loader.getController();
-			controller.setData(generator.getDisjointFeatures());
+			controller.setData(generator.getDisjointFeatures(), flexData);
 			controller.setDialogStage(dialogStage);
 //			controller.setFeatures(features);
 //			controller.selectFLExFeatureValue(feature);
