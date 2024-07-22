@@ -886,6 +886,7 @@ public class MainController implements Initializable {
 			DisjointFeaturesEditorController controller = loader.getController();
 			controller.setData(generator.getDisjointFeatures(), flexData);
 			controller.setDialogStage(dialogStage);
+			controller.initializeTableColumnWidthsAndSplitDividerPosition();
 //			controller.setFeatures(features);
 //			controller.selectFLExFeatureValue(feature);
 			Scene scene = new Scene(pane);
@@ -894,30 +895,7 @@ public class MainController implements Initializable {
 			dialogStage.getIcons().add(ControllerUtilities.getIconImageFromURL(Constants.APPLICATION_ICON_RESOURCE,
 					Constants.RESOURCE_SOURCE_LOCATION));
 			dialogStage.showAndWait();
-//			FLExFeatureValue featValue = controller.getFeatureValueChosen();
-//			if (controller.isOkClicked() && featValue != null) {
-//				if (unmarked) {
-//					feature.setUnmarked(featValue.getAbbreviation());
-//				} else {
-//					feature.setLabel(featValue.getFeature().getName());
-//					if (FLExFeatureValue.isGreek(featValue.getAbbreviation())) {
-//						feature.setMatch(featValue.getAbbreviation());
-//						feature.setValue("");
-//					} else {
-//						feature.setMatch("");
-//						feature.setValue(featValue.getAbbreviation());
-//					}
-//				}
-				reportChangesMade();
-//			} else if (inserting ){
-//				// undo addition of this feature
-//				RuleConstituent rc = feature.getParent();
-//				if (rc instanceof Word) {
-//					word.deleteFeature(feature);
-//				} else if (rc instanceof Affix) {
-//					affix.deleteFeature(feature);
-//				}
-//			}
+			reportChangesMade();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

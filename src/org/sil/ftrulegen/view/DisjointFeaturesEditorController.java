@@ -114,10 +114,20 @@ public class DisjointFeaturesEditorController implements Initializable {
 	private RadioButton sourceRadioButton;
 	@FXML
 	private RadioButton targetRadioButton;
+	@FXML
+	private Button addSetButton;
+	@FXML
+	private Button deleteSetButton;
+	@FXML
+	private Button addPairingButton;
+	@FXML
+	private Button deletePairingButton;
+	@FXML
+	private Button closeButton;
 
 	ObservableList<DisjointFeatureSet> list;
 //	TableView<DisjointFeatureSet> tableView;
-	protected String sApproach = ApplicationPreferences.DISJOINT_FEATURE_EDITOR;
+	protected String sDisjointEditor = ApplicationPreferences.DISJOINT_FEATURE_EDITOR;
 	protected  ApplicationPreferences prefs;
 
 	Stage dialogStage;
@@ -137,8 +147,7 @@ public class DisjointFeaturesEditorController implements Initializable {
 	// =====================================
 	// from SplitPaneWithTableViewController
 	protected void initializeTableColumnWidthsAndSplitDividerPosition() {
-		prefs = mainApp.getApplicationPreferences();
-		Double d = prefs.getDoubleValue(sApproach + splitPane.getId(), .4);
+		Double d = prefs.getDoubleValue(sDisjointEditor + splitPane.getId(), .4);
 		splitPane.getDividers().get(0).setPosition(d);
 		initializeTableColumnWidths(prefs);
 	}
@@ -146,18 +155,13 @@ public class DisjointFeaturesEditorController implements Initializable {
 
 	// =====================================
 	// From TableViewController
-	public void setApproach(String sApproach) {
-		this.sApproach = sApproach;
-	}
-
 	public void setTableView(TableView<DisjointFeatureSet> tableView) {
 		this.disjointFeaturesTable = tableView;
 	}
 
 	protected void initializeTableColumnWidths(ApplicationPreferences prefs) {
-        this.prefs = prefs;
 		for (TableColumn<DisjointFeatureSet, ?> column : disjointFeaturesTable.getColumns()) {
-			Double d = prefs.getDoubleValue(sApproach + column.getId(), column.getPrefWidth());
+			Double d = prefs.getDoubleValue(sDisjointEditor + column.getId(), column.getPrefWidth());
 			column.setPrefWidth(d);
 		}
 	}
@@ -478,7 +482,7 @@ public class DisjointFeaturesEditorController implements Initializable {
 			  column.widthProperty().addListener(new ChangeListener<Number>() {
 			    @Override
 			      public void changed(ObservableValue<? extends Number> observableValue, Number oldWidth, Number newWidth) {
-			        prefs.setPreferencesKey(sApproach + column.getId(), newWidth.doubleValue());
+			        prefs.setPreferencesKey(sDisjointEditor + column.getId(), newWidth.doubleValue());
 			    }
 			  });
 			}
@@ -487,8 +491,7 @@ public class DisjointFeaturesEditorController implements Initializable {
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue,
 					Number newValue) {
-//		        ApplicationPreferences prefs = mainApp.getApplicationPreferences();
-				prefs.setPreferencesKey(sApproach + splitPane.getId(), newValue.doubleValue());
+				prefs.setPreferencesKey(sDisjointEditor + splitPane.getId(), newValue.doubleValue());
 			}
 		});
 
@@ -694,7 +697,7 @@ public class DisjointFeaturesEditorController implements Initializable {
 	public void setDialogStage(Stage value) {
 		dialogStage = value;
 		prefs = ApplicationPreferences.getInstance();
-		dialogStage = prefs.getLastWindowParameters(ApplicationPreferences.DISJOINT_FEATURE_EDITOR, dialogStage, 485.0, 580.0);
+		dialogStage = prefs.getLastWindowParameters(sDisjointEditor, dialogStage, 450.0, 900.0);
 	}
 
 
@@ -742,6 +745,39 @@ public class DisjointFeaturesEditorController implements Initializable {
 		currentFeatureSet.setLanguage(PhraseType.target);
 	}
 	
+//	@Override
+	public void stop() throws IOException {
+		handleClose();
+	}
+
+	@FXML
+	public void handleAddPairing() {
+		System.out.println("add pairing");
+	}
+
+	@FXML
+	public void handleDeletePairing() {
+		System.out.println("delete pairing");
+	}
+
+	@FXML
+	public void handleAddSet() {
+		System.out.println("add set");
+	}
+
+	@FXML
+	public void handleDeleteSet() {
+		System.out.println("delete set");
+	}
+
+	@FXML
+	public void handleClose() {
+		// set any preferences
+		prefs.setLastWindowParameters(sDisjointEditor, dialogStage);
+		System.out.println("handlCancel called");
+		dialogStage.close();
+	}
+
 	/**
 	 * Opens a dialog to show the chooser.
 	 */
