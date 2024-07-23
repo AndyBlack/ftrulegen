@@ -6,12 +6,16 @@
 
 package org.sil.ftrulegen.model;
 
+import java.util.ResourceBundle;
+
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlTransient;
 
 /**
  * @author Andy Black
@@ -21,19 +25,23 @@ public class DisjointFeatureSet {
 
 	private StringProperty name;
 	private StringProperty coFeatureName;
-	private PhraseType language = PhraseType.target;
+	private StringProperty language;
+	private PhraseType ptLanguage = PhraseType.target;
 	private final SimpleListProperty<String> valuesList;
 	private final StringProperty valuesRepresentation;
 	ObservableList<String> valuesAsListOfStrings = FXCollections.observableArrayList();
+	ObservableList<DisjointFeatureValuePairing> pairings = FXCollections.observableArrayList();
+	ResourceBundle bundle;
 
 	public DisjointFeatureSet() {
 		this.name = new SimpleStringProperty("");
+		this.language = new SimpleStringProperty("target");
 		this.coFeatureName = new SimpleStringProperty("");
 		this.valuesList = new SimpleListProperty<String>();
 		this.valuesRepresentation = new SimpleStringProperty("");
 	}
 
-	@XmlAttribute(name = "DisjointName")
+	@XmlAttribute(name = "disjointName")
 	public final String getName() {
 		return name.get();
 	}
@@ -61,13 +69,22 @@ public class DisjointFeatureSet {
 
 	@XmlAttribute(name = "language")
 	public final PhraseType getLanguage() {
-		return language;
+		return ptLanguage;
 	}
 
 	public final void setLanguage(PhraseType value) {
-		language = value;
+		ptLanguage = value;
+		String sLanguage = "target";
+		if (bundle != null) {
+			sLanguage = (value == PhraseType.source) ? bundle.getString("disjoint.source") : bundle
+					.getString("disjoint.target");
+		}
+		language.set(sLanguage);
 	}
 
+	public StringProperty LanguageProperty() {
+		return language;
+	}
 	public SimpleListProperty<String> valuesListProperty() {
 		return valuesList;
 	}
@@ -83,17 +100,29 @@ public class DisjointFeatureSet {
 	public void setValuesRepresentation(String sncRepresentation) {
 		this.valuesRepresentation.set(sncRepresentation);
 	}
-
 	public ObservableList<String> getValuesAsListOfStrings() {
 		return valuesAsListOfStrings;
 	}
+	@XmlElement(name = "DisjointFeatureValuePairings")
+	public ObservableList<DisjointFeatureValuePairing> getDisjointFeatureValuePairings() {
+		return pairings;
+	}
 
-	public void setValuesAsListOfStrings(ObservableList<String> value) {
-		this.valuesAsListOfStrings = value;
+	public void setDisjointFeatureValuePairings(ObservableList<DisjointFeatureValuePairing> value) {
+		this.pairings = value;
 	}
 
 	public SimpleListProperty<String> valuesAsListOfStringsProperty() {
 		return valuesList;
+	}
+
+	@XmlTransient
+	public ResourceBundle getBundle() {
+		return bundle;
+	}
+
+	public void setBundle(ResourceBundle bundle) {
+		this.bundle = bundle;
 	}
 
 }

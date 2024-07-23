@@ -6,6 +6,8 @@
 
 package org.sil.ftrulegen.model;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import jakarta.xml.bind.annotation.XmlAttribute;
 
 /**
@@ -14,26 +16,38 @@ import jakarta.xml.bind.annotation.XmlAttribute;
  */
 public class DisjointFeatureValuePairing {
 
-	private String flexFeatureName = "";
+	private StringProperty flexFeatureName;
+	private StringProperty coFeatureValue;
+
+	public DisjointFeatureValuePairing() {
+		this.flexFeatureName = new SimpleStringProperty("");
+		this.coFeatureValue = new SimpleStringProperty("");
+	}
 
 	@XmlAttribute(name = "flexFeatureName")
 	public final String getFlexFeatureName() {
+		return flexFeatureName.get();
+	}
+
+	public final void setFlexFeatureName(String value) {
+		flexFeatureName.set(value);
+	}
+
+	public StringProperty FLExFeatureNameProperty() {
 		return flexFeatureName;
 	}
 
-	public final void setFlexFeatureNAme(String value) {
-		flexFeatureName = value;
-	}
-
-	private String coFeatureValue = "";
-
 	@XmlAttribute(name = "coFeatureValue")
 	public final String getCoFeatureValue() {
-		return coFeatureValue;
+		return coFeatureValue.get();
 	}
 
 	public final void setCoFeatureValue(String value) {
-		coFeatureValue = value;
+		coFeatureValue.set(value);
+	}
+
+	public StringProperty CoFeatureValueProperty() {
+		return coFeatureValue;
 	}
 
 }
