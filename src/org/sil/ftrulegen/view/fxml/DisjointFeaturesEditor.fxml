@@ -71,7 +71,7 @@
                         <ComboBox fx:id="coFeatureNameComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
-                  <TableView fx:id="disjointFeatureValuePairingTable" layoutX="8.0" layoutY="201.0" prefHeight="153.0" prefWidth="327.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="5.0">
+                  <TableView fx:id="disjointFeatureValuePairingTable" editable="true" layoutX="8.0" layoutY="201.0" prefHeight="153.0" prefWidth="327.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="5.0">
                     <columns>
                       <TableColumn fx:id="flexFeatureNameColumn" prefWidth="199.0" text="%disjoint.flexfeaturename" />
                       <TableColumn fx:id="coFeatureValueColumn" minWidth="4.0" prefWidth="125.0" text="%disjoint.cofeaturevalue" />

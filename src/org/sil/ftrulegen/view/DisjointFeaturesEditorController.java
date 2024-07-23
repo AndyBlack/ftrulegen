@@ -19,6 +19,7 @@ import org.sil.ftrulegen.Constants;
 import org.sil.ftrulegen.Main;
 import org.sil.ftrulegen.flexmodel.FLExData;
 import org.sil.ftrulegen.flexmodel.FLExFeature;
+import org.sil.ftrulegen.flexmodel.FLExFeatureValue;
 import org.sil.ftrulegen.model.DisjointFeatureSet;
 import org.sil.ftrulegen.model.DisjointFeatureValuePairing;
 import org.sil.ftrulegen.model.FLExTransRuleGenerator;
@@ -27,6 +28,8 @@ import org.sil.utility.StringUtilities;
 import org.sil.utility.view.ControllerUtilities;
 
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -36,6 +39,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -129,9 +133,9 @@ public class DisjointFeaturesEditorController implements Initializable {
 	@FXML
 	private TableView<DisjointFeatureValuePairing> disjointFeatureValuePairingTable;
 	@FXML
-	private TableColumn<DisjointFeatureValuePairing, String> flexFeatureNameColumn;
+	private TableColumn<DisjointFeatureValuePairing, StringProperty> flexFeatureNameColumn;
 	@FXML
-	private TableColumn<DisjointFeatureValuePairing, String> coFeatureValueColumn;
+	private TableColumn<DisjointFeatureValuePairing, StringProperty> coFeatureValueColumn;
 
 	ObservableList<DisjointFeatureSet> disjointFeatureSets;
 //	TableView<DisjointFeatureSet> tableView;
@@ -146,7 +150,10 @@ public class DisjointFeaturesEditorController implements Initializable {
 	protected Locale locale;
 	protected Clipboard systemClipboard = Clipboard.getSystemClipboard();
 	protected FLExData flexData;
-	List<String> flexFeatureNames = new ArrayList<String>();
+	List<FLExFeature> flexFeatures = new ArrayList<FLExFeature>();
+	ObservableList<String> flexFeatureNames = FXCollections.observableArrayList();
+	ObservableList<String> flexFeatureMinusCoFeatureNames = FXCollections.observableArrayList();
+	ObservableList<String> flexFeatureValues = FXCollections.observableArrayList();
 
 	public DisjointFeaturesEditorController() {
 
@@ -560,7 +567,7 @@ public class DisjointFeaturesEditorController implements Initializable {
 			   System.out.println(newValue);
 			   if (currentFeatureSet != null)
 				currentFeatureSet.setCoFeatureName(newValue);
-
+				createCoFeatureValues(newValue);
 		});
 		coFeatureNameComboBox.setPromptText(resources.getString("disjoint.cofeaturename"));
 
@@ -569,11 +576,45 @@ public class DisjointFeaturesEditorController implements Initializable {
 		makeColumnHeaderWrappable(pairingsColumn);
 		makeColumnHeaderWrappable(coFeatureColumn);
 
-		flexFeatureNameColumn.setCellValueFactory(cellData -> cellData.getValue().FLExFeatureNameProperty());
-		flexFeatureNameColumn.setCellFactory(ComboBoxTableCell.forTableColumn("one", "two", "three"));
+		flexFeatureNameColumn.setCellValueFactory(cellData -> {
+			final StringProperty value = cellData.getValue().FLExFeatureNameProperty();
+			return Bindings.createObjectBinding(() -> value);
+		});
+		flexFeatureNameColumn.setCellFactory(col -> {
+			TableCell<DisjointFeatureValuePairing, StringProperty> c = new TableCell<>();
+			final ComboBox<String> comboBox = new ComboBox<>(flexFeatureMinusCoFeatureNames);
+			c.itemProperty().addListener((observable, oldValue, newValue) -> {
+				if (oldValue != null) {
+					comboBox.valueProperty().unbindBidirectional(oldValue);
+				}
+				if (newValue != null) {
+					comboBox.valueProperty().bindBidirectional(newValue);
+				}
+			});
+			c.graphicProperty().bind(
+					Bindings.when(c.emptyProperty()).then((Node) null).otherwise(comboBox));
+			return c;
+		});
 
-		coFeatureValueColumn.setCellValueFactory(cellData -> cellData.getValue().CoFeatureValueProperty());
-		coFeatureValueColumn.setCellFactory(ComboBoxTableCell.forTableColumn("sg", "pl"));
+		coFeatureValueColumn.setCellValueFactory(cellData -> {
+			final StringProperty value = cellData.getValue().CoFeatureValueProperty();
+			return Bindings.createObjectBinding(() -> value);
+		});
+		coFeatureValueColumn.setCellFactory(col -> {
+			TableCell<DisjointFeatureValuePairing, StringProperty> c = new TableCell<>();
+			final ComboBox<String> comboBox = new ComboBox<>(flexFeatureValues);
+			c.itemProperty().addListener((observable, oldValue, newValue) -> {
+				if (oldValue != null) {
+					comboBox.valueProperty().unbindBidirectional(oldValue);
+				}
+				if (newValue != null) {
+					comboBox.valueProperty().bindBidirectional(newValue);
+				}
+			});
+			c.graphicProperty().bind(
+					Bindings.when(c.emptyProperty()).then((Node) null).otherwise(comboBox));
+			return c;
+		});
 
 		// Clear details.
 		showFeaturesSetDetails(null);
@@ -599,6 +640,18 @@ public class DisjointFeaturesEditorController implements Initializable {
 
 		nameField.requestFocus();
 
+	}
+
+	protected void createCoFeatureValues(String featureName) {
+		flexFeatureValues.clear();
+		for (FLExFeature ff : flexFeatures) {
+			if (ff.getName().equals(currentFeatureSet.getCoFeatureName())) {
+				for (FLExFeatureValue val : ff.getValues()) {
+					flexFeatureValues.add(val.getAbbreviation());
+				}
+				break;
+			}
+		}
 	}
 
 	public void setViewItemUsed(int value) {
@@ -640,7 +693,8 @@ public class DisjointFeaturesEditorController implements Initializable {
 
 	private void createFLExFeatureNames(DisjointFeatureSet featureSet) {
 		flexFeatureNames.clear();
-		List<FLExFeature> flexFeatures = new ArrayList<FLExFeature>();
+		flexFeatureMinusCoFeatureNames.clear();
+		flexFeatures.clear();
 		if (featureSet != null) {
 			// Fill the text fields with info from the featureSet object.
 			if (featureSet.getLanguage() == PhraseType.target) {
@@ -650,6 +704,9 @@ public class DisjointFeaturesEditorController implements Initializable {
 			}
 			for (FLExFeature ff : flexFeatures) {
 				flexFeatureNames.add(ff.getName());
+				if (!ff.getName().equals(currentFeatureSet.getCoFeatureName())) {
+					flexFeatureMinusCoFeatureNames.add(ff.getName());
+				}
 			}
 			coFeatureNameComboBox.getItems().setAll(flexFeatureNames);
 			coFeatureNameComboBox.getSelectionModel().select(featureSet.getCoFeatureName());
@@ -693,6 +750,7 @@ public class DisjointFeaturesEditorController implements Initializable {
 	public void setFeatureSet(DisjointFeatureSet featureSet) {
 		nameField.setText(featureSet.getName());
 		coFeatureNameComboBox.getSelectionModel().select(featureSet.getCoFeatureName());
+		disjointFeatureValuePairingTable.getItems().addAll(featureSet.getDisjointFeatureValuePairings());
 	}
 
 	/**
@@ -734,6 +792,7 @@ public class DisjointFeaturesEditorController implements Initializable {
 				}
 			});
 		}
+		disjointFeatureValuePairingTable.setItems(currentFeatureSet.getDisjointFeatureValuePairings());
 	}
 
 	public void setDialogStage(Stage value) {
