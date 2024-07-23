@@ -21,7 +21,6 @@ import org.sil.ftrulegen.flexmodel.FLExData;
 import org.sil.ftrulegen.flexmodel.FLExFeature;
 import org.sil.ftrulegen.model.DisjointFeatureSet;
 import org.sil.ftrulegen.model.DisjointFeatureValuePairing;
-import org.sil.ftrulegen.model.DisjointFeatures;
 import org.sil.ftrulegen.model.FLExTransRuleGenerator;
 import org.sil.ftrulegen.model.PhraseType;
 import org.sil.utility.StringUtilities;
@@ -134,7 +133,7 @@ public class DisjointFeaturesEditorController implements Initializable {
 	@FXML
 	private TableColumn<DisjointFeatureValuePairing, String> coFeatureValueColumn;
 
-	ObservableList<DisjointFeatureSet> list;
+	ObservableList<DisjointFeatureSet> disjointFeatureSets;
 //	TableView<DisjointFeatureSet> tableView;
 	protected String sDisjointEditor = ApplicationPreferences.DISJOINT_FEATURE_EDITOR;
 	protected  ApplicationPreferences prefs;
@@ -146,7 +145,6 @@ public class DisjointFeaturesEditorController implements Initializable {
 	protected ResourceBundle bundle;
 	protected Locale locale;
 	protected Clipboard systemClipboard = Clipboard.getSystemClipboard();
-	protected DisjointFeatures disjointFeatures;
 	protected FLExData flexData;
 	List<String> flexFeatureNames = new ArrayList<String>();
 
@@ -702,22 +700,23 @@ public class DisjointFeaturesEditorController implements Initializable {
 	 * @param approachType = which approach invoked this
 	 * @param cvApproachController = CV data
 	 */
-	public void setData(DisjointFeatures disjointFeatures, FLExData flexData) {
+	public void setData(ObservableList<DisjointFeatureSet> disjointFeatureSets, FLExData flexData) {
 		this.flexData = flexData;
-		this.disjointFeatures = disjointFeatures;
-		if (disjointFeatures.getDisjointFeatureSets().size() == 0) {
+		this.disjointFeatureSets = disjointFeatureSets;
+		if (disjointFeatureSets.size() == 0) {
 			currentFeatureSet = new DisjointFeatureSet();
-			disjointFeatures.getDisjointFeatureSets().add(currentFeatureSet);
+			disjointFeatureSets.add(currentFeatureSet);
 			DisjointFeatureValuePairing one = new DisjointFeatureValuePairing();
 			DisjointFeatureValuePairing two = new DisjointFeatureValuePairing();
+			currentFeatureSet.getDisjointFeatureValuePairings().addAll(one, two);
 			disjointFeatureValuePairingTable.getItems().addAll(one, two);
 		}
-		currentFeatureSet = disjointFeatures.getDisjointFeatureSets().get(0);
+		currentFeatureSet = disjointFeatureSets.get(0);
 		currentFeatureSet.setBundle(bundle);
 		// following is used to ensure the language column starts out with the correct value
 		currentFeatureSet.setLanguage(currentFeatureSet.getLanguage());
 		// Add observable list data to the table
-		disjointFeaturesTable.setItems(disjointFeatures.getDisjointFeatureSets());
+		disjointFeaturesTable.setItems(disjointFeatureSets);
 		int max = disjointFeaturesTable.getItems().size();
 		if (max > 0) {
 			Platform.runLater(new Runnable() {
@@ -746,20 +745,20 @@ public class DisjointFeaturesEditorController implements Initializable {
 
 	void handleInsertNewItem() {
 		DisjointFeatureSet newDisjointFeatureSet = new DisjointFeatureSet();
-		disjointFeatures.getDisjointFeatureSets().add(newDisjointFeatureSet);
-		handleInsertNewItem(disjointFeatures.getDisjointFeatureSets(), disjointFeaturesTable);
+		disjointFeatureSets.add(newDisjointFeatureSet);
+		handleInsertNewItem(disjointFeatureSets, disjointFeaturesTable);
 	}
 
 	void handleRemoveItem() {
-		handleRemoveItem(disjointFeatures.getDisjointFeatureSets(), currentFeatureSet, disjointFeaturesTable);
+		handleRemoveItem(disjointFeatureSets, currentFeatureSet, disjointFeaturesTable);
 	}
 
 	void handlePreviousItem() {
-		handlePreviousItem(disjointFeatures.getDisjointFeatureSets(), currentFeatureSet, disjointFeaturesTable);
+		handlePreviousItem(disjointFeatureSets, currentFeatureSet, disjointFeaturesTable);
 	}
 
 	void handleNextItem() {
-		handleNextItem(disjointFeatures.getDisjointFeatureSets(), currentFeatureSet, disjointFeaturesTable);
+		handleNextItem(disjointFeatureSets, currentFeatureSet, disjointFeaturesTable);
 	}
 
 	@FXML

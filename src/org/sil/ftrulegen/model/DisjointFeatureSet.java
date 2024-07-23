@@ -15,6 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlTransient;
 
 /**
@@ -89,6 +90,7 @@ public class DisjointFeatureSet {
 		return valuesList;
 	}
 
+	@XmlTransient
 	public String getValuesRepresentation() {
 		return valuesRepresentation.get();
 	}
@@ -103,7 +105,8 @@ public class DisjointFeatureSet {
 	public ObservableList<String> getValuesAsListOfStrings() {
 		return valuesAsListOfStrings;
 	}
-	@XmlElement(name = "DisjointFeatureValuePairings")
+	@XmlElementWrapper(name = "DisjointFeatureValuePairings")
+	@XmlElement(name = "DisjointFeatureValuePairing")
 	public ObservableList<DisjointFeatureValuePairing> getDisjointFeatureValuePairings() {
 		return pairings;
 	}
