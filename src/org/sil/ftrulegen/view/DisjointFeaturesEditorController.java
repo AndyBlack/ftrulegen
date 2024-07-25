@@ -762,20 +762,20 @@ public class DisjointFeaturesEditorController implements Initializable {
 	}
 
 	private void showPairingsDetails(DisjointFeatureValuePairing pairing) {
-		Platform.runLater(new Runnable() {
-			@Override
-			public void run() {
-				System.out.println("\nshowPairingsDetails pairing=" + pairing);
-				if (pairing != null) {
-					System.out.println("\tFLEx feature=" + pairing.getFlexFeatureName());
-					System.out.println("\tco feature value=" + pairing.getCoFeatureValue());
-				} else {
-					// pairing is null, remove all the text.
-					System.out.println("\tpairing is null");
-				}
-			}
-		});
-
+		// this is a no-op, at least for now
+//		Platform.runLater(new Runnable() {
+//			@Override
+//			public void run() {
+//				System.out.println("\nshowPairingsDetails pairing=" + pairing);
+//				if (pairing != null) {
+//					System.out.println("\tFLEx feature=" + pairing.getFlexFeatureName());
+//					System.out.println("\tco feature value=" + pairing.getCoFeatureValue());
+//				} else {
+//					// pairing is null, remove all the text.
+//					System.out.println("\tpairing is null");
+//				}
+//			}
+//		});
 	}
 
 	private void createFLExFeatureNames(DisjointFeatureSet featureSet) {
@@ -969,7 +969,17 @@ public class DisjointFeaturesEditorController implements Initializable {
 
 	@FXML
 	public void handleDeletePairing() {
-		System.out.println("delete pairing");
+		if (currentFeatureSet != null) {
+			if (currentFeatureSet.getDisjointFeatureValuePairings().size() > 2) {
+				int index = disjointFeatureValuePairingTable.getSelectionModel().getSelectedIndex();
+				if (index > -1) {
+					if (currentFeatureSet != null) {
+						setPairingsMapping.remove(currentFeatureSet);
+					}
+					currentFeatureSet.getDisjointFeatureValuePairings().remove(index);
+				}
+			}
+		}
 	}
 
 	@FXML
