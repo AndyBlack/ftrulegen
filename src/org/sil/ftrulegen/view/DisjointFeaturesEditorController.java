@@ -158,6 +158,7 @@ public class DisjointFeaturesEditorController implements Initializable {
 	ObservableList<String> flexFeatureMinusCoFeatureNames = FXCollections.observableArrayList();
 	ObservableList<String> flexFeatureValues = FXCollections.observableArrayList();
 	HashMap<DisjointFeatureSet, ObservableList<DisjointFeatureValuePairing>> setPairingsMapping = new HashMap<>();
+	final int minimumPairings = 2;
 
 	public DisjointFeaturesEditorController() {
 
@@ -744,6 +745,7 @@ public class DisjointFeaturesEditorController implements Initializable {
 					nameField.setText("");
 					coFeatureNameComboBox.getSelectionModel().select("??");
 				}
+				enableDisableButtons();
 			}
 		});
 	}
@@ -803,6 +805,19 @@ public class DisjointFeaturesEditorController implements Initializable {
 
 			}
 		});
+	}
+
+	protected void enableDisableButtons() {
+		if (disjointFeaturesTable.getItems().size() > 0) {
+			deleteSetButton.setDisable(false);
+		} else {
+			deleteSetButton.setDisable(true);
+		}
+		if (disjointFeatureValuePairingTable.getItems().size() > minimumPairings) {
+			deletePairingButton.setDisable(false);
+		} else {
+			deletePairingButton.setDisable(true);
+		}
 	}
 
 	protected void fillSncTextFlow(StringBuilder sb,
@@ -963,6 +978,7 @@ public class DisjointFeaturesEditorController implements Initializable {
 				if (sCoFeature.length() > 0) {
 					createCoFeatureValues(sCoFeature);
 				}
+				enableDisableButtons();
 			}
 		});
 	}
@@ -970,7 +986,7 @@ public class DisjointFeaturesEditorController implements Initializable {
 	@FXML
 	public void handleDeletePairing() {
 		if (currentFeatureSet != null) {
-			if (currentFeatureSet.getDisjointFeatureValuePairings().size() > 2) {
+			if (currentFeatureSet.getDisjointFeatureValuePairings().size() > minimumPairings) {
 				int index = disjointFeatureValuePairingTable.getSelectionModel().getSelectedIndex();
 				if (index > -1) {
 					if (currentFeatureSet != null) {
@@ -980,6 +996,7 @@ public class DisjointFeaturesEditorController implements Initializable {
 				}
 			}
 		}
+		enableDisableButtons();
 	}
 
 	@FXML
