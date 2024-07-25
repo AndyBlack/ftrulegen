@@ -103,6 +103,17 @@ public class DisjointFeatureSet {
 		this.valuesRepresentation.set(sncRepresentation);
 	}
 	public ObservableList<String> getValuesAsListOfStrings() {
+		valuesAsListOfStrings.clear();
+		StringBuilder sb = new StringBuilder();
+		for (DisjointFeatureValuePairing pairing : pairings) {
+			sb.append(pairing.getFlexFeatureName());
+			sb.append(" / ");
+			sb.append(pairing.getCoFeatureValue());
+			if (pairings.indexOf(pairing) < pairings.size()-1) {
+				sb.append("\n");
+			}
+		}
+		valuesAsListOfStrings.add(sb.toString());
 		return valuesAsListOfStrings;
 	}
 	@XmlElementWrapper(name = "DisjointFeatureValuePairings")

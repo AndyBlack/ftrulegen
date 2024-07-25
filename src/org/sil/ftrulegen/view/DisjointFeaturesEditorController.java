@@ -105,8 +105,8 @@ public class DisjointFeaturesEditorController implements Initializable {
 	private TableColumn<DisjointFeatureSet, String> nameColumn;
 	@FXML
 	private TableColumn<DisjointFeatureSet, String> coFeatureColumn;
-	@FXML
-	private TableColumn<DisjointFeatureSet, String> pairingsColumn;
+//	@FXML
+//	private TableColumn<DisjointFeatureSet, String> pairingsColumn;
 	@FXML
 	private TableColumn<DisjointFeatureSet, String> languageColumn;
 
@@ -526,8 +526,8 @@ public class DisjointFeaturesEditorController implements Initializable {
 			cellData.getValue().LanguageProperty().set(sLanguage);
 			return cellData.getValue().LanguageProperty();
 		});
-		pairingsColumn.setCellValueFactory(cellData -> cellData.getValue()
-				.valuesRepresentationProperty());
+//		pairingsColumn.setCellValueFactory(cellData -> cellData.getValue()
+//				.valuesRepresentationProperty());
 		coFeatureColumn
 				.setCellValueFactory(cellData -> cellData.getValue().CoFeatureNameProperty());
 
@@ -536,38 +536,40 @@ public class DisjointFeaturesEditorController implements Initializable {
 //			return new AnalysisWrappingTableCell();
 //		});
 
-		pairingsColumn.setCellFactory(column -> {
-			return new TableCell<DisjointFeatureSet, String>() {
-				// We override computePrefHeight because by default, the graphic's height
-				// gets set to the height of all items in the TextFlow as if none of them
-				// wrapped.  So for now, we're doing this hack.
-				@Override
-				protected double computePrefHeight(double width) {
-					Object g = getGraphic();
-					if (g instanceof TextFlow) {
-						return guessPrefHeight(g, column.widthProperty().get());
-					}
-					return super.computePrefHeight(-1);
-				}
-
-				@Override
-				protected void updateItem(String item, boolean empty) {
-					super.updateItem(item, empty);
-					DisjointFeatureSet nc = ((DisjointFeatureSet) getTableRow().getItem());
-					if (item == null || empty || nc == null) {
-						setGraphic(null);
-						setText(null);
-						setStyle("");
-					} else {
-						setGraphic(null);
-						TextFlow tf = new TextFlow();
-						tf = buildTextFlow(nc.getValuesAsListOfStrings());
-						setGraphic(tf);
-						setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-					}
-				}
-			};
-		});
+		// going to ignore pairing column for now
+//		pairingsColumn.setCellFactory(column -> {
+//			return new TableCell<DisjointFeatureSet, String>() {
+//				// We override computePrefHeight because by default, the graphic's height
+//				// gets set to the height of all items in the TextFlow as if none of them
+//				// wrapped.  So for now, we're doing this hack.
+//				@Override
+//				protected double computePrefHeight(double width) {
+//					Object g = getGraphic();
+//					if (g instanceof TextFlow) {
+//						return guessPrefHeight(g, column.widthProperty().get());
+//					}
+//					return super.computePrefHeight(-1);
+//				}
+//
+//				@Override
+//				protected void updateItem(String item, boolean empty) {
+//					super.updateItem(item, empty);
+//					DisjointFeatureSet nc = ((DisjointFeatureSet) getTableRow().getItem());
+//					if (item == null || empty || nc == null) {
+//						setGraphic(null);
+//						setText(null);
+//						setStyle("");
+//					} else {
+//						setGraphic(null);
+//						TextFlow tf = new TextFlow();
+//						tf = buildTextFlow(nc.getValuesAsListOfStrings());
+//						setGraphic(tf);
+//						setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+//						nc.setValuesRepresentation(tf.toString());
+//					}
+//				}
+//			};
+//		});
 
 //		featureColumn.setCellFactory(column -> {
 //			return new AnalysisWrappingTableCell();
@@ -591,7 +593,7 @@ public class DisjointFeaturesEditorController implements Initializable {
 
 		makeColumnHeaderWrappable(nameColumn);
 		makeColumnHeaderWrappable(languageColumn);
-		makeColumnHeaderWrappable(pairingsColumn);
+//		makeColumnHeaderWrappable(pairingsColumn);
 		makeColumnHeaderWrappable(coFeatureColumn);
 
 		flexFeatureNameColumn.setCellValueFactory(cellData -> {

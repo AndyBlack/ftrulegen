@@ -31,7 +31,7 @@
                       <TableColumn fx:id="nameColumn" prefWidth="76.0" text="%disjoint.name" />
                       <TableColumn fx:id="languageColumn" prefWidth="90.0" text="%disjoint.language" />
                       <TableColumn fx:id="coFeatureColumn" prefWidth="120.0" text="%disjoint.cofeaturename" />
-                      <TableColumn fx:id="pairingsColumn" prefWidth="231.0" text="%disjoint.pairings" />
+<!--                        <TableColumn fx:id="pairingsColumn" prefWidth="231.0" text="%disjoint.pairings" /> -->
                      </columns>
                   </TableView>
                   <ButtonBar layoutX="14.0" layoutY="355.0" prefHeight="40.0" prefWidth="291.0" AnchorPane.bottomAnchor="0.0">
