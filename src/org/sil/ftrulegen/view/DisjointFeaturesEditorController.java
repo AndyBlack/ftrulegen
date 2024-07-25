@@ -668,9 +668,11 @@ public class DisjointFeaturesEditorController implements Initializable {
 	}
 
 	protected boolean featureSetPairingsAreNull(DisjointFeatureSet featureSet) {
-		for (DisjointFeatureValuePairing pairing : featureSet.getDisjointFeatureValuePairings()) {
-			if (pairing == null || pairing.getFlexFeatureName() == null || pairing.getCoFeatureValue() == null) {
-				return true;
+		if (featureSet != null) {
+			for (DisjointFeatureValuePairing pairing : featureSet.getDisjointFeatureValuePairings()) {
+				if (pairing == null || pairing.getFlexFeatureName() == null || pairing.getCoFeatureValue() == null) {
+					return true;
+				}
 			}
 		}
 		return false;
@@ -960,9 +962,10 @@ public class DisjointFeaturesEditorController implements Initializable {
 	@FXML
 	public void handleDeleteSet() {
 		int index = disjointFeaturesTable.getSelectionModel().getSelectedIndex();
-		if (index > 0) {
+		if (index > -1) {
 			disjointFeatureSets.remove(index);
-			selectFeatureSetInTableByIndex(index - 1);
+			if (index > 0)
+				selectFeatureSetInTableByIndex(index - 1);
 		}
 		showFeatureSetDetails(currentFeatureSet);
 	}
