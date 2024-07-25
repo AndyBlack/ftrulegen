@@ -711,6 +711,7 @@ public class DisjointFeaturesEditorController implements Initializable {
 	 *            the segment or null
 	 */
 	private void showFeatureSetDetails(DisjointFeatureSet featureSet) {
+		rememberFeatureSetPairings(currentFeatureSet);
 		currentFeatureSet = featureSet;
 		Platform.runLater(new Runnable() {
 			@Override
@@ -728,14 +729,7 @@ public class DisjointFeaturesEditorController implements Initializable {
 					// For some reason, the pairings values can get nulled out;
 					// We work around this by creating a map containing the good values
 					if (!featureSetPairingsAreNull(featureSet)) {
-						ObservableList<DisjointFeatureValuePairing> rememberList = FXCollections.observableArrayList();
-						for (DisjointFeatureValuePairing pairing : featureSet.getDisjointFeatureValuePairings()) {
-							DisjointFeatureValuePairing newPairing = new DisjointFeatureValuePairing();
-							newPairing.setFlexFeatureName(pairing.getFlexFeatureName());
-							newPairing.setCoFeatureValue(pairing.getCoFeatureValue());
-							rememberList.add(newPairing);
-						}
-						setPairingsMapping.put(featureSet, rememberList);
+						rememberFeatureSetPairings(featureSet);
 					} else {
 						retoreFeatureSetPairings(featureSet);
 					}
@@ -751,8 +745,20 @@ public class DisjointFeaturesEditorController implements Initializable {
 					coFeatureNameComboBox.getSelectionModel().select("??");
 				}
 			}
-
 		});
+	}
+
+	protected void rememberFeatureSetPairings(DisjointFeatureSet featureSet) {
+		if (featureSet != null) {
+			ObservableList<DisjointFeatureValuePairing> rememberList = FXCollections.observableArrayList();
+			for (DisjointFeatureValuePairing pairing : featureSet.getDisjointFeatureValuePairings()) {
+				DisjointFeatureValuePairing newPairing = new DisjointFeatureValuePairing();
+				newPairing.setFlexFeatureName(pairing.getFlexFeatureName());
+				newPairing.setCoFeatureValue(pairing.getCoFeatureValue());
+				rememberList.add(newPairing);
+			}
+			setPairingsMapping.put(featureSet, rememberList);
+		}
 	}
 
 	private void showPairingsDetails(DisjointFeatureValuePairing pairing) {
@@ -963,6 +969,9 @@ public class DisjointFeaturesEditorController implements Initializable {
 	public void handleDeleteSet() {
 		int index = disjointFeaturesTable.getSelectionModel().getSelectedIndex();
 		if (index > -1) {
+			if (currentFeatureSet != null) {
+				setPairingsMapping.remove(currentFeatureSet);
+			}
 			disjointFeatureSets.remove(index);
 			if (index > 0)
 				selectFeatureSetInTableByIndex(index - 1);
