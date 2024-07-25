@@ -31,6 +31,7 @@ import org.sil.ftrulegen.flexmodel.FLExFeatureValue;
 import org.sil.ftrulegen.model.Affix;
 import org.sil.ftrulegen.model.AffixType;
 import org.sil.ftrulegen.model.Category;
+import org.sil.ftrulegen.model.DisjointFeatureSet;
 import org.sil.ftrulegen.model.FLExTransRule;
 import org.sil.ftrulegen.model.FLExTransRuleGenerator;
 import org.sil.ftrulegen.model.Feature;
@@ -988,10 +989,24 @@ public class MainController implements Initializable {
 							.getFeaturesInUseForCategory(flexData.getFLExCategoriesForPhrase(phrase.getType()), cat);
 					List<FLExFeature> featuresToShow = new ArrayList<FLExFeature>();
 					featuresToShow.addAll(featuresInUse);
+					addAnyDisjointFeatures(featuresToShow);
 					featuresToShow.addAll(flexData.getFeaturesInPhraseForCategory(phrase.getType(), cat));
 					launchFLExFeatureValueChooser(featuresToShow, bundle, inserting, false);
 //				}
 			}
+		}
+	}
+
+	protected void addAnyDisjointFeatures(List<FLExFeature> featuresToShow) {
+		for (DisjointFeatureSet dfSet : generator.getDisjointFeatures()) {
+			FLExFeature ff  = new FLExFeature();
+			ff.setName(dfSet.getName());
+			for (int i = 0; i < maxVariables && i < Constants.GREEK_VARIABLES.length; i++) {
+				FLExFeatureValue variableValue = new FLExFeatureValue(Constants.GREEK_VARIABLES[i]);
+				variableValue.setFeature(ff);
+				ff.getValues().add(variableValue);
+			}
+			featuresToShow.add(ff);
 		}
 	}
 
