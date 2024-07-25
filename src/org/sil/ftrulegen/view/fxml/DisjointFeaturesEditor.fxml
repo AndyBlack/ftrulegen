@@ -78,9 +78,9 @@
                     </columns>
                   </TableView>
                   <Label layoutX="7.0" layoutY="171.0" text="%disjoint.pairings" />
-                  <ButtonBar layoutX="135.0" layoutY="354.0" prefHeight="40.0" prefWidth="327.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                  <ButtonBar layoutX="135.0" layoutY="354.0" prefHeight="40.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                     <buttons>
-                      <Button fx:id="addPairingButton" mnemonicParsing="false" onAction="#handleAddPairing" text="%disjoint.addnewpairing" />
+                      <Button fx:id="addPairingButton" mnemonicParsing="false" onAction="#handleAddPairing" prefHeight="25.0" text="%disjoint.addnewpairing" />
                         <Button fx:id="deletePairingButton" mnemonicParsing="false" onAction="#handleDeletePairing" text="%disjoint.deletepairing" />
                         <Button fx:id="closeButton" mnemonicParsing="false" onAction="#handleClose" text="%disjoint.close" />
                     </buttons>
