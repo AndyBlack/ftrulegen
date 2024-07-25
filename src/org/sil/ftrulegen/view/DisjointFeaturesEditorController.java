@@ -952,7 +952,19 @@ public class DisjointFeaturesEditorController implements Initializable {
 
 	@FXML
 	public void handleAddPairing() {
-		System.out.println("add pairing");
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				DisjointFeatureValuePairing newPairing = new DisjointFeatureValuePairing();
+				currentFeatureSet.getDisjointFeatureValuePairings().add(newPairing);
+				disjointFeatureValuePairingTable.setItems(currentFeatureSet
+						.getDisjointFeatureValuePairings());
+				String sCoFeature = currentFeatureSet.getCoFeatureName();
+				if (sCoFeature.length() > 0) {
+					createCoFeatureValues(sCoFeature);
+				}
+			}
+		});
 	}
 
 	@FXML
