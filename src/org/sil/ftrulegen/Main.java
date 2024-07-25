@@ -82,8 +82,8 @@ public class Main extends Application implements MainAppUtilities {
 				controller.setStage(primaryStage);
 				controller.setRuleGenFile(arguments[0]);
 				controller.setFLexDataFile(arguments[1]);
-				controller.loadDataFiles();
 				controller.setMaxVariables(maxVariables);
+				controller.loadDataFiles();
 				controller.setFLExTransImage(flexTransImage);
 				controller.setWebPageFile(workingFilesPath.toString() + File.separatorChar + Constants.HTML_FILE_NAME);
 				controller.setWebPageFileUri(Paths.get(workingFilesPath.toString()).toUri().toString() + "/" + Constants.HTML_FILE_NAME);
