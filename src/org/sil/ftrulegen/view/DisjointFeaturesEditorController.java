@@ -519,7 +519,13 @@ public class DisjointFeaturesEditorController implements Initializable {
 		});
 
 		nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-		languageColumn.setCellValueFactory(cellData -> cellData.getValue().LanguageProperty());
+		languageColumn.setCellValueFactory(cellData -> {
+			PhraseType ptLanguage = cellData.getValue().getLanguage();
+			String sLanguage = (ptLanguage == PhraseType.source) ? bundle.getString("disjoint.source") : bundle
+					.getString("disjoint.target");
+			cellData.getValue().LanguageProperty().set(sLanguage);
+			return cellData.getValue().LanguageProperty();
+		});
 		pairingsColumn.setCellValueFactory(cellData -> cellData.getValue()
 				.valuesRepresentationProperty());
 		coFeatureColumn
