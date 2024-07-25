@@ -892,7 +892,7 @@ public class MainController implements Initializable {
 //			controller.selectFLExFeatureValue(feature);
 			Scene scene = new Scene(pane);
 			dialogStage.setScene(scene);
-			dialogStage.setTitle(loader.getResources().getString("chooser.FeatureValueTitle"));
+			dialogStage.setTitle(loader.getResources().getString("disjoint.title"));
 			dialogStage.getIcons().add(ControllerUtilities.getIconImageFromURL(Constants.APPLICATION_ICON_RESOURCE,
 					Constants.RESOURCE_SOURCE_LOCATION));
 			dialogStage.showAndWait();
