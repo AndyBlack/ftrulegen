@@ -21,9 +21,9 @@ type="tRuleGen"
 ><emailAddress
 >blackhandrew@gmail.com</emailAddress
 ><date
->17 July, 2024</date
+>26 July, 2024</date
 ><version
->Version 0.20.0 Beta</version
+>Version 0.21.0 Beta</version
 ><version
 >Copyright © 2023-2024 SIL International</version
 ><contents
@@ -159,7 +159,15 @@ id="nCreateAll"
 ><p
 >The “Help” button is used to get this user documentation file or to show the “About” dialog box.</p
 ><p
->Whenever you use eit</p
+>Whenever you use either the “Save &amp; Create” or “Save &amp; Create All” buttons, <object
+type="tRuleGen"
+></object
+> will close.</p
+><p
+>Under the list of rules is a button labeled “Set disjoint gender features.”  This is for a special case.  See section <sectionRef
+sec="sDisjointFeatureSets"
+></sectionRef
+>.</p
 ></section2
 ></section1
 ><section1
@@ -490,6 +498,53 @@ type="tFLExTrans"
 ></section2
 ></section1
 ><section1
+id="sDisjointFeatureSets"
+><secTitle
+>Disjoint gender features</secTitle
+><p
+>In rare cases, you may need to use what we are calling “disjoint features.”  Some <object
+type="tFLEx"
+></object
+> users implementing Bantu languages split the set of gender features into at least two sets.  One set corresponds to the gender noun classes which also are marked as singular in number and the other set corresponds to the gender noun classes which are also marked as plural in number.  When writing a rule via the <object
+type="tRuleGen"
+></object
+>, the idea is to use a name that will cover both of these sets.  Example <exampleRef
+letter="xFeatureSetEditor"
+num="xFeatureSetEditor"
+></exampleRef
+> shows what you might do for a case like this.</p
+><example
+num="xFeatureSetEditor"
+><chart
+><img
+src="Resources/DisjointGenderFaturesEditor.png"
+></img
+></chart
+></example
+><p
+>The name that will be used in features in rules is in the “Name” field.</p
+><p
+>You can set this for either the source or the target language via the “Language” radio buttons.  </p
+><p
+>The “Co-feature name” combo box lists all the features available in this language.  You select the one that is common to each set of disjoint features.  In this Bantu case, this is the “number” feature.  </p
+><p
+>Below this is a table containing pairs of a FLEx feature and a value for this “co-feature” specified in the combo box.  As you can see in example <exampleRef
+letter="xFeatureSetEditor"
+num="xFeatureSetEditor"
+></exampleRef
+>, in this FLEx project, the noun class gender feature has been split into two features: “Bantu1 singular” and “Bantu2 plural.”<endnote
+id="nBantu1AndBantu2"
+><p
+>The “1” and the “2” are used merely for sorting purposes.  This enables the singular to appear before the plural.</p
+></endnote
+> Notice that the singular disjoint feature uses the “sg” value of the “number” feature while the plural disjoint feature uses the ”pl” value of the “number” feature.  This information enables the <object
+type="tRuleGen"
+></object
+> to create appropriate transfer rules using the “BantuNounClass” cover term.</p
+><p
+>Whenever you have one of these disjoint feature sets defined and are choosing a feature to use in a word or affix, the name of the disjoint feature set will be listed in the possible feature values.  You can then choose it as part of the rule like you would any other normal (non-disjoint) feature.  In this example, you would see features like “BantuNounClass:α” and “BantuNounClass:β” in the list.</p
+></section1
+><section1
 id="sRemembering"
 ><secTitle
 >Restarting <object
@@ -526,7 +581,7 @@ type="tRuleGen"
 ><object
 type="tRuleGen"
 ></object
-> only works on WIndows.</li
+> only works on Windows.</li
 ><li
 >The user interface is in English only (but can potentially be translated into other languages).</li
 ></ol
