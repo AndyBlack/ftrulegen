@@ -2,6 +2,7 @@
 <!DOCTYPE FLExTransRuleGenerator PUBLIC " -//XMLmind//DTD FLExTransRuleGenerator//EN"
 "FLExTransRuleGenerator.dtd">
 <FLExTransRuleGenerator>
+    <DisjointFeatureSets/>
     <FLExTransRules>
         <FLExTransRule name="Indefinite - Adjective - Noun" create_permutations="no">
             <Description>Ensure indefinite article and adjective gets gender and number of head noun.</Description>

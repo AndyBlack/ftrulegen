@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='utf-8'?>
+<FLExData>
+  <SourceData name="English-BYU-FlexTrans-RA">
+    <Categories>
+      <FLExCategory abbr="adj" />
+      <FLExCategory abbr="adv" />
+      <FLExCategory abbr="art" />
+      <FLExCategory abbr="aux" />
+      <FLExCategory abbr="conn" />
+      <FLExCategory abbr="def" />
+      <FLExCategory abbr="dem" />
+      <FLExCategory abbr="interj" />
+      <FLExCategory abbr="interrog" />
+      <FLExCategory abbr="n">
+        <ValidFeatures>
+          <ValidFeature name="case" type="prefix|suffix" />
+          <ValidFeature name="gender" type="prefix|stem|suffix" />
+          <ValidFeature name="number" type="prefix|suffix" />
+        </ValidFeatures>
+      </FLExCategory>
+      <FLExCategory abbr="neg" />
+      <FLExCategory abbr="nprop" />
+      <FLExCategory abbr="num" />
+      <FLExCategory abbr="ordnum" />
+      <FLExCategory abbr="poss" />
+      <FLExCategory abbr="prep" />
+      <FLExCategory abbr="pro" />
+      <FLExCategory abbr="pro-form" />
+      <FLExCategory abbr="rel" />
+      <FLExCategory abbr="to" />
+      <FLExCategory abbr="v" />
+    </Categories>
+    <Features>
+      <FLExFeature name="absolute tense">
+        <Values>
+          <FLExFeatureValue abbr="PRS" />
+          <FLExFeatureValue abbr="PST" />
+          <FLExFeatureValue abbr="PSTPAR" />
+        </Values>
+      </FLExFeature>
+      <FLExFeature name="case">
+        <Values>
+          <FLExFeatureValue abbr="acc" />
+          <FLExFeatureValue abbr="dat" />
+          <FLExFeatureValue abbr="gen" />
+          <FLExFeatureValue abbr="nom" />
+        </Values>
+      </FLExFeature>
+      <FLExFeature name="gender">
+        <Values>
+          <FLExFeatureValue abbr="f" />
+          <FLExFeatureValue abbr="m" />
+          <FLExFeatureValue abbr="n" />
+          <FLExFeatureValue abbr="x" />
+        </Values>
+      </FLExFeature>
+      <FLExFeature name="number">
+        <Values>
+          <FLExFeatureValue abbr="pl" />
+          <FLExFeatureValue abbr="sg" />
+        </Values>
+      </FLExFeature>
+      <FLExFeature name="person">
+        <Values>
+          <FLExFeatureValue abbr="1" />
+          <FLExFeatureValue abbr="2" />
+          <FLExFeatureValue abbr="3" />
+        </Values>
+      </FLExFeature>
+    </Features>
+  </SourceData>
+  <TargetData name="German-FLExTrans-RA">
+    <Categories>
+      <FLExCategory abbr="adj">
+        <ValidFeatures>
+<!--          <ValidFeature name="case" type="prefix|suffix" /> -->
+          <ValidFeature name="gender" type="prefix|suffix" />
+          <ValidFeature name="number" type="prefix|suffix" />
+          <ValidFeature name="Bantu1 singular" type="prefix" />
+          <ValidFeature name="Bantu2 plural" type="prefix" />
+        </ValidFeatures>
+      </FLExCategory>
+      <FLExCategory abbr="adv" />
+      <FLExCategory abbr="def">
+        <ValidFeatures>
+          <ValidFeature name="case" type="prefix|stem|suffix" />
+          <ValidFeature name="gender" type="prefix|stem|suffix" />
+          <ValidFeature name="number" type="prefix|stem|suffix" />
+        </ValidFeatures>
+      </FLExCategory>
+      <FLExCategory abbr="n">
+        <ValidFeatures>
+          <ValidFeature name="case" type="prefix|suffix" />
+          <ValidFeature name="gender" type="prefix|stem|suffix" />
+          <ValidFeature name="number" type="prefix|stem|suffix" />
+          <ValidFeature name="Bantu1 singular" type="prefix" />
+          <ValidFeature name="Bantu2 plural" type="prefix" />
+        </ValidFeatures>
+      </FLExCategory>
+      <FLExCategory abbr="nprop" />
+      <FLExCategory abbr="pro" />
+      <FLExCategory abbr="pro-form" />
+      <FLExCategory abbr="v" />
+    </Categories>
+    <Features>
+      <FLExFeature name="Bantu1 singular">
+        <Values>
+          <FLExFeatureValue abbr="1" />
+          <FLExFeatureValue abbr="3" />
+          <FLExFeatureValue abbr="5" />
+          <FLExFeatureValue abbr="7" />
+          <FLExFeatureValue abbr="9" />
+          <FLExFeatureValue abbr="11" />
+          <FLExFeatureValue abbr="14" />
+          <FLExFeatureValue abbr="NAsg" />
+        </Values>
+      </FLExFeature>
+      <FLExFeature name="Bantu2 plural">
+        <Values>
+          <FLExFeatureValue abbr="2" />
+          <FLExFeatureValue abbr="4" />
+          <FLExFeatureValue abbr="6" />
+          <FLExFeatureValue abbr="8" />
+          <FLExFeatureValue abbr="10" />
+          <FLExFeatureValue abbr="NApl" />
+        </Values>
+      </FLExFeature>
+      <FLExFeature name="case">
+        <Values>
+          <FLExFeatureValue abbr="acc" />
+          <FLExFeatureValue abbr="dat" />
+          <FLExFeatureValue abbr="gen" />
+          <FLExFeatureValue abbr="nom" />
+        </Values>
+      </FLExFeature>
+      <FLExFeature name="gender">
+        <Values>
+          <FLExFeatureValue abbr="f" />
+          <FLExFeatureValue abbr="m" />
+          <FLExFeatureValue abbr="neut" />
+        </Values>
+      </FLExFeature>
+      <FLExFeature name="number">
+        <Values>
+          <FLExFeatureValue abbr="pl" />
+          <FLExFeatureValue abbr="sg" />
+        </Values>
+      </FLExFeature>
+    </Features>
+  </TargetData>
+</FLExData>

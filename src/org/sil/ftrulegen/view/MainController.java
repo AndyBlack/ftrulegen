@@ -989,24 +989,27 @@ public class MainController implements Initializable {
 							.getFeaturesInUseForCategory(flexData.getFLExCategoriesForPhrase(phrase.getType()), cat);
 					List<FLExFeature> featuresToShow = new ArrayList<FLExFeature>();
 					featuresToShow.addAll(featuresInUse);
-					addAnyDisjointFeatures(featuresToShow);
-					featuresToShow.addAll(flexData.getFeaturesInPhraseForCategory(phrase.getType(), cat));
+					List<FLExFeature> featuresForCategory = flexData.getFeaturesInPhraseForCategory(phrase.getType(), cat);
+					addAnyDisjointFeatures(featuresToShow, featuresForCategory);
+					featuresToShow.addAll(featuresForCategory);
 					launchFLExFeatureValueChooser(featuresToShow, bundle, inserting, false);
 //				}
 			}
 		}
 	}
 
-	protected void addAnyDisjointFeatures(List<FLExFeature> featuresToShow) {
+	protected void addAnyDisjointFeatures(List<FLExFeature> featuresToShow, List<FLExFeature> featuresForCategory) {
 		for (DisjointFeatureSet dfSet : generator.getDisjointFeatures()) {
-			FLExFeature ff  = new FLExFeature();
-			ff.setName(dfSet.getName());
-			for (int i = 0; i < maxVariables && i < Constants.GREEK_VARIABLES.length; i++) {
-				FLExFeatureValue variableValue = new FLExFeatureValue(Constants.GREEK_VARIABLES[i]);
-				variableValue.setFeature(ff);
-				ff.getValues().add(variableValue);
+			if (dfSet.hasFLExFeatureInList(featuresForCategory)) {
+				FLExFeature ff  = new FLExFeature();
+				ff.setName(dfSet.getName());
+				for (int i = 0; i < maxVariables && i < Constants.GREEK_VARIABLES.length; i++) {
+					FLExFeatureValue variableValue = new FLExFeatureValue(Constants.GREEK_VARIABLES[i]);
+					variableValue.setFeature(ff);
+					ff.getValues().add(variableValue);
+				}
+				featuresToShow.add(ff);
 			}
-			featuresToShow.add(ff);
 		}
 	}
 

@@ -6,7 +6,11 @@
 
 package org.sil.ftrulegen.model;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
+
+import org.sil.ftrulegen.flexmodel.FLExFeature;
 
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -139,4 +143,14 @@ public class DisjointFeatureSet {
 		this.bundle = bundle;
 	}
 
+	public boolean hasFLExFeatureInList(List<FLExFeature> flexFeatures) {
+		for (DisjointFeatureValuePairing pairing : pairings) {
+			String sFlexFeatureName = pairing.getFlexFeatureName();
+			Optional<FLExFeature> ffOp = flexFeatures.stream().filter(f -> f.getName().equals(sFlexFeatureName)).findFirst();
+			if (!ffOp.isPresent()) {
+				return false;
+			}
+		}
+		return true;
+	}
 }
