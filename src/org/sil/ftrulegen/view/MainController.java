@@ -927,6 +927,7 @@ public class MainController implements Initializable {
 	public void handleFeatureDeleteRanking() {
 		if (feature != null) {
 			feature.setRanking(0);
+			feature.removeRankingsFromSisterFeatures();
 			reportChangesMade();
 		}
 	}
@@ -947,25 +948,45 @@ public class MainController implements Initializable {
 	}
 
 	public void handleFeatureEditRanking() {
-		Integer[] rankings = new Integer[5];
 		word = feature.getWord();
-		for (int i = 1, j = 0; i < 6; i++) {
-			if (word.rankingIsAvailable(i)) {
+		Category cat = word.getCategoryOfWordOrCorrespondingSourceWord();
+		int maxRankings = calculateMaxRankings(cat);
+		Integer[] rankings = new Integer[maxRankings];
+		for (int i = 1, j = 0; i < maxRankings + 1; i++) {
 				rankings[j++] = i;
-			}
 		}
-		ChoiceDialog<Integer> dialog = new ChoiceDialog<Integer>(0, rankings);
+		ChoiceDialog<Integer> dialog = new ChoiceDialog<Integer>(1, rankings);
 		dialog.setTitle(RESOURCE_FACTORY.getStringBinding("featureranking.header").get());
 		dialog.setHeaderText(RESOURCE_FACTORY.getStringBinding("featureranking.content").get());
 		dialog.setContentText(RESOURCE_FACTORY.getStringBinding("featureranking.choose").get());
 		dialog.setSelectedItem(feature.getRanking());
 		Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
 		stage.getIcons().add(mainApp.getNewMainIconImage());
+		int originalRanking = feature.getRanking();
 		Optional<Integer> result = dialog.showAndWait();
 		if (result.isPresent()) {
 			feature.setRanking(result.get());
+			feature.swapRankingOfSisterFeatureWithRanking(result.get(), originalRanking);
+			feature.assignRankingsToSisterFeaturesWithoutARanking(maxRankings);
 			reportChangesMade();
 		}
+	}
+
+	protected int calculateMaxRankings(Category cat) {
+		int maxRankings = 0;
+		List<FLExFeature> flexFeatures = new ArrayList<FLExFeature>();
+		if (feature.getPhrase().getType() == PhraseType.target) {
+			flexFeatures = flexData.getTargetData().getFeaturesForCategory(cat);
+		} else {
+			flexFeatures = flexData.getSourceData().getFeaturesForCategory(cat);
+		}
+		maxRankings = flexFeatures.size();
+		for (DisjointFeatureSet featureSet : generator.getDisjointFeatures()) {
+			if (featureSet.hasFLExFeatureInList(flexFeatures)) {
+				maxRankings++;
+			}
+		}
+		return maxRankings;
 	}
 
 	protected void processInsertFeature(boolean inserting) {

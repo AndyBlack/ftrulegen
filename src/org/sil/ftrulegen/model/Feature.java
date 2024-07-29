@@ -159,4 +159,49 @@ public class Feature extends RuleConstituent {
 		newFeature.setRanking(getRanking());
 		return newFeature;
 	}
+
+	public void assignRankingsToSisterFeaturesWithoutARanking(int maxRankings) {
+		boolean isAlreadySet[] = new boolean[maxRankings];
+		ConstituentWithFeatures cwfs = (ConstituentWithFeatures) getParent();
+		int maxSize = cwfs.getFeatures().size();
+		for (int i = 0; i < maxSize && i < maxRankings; i++) {
+			Feature f = cwfs.getFeatures().get(i);
+			int ranking = f.getRanking();
+			if (ranking > 0 && ranking <= maxSize) {
+				isAlreadySet[ranking - 1] = true;
+			}
+		}
+		int lastNext = 0;
+		for (Feature f : cwfs.getFeatures()) {
+			if (f.getRanking() == 0) {
+				for (int next = lastNext; next < maxRankings && next < maxSize; next++) {
+					if (!isAlreadySet[next]) {
+						f.setRanking(next + 1);
+						isAlreadySet[next] = true;
+						lastNext = next + 1;
+						break;
+					}
+				}
+			}
+		}
+	}
+
+	public void swapRankingOfSisterFeatureWithRanking(int newRanking, int oldRanking) {
+		if (oldRanking <= 0)
+			return;
+		ConstituentWithFeatures cwfs = (ConstituentWithFeatures) getParent();
+		for (Feature f : cwfs.getFeatures()) {
+			if (!f.equals(this) && f.getRanking() == newRanking) {
+				f.setRanking(oldRanking);
+				break;
+			}
+		}
+	}
+
+	public void removeRankingsFromSisterFeatures() {
+		ConstituentWithFeatures cwfs = (ConstituentWithFeatures) getParent();
+		for (Feature f : cwfs.getFeatures()) {
+			f.setRanking(0);
+		}
+	}
 }

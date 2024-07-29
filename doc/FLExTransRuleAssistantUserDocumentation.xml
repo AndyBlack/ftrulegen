@@ -21,9 +21,9 @@ type="tRuleGen"
 ><emailAddress
 >blackhandrew@gmail.com</emailAddress
 ><date
->26 July, 2024</date
+>29 July, 2024</date
 ><version
->Version 0.21.0 Beta</version
+>Version 0.22.0 Beta</version
 ><version
 >Copyright © 2023-2024 SIL International</version
 ><contents
@@ -164,7 +164,7 @@ type="tRuleGen"
 ></object
 > will close.</p
 ><p
->Under the list of rules is a button labeled “Set disjoint gender features.”  This is for a special case.  See section <sectionRef
+>Under the list of rules is a button labeled “Set disjoint gender features.” This is for a special case. See section <sectionRef
 sec="sDisjointFeatureSets"
 ></sectionRef
 >.</p
@@ -381,7 +381,7 @@ type="tFLEx"
 > project and the target <object
 type="tFLEx"
 ></object
-> project. In one case, the category chooser looked like what is in example <exampleRef
+> project. In one case, the feature value chooser looked like what is in example <exampleRef
 letter="xFeatureChooser"
 num="xFeatureChooser"
 ></exampleRef
@@ -403,9 +403,12 @@ sec="sInvocation"
 ><p
 >If you choose “Delete,” the feature item will be deleted.</p
 ><p
->If the word this feature is for (whether the feature is on the word or one of the word's affixes) is marked as the head, then the context menu has an “Edit unmarked” option. This option allows you to choose an overt value (not a Greek variable) for this feature. Doing this indicates what the unmarked or default value is for this feature. “Delete unmarked” is enabled only when there is already an unmarked feature value. You can use this to remove or delete this unmarked value.</p
+>The “Edit unmarked” option allows you to choose an overt value (not a Greek variable) for this feature. Doing this indicates what the unmarked or default value is for this feature. “Delete unmarked” is enabled only when there is already an unmarked feature value. You can use this to remove or delete this unmarked value.</p
 ><p
->Further, if the word is in the target phrase and the total number of features specified in the word and any of its affixes is greater than one, then you can use the “Edit ranking” option to specify the relative ranking of the feature for when the value for a feature may be missing in a given instance. When you click on “Edit ranking,” it brings up a chooser dialog showing which ranking values are available. The maximum number allowed is five. You can use “Delete ranking” to remove a ranking from a feature.</p
+>Further, if the word is in the target phrase and the total number of features specified in the word and any of its affixes is greater than one, then you can use the “Edit ranking” option to specify the relative ranking of the feature for when the value for a feature may be missing in a given instance. When you click on “Edit ranking,” it brings up a chooser dialog showing which ranking values are available.  When there are multiple features in an affix or a word, once you set the ranking of one feature, <object
+type="tRuleGen"
+></object
+> will seek to assign a ranking to all features.  It also will try to ensure no two features have the same ranking. You can use “Delete ranking” to remove a ranking from a feature.  In fact, when you remove a ranking from one feature in an affix or a word, all other features in that affix or word will lose their ranking.</p
 ></section2
 ><section2
 id="sEditAffix"
@@ -502,13 +505,13 @@ id="sDisjointFeatureSets"
 ><secTitle
 >Disjoint gender features</secTitle
 ><p
->In rare cases, you may need to use what we are calling “disjoint features.”  Some <object
+>In rare cases, you may need to use what we are calling “disjoint features.” Some <object
 type="tFLEx"
 ></object
-> users implementing Bantu languages split the set of gender features into at least two sets.  One set corresponds to the gender noun classes which also are marked as singular in number and the other set corresponds to the gender noun classes which are also marked as plural in number.  When writing a rule via the <object
+> users implementing Bantu languages split the set of gender features into at least two sets. One set corresponds to the gender noun classes which also are marked as singular in number and the other set corresponds to the gender noun classes which are also marked as plural in number. When writing a rule via the <object
 type="tRuleGen"
 ></object
->, the idea is to use a name that will cover both of these sets.  Example <exampleRef
+>, the idea is to use a name that will cover both of these sets. Example <exampleRef
 letter="xFeatureSetEditor"
 num="xFeatureSetEditor"
 ></exampleRef
@@ -524,25 +527,25 @@ src="Resources/DisjointGenderFaturesEditor.png"
 ><p
 >The name that will be used in features in rules is in the “Name” field.</p
 ><p
->You can set this for either the source or the target language via the “Language” radio buttons.  </p
+>You can set this for either the source or the target language via the “Language” radio buttons.</p
 ><p
->The “Co-feature name” combo box lists all the features available in this language.  You select the one that is common to each set of disjoint features.  In this Bantu case, this is the “number” feature.  </p
+>The “Co-feature name” combo box lists all the features available in this language. You select the one that is common to each set of disjoint features. In this Bantu case, this is the “number” feature.</p
 ><p
->Below this is a table containing pairs of a FLEx feature and a value for this “co-feature” specified in the combo box.  As you can see in example <exampleRef
+>Below this is a table containing pairs of a FLEx feature and a value for this “co-feature” specified in the combo box. As you can see in example <exampleRef
 letter="xFeatureSetEditor"
 num="xFeatureSetEditor"
 ></exampleRef
 >, in this FLEx project, the noun class gender feature has been split into two features: “Bantu1 singular” and “Bantu2 plural.”<endnote
 id="nBantu1AndBantu2"
 ><p
->The “1” and the “2” are used merely for sorting purposes.  This enables the singular to appear before the plural.</p
+>The “1” and the “2” are used merely for sorting purposes. This enables the singular to appear before the plural.</p
 ></endnote
-> Notice that the singular disjoint feature uses the “sg” value of the “number” feature while the plural disjoint feature uses the ”pl” value of the “number” feature.  This information enables the <object
+> Notice that the singular disjoint feature uses the “sg” value of the “number” feature while the plural disjoint feature uses the ”pl” value of the “number” feature. This information enables the <object
 type="tRuleGen"
 ></object
 > to create appropriate transfer rules using the “BantuNounClass” cover term.</p
 ><p
->Whenever you have one of these disjoint feature sets defined and are choosing a feature to use in a word or affix, the name of the disjoint feature set will be listed in the possible feature values.  You can then choose it as part of the rule like you would any other normal (non-disjoint) feature.  In this example, you would see features like “BantuNounClass:α” and “BantuNounClass:β” in the list.</p
+>Whenever you have one of these disjoint feature sets defined and are choosing a feature to use in a word or affix, the name of the disjoint feature set will be listed in the possible feature values. You can then choose it as part of the rule like you would any other normal (non-disjoint) feature. In this example, you would see features like “BantuNounClass:α” and “BantuNounClass:β” in the list.</p
 ></section1
 ><section1
 id="sRemembering"
