@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!ELEMENT FLExTransRuleGenerator (FLExTransRules) >
+<!ELEMENT FLExTransRuleGenerator (DisjointFeatureSets, FLExTransRules) >
 
 <!ELEMENT  FLExTransRules (FLExTransRule+)>
+
+<!ELEMENT DisjointFeatureSets (DisjointFeatureSet*) >
+<!ELEMENT DisjointFeatureSet (DisjointFeatureValuePairings)>
+<!ATTLIST DisjointFeatureSet
+    language (source | target) "target"
+    disjointName CDATA #REQUIRED
+    coFeatureName CDATA #REQUIRED
+>
+<!ELEMENT DisjointFeatureValuePairings (DisjointFeatureValuePairing, DisjointFeatureValuePairing+)>
+<!ELEMENT DisjointFeatureValuePairing EMPTY>
+<!ATTLIST DisjointFeatureValuePairing
+  flexFeatureName CDATA #REQUIRED
+  coFeatureValue CDATA #REQUIRED
+>
 
 <!ELEMENT FLExTransRule (Description, Source, Target)>
 <!ATTLIST FLExTransRule
@@ -32,6 +46,9 @@
 <!ATTLIST Feature
   match CDATA #REQUIRED
   label CDATA #REQUIRED
+  ranking CDATA #REQUIRED
+  unmarked_default CDATA #REQUIRED
+  value CDATA #REQUIRED
 >
 
 <!ELEMENT Affixes (Affix)* >
