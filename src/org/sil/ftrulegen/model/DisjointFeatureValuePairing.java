@@ -24,7 +24,7 @@ public class DisjointFeatureValuePairing {
 		this.coFeatureValue = new SimpleStringProperty("");
 	}
 
-	@XmlAttribute(name = "flexFeatureName")
+	@XmlAttribute(name = "flex_feature_name")
 	public final String getFlexFeatureName() {
 		return flexFeatureName.get();
 	}
@@ -37,7 +37,7 @@ public class DisjointFeatureValuePairing {
 		return flexFeatureName;
 	}
 
-	@XmlAttribute(name = "coFeatureValue")
+	@XmlAttribute(name = "co_feature_value")
 	public final String getCoFeatureValue() {
 		return coFeatureValue.get();
 	}

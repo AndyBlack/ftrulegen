@@ -46,7 +46,7 @@ public class DisjointFeatureSet {
 		this.valuesRepresentation = new SimpleStringProperty("");
 	}
 
-	@XmlAttribute(name = "disjointName")
+	@XmlAttribute(name = "disjoint_name")
 	public final String getName() {
 		return name.get();
 	}
@@ -59,7 +59,7 @@ public class DisjointFeatureSet {
 		return name;
 	}
 
-	@XmlAttribute(name = "coFeatureName")
+	@XmlAttribute(name = "co_feature_name")
 	public final String getCoFeatureName() {
 		return coFeatureName.get();
 	}

@@ -7,14 +7,14 @@
 <!ELEMENT DisjointFeatureSet (DisjointFeatureValuePairings)>
 <!ATTLIST DisjointFeatureSet
     language (source | target) "target"
-    disjointName CDATA #REQUIRED
-    coFeatureName CDATA #REQUIRED
+    disjoint_name CDATA #REQUIRED
+    co_feature_name CDATA #REQUIRED
 >
 <!ELEMENT DisjointFeatureValuePairings (DisjointFeatureValuePairing, DisjointFeatureValuePairing+)>
 <!ELEMENT DisjointFeatureValuePairing EMPTY>
 <!ATTLIST DisjointFeatureValuePairing
-  flexFeatureName CDATA #REQUIRED
-  coFeatureValue CDATA #REQUIRED
+  flex_feature_name CDATA #REQUIRED
+  co_feature_value CDATA #REQUIRED
 >
 
 <!ELEMENT FLExTransRule (Description, Source, Target)>
