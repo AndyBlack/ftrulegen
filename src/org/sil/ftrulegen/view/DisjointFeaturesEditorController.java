@@ -886,7 +886,11 @@ public class DisjointFeaturesEditorController implements Initializable {
 				} else {
 					selectFeatureSetInTableByIndex(iLastIndex);
 				}
-				currentFeatureSet = disjointFeatureSets.get(iLastIndex);
+				if (iLastIndex > -1) {
+					currentFeatureSet = disjointFeatureSets.get(iLastIndex);
+				} else {
+					currentFeatureSet = new DisjointFeatureSet();
+				}
 				currentFeatureSet.setBundle(bundle);
 				// following is used to ensure the language column starts out with the correct value
 				currentFeatureSet.setLanguage(currentFeatureSet.getLanguage());
