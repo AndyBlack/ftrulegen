@@ -178,6 +178,7 @@ public class DisjointFeaturesEditorController implements Initializable {
 	HashMap<DisjointFeatureSet, ObservableList<DisjointFeatureValuePairing>> setPairingsMapping = new HashMap<>();
 	final int minimumPairings = 2;
 	int visiblePairings = 2;
+	final String kEmpty = "??";
 
 	public DisjointFeaturesEditorController() {
 
@@ -610,6 +611,232 @@ public class DisjointFeaturesEditorController implements Initializable {
 				});
 		coFeatureNameComboBox.setPromptText(resources.getString("disjoint.cofeaturename"));
 
+		flexFeature1ComboBox.getSelectionModel().selectedItemProperty()
+		.addListener((options, oldValue, newValue) -> {
+			if (currentFeatureSet != null) {
+				if (newValue == null) {
+					// somehow this can be null; fix it
+					String sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(0).getFlexFeatureName();
+					flexFeature1ComboBox.getSelectionModel().select(sValue);
+				} else {
+					currentFeatureSet.getDisjointFeatureValuePairings().get(0).setFlexFeatureName(newValue);
+				}
+			}
+		});
+		flexFeature2ComboBox.getSelectionModel().selectedItemProperty()
+		.addListener((options, oldValue, newValue) -> {
+			if (currentFeatureSet != null) {
+				if (newValue == null) {
+					// somehow this can be null; fix it
+					String sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(1).getFlexFeatureName();
+					flexFeature2ComboBox.getSelectionModel().select(sValue);
+				} else {
+					currentFeatureSet.getDisjointFeatureValuePairings().get(1).setFlexFeatureName(newValue);
+				}
+			}
+		});
+		flexFeature3ComboBox.getSelectionModel().selectedItemProperty()
+		.addListener((options, oldValue, newValue) -> {
+			if (currentFeatureSet != null) {
+				if (newValue == null) {
+					// somehow this can be null; fix it
+					String sValue = kEmpty;
+					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 3) {
+						sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(2).getFlexFeatureName();
+					} else {
+						createNewPairing(sValue);
+					}
+					flexFeature3ComboBox.getSelectionModel().select(sValue);
+				} else {
+					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 3) {
+						currentFeatureSet.getDisjointFeatureValuePairings().get(2).setFlexFeatureName(newValue);
+					} else {
+						createNewPairing(newValue);
+					}
+					flexFeature3ComboBox.getSelectionModel().select(newValue);
+				}
+			}
+		});
+		flexFeature4ComboBox.getSelectionModel().selectedItemProperty()
+		.addListener((options, oldValue, newValue) -> {
+			if (currentFeatureSet != null) {
+				if (newValue == null) {
+					// somehow this can be null; fix it
+					String sValue = kEmpty;
+					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 4) {
+						sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(3).getFlexFeatureName();
+					} else {
+						createNewPairing(sValue);
+					}
+					flexFeature4ComboBox.getSelectionModel().select(sValue);
+				} else {
+					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 4) {
+						currentFeatureSet.getDisjointFeatureValuePairings().get(3).setFlexFeatureName(newValue);
+					} else {
+						createNewPairing(newValue);
+					}
+					flexFeature4ComboBox.getSelectionModel().select(newValue);
+				}
+			}
+		});
+		flexFeature5ComboBox.getSelectionModel().selectedItemProperty()
+		.addListener((options, oldValue, newValue) -> {
+			if (currentFeatureSet != null) {
+				if (newValue == null) {
+					// somehow this can be null; fix it
+					String sValue = kEmpty;
+					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 5) {
+						sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(4).getFlexFeatureName();
+					} else {
+						createNewPairing(sValue);
+					}
+					flexFeature5ComboBox.getSelectionModel().select(sValue);
+				} else {
+					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 5) {
+						currentFeatureSet.getDisjointFeatureValuePairings().get(4).setFlexFeatureName(newValue);
+					} else {
+						createNewPairing(newValue);
+					}
+					flexFeature5ComboBox.getSelectionModel().select(newValue);
+				}
+			}
+		});
+		flexFeature6ComboBox.getSelectionModel().selectedItemProperty()
+		.addListener((options, oldValue, newValue) -> {
+			if (currentFeatureSet != null) {
+				if (newValue == null) {
+					// somehow this can be null; fix it
+					String sValue = kEmpty;
+					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 6) {
+						sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(5).getFlexFeatureName();
+					} else {
+						createNewPairing(sValue);
+					}
+					flexFeature6ComboBox.getSelectionModel().select(sValue);
+				} else {
+					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 6) {
+						currentFeatureSet.getDisjointFeatureValuePairings().get(5).setFlexFeatureName(newValue);
+					} else {
+						createNewPairing(newValue);
+					}
+					flexFeature6ComboBox.getSelectionModel().select(newValue);
+				}
+			}
+		});
+
+		coFeatureValue1ComboBox.getSelectionModel().selectedItemProperty()
+		.addListener((options, oldValue, newValue) -> {
+			if (currentFeatureSet != null) {
+				if (newValue == null) {
+					// somehow this can be null; fix it
+					String sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(0).getCoFeatureValue();
+					flexFeature1ComboBox.getSelectionModel().select(sValue);
+				} else {
+					currentFeatureSet.getDisjointFeatureValuePairings().get(0).setCoFeatureValue(newValue);
+				}
+			}
+		});
+		coFeatureValue2ComboBox.getSelectionModel().selectedItemProperty()
+		.addListener((options, oldValue, newValue) -> {
+			if (currentFeatureSet != null) {
+				if (newValue == null) {
+					// somehow this can be null; fix it
+					String sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(1).getCoFeatureValue();
+					flexFeature1ComboBox.getSelectionModel().select(sValue);
+				} else {
+					currentFeatureSet.getDisjointFeatureValuePairings().get(1).setCoFeatureValue(newValue);
+				}
+			}
+		});
+		coFeatureValue3ComboBox.getSelectionModel().selectedItemProperty()
+		.addListener((options, oldValue, newValue) -> {
+			if (currentFeatureSet != null) {
+				if (newValue == null) {
+					// somehow this can be null; fix it
+					String sValue = kEmpty;
+					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 3) {
+						sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(2).getCoFeatureValue();
+					} else {
+						createNewPairing(sValue);
+					}
+					coFeatureValue3ComboBox.getSelectionModel().select(sValue);
+				} else {
+					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 3) {
+						currentFeatureSet.getDisjointFeatureValuePairings().get(2).setCoFeatureValue(newValue);
+					} else {
+						createNewPairing(newValue);
+					}
+					coFeatureValue3ComboBox.getSelectionModel().select(newValue);
+				}
+			}
+		});
+		coFeatureValue4ComboBox.getSelectionModel().selectedItemProperty()
+		.addListener((options, oldValue, newValue) -> {
+			if (currentFeatureSet != null) {
+				if (newValue == null) {
+					// somehow this can be null; fix it
+					String sValue = kEmpty;
+					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 4) {
+						sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(3).getCoFeatureValue();
+					} else {
+						createNewPairing(sValue);
+					}
+					coFeatureValue4ComboBox.getSelectionModel().select(sValue);
+				} else {
+					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 4) {
+						currentFeatureSet.getDisjointFeatureValuePairings().get(3).setCoFeatureValue(newValue);
+					} else {
+						createNewPairing(newValue);
+					}
+					coFeatureValue4ComboBox.getSelectionModel().select(newValue);
+				}
+			}
+		});
+		coFeatureValue5ComboBox.getSelectionModel().selectedItemProperty()
+		.addListener((options, oldValue, newValue) -> {
+			if (currentFeatureSet != null) {
+				if (newValue == null) {
+					// somehow this can be null; fix it
+					String sValue = kEmpty;
+					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 5) {
+						sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(4).getCoFeatureValue();
+					} else {
+						createNewPairing(sValue);
+					}
+					coFeatureValue5ComboBox.getSelectionModel().select(sValue);
+				} else {
+					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 5) {
+						currentFeatureSet.getDisjointFeatureValuePairings().get(4).setCoFeatureValue(newValue);
+					} else {
+						createNewPairing(newValue);
+					}
+					coFeatureValue5ComboBox.getSelectionModel().select(newValue);
+				}
+			}
+		});
+		coFeatureValue6ComboBox.getSelectionModel().selectedItemProperty()
+		.addListener((options, oldValue, newValue) -> {
+			if (currentFeatureSet != null) {
+				if (newValue == null) {
+					// somehow this can be null; fix it
+					String sValue = kEmpty;
+					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 6) {
+						sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(5).getCoFeatureValue();
+					} else {
+						createNewPairing(sValue);
+					}
+					coFeatureValue6ComboBox.getSelectionModel().select(sValue);
+				} else {
+					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 6) {
+						currentFeatureSet.getDisjointFeatureValuePairings().get(5).setCoFeatureValue(newValue);
+					} else {
+						createNewPairing(newValue);
+					}
+					coFeatureValue6ComboBox.getSelectionModel().select(newValue);
+				}
+			}
+		});
+
 		makeColumnHeaderWrappable(nameColumn);
 		makeColumnHeaderWrappable(languageColumn);
 //		makeColumnHeaderWrappable(pairingsColumn);
@@ -651,6 +878,12 @@ public class DisjointFeaturesEditorController implements Initializable {
 
 		nameField.requestFocus();
 
+	}
+
+	protected void createNewPairing(String newValue) {
+		DisjointFeatureValuePairing pairing = new DisjointFeatureValuePairing();
+		pairing.setFlexFeatureName(newValue);
+		currentFeatureSet.getDisjointFeatureValuePairings().add(pairing);
 	}
 
 	protected void showVisiblePairingsComboBoxes(int visiblePairings) {
@@ -755,6 +988,7 @@ public class DisjointFeaturesEditorController implements Initializable {
 					coFeatureNameComboBox.getSelectionModel().select(featureSet.getCoFeatureName());
 
 					int numPairings = featureSet.getDisjointFeatureValuePairings().size();
+					pairingsSlider.setValue(numPairings);
 					showVisiblePairingsComboBoxes(numPairings);
 
 					flexFeature1ComboBox.setItems(flexFeatureMinusCoFeatureNames);
@@ -762,7 +996,6 @@ public class DisjointFeaturesEditorController implements Initializable {
 					flexFeature2ComboBox.setItems(flexFeatureMinusCoFeatureNames);
 					flexFeature2ComboBox.getSelectionModel().select(featureSet.getDisjointFeatureValuePairings().get(1).getFlexFeatureName());
 					flexFeature3ComboBox.setItems(flexFeatureMinusCoFeatureNames);
-					final String kEmpty = "??";
 					String s3Feature = kEmpty;
 					if (numPairings >= 3) {
 						s3Feature = featureSet.getDisjointFeatureValuePairings().get(2).getFlexFeatureName();
@@ -818,7 +1051,7 @@ public class DisjointFeaturesEditorController implements Initializable {
 				} else {
 					// FeatureSet is null, remove all the text.
 					nameField.setText("");
-					coFeatureNameComboBox.getSelectionModel().select("??");
+					coFeatureNameComboBox.getSelectionModel().select(kEmpty);
 				}
 				enableDisableButtons();
 			}
