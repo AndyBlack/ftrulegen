@@ -449,228 +449,52 @@ public class DisjointFeaturesEditorController implements Initializable {
 
 		flexFeature1ComboBox.getSelectionModel().selectedItemProperty()
 		.addListener((options, oldValue, newValue) -> {
-			if (currentFeatureSet != null) {
-				if (newValue == null) {
-					// somehow this can be null; fix it
-					String sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(0).getFlexFeatureName();
-					flexFeature1ComboBox.getSelectionModel().select(sValue);
-				} else {
-					currentFeatureSet.getDisjointFeatureValuePairings().get(0).setFlexFeatureName(newValue);
-				}
-			}
+			flexFeature1ComboBox = updateRequiredFlexFeatureComboBox(flexFeature1ComboBox, 0, newValue);
 		});
 		flexFeature2ComboBox.getSelectionModel().selectedItemProperty()
 		.addListener((options, oldValue, newValue) -> {
-			if (currentFeatureSet != null) {
-				if (newValue == null) {
-					// somehow this can be null; fix it
-					String sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(1).getFlexFeatureName();
-					flexFeature2ComboBox.getSelectionModel().select(sValue);
-				} else {
-					currentFeatureSet.getDisjointFeatureValuePairings().get(1).setFlexFeatureName(newValue);
-				}
-			}
+			flexFeature2ComboBox = updateRequiredFlexFeatureComboBox(flexFeature2ComboBox, 1, newValue);
 		});
 		flexFeature3ComboBox.getSelectionModel().selectedItemProperty()
 		.addListener((options, oldValue, newValue) -> {
-			if (currentFeatureSet != null) {
-				if (newValue == null) {
-					// somehow this can be null; fix it
-					String sValue = kEmpty;
-					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 3) {
-						sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(2).getFlexFeatureName();
-					} else if ((int)pairingsSlider.getValue() >= 3) {
-						createNewPairing(sValue);
-					}
-					flexFeature3ComboBox.getSelectionModel().select(sValue);
-				} else {
-					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 3) {
-						currentFeatureSet.getDisjointFeatureValuePairings().get(2).setFlexFeatureName(newValue);
-					} else if ((int)pairingsSlider.getValue() >= 3) {
-						createNewPairing(newValue);
-					}
-					flexFeature3ComboBox.getSelectionModel().select(newValue);
-				}
-			}
+			flexFeature3ComboBox = updateFlexFeatureComboBox(flexFeature3ComboBox, 2, 3, newValue);
 		});
 		flexFeature4ComboBox.getSelectionModel().selectedItemProperty()
 		.addListener((options, oldValue, newValue) -> {
-			if (currentFeatureSet != null) {
-				if (newValue == null) {
-					// somehow this can be null; fix it
-					String sValue = kEmpty;
-					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 4) {
-						sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(3).getFlexFeatureName();
-					} else if ((int)pairingsSlider.getValue() >= 4) {
-						createNewPairing(sValue);
-					}
-					flexFeature4ComboBox.getSelectionModel().select(sValue);
-				} else {
-					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 4) {
-						currentFeatureSet.getDisjointFeatureValuePairings().get(3).setFlexFeatureName(newValue);
-					} else if ((int)pairingsSlider.getValue() >= 4) {
-						createNewPairing(newValue);
-					}
-					flexFeature4ComboBox.getSelectionModel().select(newValue);
-				}
-			}
+			flexFeature4ComboBox = updateFlexFeatureComboBox(flexFeature4ComboBox, 3, 4, newValue);
 		});
 		flexFeature5ComboBox.getSelectionModel().selectedItemProperty()
 		.addListener((options, oldValue, newValue) -> {
-			if (currentFeatureSet != null) {
-				if (newValue == null) {
-					// somehow this can be null; fix it
-					String sValue = kEmpty;
-					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 5) {
-						sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(4).getFlexFeatureName();
-					} else if ((int)pairingsSlider.getValue() >= 5) {
-						createNewPairing(sValue);
-					}
-					flexFeature5ComboBox.getSelectionModel().select(sValue);
-				} else {
-					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 5) {
-						currentFeatureSet.getDisjointFeatureValuePairings().get(4).setFlexFeatureName(newValue);
-					} else if ((int)pairingsSlider.getValue() >= 5) {
-						createNewPairing(newValue);
-					}
-					flexFeature5ComboBox.getSelectionModel().select(newValue);
-				}
-			}
+			flexFeature5ComboBox = updateFlexFeatureComboBox(flexFeature5ComboBox, 4, 5, newValue);
 		});
 		flexFeature6ComboBox.getSelectionModel().selectedItemProperty()
 		.addListener((options, oldValue, newValue) -> {
-			if (currentFeatureSet != null) {
-				if (newValue == null) {
-					// somehow this can be null; fix it
-					String sValue = kEmpty;
-					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 6) {
-						sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(5).getFlexFeatureName();
-					} else if ((int)pairingsSlider.getValue() >= 6) {
-						createNewPairing(sValue);
-					}
-					flexFeature6ComboBox.getSelectionModel().select(sValue);
-				} else {
-					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 6) {
-						currentFeatureSet.getDisjointFeatureValuePairings().get(5).setFlexFeatureName(newValue);
-					} else if ((int)pairingsSlider.getValue() >= 6) {
-						createNewPairing(newValue);
-					}
-					flexFeature6ComboBox.getSelectionModel().select(newValue);
-				}
-			}
+			flexFeature6ComboBox = updateFlexFeatureComboBox(flexFeature6ComboBox, 5, 6, newValue);
 		});
 
 		coFeatureValue1ComboBox.getSelectionModel().selectedItemProperty()
 		.addListener((options, oldValue, newValue) -> {
-			if (currentFeatureSet != null) {
-				if (newValue == null) {
-					// somehow this can be null; fix it
-					String sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(0).getCoFeatureValue();
-					flexFeature1ComboBox.getSelectionModel().select(sValue);
-				} else {
-					currentFeatureSet.getDisjointFeatureValuePairings().get(0).setCoFeatureValue(newValue);
-				}
-			}
+			coFeatureValue1ComboBox = updateRequiredCoFeatureValueComboBox(coFeatureValue1ComboBox, 0, newValue);
 		});
 		coFeatureValue2ComboBox.getSelectionModel().selectedItemProperty()
 		.addListener((options, oldValue, newValue) -> {
-			if (currentFeatureSet != null) {
-				if (newValue == null) {
-					// somehow this can be null; fix it
-					String sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(1).getCoFeatureValue();
-					flexFeature1ComboBox.getSelectionModel().select(sValue);
-				} else {
-					currentFeatureSet.getDisjointFeatureValuePairings().get(1).setCoFeatureValue(newValue);
-				}
-			}
+			coFeatureValue2ComboBox = updateRequiredCoFeatureValueComboBox(coFeatureValue2ComboBox, 1, newValue);
 		});
 		coFeatureValue3ComboBox.getSelectionModel().selectedItemProperty()
 		.addListener((options, oldValue, newValue) -> {
-			if (currentFeatureSet != null) {
-				if (newValue == null) {
-					// somehow this can be null; fix it
-					String sValue = kEmpty;
-					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 3) {
-						sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(2).getCoFeatureValue();
-					} else if ((int)pairingsSlider.getValue() >= 3) {
-						createNewPairing(sValue);
-					}
-					coFeatureValue3ComboBox.getSelectionModel().select(sValue);
-				} else {
-					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 3) {
-						currentFeatureSet.getDisjointFeatureValuePairings().get(2).setCoFeatureValue(newValue);
-					} else if ((int)pairingsSlider.getValue() >= 3) {
-						createNewPairing(newValue);
-					}
-					coFeatureValue3ComboBox.getSelectionModel().select(newValue);
-				}
-			}
+			coFeatureValue3ComboBox = updateCoFeatureValueComboBox(coFeatureValue3ComboBox, 2, 3, newValue);
 		});
 		coFeatureValue4ComboBox.getSelectionModel().selectedItemProperty()
 		.addListener((options, oldValue, newValue) -> {
-			if (currentFeatureSet != null) {
-				if (newValue == null) {
-					// somehow this can be null; fix it
-					String sValue = kEmpty;
-					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 4) {
-						sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(3).getCoFeatureValue();
-					} else if ((int)pairingsSlider.getValue() >= 4) {
-						createNewPairing(sValue);
-					}
-					coFeatureValue4ComboBox.getSelectionModel().select(sValue);
-				} else {
-					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 4) {
-						currentFeatureSet.getDisjointFeatureValuePairings().get(3).setCoFeatureValue(newValue);
-					} else if ((int)pairingsSlider.getValue() >= 4) {
-						createNewPairing(newValue);
-					}
-					coFeatureValue4ComboBox.getSelectionModel().select(newValue);
-				}
-			}
+			coFeatureValue4ComboBox = updateCoFeatureValueComboBox(coFeatureValue4ComboBox, 3, 4, newValue);
 		});
 		coFeatureValue5ComboBox.getSelectionModel().selectedItemProperty()
 		.addListener((options, oldValue, newValue) -> {
-			if (currentFeatureSet != null) {
-				if (newValue == null) {
-					// somehow this can be null; fix it
-					String sValue = kEmpty;
-					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 5) {
-						sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(4).getCoFeatureValue();
-					} else if ((int)pairingsSlider.getValue() >= 5) {
-						createNewPairing(sValue);
-					}
-					coFeatureValue5ComboBox.getSelectionModel().select(sValue);
-				} else {
-					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 5) {
-						currentFeatureSet.getDisjointFeatureValuePairings().get(4).setCoFeatureValue(newValue);
-					} else if ((int)pairingsSlider.getValue() >= 5) {
-						createNewPairing(newValue);
-					}
-					coFeatureValue5ComboBox.getSelectionModel().select(newValue);
-				}
-			}
+			coFeatureValue5ComboBox = updateCoFeatureValueComboBox(coFeatureValue5ComboBox, 4, 5, newValue);
 		});
 		coFeatureValue6ComboBox.getSelectionModel().selectedItemProperty()
 		.addListener((options, oldValue, newValue) -> {
-			if (currentFeatureSet != null) {
-				if (newValue == null) {
-					// somehow this can be null; fix it
-					String sValue = kEmpty;
-					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 6) {
-						sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(5).getCoFeatureValue();
-					} else if ((int)pairingsSlider.getValue() >= 6) {
-						createNewPairing(sValue);
-					}
-					coFeatureValue6ComboBox.getSelectionModel().select(sValue);
-				} else {
-					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 6) {
-						currentFeatureSet.getDisjointFeatureValuePairings().get(5).setCoFeatureValue(newValue);
-					} else if ((int)pairingsSlider.getValue() >= 6) {
-						createNewPairing(newValue);
-					}
-					coFeatureValue6ComboBox.getSelectionModel().select(newValue);
-				}
-			}
+			coFeatureValue6ComboBox = updateCoFeatureValueComboBox(coFeatureValue6ComboBox, 5, 6, newValue);
 		});
 
 		makeColumnHeaderWrappable(nameColumn);
@@ -714,6 +538,82 @@ public class DisjointFeaturesEditorController implements Initializable {
 
 		nameField.requestFocus();
 
+	}
+
+	protected ComboBox<String> updateCoFeatureValueComboBox(ComboBox<String> coFeatureValueComboBox, int index,
+			int size, String newValue) {
+		if (currentFeatureSet != null) {
+			if (newValue == null) {
+				// somehow this can be null; fix it
+				String sValue = kEmpty;
+				if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= size) {
+					sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(index).getCoFeatureValue();
+				} else if ((int)pairingsSlider.getValue() >= size) {
+					createNewPairing(sValue);
+				}
+				coFeatureValueComboBox.getSelectionModel().select(sValue);
+			} else {
+				if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= size) {
+					currentFeatureSet.getDisjointFeatureValuePairings().get(index).setCoFeatureValue(newValue);
+				} else if ((int)pairingsSlider.getValue() >= size) {
+					createNewPairing(newValue);
+				}
+				coFeatureValueComboBox.getSelectionModel().select(newValue);
+			}
+		}
+		return coFeatureValueComboBox;
+	}
+
+	protected ComboBox<String> updateRequiredCoFeatureValueComboBox(ComboBox<String> coFeatureValueComboBox,
+			int index, String newValue) {
+		if (currentFeatureSet != null) {
+			if (newValue == null) {
+				// somehow this can be null; fix it
+				String sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(index).getCoFeatureValue();
+				coFeatureValueComboBox.getSelectionModel().select(sValue);
+			} else {
+				currentFeatureSet.getDisjointFeatureValuePairings().get(0).setCoFeatureValue(newValue);
+			}
+		}
+		return coFeatureValueComboBox;
+	}
+
+	protected ComboBox<String> updateFlexFeatureComboBox(ComboBox<String> flexFeatureComboBox, int index,
+			int size, String newValue) {
+		if (currentFeatureSet != null) {
+			if (newValue == null) {
+				// somehow this can be null; fix it
+				String sValue = kEmpty;
+				if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= size) {
+					sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(index).getFlexFeatureName();
+				} else if ((int)pairingsSlider.getValue() >= size) {
+					createNewPairing(sValue);
+				}
+				flexFeatureComboBox.getSelectionModel().select(sValue);
+			} else {
+				if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= size) {
+					currentFeatureSet.getDisjointFeatureValuePairings().get(index).setFlexFeatureName(newValue);
+				} else if ((int)pairingsSlider.getValue() >= size) {
+					createNewPairing(newValue);
+				}
+				flexFeatureComboBox.getSelectionModel().select(newValue);
+			}
+		}
+		return flexFeatureComboBox;
+	}
+
+	protected ComboBox<String> updateRequiredFlexFeatureComboBox(ComboBox<String> flexFeatureComboBox, int index,
+			String newValue) {
+		if (currentFeatureSet != null) {
+			if (newValue == null) {
+				// somehow this can be null; fix it
+				String sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(index).getFlexFeatureName();
+				flexFeatureComboBox.getSelectionModel().select(sValue);
+			} else {
+				currentFeatureSet.getDisjointFeatureValuePairings().get(index).setFlexFeatureName(newValue);
+			}
+		}
+		return flexFeatureComboBox;
 	}
 
 	protected void createNewPairing(String newValue) {
