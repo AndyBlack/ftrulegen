@@ -153,4 +153,15 @@ public class DisjointFeatureSet {
 		}
 		return true;
 	}
+
+	public void removePairingsFrom(int index) {
+		if (index < 3 || index > 6) {
+			// ignore these
+			return;
+		}
+		int iSize = getDisjointFeatureValuePairings().size();
+		for (int i = iSize; i >= index; i--) {
+			getDisjointFeatureValuePairings().remove(i-1);
+		}
+	}
 }

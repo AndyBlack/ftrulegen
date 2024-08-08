@@ -643,14 +643,14 @@ public class DisjointFeaturesEditorController implements Initializable {
 					String sValue = kEmpty;
 					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 3) {
 						sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(2).getFlexFeatureName();
-					} else {
+					} else if ((int)pairingsSlider.getValue() >= 3) {
 						createNewPairing(sValue);
 					}
 					flexFeature3ComboBox.getSelectionModel().select(sValue);
 				} else {
 					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 3) {
 						currentFeatureSet.getDisjointFeatureValuePairings().get(2).setFlexFeatureName(newValue);
-					} else {
+					} else if ((int)pairingsSlider.getValue() >= 3) {
 						createNewPairing(newValue);
 					}
 					flexFeature3ComboBox.getSelectionModel().select(newValue);
@@ -665,14 +665,14 @@ public class DisjointFeaturesEditorController implements Initializable {
 					String sValue = kEmpty;
 					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 4) {
 						sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(3).getFlexFeatureName();
-					} else {
+					} else if ((int)pairingsSlider.getValue() >= 4) {
 						createNewPairing(sValue);
 					}
 					flexFeature4ComboBox.getSelectionModel().select(sValue);
 				} else {
 					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 4) {
 						currentFeatureSet.getDisjointFeatureValuePairings().get(3).setFlexFeatureName(newValue);
-					} else {
+					} else if ((int)pairingsSlider.getValue() >= 4) {
 						createNewPairing(newValue);
 					}
 					flexFeature4ComboBox.getSelectionModel().select(newValue);
@@ -687,14 +687,14 @@ public class DisjointFeaturesEditorController implements Initializable {
 					String sValue = kEmpty;
 					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 5) {
 						sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(4).getFlexFeatureName();
-					} else {
+					} else if ((int)pairingsSlider.getValue() >= 5) {
 						createNewPairing(sValue);
 					}
 					flexFeature5ComboBox.getSelectionModel().select(sValue);
 				} else {
 					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 5) {
 						currentFeatureSet.getDisjointFeatureValuePairings().get(4).setFlexFeatureName(newValue);
-					} else {
+					} else if ((int)pairingsSlider.getValue() >= 5) {
 						createNewPairing(newValue);
 					}
 					flexFeature5ComboBox.getSelectionModel().select(newValue);
@@ -709,14 +709,14 @@ public class DisjointFeaturesEditorController implements Initializable {
 					String sValue = kEmpty;
 					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 6) {
 						sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(5).getFlexFeatureName();
-					} else {
+					} else if ((int)pairingsSlider.getValue() >= 6) {
 						createNewPairing(sValue);
 					}
 					flexFeature6ComboBox.getSelectionModel().select(sValue);
 				} else {
 					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 6) {
 						currentFeatureSet.getDisjointFeatureValuePairings().get(5).setFlexFeatureName(newValue);
-					} else {
+					} else if ((int)pairingsSlider.getValue() >= 6) {
 						createNewPairing(newValue);
 					}
 					flexFeature6ComboBox.getSelectionModel().select(newValue);
@@ -756,14 +756,14 @@ public class DisjointFeaturesEditorController implements Initializable {
 					String sValue = kEmpty;
 					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 3) {
 						sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(2).getCoFeatureValue();
-					} else {
+					} else if ((int)pairingsSlider.getValue() >= 3) {
 						createNewPairing(sValue);
 					}
 					coFeatureValue3ComboBox.getSelectionModel().select(sValue);
 				} else {
 					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 3) {
 						currentFeatureSet.getDisjointFeatureValuePairings().get(2).setCoFeatureValue(newValue);
-					} else {
+					} else if ((int)pairingsSlider.getValue() >= 3) {
 						createNewPairing(newValue);
 					}
 					coFeatureValue3ComboBox.getSelectionModel().select(newValue);
@@ -778,14 +778,14 @@ public class DisjointFeaturesEditorController implements Initializable {
 					String sValue = kEmpty;
 					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 4) {
 						sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(3).getCoFeatureValue();
-					} else {
+					} else if ((int)pairingsSlider.getValue() >= 4) {
 						createNewPairing(sValue);
 					}
 					coFeatureValue4ComboBox.getSelectionModel().select(sValue);
 				} else {
 					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 4) {
 						currentFeatureSet.getDisjointFeatureValuePairings().get(3).setCoFeatureValue(newValue);
-					} else {
+					} else if ((int)pairingsSlider.getValue() >= 4) {
 						createNewPairing(newValue);
 					}
 					coFeatureValue4ComboBox.getSelectionModel().select(newValue);
@@ -800,14 +800,14 @@ public class DisjointFeaturesEditorController implements Initializable {
 					String sValue = kEmpty;
 					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 5) {
 						sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(4).getCoFeatureValue();
-					} else {
+					} else if ((int)pairingsSlider.getValue() >= 5) {
 						createNewPairing(sValue);
 					}
 					coFeatureValue5ComboBox.getSelectionModel().select(sValue);
 				} else {
 					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 5) {
 						currentFeatureSet.getDisjointFeatureValuePairings().get(4).setCoFeatureValue(newValue);
-					} else {
+					} else if ((int)pairingsSlider.getValue() >= 5) {
 						createNewPairing(newValue);
 					}
 					coFeatureValue5ComboBox.getSelectionModel().select(newValue);
@@ -822,14 +822,14 @@ public class DisjointFeaturesEditorController implements Initializable {
 					String sValue = kEmpty;
 					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 6) {
 						sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(5).getCoFeatureValue();
-					} else {
+					} else if ((int)pairingsSlider.getValue() >= 6) {
 						createNewPairing(sValue);
 					}
 					coFeatureValue6ComboBox.getSelectionModel().select(sValue);
 				} else {
 					if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= 6) {
 						currentFeatureSet.getDisjointFeatureValuePairings().get(5).setCoFeatureValue(newValue);
-					} else {
+					} else if ((int)pairingsSlider.getValue() >= 6) {
 						createNewPairing(newValue);
 					}
 					coFeatureValue6ComboBox.getSelectionModel().select(newValue);
@@ -846,7 +846,11 @@ public class DisjointFeaturesEditorController implements Initializable {
 
 			public void changed(ObservableValue<? extends Number> observableValue, Number oldValue,
 					Number newValue) {
-				showVisiblePairingsComboBoxes((int) pairingsSlider.getValue());
+				int result = (int) pairingsSlider.getValue();
+				showVisiblePairingsComboBoxes(result);
+				if ((double)oldValue > (double)newValue) {
+					currentFeatureSet.removePairingsFrom(result + 1);
+				}
 			}
 		});
 		// Clear details.
@@ -989,7 +993,6 @@ public class DisjointFeaturesEditorController implements Initializable {
 
 					int numPairings = featureSet.getDisjointFeatureValuePairings().size();
 					pairingsSlider.setValue(numPairings);
-					showVisiblePairingsComboBoxes(numPairings);
 
 					flexFeature1ComboBox.setItems(flexFeatureMinusCoFeatureNames);
 					flexFeature1ComboBox.getSelectionModel().select(featureSet.getDisjointFeatureValuePairings().get(0).getFlexFeatureName());
