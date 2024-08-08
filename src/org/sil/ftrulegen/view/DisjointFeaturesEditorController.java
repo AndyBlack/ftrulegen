@@ -442,6 +442,14 @@ public class DisjointFeaturesEditorController implements Initializable {
 						} else {
 							currentFeatureSet.setCoFeatureName(newValue);
 							createCoFeatureValues(newValue);
+							if (!oldValue.equals(newValue)) {
+								coFeatureValue1ComboBox.setValue(kEmpty);
+								coFeatureValue2ComboBox.setValue(kEmpty);
+								coFeatureValue3ComboBox.setValue(kEmpty);
+								coFeatureValue4ComboBox.setValue(kEmpty);
+								coFeatureValue5ComboBox.setValue(kEmpty);
+								coFeatureValue6ComboBox.setValue(kEmpty);
+							}
 						}
 					}
 				});
