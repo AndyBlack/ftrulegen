@@ -9,64 +9,43 @@ package org.sil.ftrulegen.view;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.sil.ftrulegen.ApplicationPreferences;
-import org.sil.ftrulegen.Constants;
 import org.sil.ftrulegen.Main;
 import org.sil.ftrulegen.flexmodel.FLExData;
 import org.sil.ftrulegen.flexmodel.FLExFeature;
 import org.sil.ftrulegen.flexmodel.FLExFeatureValue;
 import org.sil.ftrulegen.model.DisjointFeatureSet;
 import org.sil.ftrulegen.model.DisjointFeatureValuePairing;
-import org.sil.ftrulegen.model.FLExTransRuleGenerator;
 import org.sil.ftrulegen.model.PhraseType;
 import org.sil.utility.StringUtilities;
-import org.sil.utility.view.ControllerUtilities;
 
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.IndexRange;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DataFormat;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
@@ -78,26 +57,6 @@ import javafx.stage.Stage;
 
 public class DisjointFeaturesEditorController implements Initializable {
 
-//	protected final class AnalysisWrappingTableCell extends TableCell<DisjointFeatureSet, String> {
-//		private Text text;
-//
-//		@Override
-//		protected void updateItem(String item, boolean empty) {
-//			super.updateItem(item, empty);
-//			processAnalysisTableCell(this, text, item, empty);
-//		}
-//	}
-
-//	protected final class GenericWrappingTableCell extends TableCell<DisjointFeatureSet, String> {
-//		private Text text;
-//
-//		@Override
-//		protected void updateItem(String item, boolean empty) {
-//			super.updateItem(item, empty);
-//			processTableCell(this, text, item, empty);
-//		}
-//	}
-
 	@FXML
 	private SplitPane splitPane;
 	@FXML
@@ -106,8 +65,6 @@ public class DisjointFeaturesEditorController implements Initializable {
 	private TableColumn<DisjointFeatureSet, String> nameColumn;
 	@FXML
 	private TableColumn<DisjointFeatureSet, String> coFeatureColumn;
-//	@FXML
-//	private TableColumn<DisjointFeatureSet, String> pairingsColumn;
 	@FXML
 	private TableColumn<DisjointFeatureSet, String> languageColumn;
 
@@ -157,7 +114,6 @@ public class DisjointFeaturesEditorController implements Initializable {
 
 
 	ObservableList<DisjointFeatureSet> disjointFeatureSets;
-//	TableView<DisjointFeatureSet> tableView;
 	protected String sDisjointEditor = ApplicationPreferences.DISJOINT_FEATURE_EDITOR;
 	protected  ApplicationPreferences prefs;
 
@@ -184,17 +140,12 @@ public class DisjointFeaturesEditorController implements Initializable {
 
 	}
 
-	// =====================================
-	// from SplitPaneWithTableViewController
 	protected void initializeTableColumnWidthsAndSplitDividerPosition() {
 		Double d = prefs.getDoubleValue(sDisjointEditor + splitPane.getId(), .4);
 		splitPane.getDividers().get(0).setPosition(d);
 		initializeTableColumnWidths(prefs);
 	}
-	// =====================================
 
-	// =====================================
-	// From TableViewController
 	public void setTableView(TableView<DisjointFeatureSet> tableView) {
 		this.disjointFeaturesTable = tableView;
 	}
@@ -205,10 +156,6 @@ public class DisjointFeaturesEditorController implements Initializable {
 			column.setPrefWidth(d);
 		}
 	}
-	// =====================================
-
-	// =====================================
-	// from SylParserBaseController
 
 	protected void makeColumnHeaderWrappable(@SuppressWarnings("rawtypes") TableColumn col) {
 		Label label = new Label(col.getText());
@@ -282,36 +229,6 @@ public class DisjointFeaturesEditorController implements Initializable {
 		tableView.refresh();
 	}
 
-//	protected void processAnalysisTableCell(TableCell<DisjointFeatureSet, String> cell, Text text, String item, boolean empty) {
-//		Color textColor = languageProject.getAnalysisLanguage().getColor();
-//		Font fontToUse = languageProject.getAnalysisLanguage().getFont();
-//		cell.setNodeOrientation(languageProject.getAnalysisLanguage().getOrientation());
-//		processCell(cell, item, empty, textColor, fontToUse);
-//	}
-
-//	protected void processCell(TableCell<DisjointFeatureSet, String> cell, String item,
-//			boolean empty, Color textColor, Font fontToUse) {
-//		Text text;
-//		if (item == null || empty) {
-//			cell.setText(null);
-//			cell.setStyle("");
-//		} else {
-//			cell.setStyle("");
-//			text = new Text(item.toString());
-//			// Get it to wrap.
-//			text.wrappingWidthProperty().bind(cell.getTableColumn().widthProperty());
-//			DisjointFeatureSet obj = (DisjointFeatureSet) cell.getTableRow().getItem();
-//			if (fontToUse != null) {
-//				text.setFont(fontToUse);
-//			}
-//			cell.setGraphic(text);
-//		}
-//	}
-//
-//	protected void processTableCell(TableCell<DisjointFeatureSet, String> cell, Text text, String item, boolean empty) {
-//		processCell(cell, item, empty, null, null);
-//	}
-
 	protected double guessPrefHeight(Object g, double columnWidth) {
 		double maxSize = 12.0; 
 				//Math.max(vernacular.getFontSize(),
@@ -337,22 +254,12 @@ public class DisjointFeaturesEditorController implements Initializable {
 		}
 	}
 
-	// =====================================
-
-	// =====================================
-	// From ApproachEditorController
-
-
 	/**
 	 * @return the mainApp
 	 */
 	public Main getMainApp() {
 		return mainApp;
 	}
-
-//	public void setRootLayout(RootLayoutController controller) {
-//		rootController = controller;
-//	}
 
 	/**
 	 * @param mainApp
@@ -487,31 +394,6 @@ public class DisjointFeaturesEditorController implements Initializable {
 		return false;
 	}
 
-	@FXML
-	public void keyboardReleased(KeyEvent evt) {
-		KeyCode code = evt.getCode();
-		if (evt.isShiftDown()) {
-			if (code == KeyCode.LEFT || code == KeyCode.KP_LEFT || code == KeyCode.RIGHT
-					|| code == KeyCode.KP_RIGHT || code == KeyCode.HOME || code == KeyCode.END) {
-				TextField tf = (TextField) evt.getSource();
-				String selectedText = tf.getSelectedText();
-				IndexRange selectedRange = tf.getSelection();
-//				toolBarDelegate.updateToolBarForClipboard(tf, selectedText, selectedRange);
-			}
-		} else { // attempt at trying to fix odd case where using toolbar with
-					// keyboard may paste in unexpected location
-			if (code == KeyCode.LEFT || code == KeyCode.KP_LEFT || code == KeyCode.RIGHT
-					|| code == KeyCode.KP_RIGHT || code == KeyCode.HOME || code == KeyCode.END) {
-				TextField tf = (TextField) evt.getSource();
-				String selectedText = tf.getSelectedText();
-				IndexRange selectedRange = tf.getSelection();
-//				toolBarDelegate.updateToolBarForClipboard(tf, selectedText, selectedRange);
-			}
-		}
-	}
-
-	// =====================================
-
 	/**
 	 * Initializes the controller class. This method is automatically called
 	 * after the fxml file has been loaded.
@@ -546,54 +428,8 @@ public class DisjointFeaturesEditorController implements Initializable {
 			cellData.getValue().LanguageProperty().set(sLanguage);
 			return cellData.getValue().LanguageProperty();
 		});
-//		pairingsColumn.setCellValueFactory(cellData -> cellData.getValue()
-//				.valuesRepresentationProperty());
 		coFeatureColumn
 				.setCellValueFactory(cellData -> cellData.getValue().CoFeatureNameProperty());
-
-		// Custom rendering of the table cell.
-//		nameColumn.setCellFactory(column -> {
-//			return new AnalysisWrappingTableCell();
-//		});
-
-		// going to ignore pairing column for now
-//		pairingsColumn.setCellFactory(column -> {
-//			return new TableCell<DisjointFeatureSet, String>() {
-//				// We override computePrefHeight because by default, the graphic's height
-//				// gets set to the height of all items in the TextFlow as if none of them
-//				// wrapped.  So for now, we're doing this hack.
-//				@Override
-//				protected double computePrefHeight(double width) {
-//					Object g = getGraphic();
-//					if (g instanceof TextFlow) {
-//						return guessPrefHeight(g, column.widthProperty().get());
-//					}
-//					return super.computePrefHeight(-1);
-//				}
-//
-//				@Override
-//				protected void updateItem(String item, boolean empty) {
-//					super.updateItem(item, empty);
-//					DisjointFeatureSet nc = ((DisjointFeatureSet) getTableRow().getItem());
-//					if (item == null || empty || nc == null) {
-//						setGraphic(null);
-//						setText(null);
-//						setStyle("");
-//					} else {
-//						setGraphic(null);
-//						TextFlow tf = new TextFlow();
-//						tf = buildTextFlow(nc.getValuesAsListOfStrings());
-//						setGraphic(tf);
-//						setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-//						nc.setValuesRepresentation(tf.toString());
-//					}
-//				}
-//			};
-//		});
-
-//		featureColumn.setCellFactory(column -> {
-//			return new AnalysisWrappingTableCell();
-//		});
 
 		coFeatureNameComboBox.getSelectionModel().selectedItemProperty()
 				.addListener((options, oldValue, newValue) -> {
@@ -839,7 +675,6 @@ public class DisjointFeaturesEditorController implements Initializable {
 
 		makeColumnHeaderWrappable(nameColumn);
 		makeColumnHeaderWrappable(languageColumn);
-//		makeColumnHeaderWrappable(pairingsColumn);
 		makeColumnHeaderWrappable(coFeatureColumn);
 
 		pairingsSlider.valueProperty().addListener(new ChangeListener<Number>() {
@@ -862,9 +697,6 @@ public class DisjointFeaturesEditorController implements Initializable {
 				.selectedItemProperty()
 				.addListener(
 						(observable, oldValue, newValue) -> {
-							if (featureSetPairingsAreNull(newValue)) {
-								newValue = retoreFeatureSetPairings(newValue);
-							}
 							showFeatureSetDetails(newValue);
 						});
 
@@ -931,13 +763,6 @@ public class DisjointFeaturesEditorController implements Initializable {
 		return false;
 	}
 
-	protected DisjointFeatureSet retoreFeatureSetPairings(DisjointFeatureSet featureSet) {
-		if (setPairingsMapping.containsKey(featureSet)) {
-			featureSet.setDisjointFeatureValuePairings(setPairingsMapping.get(featureSet));
-		}
-		return featureSet;
-	}
-
 	protected void createCoFeatureValues(String featureName) {
 		flexFeatureValues.clear();
 		for (FLExFeature ff : flexFeatures) {
@@ -964,7 +789,6 @@ public class DisjointFeaturesEditorController implements Initializable {
 	 *            the segment or null
 	 */
 	private void showFeatureSetDetails(DisjointFeatureSet featureSet) {
-		rememberFeatureSetPairings(currentFeatureSet);
 		currentFeatureSet = featureSet;
 		Platform.runLater(new Runnable() {
 			@Override
@@ -978,13 +802,6 @@ public class DisjointFeaturesEditorController implements Initializable {
 						targetRadioButton.setSelected(true);
 					} else {
 						sourceRadioButton.setSelected(true);
-					}
-					// For some reason, the pairings values can get nulled out;
-					// We work around this by creating a map containing the good values
-					if (!featureSetPairingsAreNull(featureSet)) {
-						rememberFeatureSetPairings(featureSet);
-					} else {
-						retoreFeatureSetPairings(featureSet);
 					}
 					int iCurrentIndex = disjointFeaturesTable.getItems().indexOf(featureSet);
 					prefs.setLastDisjointFeatureSetItemUsed(iCurrentIndex);
@@ -1061,19 +878,6 @@ public class DisjointFeaturesEditorController implements Initializable {
 		});
 	}
 
-	protected void rememberFeatureSetPairings(DisjointFeatureSet featureSet) {
-		if (featureSet != null) {
-			ObservableList<DisjointFeatureValuePairing> rememberList = FXCollections.observableArrayList();
-			for (DisjointFeatureValuePairing pairing : featureSet.getDisjointFeatureValuePairings()) {
-				DisjointFeatureValuePairing newPairing = new DisjointFeatureValuePairing();
-				newPairing.setFlexFeatureName(pairing.getFlexFeatureName());
-				newPairing.setCoFeatureValue(pairing.getCoFeatureValue());
-				rememberList.add(newPairing);
-			}
-			setPairingsMapping.put(featureSet, rememberList);
-		}
-	}
-
 	private void createFLExFeatureNames(DisjointFeatureSet featureSet) {
 		Platform.runLater(new Runnable() {
 			@Override
@@ -1106,36 +910,6 @@ public class DisjointFeaturesEditorController implements Initializable {
 		} else {
 			deleteSetButton.setDisable(true);
 		}
-	}
-
-	protected void fillSncTextFlow(StringBuilder sb,
-			ObservableList<String> segmentsOrNaturalClasses) {
-		int i = 1;
-		int iCount = segmentsOrNaturalClasses.size();
-		for (String snc : segmentsOrNaturalClasses) {
-			Text t;
-			String s;
-			t = new Text(snc);
-			Text tBar = new Text(" | ");
-			tBar.setStyle("-fx-stroke: lightgrey;");
-//			valuesTextFlow.getChildren().addAll(t, tBar);
-			if (i++ < iCount) {
-				sb.append(", ");
-			}
-		}
-	}
-
-	protected TextFlow buildTextFlow(ObservableList<String> valueList) {
-		TextFlow tf = new TextFlow();
-		for (String value : valueList) {
-			Text t;
-			String s;
-			t = new Text(value);
-			Text tBar = new Text(" | ");
-			tBar.setStyle("-fx-stroke: lightgrey;");
-			tf.getChildren().addAll(t, tBar);
-		}
-		return tf;
 	}
 
 	/**
@@ -1278,32 +1052,6 @@ public class DisjointFeaturesEditorController implements Initializable {
 		// set any preferences
 		prefs.setLastWindowParameters(sDisjointEditor, dialogStage);
 		dialogStage.close();
-	}
-
-	/**
-	 * Opens a dialog to show the chooser.
-	 */
-	public void showValuesChooser() {
-//		try {
-			Stage dialogStage = new Stage();
-			String resource = "fxml/DisjointFeatureValuesChooser.fxml";
-			String sTitle = bundle.getString("main.Title");
-//			FXMLLoader loader = ControllerUtilities.getLoader(mainApp, locale, dialogStage,
-//					sTitle, DisjointFeaturesEditorController.class.getResource(resource),
-//					Constants.RESOURCE_LOCATION);
-//			DisjointFeatureValuesChooserController controller = loader.getController();
-//			controller.setDialogStage(dialogStage);
-//			controller.setMainApp(mainApp);
-//			controller.setFeatureSet(currentFeatureSet);
-//			controller.setData(disjointFeatures);
-//			controller.initializeTableColumnWidths(mainApp.getApplicationPreferences());
-//
-//			dialogStage.showAndWait();
-
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//			Main.reportException(e, bundle);
-//		}
 	}
 
 	// code taken from
