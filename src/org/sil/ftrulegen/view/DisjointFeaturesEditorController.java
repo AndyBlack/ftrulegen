@@ -442,13 +442,11 @@ public class DisjointFeaturesEditorController implements Initializable {
 						} else {
 							currentFeatureSet.setCoFeatureName(newValue);
 							createCoFeatureValues(newValue);
-							if (!oldValue.equals(newValue)) {
-								coFeatureValue1ComboBox.setValue(kEmpty);
-								coFeatureValue2ComboBox.setValue(kEmpty);
-								coFeatureValue3ComboBox.setValue(kEmpty);
-								coFeatureValue4ComboBox.setValue(kEmpty);
-								coFeatureValue5ComboBox.setValue(kEmpty);
-								coFeatureValue6ComboBox.setValue(kEmpty);
+							if (oldValue == null) {
+								// initialize
+								initAllPairingComboBoxes();
+							} else if (!oldValue.equals(kEmpty) && !oldValue.equals(newValue)) {
+								initAllCoFeatureValueComboBoxes();
 							}
 						}
 					}
@@ -548,6 +546,28 @@ public class DisjointFeaturesEditorController implements Initializable {
 
 	}
 
+	protected void initAllCoFeatureValueComboBoxes() {
+		coFeatureValue1ComboBox.setValue(kEmpty);
+		coFeatureValue2ComboBox.setValue(kEmpty);
+		coFeatureValue3ComboBox.setValue(kEmpty);
+		coFeatureValue4ComboBox.setValue(kEmpty);
+		coFeatureValue5ComboBox.setValue(kEmpty);
+		coFeatureValue6ComboBox.setValue(kEmpty);
+	}
+
+	protected void initAllPairingComboBoxes() {
+		initAllFlexFeatureComboBoxes();
+		initAllCoFeatureValueComboBoxes();
+	}
+
+	protected void initAllFlexFeatureComboBoxes() {
+		flexFeature1ComboBox.setValue(kEmpty);
+		flexFeature2ComboBox.setValue(kEmpty);
+		flexFeature3ComboBox.setValue(kEmpty);
+		flexFeature4ComboBox.setValue(kEmpty);
+		flexFeature5ComboBox.setValue(kEmpty);
+		flexFeature6ComboBox.setValue(kEmpty);
+	}
 	protected ComboBox<String> updateCoFeatureValueComboBox(ComboBox<String> coFeatureValueComboBox, int index,
 			int size, String newValue) {
 		if (currentFeatureSet != null) {
@@ -886,6 +906,7 @@ public class DisjointFeaturesEditorController implements Initializable {
 				DisjointFeatureValuePairing two = new DisjointFeatureValuePairing();
 				currentFeatureSet.getDisjointFeatureValuePairings().addAll(one, two);
 				selectFeatureSetInTableByIndex(disjointFeatureSets.size() -1);
+				pairingsSlider.setValue(2.0);
 			}
 		});
 	}
