@@ -444,9 +444,11 @@ public class DisjointFeaturesEditorController implements Initializable {
 							createCoFeatureValues(newValue);
 							if (oldValue == null) {
 								// initialize
-								initAllPairingComboBoxes();
+//								initAllPairingComboBoxes();
 							} else if (!oldValue.equals(kEmpty) && !oldValue.equals(newValue)) {
-								initAllCoFeatureValueComboBoxes();
+								createFLExFeatureNames(currentFeatureSet);
+								updatePairingsComboBoxes(currentFeatureSet);
+//								initAllCoFeatureValueComboBoxes();
 							}
 						}
 					}
@@ -600,7 +602,7 @@ public class DisjointFeaturesEditorController implements Initializable {
 				String sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(index).getCoFeatureValue();
 				coFeatureValueComboBox.getSelectionModel().select(sValue);
 			} else {
-				currentFeatureSet.getDisjointFeatureValuePairings().get(0).setCoFeatureValue(newValue);
+				currentFeatureSet.getDisjointFeatureValuePairings().get(index).setCoFeatureValue(newValue);
 			}
 		}
 		return coFeatureValueComboBox;
@@ -736,66 +738,7 @@ public class DisjointFeaturesEditorController implements Initializable {
 					coFeatureNameComboBox.setItems(flexFeatureNames);
 					coFeatureNameComboBox.getSelectionModel().select(featureSet.getCoFeatureName());
 
-					int numPairings = featureSet.getDisjointFeatureValuePairings().size();
-					pairingsSlider.setValue(numPairings);
-
-					flexFeature1ComboBox.setItems(flexFeatureMinusCoFeatureNames);
-					flexFeature1ComboBox.getSelectionModel().select(featureSet.getDisjointFeatureValuePairings().get(0).getFlexFeatureName());
-					flexFeature2ComboBox.setItems(flexFeatureMinusCoFeatureNames);
-					flexFeature2ComboBox.getSelectionModel().select(featureSet.getDisjointFeatureValuePairings().get(1).getFlexFeatureName());
-					flexFeature3ComboBox.setItems(flexFeatureMinusCoFeatureNames);
-					String s3Feature = kEmpty;
-					if (numPairings >= 3) {
-						s3Feature = featureSet.getDisjointFeatureValuePairings().get(2).getFlexFeatureName();
-					}
-					flexFeature3ComboBox.getSelectionModel().select(s3Feature);
-					flexFeature4ComboBox.setItems(flexFeatureMinusCoFeatureNames);
-					String s4Feature = kEmpty;
-					if (numPairings >= 4) {
-						s4Feature = featureSet.getDisjointFeatureValuePairings().get(3).getFlexFeatureName();
-					}
-					flexFeature4ComboBox.getSelectionModel().select(s4Feature);
-					flexFeature5ComboBox.setItems(flexFeatureMinusCoFeatureNames);
-					String s5Feature = kEmpty;
-					if (numPairings >= 5) {
-						s5Feature = featureSet.getDisjointFeatureValuePairings().get(4).getFlexFeatureName();
-					}
-					flexFeature5ComboBox.getSelectionModel().select(s5Feature);
-					flexFeature6ComboBox.setItems(flexFeatureMinusCoFeatureNames);
-					String s6Feature = kEmpty;
-					if (numPairings >= 6) {
-						s6Feature = featureSet.getDisjointFeatureValuePairings().get(5).getFlexFeatureName();
-					}
-					flexFeature6ComboBox.getSelectionModel().select(s6Feature);
-
-					coFeatureValue1ComboBox.setItems(flexFeatureValues);
-					coFeatureValue1ComboBox.getSelectionModel().select(featureSet.getDisjointFeatureValuePairings().get(0).getCoFeatureValue());
-					coFeatureValue2ComboBox.setItems(flexFeatureValues);
-					coFeatureValue2ComboBox.getSelectionModel().select(featureSet.getDisjointFeatureValuePairings().get(1).getCoFeatureValue());
-					coFeatureValue3ComboBox.setItems(flexFeatureValues);
-					String s3Value = kEmpty;
-					if (numPairings >= 3) {
-						s3Value = featureSet.getDisjointFeatureValuePairings().get(2).getCoFeatureValue();
-					}
-					coFeatureValue3ComboBox.getSelectionModel().select(s3Value);
-					coFeatureValue4ComboBox.setItems(flexFeatureValues);
-					String s4Value = kEmpty;
-					if (numPairings >= 4) {
-						s4Value = featureSet.getDisjointFeatureValuePairings().get(3).getCoFeatureValue();
-					}
-					coFeatureValue4ComboBox.getSelectionModel().select(s4Value);
-					coFeatureValue5ComboBox.setItems(flexFeatureValues);
-					String s5Value = kEmpty;
-					if (numPairings >= 5) {
-						s5Value = featureSet.getDisjointFeatureValuePairings().get(4).getCoFeatureValue();
-					}
-					coFeatureValue5ComboBox.getSelectionModel().select(s5Value);
-					coFeatureValue6ComboBox.setItems(flexFeatureValues);
-					String s6Value = kEmpty;
-					if (numPairings >= 6) {
-						s6Value = featureSet.getDisjointFeatureValuePairings().get(5).getCoFeatureValue();
-					}
-					coFeatureValue6ComboBox.getSelectionModel().select(s6Value);
+					updatePairingsComboBoxes(featureSet);
 				} else {
 					// FeatureSet is null, remove all the text.
 					nameField.setText("");
@@ -804,6 +747,69 @@ public class DisjointFeaturesEditorController implements Initializable {
 				enableDisableButtons();
 			}
 		});
+	}
+
+	protected void updatePairingsComboBoxes(DisjointFeatureSet featureSet) {
+		int numPairings = featureSet.getDisjointFeatureValuePairings().size();
+		pairingsSlider.setValue(numPairings);
+
+		flexFeature1ComboBox.setItems(flexFeatureMinusCoFeatureNames);
+		flexFeature1ComboBox.getSelectionModel().select(featureSet.getDisjointFeatureValuePairings().get(0).getFlexFeatureName());
+		flexFeature2ComboBox.setItems(flexFeatureMinusCoFeatureNames);
+		flexFeature2ComboBox.getSelectionModel().select(featureSet.getDisjointFeatureValuePairings().get(1).getFlexFeatureName());
+		flexFeature3ComboBox.setItems(flexFeatureMinusCoFeatureNames);
+		String s3Feature = kEmpty;
+		if (numPairings >= 3) {
+			s3Feature = featureSet.getDisjointFeatureValuePairings().get(2).getFlexFeatureName();
+		}
+		flexFeature3ComboBox.getSelectionModel().select(s3Feature);
+		flexFeature4ComboBox.setItems(flexFeatureMinusCoFeatureNames);
+		String s4Feature = kEmpty;
+		if (numPairings >= 4) {
+			s4Feature = featureSet.getDisjointFeatureValuePairings().get(3).getFlexFeatureName();
+		}
+		flexFeature4ComboBox.getSelectionModel().select(s4Feature);
+		flexFeature5ComboBox.setItems(flexFeatureMinusCoFeatureNames);
+		String s5Feature = kEmpty;
+		if (numPairings >= 5) {
+			s5Feature = featureSet.getDisjointFeatureValuePairings().get(4).getFlexFeatureName();
+		}
+		flexFeature5ComboBox.getSelectionModel().select(s5Feature);
+		flexFeature6ComboBox.setItems(flexFeatureMinusCoFeatureNames);
+		String s6Feature = kEmpty;
+		if (numPairings >= 6) {
+			s6Feature = featureSet.getDisjointFeatureValuePairings().get(5).getFlexFeatureName();
+		}
+		flexFeature6ComboBox.getSelectionModel().select(s6Feature);
+
+		coFeatureValue1ComboBox.setItems(flexFeatureValues);
+		coFeatureValue1ComboBox.getSelectionModel().select(featureSet.getDisjointFeatureValuePairings().get(0).getCoFeatureValue());
+		coFeatureValue2ComboBox.setItems(flexFeatureValues);
+		coFeatureValue2ComboBox.getSelectionModel().select(featureSet.getDisjointFeatureValuePairings().get(1).getCoFeatureValue());
+		coFeatureValue3ComboBox.setItems(flexFeatureValues);
+		String s3Value = kEmpty;
+		if (numPairings >= 3) {
+			s3Value = featureSet.getDisjointFeatureValuePairings().get(2).getCoFeatureValue();
+		}
+		coFeatureValue3ComboBox.getSelectionModel().select(s3Value);
+		coFeatureValue4ComboBox.setItems(flexFeatureValues);
+		String s4Value = kEmpty;
+		if (numPairings >= 4) {
+			s4Value = featureSet.getDisjointFeatureValuePairings().get(3).getCoFeatureValue();
+		}
+		coFeatureValue4ComboBox.getSelectionModel().select(s4Value);
+		coFeatureValue5ComboBox.setItems(flexFeatureValues);
+		String s5Value = kEmpty;
+		if (numPairings >= 5) {
+			s5Value = featureSet.getDisjointFeatureValuePairings().get(4).getCoFeatureValue();
+		}
+		coFeatureValue5ComboBox.getSelectionModel().select(s5Value);
+		coFeatureValue6ComboBox.setItems(flexFeatureValues);
+		String s6Value = kEmpty;
+		if (numPairings >= 6) {
+			s6Value = featureSet.getDisjointFeatureValuePairings().get(5).getCoFeatureValue();
+		}
+		coFeatureValue6ComboBox.getSelectionModel().select(s6Value);
 	}
 
 	private void createFLExFeatureNames(DisjointFeatureSet featureSet) {
