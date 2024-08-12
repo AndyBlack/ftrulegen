@@ -133,8 +133,7 @@ public class DisjointFeaturesEditorController implements Initializable {
 	ObservableList<String> flexFeatureValues = FXCollections.observableArrayList();
 	HashMap<DisjointFeatureSet, ObservableList<DisjointFeatureValuePairing>> setPairingsMapping = new HashMap<>();
 	final int minimumPairings = 2;
-	int visiblePairings = 2;
-	final String kEmpty = "??";
+	final String kEmpty = "";
 
 	public DisjointFeaturesEditorController() {
 
