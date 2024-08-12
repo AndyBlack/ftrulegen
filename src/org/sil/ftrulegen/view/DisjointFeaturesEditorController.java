@@ -444,7 +444,7 @@ public class DisjointFeaturesEditorController implements Initializable {
 							createCoFeatureValues(newValue);
 							if (oldValue == null) {
 								// initialize
-//								initAllPairingComboBoxes();
+//								initAllPairingComboBoxes();  ignore for now
 							} else if (!oldValue.equals(kEmpty) && !oldValue.equals(newValue)) {
 								createFLExFeatureNames(currentFeatureSet);
 								updatePairingsComboBoxes(currentFeatureSet);
@@ -509,17 +509,15 @@ public class DisjointFeaturesEditorController implements Initializable {
 		makeColumnHeaderWrappable(languageColumn);
 		makeColumnHeaderWrappable(coFeatureColumn);
 
-		pairingsSlider.valueProperty().addListener(new ChangeListener<Number>() {
-
-			public void changed(ObservableValue<? extends Number> observableValue, Number oldValue,
-					Number newValue) {
-				int result = (int) pairingsSlider.getValue();
-				showVisiblePairingsComboBoxes(result);
-				if ((double)oldValue > (double)newValue) {
-					currentFeatureSet.removePairingsFrom(result + 1);
-				}
+		pairingsSlider.valueProperty().addListener((obs, oldValue, newValue) -> {
+			int result = (int) pairingsSlider.getValue();
+			showVisiblePairingsComboBoxes(result);
+			if ((double)oldValue > (double)newValue) {
+				currentFeatureSet.removePairingsFrom(result + 1);
 			}
-		});
+			pairingsSlider.setValue((double) newValue);
+		}
+		);
 		// Clear details.
 		showFeatureSetDetails(null);
 
@@ -570,18 +568,16 @@ public class DisjointFeaturesEditorController implements Initializable {
 		flexFeature5ComboBox.setValue(kEmpty);
 		flexFeature6ComboBox.setValue(kEmpty);
 	}
+
 	protected ComboBox<String> updateCoFeatureValueComboBox(ComboBox<String> coFeatureValueComboBox, int index,
 			int size, String newValue) {
 		if (currentFeatureSet != null) {
 			if (newValue == null) {
 				// somehow this can be null; fix it
-				String sValue = kEmpty;
 				if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= size) {
-					sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(index).getCoFeatureValue();
-				} else if ((int)pairingsSlider.getValue() >= size) {
-					createNewPairing(sValue);
+					String sValue = currentFeatureSet.getDisjointFeatureValuePairings().get(index).getCoFeatureValue();
+					coFeatureValueComboBox.getSelectionModel().select(sValue);
 				}
-				coFeatureValueComboBox.getSelectionModel().select(sValue);
 			} else {
 				if (currentFeatureSet.getDisjointFeatureValuePairings().size() >= size) {
 					currentFeatureSet.getDisjointFeatureValuePairings().get(index).setCoFeatureValue(newValue);
@@ -719,10 +715,10 @@ public class DisjointFeaturesEditorController implements Initializable {
 	 *            the segment or null
 	 */
 	private void showFeatureSetDetails(DisjointFeatureSet featureSet) {
-		currentFeatureSet = featureSet;
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
+				currentFeatureSet = featureSet;
 				createFLExFeatureNames(featureSet);
 				if (featureSet != null) {
 					// Fill the text fields with info from the featureSet
@@ -737,7 +733,6 @@ public class DisjointFeaturesEditorController implements Initializable {
 					prefs.setLastDisjointFeatureSetItemUsed(iCurrentIndex);
 					coFeatureNameComboBox.setItems(flexFeatureNames);
 					coFeatureNameComboBox.getSelectionModel().select(featureSet.getCoFeatureName());
-
 					updatePairingsComboBoxes(featureSet);
 				} else {
 					// FeatureSet is null, remove all the text.
@@ -752,6 +747,7 @@ public class DisjointFeaturesEditorController implements Initializable {
 	protected void updatePairingsComboBoxes(DisjointFeatureSet featureSet) {
 		int numPairings = featureSet.getDisjointFeatureValuePairings().size();
 		pairingsSlider.setValue(numPairings);
+		showVisiblePairingsComboBoxes(numPairings);
 
 		flexFeature1ComboBox.setItems(flexFeatureMinusCoFeatureNames);
 		flexFeature1ComboBox.getSelectionModel().select(featureSet.getDisjointFeatureValuePairings().get(0).getFlexFeatureName());
