@@ -21,9 +21,9 @@ type="tRuleGen"
 ><emailAddress
 >blackhandrew@gmail.com</emailAddress
 ><date
->12 August, 2024</date
+>16 August, 2024</date
 ><version
->Version 0.23.0 Beta</version
+>Version 0.24.0 Beta</version
 ><version
 >Copyright © 2023-2024 SIL International</version
 ><contents
@@ -408,7 +408,10 @@ sec="sInvocation"
 >Further, if the word is in the target phrase and the total number of features specified in the word and any of its affixes is greater than one, then you can use the “Edit ranking” option to specify the relative ranking of the feature for when the value for a feature may be missing in a given instance. When you click on “Edit ranking,” it brings up a chooser dialog showing which ranking values are available. When there are multiple features in an affix or a word, once you set the ranking of one feature, <object
 type="tRuleGen"
 ></object
-> will seek to assign a ranking to all features. It also will try to ensure no two features have the same ranking. You can use “Delete ranking” to remove a ranking from a feature. In fact, when you remove a ranking from one feature in an affix or a word, all other features in that affix or word will lose their ranking.</p
+> will seek to assign a ranking to all features. It also will try to ensure no two features have the same ranking. You can use “Delete ranking” to remove a ranking from a feature. In fact, when you remove a ranking from one feature in an affix or a word, all other features in that affix or word will lose their ranking.  Please realize that if all the features on this word or affix do not each have a ranking value, ranking will be ignored by the <object
+type="tRuleGen"
+></object
+> processing.</p
 ></section2
 ><section2
 id="sEditAffix"
