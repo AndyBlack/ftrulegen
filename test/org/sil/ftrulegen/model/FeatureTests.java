@@ -164,4 +164,20 @@ public class FeatureTests {
 		assertEquals(1, fGender.getRanking());
 		assertEquals(2, fNumber.getRanking());
 	}
+
+	@Test
+	public void sisterFeatureHasARankingTest() {
+		initWordFeatures();
+		assertEquals(false, fCase.sisterFeatureHasARanking());
+		assertEquals(false, fGender.sisterFeatureHasARanking());
+		assertEquals(false, fNumber.sisterFeatureHasARanking());
+		fCase.setRanking(1);
+		assertEquals(false, fCase.sisterFeatureHasARanking());
+		assertEquals(true, fGender.sisterFeatureHasARanking());
+		assertEquals(true, fNumber.sisterFeatureHasARanking());
+		fGender.setRanking(2);
+		assertEquals(true, fCase.sisterFeatureHasARanking());
+		assertEquals(true, fGender.sisterFeatureHasARanking());
+		assertEquals(true, fNumber.sisterFeatureHasARanking());
+	}
 }

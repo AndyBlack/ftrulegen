@@ -948,9 +948,7 @@ public class MainController implements Initializable {
 	}
 
 	public void handleFeatureEditRanking() {
-		word = feature.getWord();
-		Category cat = word.getCategoryOfWordOrCorrespondingSourceWord();
-		int maxRankings = calculateMaxRankings(cat);
+		int maxRankings = getMaxRankings();
 		Integer[] rankings = new Integer[maxRankings];
 		for (int i = 1, j = 0; i < maxRankings + 1; i++) {
 				rankings[j++] = i;
@@ -970,6 +968,13 @@ public class MainController implements Initializable {
 			feature.assignRankingsToSisterFeaturesWithoutARanking(maxRankings);
 			reportChangesMade();
 		}
+	}
+
+	protected int getMaxRankings() {
+		word = feature.getWord();
+		Category cat = word.getCategoryOfWordOrCorrespondingSourceWord();
+		int maxRankings = calculateMaxRankings(cat);
+		return maxRankings;
 	}
 
 	protected int calculateMaxRankings(Category cat) {
@@ -1065,6 +1070,10 @@ public class MainController implements Initializable {
 						feature.setMatch("");
 						feature.setValue(featValue.getAbbreviation());
 					}
+				}
+				if (feature.sisterFeatureHasARanking()) {
+					int maxRankings = getMaxRankings();
+					feature.assignRankingsToSisterFeaturesWithoutARanking(maxRankings);
 				}
 				reportChangesMade();
 			} else if (inserting ){

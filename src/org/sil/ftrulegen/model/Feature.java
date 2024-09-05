@@ -186,6 +186,23 @@ public class Feature extends RuleConstituent {
 		}
 	}
 
+	public boolean sisterFeatureHasARanking() {
+		boolean result = false;
+		ConstituentWithFeatures cwfs = (ConstituentWithFeatures) getParent();
+		int maxSize = cwfs.getFeatures().size();
+		for (int i = 0; i < maxSize; i++) {
+			Feature f = cwfs.getFeatures().get(i);
+			if (!this.equals(f)) {
+				int ranking = f.getRanking();
+				if (ranking > 0) {
+					result = true;
+					break;
+				}
+			}
+		}
+		return result;
+	}
+
 	public void swapRankingOfSisterFeatureWithRanking(int newRanking, int oldRanking) {
 		if (oldRanking <= 0)
 			return;
