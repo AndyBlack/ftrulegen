@@ -119,7 +119,7 @@ public class Main extends Application implements MainAppUtilities {
 	}
 
 	private Boolean checkArguments(ResourceBundle bundle) {
-		if (arguments.length < 2 || arguments.length > 3) {
+		if (arguments.length < 3 || arguments.length > 4) {
 			writeHelp(bundle);
 			return false;
 		}
@@ -135,11 +135,16 @@ public class Main extends Application implements MainAppUtilities {
 			return false;
 		}
 
-		if (arguments.length >= 3) {
+		if (!Files.exists(Paths.get(arguments[2]))) {
+			System.out.println(bundle.getString("main.TestDataFileNotFound"));
+			return false;
+		}
+
+		if (arguments.length >= 4) {
 			try {
-				maxVariables = Integer.parseInt(arguments[2]);
+				maxVariables = Integer.parseInt(arguments[3]);
 			} catch (NumberFormatException e) {
-				Object[] args = { arguments[2] };
+				Object[] args = { arguments[3] };
 				MessageFormat msgFormatter = new MessageFormat("");
 				msgFormatter.setLocale(new Locale("en"));
 				msgFormatter.applyPattern(RESOURCE_FACTORY.getStringBinding("main.MaxVariablesNotAnInteger").get());
@@ -183,6 +188,7 @@ public class Main extends Application implements MainAppUtilities {
 		System.out.println();
 		System.out.println(bundle.getString("main.RuleFile"));
 		System.out.println(bundle.getString("main.FLExDataSourceTargetFile"));
+		System.out.println(bundle.getString("main.TestDataFile"));
 		System.out.println(bundle.getString("main.OptionalMaxVariables"));
 	}
 
