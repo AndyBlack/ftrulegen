@@ -196,6 +196,7 @@ public class MainController implements Initializable {
 	FLExData flexData;
 	int maxVariables = 4;
 	Image flexTransImage;
+	final String kLaunchLRTIndicator = " LRT";
 
 	Affix affix;
 	Category category;
@@ -1384,14 +1385,34 @@ public class MainController implements Initializable {
 
 	@FXML
 	public void handleTestInLRT() {
-		boolean isValid = true;
-		for (FLExTransRule rule : lvRules.getItems()) {
-			if (!ruleIsValid(rule)) {
-				isValid = false;
-				break;
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle(bundle.getString("lrt.title"));
+		alert.setHeaderText(bundle.getString("lrt.header"));
+		alert.setContentText(bundle.getString("lrt.content"));
+
+		ButtonType btnSaveCreate = new ButtonType(bundle.getString("view.SaveCreate"));
+		ButtonType btnSaveCreateAll = new ButtonType(bundle.getString("view.SaveCreateAll"));
+		ButtonType buttonTypeCancel = new ButtonType(bundle.getString("chooser.Cancel"), ButtonData.CANCEL_CLOSE);
+
+		alert.getButtonTypes().setAll(btnSaveCreate, btnSaveCreateAll, buttonTypeCancel);
+
+		Optional<ButtonType> result = alert.showAndWait();
+		boolean isValid = false;
+		if (result.get() == btnSaveCreate){
+			isValid = ruleIsValid(lvRules.getItems().get(selectedRuleIndex));
+			saveAndExitIfValid(1 + " " + getSelectedRuleIndex() + kLaunchLRTIndicator, isValid);
+		} else if (result.get() == btnSaveCreateAll) {
+			isValid = true;
+			for (FLExTransRule rule : lvRules.getItems()) {
+				if (!ruleIsValid(rule)) {
+					isValid = false;
+					break;
+				}
 			}
+			saveAndExitIfValid("2" + kLaunchLRTIndicator, isValid);
+			} else {
+		    // do nothing
 		}
-		saveAndExitIfValid("2", isValid);
 	}
 
 	boolean ruleIsValid(FLExTransRule rule) {
