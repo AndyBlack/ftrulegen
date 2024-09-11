@@ -125,6 +125,8 @@ public class MainController implements Initializable {
 	Button btnDisjointGenderFeatures;
 	@FXML
 	Button btnHelp;
+	@FXML
+	Button btnTestInLRT;
 
 	ContextMenu affixEditContextMenu = new ContextMenu();
 	MenuItem cmAffixDuplicate;
@@ -190,6 +192,7 @@ public class MainController implements Initializable {
 	String ruleAssistantFile = "";
 	String flexDataFile = "";
 	String testDataFile = "";
+	boolean cameFromLRT = false;
 	FLExData flexData;
 	int maxVariables = 4;
 	Image flexTransImage;
@@ -254,6 +257,10 @@ public class MainController implements Initializable {
 
 	public void setTestDataFile(String value) {
 		testDataFile = value;
+	}
+
+	public void setCameFromLRT(boolean value) {
+		cameFromLRT = value;
 	}
 
 	public void setMaxVariables(int value) {
@@ -322,6 +329,7 @@ public class MainController implements Initializable {
 					String sConverted = new String(Files.readAllBytes(f.toPath()),
 							StandardCharsets.UTF_8);
 					testDataWebEngine.loadContent(sConverted);
+					btnTestInLRT.setDisable(cameFromLRT);
 				} catch (IOException e) {
 					e.printStackTrace();
 					HandleExceptionMessage.show(bundle.getString("file.error"), bundle.getString("file.error.load.header"),
@@ -1364,6 +1372,18 @@ public class MainController implements Initializable {
 
 	@FXML
 	public void handleSaveCreateAll() {
+		boolean isValid = true;
+		for (FLExTransRule rule : lvRules.getItems()) {
+			if (!ruleIsValid(rule)) {
+				isValid = false;
+				break;
+			}
+		}
+		saveAndExitIfValid("2", isValid);
+	}
+
+	@FXML
+	public void handleTestInLRT() {
 		boolean isValid = true;
 		for (FLExTransRule rule : lvRules.getItems()) {
 			if (!ruleIsValid(rule)) {

@@ -35,7 +35,7 @@
                   <WebView fx:id="browser" layoutX="31.0" layoutY="145.0" prefHeight="353.0" prefWidth="1049.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="145.0" />
                   <ButtonBar layoutX="852.0" layoutY="5.0" prefHeight="25.0" prefWidth="506.0" AnchorPane.rightAnchor="13.0">
                      <buttons>
-                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="%view.TestInLRT" />
+                        <Button fx:id="btnTestInLRT" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="%view.TestInLRT" />
                         <Button mnemonicParsing="false" onAction="#handleSave" text="%view.Save" />
                         <Button mnemonicParsing="false" onAction="#handleSaveCreate" text="%view.SaveCreate" />
                         <Button mnemonicParsing="false" onAction="#handleSaveCreateAll" text="%view.SaveCreateAll" />

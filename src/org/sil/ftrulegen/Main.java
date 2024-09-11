@@ -83,6 +83,7 @@ public class Main extends Application implements MainAppUtilities {
 				controller.setRuleGenFile(arguments[0]);
 				controller.setFLexDataFile(arguments[1]);
 				controller.setTestDataFile(arguments[2]);
+				controller.setCameFromLRT(arguments[3].toLowerCase().equals("y") ? true : false);
 				controller.setMaxVariables(maxVariables);
 				controller.loadDataFiles();
 				controller.setFLExTransImage(flexTransImage);
@@ -120,7 +121,7 @@ public class Main extends Application implements MainAppUtilities {
 	}
 
 	private Boolean checkArguments(ResourceBundle bundle) {
-		if (arguments.length < 3 || arguments.length > 4) {
+		if (arguments.length < 4 || arguments.length > 5) {
 			writeHelp(bundle);
 			return false;
 		}
@@ -141,11 +142,17 @@ public class Main extends Application implements MainAppUtilities {
 			return false;
 		}
 
-		if (arguments.length >= 4) {
+		String sCameFromLRT = arguments[3].toLowerCase();
+		if (!sCameFromLRT.equals("y") && !sCameFromLRT.equals("n")) {
+			System.out.println(bundle.getString("main.CameFromLRTNotFound"));
+			return false;
+		}
+
+		if (arguments.length >= 5) {
 			try {
-				maxVariables = Integer.parseInt(arguments[3]);
+				maxVariables = Integer.parseInt(arguments[4]);
 			} catch (NumberFormatException e) {
-				Object[] args = { arguments[3] };
+				Object[] args = { arguments[4] };
 				MessageFormat msgFormatter = new MessageFormat("");
 				msgFormatter.setLocale(new Locale("en"));
 				msgFormatter.applyPattern(RESOURCE_FACTORY.getStringBinding("main.MaxVariablesNotAnInteger").get());
@@ -190,6 +197,7 @@ public class Main extends Application implements MainAppUtilities {
 		System.out.println(bundle.getString("main.RuleFile"));
 		System.out.println(bundle.getString("main.FLExDataSourceTargetFile"));
 		System.out.println(bundle.getString("main.TestDataFile"));
+		System.out.println(bundle.getString("main.CameFromLRT"));
 		System.out.println(bundle.getString("main.OptionalMaxVariables"));
 	}
 
