@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.MessageFormat;
@@ -103,6 +104,10 @@ public class MainController implements Initializable {
 	@FXML
 	private WebEngine webEngine;
 	@FXML
+	private WebView testDataBrowser;
+	@FXML
+	private WebEngine testDataWebEngine;
+	@FXML
 	private Label lblRules;
 	@FXML
 	private Label lblRightClickToEdit;
@@ -184,6 +189,7 @@ public class MainController implements Initializable {
 	ConstituentFinder finder;
 	String ruleAssistantFile = "";
 	String flexDataFile = "";
+	String testDataFile = "";
 	FLExData flexData;
 	int maxVariables = 4;
 	Image flexTransImage;
@@ -246,6 +252,10 @@ public class MainController implements Initializable {
 		flexDataFile = value;
 	}
 
+	public void setTestDataFile(String value) {
+		testDataFile = value;
+	}
+
 	public void setMaxVariables(int value) {
 		maxVariables = value;
 	}
@@ -298,6 +308,24 @@ public class MainController implements Initializable {
 							win.setMember("ftRuleGenApp", webPageInteractor);
 						}
 					});
+				}
+			}
+		});
+
+		testDataWebEngine = testDataBrowser.getEngine();
+		testDataBrowser.setContextMenuEnabled(false);
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				File f = new File(testDataFile);
+				try {
+					String sConverted = new String(Files.readAllBytes(f.toPath()),
+							StandardCharsets.UTF_8);
+					testDataWebEngine.loadContent(sConverted);
+				} catch (IOException e) {
+					e.printStackTrace();
+					HandleExceptionMessage.show(bundle.getString("file.error"), bundle.getString("file.error.load.header"),
+							bundle.getString("file.error.load.content") + testDataFile, true);
 				}
 			}
 		});
