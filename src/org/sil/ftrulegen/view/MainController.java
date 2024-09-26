@@ -1391,7 +1391,9 @@ public class MainController implements Initializable {
 		alert.setContentText(bundle.getString("lrt.content"));
 
 		ButtonType btnSaveCreate = new ButtonType(bundle.getString("view.SaveCreate"));
-		ButtonType btnSaveCreateAll = new ButtonType(bundle.getString("view.SaveCreateAll"));
+		// Note: for some odd reason, using view.SaveCreateAll shows correctly when launched from the IDE
+		// but not when installed.  So we use the view.SaveCreateAllTestInLRT version here which works in both
+		ButtonType btnSaveCreateAll = new ButtonType(bundle.getString("view.SaveCreateAllTestInLRT"));
 		ButtonType buttonTypeCancel = new ButtonType(bundle.getString("chooser.Cancel"), ButtonData.CANCEL_CLOSE);
 
 		alert.getButtonTypes().setAll(btnSaveCreate, btnSaveCreateAll, buttonTypeCancel);
