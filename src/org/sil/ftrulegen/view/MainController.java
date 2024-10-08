@@ -1096,6 +1096,7 @@ public class MainController implements Initializable {
 			controller.setDialogStage(dialogStage);
 			controller.setFeatures(features);
 			controller.selectFLExFeatureValue(feature);
+			controller.ShowUnmarkedlabel(unmarked);
 			Scene scene = new Scene(pane);
 			dialogStage.setScene(scene);
 			dialogStage.setTitle(loader.getResources().getString("chooser.FeatureValueTitle"));

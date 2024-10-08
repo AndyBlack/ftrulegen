@@ -18,7 +18,9 @@ import org.sil.ftrulegen.model.Feature;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
@@ -28,6 +30,8 @@ public class FLExFeatureValueChooserController implements Initializable {
 
 	@FXML
 	ListView<FLExFeatureValue> lvFeatureValues;
+	@FXML
+	Label lblUnmarked;
 
 	Stage dialogStage;
 	ApplicationPreferences prefs;
@@ -49,6 +53,13 @@ public class FLExFeatureValueChooserController implements Initializable {
 		lvFeatureValues.getItems().clear();
 		for (FLExFeature feature : features) {
 			lvFeatureValues.getItems().addAll(feature.getValues());
+		}
+	}
+
+	public void ShowUnmarkedlabel(boolean show) {
+		lblUnmarked.setVisible(show);
+		if (!show) {
+			AnchorPane.setTopAnchor(lvFeatureValues, 0.0);
 		}
 	}
 
