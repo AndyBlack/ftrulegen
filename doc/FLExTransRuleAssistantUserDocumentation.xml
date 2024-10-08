@@ -21,9 +21,9 @@ type="tRuleGen"
 ><emailAddress
 >blackhandrew@gmail.com</emailAddress
 ><date
->26 September, 2024</date
+>8 October, 2024</date
 ><version
->Version 0.25.0 Beta</version
+>Version 0.26.0 Beta</version
 ><version
 >Copyright © 2023-2024 SIL International</version
 ><contents
@@ -541,6 +541,7 @@ num="xFeatureSetEditor"
 num="xFeatureSetEditor"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='600'"
 src="Resources/DisjointGenderFaturesEditor.png"
 ></img
 ></chart

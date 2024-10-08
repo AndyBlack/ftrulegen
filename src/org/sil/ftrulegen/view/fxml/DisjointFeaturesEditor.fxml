@@ -36,7 +36,7 @@
 <!--                        <TableColumn fx:id="pairingsColumn" prefWidth="231.0" text="%disjoint.pairings" /> -->
                      </columns>
                   </TableView>
-                  <ButtonBar layoutX="14.0" layoutY="355.0" prefHeight="40.0" prefWidth="291.0" AnchorPane.bottomAnchor="0.0">
+                  <ButtonBar layoutX="14.0" layoutY="355.0" prefHeight="40.0" prefWidth="395.0" AnchorPane.bottomAnchor="0.0">
                     <buttons>
                       <Button fx:id="addSetButton" mnemonicParsing="false" onAction="#handleAddSet" text="%disjoint.addnewset" />
                         <Button fx:id="deleteSetButton" mnemonicParsing="false" onAction="#handleDeleteSet" prefHeight="25.0" prefWidth="124.0" text="%disjoint.deleteset" />
