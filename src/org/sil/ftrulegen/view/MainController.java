@@ -1397,6 +1397,9 @@ public class MainController implements Initializable {
 		ButtonType buttonTypeCancel = new ButtonType(bundle.getString("chooser.Cancel"), ButtonData.CANCEL_CLOSE);
 
 		alert.getButtonTypes().setAll(btnSaveCreate, btnSaveCreateAll, buttonTypeCancel);
+		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+		stage.getIcons().add(ControllerUtilities.getIconImageFromURL(Constants.APPLICATION_ICON_RESOURCE,
+				Constants.RESOURCE_SOURCE_LOCATION));
 
 		Optional<ButtonType> result = alert.showAndWait();
 		boolean isValid = false;
