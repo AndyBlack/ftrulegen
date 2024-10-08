@@ -81,6 +81,7 @@ import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -127,6 +128,8 @@ public class MainController implements Initializable {
 	Button btnHelp;
 	@FXML
 	Button btnTestInLRT;
+	@FXML
+	private Tooltip tooltipTestInLRT;
 
 	ContextMenu affixEditContextMenu = new ContextMenu();
 	MenuItem cmAffixDuplicate;
@@ -371,6 +374,12 @@ public class MainController implements Initializable {
 		});
 
 		createContextMenuItems();
+
+		String sTip = bundle.getString("tooltip.testinlrt");
+		tooltipTestInLRT = new Tooltip(sTip);
+		btnTestInLRT.setTooltip(tooltipTestInLRT);
+		tooltipTestInLRT.textProperty().bind(
+				RESOURCE_FACTORY.getStringBinding("tooltip.testinlrt"));
 
 		SplitPane.setResizableWithParent(rulesPane, false);
 		SplitPane.setResizableWithParent(browserPane, false);
