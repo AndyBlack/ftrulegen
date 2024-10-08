@@ -299,8 +299,16 @@ public class MainController implements Initializable {
 			lvRules.refresh();
 		});
 
+		tfRuleName.setOnKeyPressed(keyEvent -> {
+			markAsChanged(true);
+		});
+
 		tfRuleDescription.textProperty().addListener((observable, oldValue, newValue) -> {
 			lvRules.getSelectionModel().getSelectedItem().setDescription(newValue);
+		});
+
+		tfRuleDescription.setOnKeyPressed(keyEvent -> {
+			markAsChanged(true);
 		});
 
 		webEngine = browser.getEngine();
