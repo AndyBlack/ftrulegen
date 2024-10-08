@@ -8,10 +8,10 @@
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.sil.ftrulegen.view.FLExFeatureValueChooserController">
    <children>
       <ListView fx:id="lvFeatureValues" layoutX="158.0" layoutY="101.0" prefHeight="200.0" prefWidth="400.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <ButtonBar layoutX="31.0" layoutY="194.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <ButtonBar layoutX="31.0" layoutY="194.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="10.0">
         <buttons>
-            <Button defaultButton="true" mnemonicParsing="false" text="%chooser.OK" onAction="#handleOK" />
-            <Button cancelButton="true" mnemonicParsing="false" text="%chooser.Cancel" onAction="#handleCancel" />
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#handleOK" text="%chooser.OK" />
+            <Button cancelButton="true" mnemonicParsing="false" onAction="#handleCancel" text="%chooser.Cancel" />
         </buttons>
       </ButtonBar>
    </children>
