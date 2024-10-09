@@ -21,9 +21,9 @@ type="tRuleGen"
 ><emailAddress
 >blackhandrew@gmail.com</emailAddress
 ><date
->8 October, 2024</date
+>9 October, 2024</date
 ><version
->Version 0.26.0 Beta</version
+>Version 0.27.0 Beta</version
 ><version
 >Copyright © 2023-2024 SIL International</version
 ><contents
@@ -146,7 +146,19 @@ src="Resources/RuleGen.png"
 >The “Test in LRT” button is to have <object
 type="tFLExTrans"
 ></object
-> open its “Live Rule Tester” module.</p
+> open its “Live Rule Tester” module.  When you click on this button, the dialog shown in example <exampleRef
+letter="xTestInLRT"
+num="xTestInLRT"
+></exampleRef
+> appears.</p
+><example
+num="xTestInLRT"
+><chart
+><img
+src="Resources/TestinLRT.png"
+></img
+></chart
+></example
 ><p
 >The “Save” button is used to save changes made to rules or newly added rules.</p
 ><p
