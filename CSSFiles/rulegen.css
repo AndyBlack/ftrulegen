@@ -24,7 +24,7 @@
 .categorytgt {
     color:red;
     font-style: italic;
-    opacity: 0.75;
+/*    opacity: 0.75;  not using because it makes underscores not show */
     filter: grayscale(50%);
 }
 
