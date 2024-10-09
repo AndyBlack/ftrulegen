@@ -200,6 +200,7 @@ public class MainController implements Initializable {
 	int maxVariables = 4;
 	Image flexTransImage;
 	final String kLaunchLRTIndicator = " LRT";
+	final int chooserCoordinateOffset = 20;
 
 	Affix affix;
 	Category category;
@@ -910,6 +911,7 @@ public class MainController implements Initializable {
 			AnchorPane pane = loader.load();
 			FLExCategoryChooserController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
+			controller.setXandYCoordinates(stage.getX() + chooserCoordinateOffset, stage.getY() + chooserCoordinateOffset);
 			controller.setCategories(categories);
 			controller.selectFLExCategory(category);
 			Scene scene = new Scene(pane);
@@ -1103,6 +1105,7 @@ public class MainController implements Initializable {
 			AnchorPane pane = loader.load();
 			FLExFeatureValueChooserController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
+			controller.setXandYCoordinates(stage.getX() + chooserCoordinateOffset, stage.getY() + chooserCoordinateOffset);
 			controller.setFeatures(features);
 			controller.selectFLExFeatureValue(feature);
 			controller.ShowUnmarkedlabel(unmarked);

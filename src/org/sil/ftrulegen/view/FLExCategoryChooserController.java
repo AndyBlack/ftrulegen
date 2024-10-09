@@ -40,7 +40,12 @@ public class FLExCategoryChooserController implements Initializable {
 	public void setDialogStage(Stage value) {
 		dialogStage = value;
 		prefs = ApplicationPreferences.getInstance();
-		dialogStage = prefs.getLastWindowParameters(ApplicationPreferences.LAST_CATEGORY_CHOOSER, dialogStage, 485.0, 580.0);
+		dialogStage = prefs.getLastWindowParameters(ApplicationPreferences.LAST_CATEGORY_CHOOSER, dialogStage, 300.0, 240.0);
+	}
+
+	public void setXandYCoordinates(double x, double y) {
+		dialogStage.setX(x);
+		dialogStage.setY(y);
 	}
 
 	public void setCategories(List<FLExCategory> categories) {
