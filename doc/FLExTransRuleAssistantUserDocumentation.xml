@@ -21,9 +21,9 @@ type="tRuleGen"
 ><emailAddress
 >blackhandrew@gmail.com</emailAddress
 ><date
->9 October, 2024</date
+>11 October, 2024</date
 ><version
->Version 0.27.0 Beta</version
+>Version 0.28.0</version
 ><version
 >Copyright © 2023-2024 SIL International</version
 ><contents
@@ -146,7 +146,7 @@ src="Resources/RuleGen.png"
 >The “Test in LRT” button is to have <object
 type="tFLExTrans"
 ></object
-> open its “Live Rule Tester” module.  When you click on this button, the dialog shown in example <exampleRef
+> open its “Live Rule Tester” module. When you click on this button, the dialog shown in example <exampleRef
 letter="xTestInLRT"
 num="xTestInLRT"
 ></exampleRef
@@ -194,7 +194,9 @@ type="tFLExTrans"
 ></object
 >.</p
 ><p
->Under the list of rules is a button labeled “Set disjoint gender features.” This is for a special case. See section <sectionRef
+>Under the list of rules is a check box labeled “Overwrite rule(s).”  When this is checked, then any previous rules which have the same name will be overwritten.</p
+><p
+>Under this check box is a button labeled “Set disjoint gender features.” This is for a special case. See section <sectionRef
 sec="sDisjointFeatureSets"
 ></sectionRef
 >.</p

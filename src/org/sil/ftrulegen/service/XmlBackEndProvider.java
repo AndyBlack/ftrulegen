@@ -94,8 +94,7 @@ public class XmlBackEndProvider extends BackEndProvider {
 			sb.append("<!DOCTYPE FLExTransRuleGenerator PUBLIC \" -//XMLmind//DTD FLExTransRuleGenerator//EN\"\n");
 			sb.append("\"FLExTransRuleGenerator.dtd\">\n");
 			String result = new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8);
-			sb.append("<FLExTransRuleGenerator>\n");
-			sb.append(result.substring(81));
+			sb.append(result.substring(56));
 			Files.write(file.toPath(), sb.toString().getBytes(StandardCharsets.UTF_8), StandardOpenOption.WRITE);
 		} catch (Exception e) { // catches ANY exception
 			e.printStackTrace();

@@ -10,6 +10,7 @@ import java.util.*;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -19,6 +20,7 @@ public class FLExTransRuleGenerator {
 	Locale locale;
 	private List<FLExTransRule> flexTransRules = new ArrayList<FLExTransRule>();
 	private ObservableList<DisjointFeatureSet> disjointFeatures = FXCollections.observableArrayList();
+	private PermutationsValue overwriteRules = PermutationsValue.yes;
 
 	public void setLocale(Locale value) {
 		locale = value;
@@ -45,6 +47,15 @@ public class FLExTransRuleGenerator {
 
 	public void setDisjointFeatures(ObservableList<DisjointFeatureSet> value) {
 		disjointFeatures = value;
+	}
+
+	public PermutationsValue getOverwriteRules() {
+		return overwriteRules;
+	}
+
+	@XmlAttribute(name="overwrite_rules")
+	public void setOverwriteRules(PermutationsValue overwriteRules) {
+		this.overwriteRules = overwriteRules;
 	}
 
 	public FLExTransRuleGenerator() {

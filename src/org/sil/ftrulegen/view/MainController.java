@@ -123,11 +123,15 @@ public class MainController implements Initializable {
 	@FXML
 	CheckBox cbUseDisjointGenderFeatures;
 	@FXML
+	CheckBox cbOverwriteRules;
+	@FXML
 	Button btnDisjointGenderFeatures;
 	@FXML
 	Button btnHelp;
 	@FXML
 	Button btnTestInLRT;
+	@FXML
+	private Tooltip tooltipOverwriteRules;
 	@FXML
 	private Tooltip tooltipTestInLRT;
 
@@ -362,6 +366,20 @@ public class MainController implements Initializable {
 			}
 		});
 
+		cbOverwriteRules.selectedProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				if (newValue)
+					generator.setOverwriteRules(PermutationsValue.yes);
+				else
+					generator.setOverwriteRules(PermutationsValue.no);
+			}
+		});
+
+		cbOverwriteRules.setOnMouseClicked(event -> {
+			markAsChanged(true);
+		});
+
 		mainPane.setOnKeyPressed(keyEvent -> {
 			switch (keyEvent.getCode()) {
 			case S:
@@ -376,8 +394,12 @@ public class MainController implements Initializable {
 
 		createContextMenuItems();
 
-		String sTip = bundle.getString("tooltip.testinlrt");
-		tooltipTestInLRT = new Tooltip(sTip);
+		tooltipOverwriteRules = new Tooltip(bundle.getString("tooltip.overwriterules"));
+		cbOverwriteRules.setTooltip(tooltipOverwriteRules);
+		tooltipOverwriteRules.textProperty().bind(
+				RESOURCE_FACTORY.getStringBinding("tooltip.overwriterules"));
+
+		tooltipTestInLRT = new Tooltip(bundle.getString("tooltip.testinlrt"));
 		btnTestInLRT.setTooltip(tooltipTestInLRT);
 		tooltipTestInLRT.textProperty().bind(
 				RESOURCE_FACTORY.getStringBinding("tooltip.testinlrt"));
@@ -395,7 +417,10 @@ public class MainController implements Initializable {
 		generator = provider.getRuleGenerator();
 		finder = ConstituentFinder.getInstance();
 		lvRules.getItems().addAll(generator.getFLExTransRules());
-
+		if (generator.getOverwriteRules() == PermutationsValue.yes)
+			cbOverwriteRules.setSelected(true);
+		else
+			cbOverwriteRules.setSelected(false);
 		flexData = new FLExData();
 		XMLFLExDataBackEndProvider flexProvider = new XMLFLExDataBackEndProvider(flexData, bundle.getLocale());
 		flexProvider.loadFLExDataFromFile(flexDataFile);
