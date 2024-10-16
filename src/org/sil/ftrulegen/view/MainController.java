@@ -453,6 +453,9 @@ public class MainController implements Initializable {
 			if (words.stream().anyMatch(w -> w.getHead() == HeadValue.yes)) {
 				cbCreatePermutations.setDisable(false);
 			}
+		} else {
+			cbCreatePermutations.setSelected(false);
+			cbCreatePermutations.setDisable(true);
 		}
 	}
 
