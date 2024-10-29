@@ -21,9 +21,9 @@ type="tRuleGen"
 ><emailAddress
 >blackhandrew@gmail.com</emailAddress
 ><date
->11 October, 2024</date
+>29 October, 2024</date
 ><version
->Version 0.28.0</version
+>Version 0.29.0</version
 ><version
 >Copyright © 2023-2024 SIL International</version
 ><contents
@@ -189,12 +189,18 @@ type="tRuleGen"
 ></object
 > will close.</p
 ><p
->Under the set of buttons is a view of some test data from the “Live Rule Tester” module of <object
+>Under the set of buttons in the upper right corner is the data from the active source text as defined by <object
 type="tFLExTrans"
 ></object
->.</p
+>. It is intended to display test data that you can consult as you define your rules in the <object
+type="tRuleGen"
+></object
+>. Each line has source and target words and applicable features in data stream format which is similar to what you would see in the <object
+type="tLiveRuleTester"
+></object
+> module. Note that the target words (with features) are the words that have been linked from the source words. Also, source affixes are carried over to the target words. Important: no transfer rules have been run.</p
 ><p
->Under the list of rules is a check box labeled “Overwrite rule(s).”  When this is checked, then any previous rules which have the same name will be overwritten.</p
+>Under the list of rules is a check box labeled “Overwrite rule(s).” When this is checked, then any previous rules which have the same name will be overwritten.</p
 ><p
 >Under this check box is a button labeled “Set disjoint gender features.” This is for a special case. See section <sectionRef
 sec="sDisjointFeatureSets"
@@ -816,6 +822,12 @@ color="red"
 font-family="Arial"
 font-size="12pt"
 id="tLexical"
+></type
+><type
+before="Live Rule Tester"
+color="navy"
+font-style="italic"
+id="tLiveRuleTester"
 ></type
 ><type
 color="maroon"
