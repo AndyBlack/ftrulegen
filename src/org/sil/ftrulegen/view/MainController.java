@@ -37,6 +37,7 @@ import org.sil.ftrulegen.model.FLExTransRule;
 import org.sil.ftrulegen.model.FLExTransRuleGenerator;
 import org.sil.ftrulegen.model.Feature;
 import org.sil.ftrulegen.model.HeadValue;
+import org.sil.ftrulegen.model.OverwriteRulesValue;
 import org.sil.ftrulegen.model.PermutationsValue;
 import org.sil.ftrulegen.model.Phrase;
 import org.sil.ftrulegen.model.PhraseType;
@@ -55,6 +56,8 @@ import org.sil.utility.view.ObservableResourceFactory;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Worker.State;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -73,6 +76,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -84,6 +88,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.util.StringConverter;
 
 /**
  * 
@@ -119,7 +124,9 @@ public class MainController implements Initializable {
 	@FXML
 	ListView<FLExTransRule> lvRules;
 	@FXML
-	CheckBox cbCreatePermutations;
+	ComboBox<PermutationsValue> cbxCreatePermutations;
+	@FXML
+	Label lblCreatePermutations;
 	@FXML
 	CheckBox cbUseDisjointGenderFeatures;
 	@FXML
@@ -205,6 +212,7 @@ public class MainController implements Initializable {
 	Image flexTransImage;
 	final String kLaunchLRTIndicator = " LRT";
 	final int chooserCoordinateOffset = 20;
+	ObservableList<PermutationsValue> permutationOptions = FXCollections.observableArrayList();
 
 	Affix affix;
 	Category category;
@@ -284,16 +292,27 @@ public class MainController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 
 		bundle = resources;
+		buildPermutationValues();
 		lvRules.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<FLExTransRule>() {
 			@Override
 			public void changed(ObservableValue<? extends FLExTransRule> observable, FLExTransRule oldValue,
 					FLExTransRule newValue) {
 				tfRuleName.setText(newValue.getName());
 				selectedRuleIndex = lvRules.getItems().indexOf(newValue);
-				if (newValue.getPermutations() == PermutationsValue.yes)
-					cbCreatePermutations.setSelected(true);
-				else
-					cbCreatePermutations.setSelected(false);
+				switch (newValue.getPermutations()) {
+				case no:
+					cbxCreatePermutations.getSelectionModel().select(0);
+					break;
+				case not_head:
+					cbxCreatePermutations.getSelectionModel().select(1);
+					break;
+				case with_head:
+					cbxCreatePermutations.getSelectionModel().select(2);
+					break;
+				default:
+					cbxCreatePermutations.getSelectionModel().select(0);
+					break;
+				}
 				tfRuleDescription.setText(newValue.getDescription());
 				produceAndShowWebPage(newValue);
 				enableDisableRuleContextMenuItems();
@@ -355,24 +374,31 @@ public class MainController implements Initializable {
 			}
 		});
 
-		cbCreatePermutations.selectedProperty().addListener(new ChangeListener<Boolean>() {
+		cbxCreatePermutations.setConverter(new StringConverter<PermutationsValue>() {
 			@Override
-			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-				FLExTransRule rule = lvRules.getSelectionModel().getSelectedItem();
-				if (newValue)
-					rule.setPermutations(PermutationsValue.yes);
-				else
-					rule.setPermutations(PermutationsValue.no);
+			public String toString(PermutationsValue object) {
+				return PermutationsValue.getString(object, bundle);
 			}
+			@Override
+			public PermutationsValue fromString(String string) {
+				return null;
+			}
+		});
+		cbxCreatePermutations.valueProperty().addListener((observable, oldValue, newValue) -> {
+			FLExTransRule rule = lvRules.getSelectionModel().getSelectedItem();
+			rule.setPermutations(newValue);
+		});
+		cbxCreatePermutations.setOnMouseClicked(event -> {
+			markAsChanged(true);
 		});
 
 		cbOverwriteRules.selectedProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 				if (newValue)
-					generator.setOverwriteRules(PermutationsValue.yes);
+					generator.setOverwriteRules(OverwriteRulesValue.yes);
 				else
-					generator.setOverwriteRules(PermutationsValue.no);
+					generator.setOverwriteRules(OverwriteRulesValue.no);
 			}
 		});
 
@@ -410,6 +436,13 @@ public class MainController implements Initializable {
 		lblRightClickToEdit.setLayoutX(lblRules.getLayoutX() + 40);
 	}
 
+	private void buildPermutationValues() {
+		permutationOptions.add(PermutationsValue.no);
+		permutationOptions.add(PermutationsValue.not_head);
+		permutationOptions.add(PermutationsValue.with_head);
+		cbxCreatePermutations.setItems(permutationOptions);
+	}
+
 	public void loadDataFiles() {
 		generator = new FLExTransRuleGenerator();
 		provider = new XmlBackEndProvider(generator, bundle);
@@ -417,7 +450,7 @@ public class MainController implements Initializable {
 		generator = provider.getRuleGenerator();
 		finder = ConstituentFinder.getInstance();
 		lvRules.getItems().addAll(generator.getFLExTransRules());
-		if (generator.getOverwriteRules() == PermutationsValue.yes)
+		if (generator.getOverwriteRules() == OverwriteRulesValue.yes)
 			cbOverwriteRules.setSelected(true);
 		else
 			cbOverwriteRules.setSelected(false);
@@ -447,16 +480,20 @@ public class MainController implements Initializable {
 	}
 
 	protected void enableDisableCreatePermutationsCheckBox(FLExTransRule rule) {
-		cbCreatePermutations.setDisable(true);
+		Boolean state = true;
 		List<Word> words = rule.getTarget().getPhrase().getWords();
-		if (words.size() >= 3) {
+		if (words.size() >= 2) {
 			if (words.stream().anyMatch(w -> w.getHead() == HeadValue.yes)) {
-				cbCreatePermutations.setDisable(false);
+				state = false;
+				cbxCreatePermutations.setDisable(false);
 			}
 		} else {
-			cbCreatePermutations.setSelected(false);
-			cbCreatePermutations.setDisable(true);
+			cbxCreatePermutations.getSelectionModel().select(0);
+			state = true;
+			cbxCreatePermutations.setDisable(true);
 		}
+		cbxCreatePermutations.setDisable(state);
+		lblCreatePermutations.setDisable(state);
 	}
 
 	protected void produceAndShowWebPage(FLExTransRule newValue) {

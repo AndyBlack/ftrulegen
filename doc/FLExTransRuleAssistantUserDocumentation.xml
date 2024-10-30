@@ -21,9 +21,9 @@ type="tRuleGen"
 ><emailAddress
 >blackhandrew@gmail.com</emailAddress
 ><date
->29 October, 2024</date
+>30 October, 2024</date
 ><version
->Version 0.29.0</version
+>Version 0.30.0</version
 ><version
 >Copyright © 2023-2024 SIL International</version
 ><contents
@@ -533,12 +533,48 @@ type="tBold"
 ><section2
 id="sCreatePermutations"
 ><secTitle
->Create permutations check box</secTitle
+>Create permutations combo box</secTitle
 ><p
->To the right of the rule name is a check box labeled "Create permutations." This check box is enabled only when the target portion has at least three words and one of them is marked as the head. If you want <object
+>Under the description box is a combo box labeled "Create permutations." This combo box is enabled only when the target portion has at least two words and one of them is marked as the head. There are three possible values for this combo box as shown in example <exampleRef
+letter="xCreatePermutationsValues"
+num="xCreatePermutationsValues"
+></exampleRef
+>.</p
+><example
+num="xCreatePermutationsValues"
+><table
+border="1"
+><tr
+><th
+>Value</th
+><th
+>Meaning</th
+></tr
+><tr
+><td
+>No</td
+><td
+>Do not create any permutations.</td
+></tr
+><tr
+><td
+>Omitting head-only rule</td
+><td
+>Create permutations omitting head-only rule. </td
+></tr
+><tr
+><td
+>Including head-only rule</td
+><td
+>Create permutations including head-only rule.</td
+></tr
+></table
+></example
+><p
+> If you want <object
 type="tFLExTrans"
 ></object
-> to create separate rules for each possible combination of the three or more word items, check this box.</p
+> to create separate rules for each possible combination of the two or more word items, choose one of the latter two values.  One excludes the head and the other includes it.</p
 ></section2
 ></section1
 ><section1

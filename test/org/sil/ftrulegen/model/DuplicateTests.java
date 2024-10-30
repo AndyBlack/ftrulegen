@@ -63,7 +63,7 @@ public class DuplicateTests {
 	public final void ruleDuplicateTest() {
 		assert 1 == ruleGenerator.getFLExTransRules().size();
 		FLExTransRule rule = ruleGenerator.getFLExTransRules().get(0);
-		rule.setPermutations(PermutationsValue.yes);
+		rule.setPermutations(PermutationsValue.with_head);
 		FLExTransRule rule2 = rule.duplicate();
 		assertEquals(rule.getName() + bundle.getString("model.ruleduplicated"), rule2.getName());
 		assertEquals(rule.getDescription(), rule2.getDescription());

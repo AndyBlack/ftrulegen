@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!ELEMENT FLExTransRuleGenerator (DisjointFeatureSets, FLExTransRules) >
-
+<!ATTLIST FLExTransRuleGenerator
+    overwrite_rules (yes | no) "yes"
+>
 <!ELEMENT  FLExTransRules (FLExTransRule+)>
 
 <!ELEMENT DisjointFeatureSets (DisjointFeatureSet*) >
@@ -20,7 +22,7 @@
 <!ELEMENT FLExTransRule (Description, Source, Target)>
 <!ATTLIST FLExTransRule
   name CDATA #REQUIRED
-  create_permutations (yes | no) "no"
+  create_permutations (no | with_head | not_head) "no"
 >
 
 <!ELEMENT Description (#PCDATA) >

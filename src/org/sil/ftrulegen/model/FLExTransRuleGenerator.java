@@ -20,7 +20,7 @@ public class FLExTransRuleGenerator {
 	Locale locale;
 	private List<FLExTransRule> flexTransRules = new ArrayList<FLExTransRule>();
 	private ObservableList<DisjointFeatureSet> disjointFeatures = FXCollections.observableArrayList();
-	private PermutationsValue overwriteRules = PermutationsValue.yes;
+	private OverwriteRulesValue overwriteRules = OverwriteRulesValue.yes;
 
 	public void setLocale(Locale value) {
 		locale = value;
@@ -49,13 +49,13 @@ public class FLExTransRuleGenerator {
 		disjointFeatures = value;
 	}
 
-	public PermutationsValue getOverwriteRules() {
+	public OverwriteRulesValue getOverwriteRules() {
 		return overwriteRules;
 	}
 
 	@XmlAttribute(name="overwrite_rules")
-	public void setOverwriteRules(PermutationsValue overwriteRules) {
-		this.overwriteRules = overwriteRules;
+	public void setOverwriteRules(OverwriteRulesValue yes) {
+		this.overwriteRules = yes;
 	}
 
 	public FLExTransRuleGenerator() {
