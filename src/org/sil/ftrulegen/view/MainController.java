@@ -485,12 +485,11 @@ public class MainController implements Initializable {
 		if (words.size() >= 2) {
 			if (words.stream().anyMatch(w -> w.getHead() == HeadValue.yes)) {
 				state = false;
-				cbxCreatePermutations.setDisable(false);
 			}
 		} else {
-			cbxCreatePermutations.getSelectionModel().select(0);
+			// set default
+			cbxCreatePermutations.getSelectionModel().select(2);
 			state = true;
-			cbxCreatePermutations.setDisable(true);
 		}
 		cbxCreatePermutations.setDisable(state);
 		lblCreatePermutations.setDisable(state);

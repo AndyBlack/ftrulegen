@@ -4,7 +4,7 @@
 <FLExTransRuleGenerator overwrite_rules="yes">
     <DisjointFeatureSets/>
     <FLExTransRules>
-        <FLExTransRule name="Indefinite - Adjective - Noun" create_permutations="no">
+        <FLExTransRule name="Indefinite - Adjective - Noun" create_permutations="with_head">
             <Description>Ensure indefinite article and adjective gets gender and number of head noun.</Description>
             <Source>
                 <Phrase>

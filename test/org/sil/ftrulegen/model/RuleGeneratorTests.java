@@ -31,7 +31,7 @@ public class RuleGeneratorTests {
 		ruleGenerator.getFLExTransRules().add(rule);
 		assertEquals(1, ruleGenerator.getFLExTransRules().size());
 		PermutationsValue createPermutations = rule.getPermutations();
-		assertEquals(PermutationsValue.no, createPermutations);
+		assertEquals(PermutationsValue.with_head, createPermutations);
 		Source source = rule.getSource();
 		Phrase sourcePhrase = source.getPhrase();
 		assertNotNull(source);
