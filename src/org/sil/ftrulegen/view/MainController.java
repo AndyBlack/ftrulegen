@@ -438,8 +438,8 @@ public class MainController implements Initializable {
 
 	private void buildPermutationValues() {
 		permutationOptions.add(PermutationsValue.no);
-		permutationOptions.add(PermutationsValue.not_head);
 		permutationOptions.add(PermutationsValue.with_head);
+		permutationOptions.add(PermutationsValue.not_head);
 		cbxCreatePermutations.setItems(permutationOptions);
 	}
 
@@ -488,7 +488,7 @@ public class MainController implements Initializable {
 			}
 		} else {
 			// set default
-			cbxCreatePermutations.getSelectionModel().select(2);
+			cbxCreatePermutations.getSelectionModel().select(0);
 			state = true;
 		}
 		cbxCreatePermutations.setDisable(state);
