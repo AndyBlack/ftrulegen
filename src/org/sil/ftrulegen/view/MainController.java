@@ -213,6 +213,7 @@ public class MainController implements Initializable {
 	final String kLaunchLRTIndicator = " LRT";
 	final int chooserCoordinateOffset = 20;
 	ObservableList<PermutationsValue> permutationOptions = FXCollections.observableArrayList();
+	final String kTestDataInit = "init";
 
 	Affix affix;
 	Category category;
@@ -357,20 +358,48 @@ public class MainController implements Initializable {
 
 		testDataWebEngine = testDataBrowser.getEngine();
 		testDataBrowser.setContextMenuEnabled(false);
+		testDataWebEngine.getLoadWorker().stateProperty().addListener(new ChangeListener<State>() {
+			public void changed(@SuppressWarnings("rawtypes") ObservableValue ov, State oldState, State newState) {
+				if (newState == State.SUCCEEDED) {
+					Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+							// For some reason, the testDatBrowser's scroll bars do not initially show until one
+							// hovers the mouse over them.  To overcome that we do this trick/hack which involves changing
+							// the state of the control.
+							// In the Platform.runLater() code immediately below, we load an empty string to fire the load
+							// worker state change and tell it to only do its work when it has been initialized there.
+							String sUserData = (String)testDataBrowser.getUserData();
+							if (sUserData != null && sUserData.equals(kTestDataInit)) {
+								testDataBrowser.setUserData("");
+								File f = new File(testDataFile);
+								try {
+									String sConverted = new String(Files.readAllBytes(f.toPath()),
+											StandardCharsets.UTF_8);
+									testDataWebEngine.loadContent(sConverted);
+									btnTestInLRT.setDisable(cameFromLRT);
+									}
+								catch (IOException e) {
+									e.printStackTrace();
+									HandleExceptionMessage.show(bundle.getString("file.error"), bundle.getString("file.error.load.header"),
+											bundle.getString("file.error.load.content") + testDataFile, true);
+								}
+							}
+						}
+					});
+				}
+			}
+		});
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
-				File f = new File(testDataFile);
-				try {
-					String sConverted = new String(Files.readAllBytes(f.toPath()),
-							StandardCharsets.UTF_8);
-					testDataWebEngine.loadContent(sConverted);
-					btnTestInLRT.setDisable(cameFromLRT);
-				} catch (IOException e) {
-					e.printStackTrace();
-					HandleExceptionMessage.show(bundle.getString("file.error"), bundle.getString("file.error.load.header"),
-							bundle.getString("file.error.load.content") + testDataFile, true);
-				}
+				// For some reason, the testDatBrowser's scroll bars do not initially show until one
+				// hovers the mouse over them.  To overcome that we do this trick/hack which involves changing
+				// the state of the control.
+				// We load an empty string to fire the load worker state change and tell it to only do its work when
+				// it has been initialized here.
+				testDataWebEngine.loadContent("");
+				testDataBrowser.setUserData(kTestDataInit);
 			}
 		});
 
