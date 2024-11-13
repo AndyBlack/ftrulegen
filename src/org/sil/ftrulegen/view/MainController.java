@@ -302,16 +302,16 @@ public class MainController implements Initializable {
 				selectedRuleIndex = lvRules.getItems().indexOf(newValue);
 				switch (newValue.getPermutations()) {
 				case no:
-					cbxCreatePermutations.getSelectionModel().select(0);
+					cbxCreatePermutations.getSelectionModel().select(PermutationsValue.no);
 					break;
 				case not_head:
-					cbxCreatePermutations.getSelectionModel().select(1);
+					cbxCreatePermutations.getSelectionModel().select(PermutationsValue.not_head);
 					break;
 				case with_head:
-					cbxCreatePermutations.getSelectionModel().select(2);
+					cbxCreatePermutations.getSelectionModel().select(PermutationsValue.with_head);
 					break;
 				default:
-					cbxCreatePermutations.getSelectionModel().select(0);
+					cbxCreatePermutations.getSelectionModel().select(PermutationsValue.no);
 					break;
 				}
 				tfRuleDescription.setText(newValue.getDescription());
