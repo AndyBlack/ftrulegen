@@ -7,7 +7,7 @@
 package org.sil.ftrulegen;
 
 public class Constants {
-	public static final String VERSION_NUMBER = "0.30.2";
+	public static final String VERSION_NUMBER = "0.30.3";
 
 	public static final String RESOURCE_LOCATION = "org.sil.ftrulegen.resources.RuleGen";
 	public static final String RESOURCE_SOURCE_LOCATION = "src/org/sil/ftrulegen/";
