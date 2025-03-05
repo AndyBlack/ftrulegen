@@ -112,7 +112,8 @@ public class Main extends Application implements MainAppUtilities {
 	}
 
 	public void rememberApplicationPreferences() {
-		if (primaryStage.getX() > 0.0) {
+		if (applicationPreferences.isXOnAScreen(primaryStage.getX())
+				&& applicationPreferences.isYOnAScreen(primaryStage.getY())) {
 			applicationPreferences.setLastWindowParameters(ApplicationPreferences.LAST_WINDOW,
 					primaryStage);
 			double[] dividers = controller.getSplitPane().getDividerPositions();
