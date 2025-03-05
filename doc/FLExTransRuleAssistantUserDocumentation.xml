@@ -21,11 +21,11 @@ type="tRuleGen"
 ><emailAddress
 >blackhandrew@gmail.com</emailAddress
 ><date
->30 October, 2024</date
+>5 March, 2025</date
 ><version
->Version 0.30.0</version
+>Version 1.0.0</version
 ><version
->Copyright © 2023-2024 SIL International</version
+>Copyright © 2023-2025 SIL International</version
 ><contents
 ></contents
 ></frontMatter
@@ -560,7 +560,7 @@ border="1"
 ><td
 >Omitting head-only rule</td
 ><td
->Create permutations omitting head-only rule. </td
+>Create permutations omitting head-only rule.</td
 ></tr
 ><tr
 ><td
@@ -571,10 +571,10 @@ border="1"
 ></table
 ></example
 ><p
-> If you want <object
+>If you want <object
 type="tFLExTrans"
 ></object
-> to create separate rules for each possible combination of the two or more word items, choose one of the latter two values.  One excludes the head and the other includes it.</p
+> to create separate rules for each possible combination of the two or more word items, choose one of the latter two values. One excludes the head and the other includes it.</p
 ></section2
 ></section1
 ><section1

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023-2024 SIL International
+ * Copyright (c) 2023-2025 SIL International
  * This software is licensed under the LGPL, version 2.1 or later
  * (http://www.gnu.org/licenses/lgpl-2.1.html)
  */
@@ -112,10 +112,12 @@ public class Main extends Application implements MainAppUtilities {
 	}
 
 	public void rememberApplicationPreferences() {
-		applicationPreferences.setLastWindowParameters(ApplicationPreferences.LAST_WINDOW,
-				primaryStage);
-		double[] dividers = controller.getSplitPane().getDividerPositions();
-		applicationPreferences.setLastSplitPaneDividerPosition(dividers[0]);
+		if (primaryStage.getX() > 0.0) {
+			applicationPreferences.setLastWindowParameters(ApplicationPreferences.LAST_WINDOW,
+					primaryStage);
+			double[] dividers = controller.getSplitPane().getDividerPositions();
+			applicationPreferences.setLastSplitPaneDividerPosition(dividers[0]);
+		}
 		applicationPreferences.setLastLocaleLanguage(locale.getLanguage());
 		applicationPreferences.setLastSelectedRule(controller.getSelectedRuleIndex());
 	}
