@@ -29,11 +29,6 @@
 			</fileset>
 		</copy>
 		<copy todir="externalLibs">
-			<fileset dir="..\libs\LibJavaDev">
-				<filename name="libjavadev-1.5.0.jar"/>
-			</fileset>
-		</copy>
-		<copy todir="externalLibs">
 			<fileset dir="..\libs\JAXB">
 				<filename name="jakarta.activation.jar"/>
 			</fileset>
@@ -41,6 +36,31 @@
 		<copy todir="externalLibs">
 			<fileset dir="..\libs\JAXB">
 				<filename name="jaxb-impl.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="..\libs\JAXB">
+				<filename name="LICENSEJAXB.txt"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="..\libs\jna">
+				<filename name="jna-5.11.0.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="..\libs\jna">
+				<filename name="jna-platform-5.11.0.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="..\libs\jna">
+				<filename name="jna-license.txt"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="..\libs\LibJavaDev">
+				<filename name="libjavadev-1.5.0.jar"/>
 			</fileset>
 		</copy>
 	

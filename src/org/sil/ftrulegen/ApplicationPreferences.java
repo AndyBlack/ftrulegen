@@ -6,10 +6,16 @@
 
 package org.sil.ftrulegen;
 
+import java.awt.Rectangle;
 import java.util.prefs.Preferences;
 
 import org.sil.utility.ApplicationPreferencesUtilities;
 import org.sil.utility.StringUtilities;
+
+import com.sun.jna.Native;
+import com.sun.jna.platform.win32.User32;
+import com.sun.jna.platform.win32.WinDef;
+import com.sun.jna.platform.win32.WinDef.HWND;
 
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
@@ -41,6 +47,7 @@ public class ApplicationPreferences extends ApplicationPreferencesUtilities {
 	public static final String DISJOINT_FEATURE_EDITOR = "DISJOINT_FEATURE_EDITOR_";
 
 	private Preferences prefs;
+	private Rectangle rectangle = null;
 	
 	private static final ApplicationPreferences instance = new ApplicationPreferences();
 
@@ -86,8 +93,13 @@ public class ApplicationPreferences extends ApplicationPreferencesUtilities {
 		double dX = prefs.getDouble(sWindow + POSITION_X, 10);
 		double dY = prefs.getDouble(sWindow + POSITION_Y, 10);
 		if (!isXOnAScreen(dX) || !isYOnAScreen(dY)) {
-			dX = 10;
-			dY = 10;
+			if (findRectangleOfFLExTransWindow()) {
+				dX = rectangle.getX();
+				dY = rectangle.getY();
+			} else {
+				dX = 10;
+				dY = 10;
+			}
 			dHeight = defaultHeight;
 			dWidth = defaultWidth;
 		}
@@ -109,6 +121,27 @@ public class ApplicationPreferences extends ApplicationPreferencesUtilities {
 			setPreferencesKey(sWindow + POSITION_Y, stage.getY());
 		}
 		setPreferencesKey(sWindow + MAXIMIZED, stage.isMaximized());
+	}
+
+	public boolean findRectangleOfFLExTransWindow() {
+		User32.INSTANCE.EnumWindows((HWND hwnd, com.sun.jna.Pointer p) -> {
+			char[] windowText = new char[512];
+			User32.INSTANCE.GetWindowText(hwnd, windowText, 512);
+			String windowName = Native.toString(windowText);
+			if (windowName.contains("FLExTools") && windowName.contains("FLExTrans")) {
+				WinDef.RECT rect = new User32.RECT();
+				User32.INSTANCE.GetWindowRect(hwnd, rect);
+				Rectangle windowRectangle = rect.toRectangle();
+				setAwsRect(windowRectangle);
+				return true;
+			}
+			return true;
+		}, null);
+		return (rectangle != null);
+	}
+
+	protected void setAwsRect(Rectangle value) {
+		rectangle = value;
 	}
 
 	public boolean isXOnAScreen(double dX) {

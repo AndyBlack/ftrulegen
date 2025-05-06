@@ -15,6 +15,8 @@
 				<include name="jaxb-jxc.jar"/>
 				<include name="jakarta.activation.jar"/>
 				<include name="jaxb-impl.jar"/>
+				<include name="jna-5.11.0.jar"/>
+				<include name="jna-platform-5.11.0.jar"/>
 				<include name="libjavadev-1.5.0.jar"/>
 			</fileset>
 		</copy>

@@ -43,5 +43,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="libs/JAXB/jakarta.activation.jar"/>
+	<classpathentry kind="lib" path="libs/jna/jna-5.11.0.jar"/>
+	<classpathentry kind="lib" path="libs/jna/jna-platform-5.11.0.jar"/>
 	<classpathentry kind="output" path="mods"/>
 </classpath>
