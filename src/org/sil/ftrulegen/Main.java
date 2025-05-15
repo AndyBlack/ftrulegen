@@ -38,6 +38,7 @@ public class Main extends Application implements MainAppUtilities {
 	int maxVariables = 4;
 	Image flexTransImage;
 	private ApplicationPreferences applicationPreferences;
+	String sUICode = "en";
 
 	@FXML
 	private BorderPane mainPane;
@@ -54,7 +55,14 @@ public class Main extends Application implements MainAppUtilities {
 		try {
 			applicationPreferences = ApplicationPreferences.getInstance();
 			applicationPreferences.setObject(this);
-			locale = new Locale(applicationPreferences.getLastLocaleLanguage());
+			if (arguments.length >= 5) {
+				sUICode = arguments[4].toLowerCase();
+				// TODO: when add another UI language, add a check for its code
+				if (!sUICode.equals("es")) {
+					sUICode = "en";
+				}
+			}
+			locale = new Locale(sUICode);
 
 			// Load root layout from fxml file.
 			FXMLLoader loader = new FXMLLoader();
@@ -84,6 +92,7 @@ public class Main extends Application implements MainAppUtilities {
 				controller.setFLexDataFile(arguments[1]);
 				controller.setTestDataFile(arguments[2]);
 				controller.setCameFromLRT(arguments[3].toLowerCase().equals("y") ? true : false);
+				controller.setUICode(arguments[4].toLowerCase());
 				controller.setMaxVariables(maxVariables);
 				controller.loadDataFiles();
 				controller.setFLExTransImage(flexTransImage);
@@ -124,7 +133,7 @@ public class Main extends Application implements MainAppUtilities {
 	}
 
 	private Boolean checkArguments(ResourceBundle bundle) {
-		if (arguments.length < 4 || arguments.length > 5) {
+		if (arguments.length < 5 || arguments.length > 6) {
 			writeHelp(bundle);
 			return false;
 		}
@@ -151,14 +160,14 @@ public class Main extends Application implements MainAppUtilities {
 			return false;
 		}
 
-		if (arguments.length >= 5) {
+		if (arguments.length >= 6) {
 			try {
-				maxVariables = Integer.parseInt(arguments[4]);
+				maxVariables = Integer.parseInt(arguments[5]);
 			} catch (NumberFormatException e) {
-				Object[] args = { arguments[4] };
+				Object[] args = { arguments[5] };
 				MessageFormat msgFormatter = new MessageFormat("");
 				msgFormatter.setLocale(new Locale("en"));
-				msgFormatter.applyPattern(RESOURCE_FACTORY.getStringBinding("main.MaxVariablesNotAnInteger").get());
+				msgFormatter.applyPattern(bundle.getString("main.MaxVariablesNotAnInteger"));
 				System.out.println(msgFormatter.format(args));
 				return false;
 			}
@@ -201,6 +210,7 @@ public class Main extends Application implements MainAppUtilities {
 		System.out.println(bundle.getString("main.FLExDataSourceTargetFile"));
 		System.out.println(bundle.getString("main.TestDataFile"));
 		System.out.println(bundle.getString("main.CameFromLRT"));
+		System.out.println(bundle.getString("main.UILangCode"));
 		System.out.println(bundle.getString("main.OptionalMaxVariables"));
 	}
 

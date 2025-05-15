@@ -207,6 +207,7 @@ public class MainController implements Initializable {
 	String flexDataFile = "";
 	String testDataFile = "";
 	boolean cameFromLRT = false;
+	String sUICode = "en";
 	FLExData flexData;
 	int maxVariables = 4;
 	Image flexTransImage;
@@ -279,6 +280,13 @@ public class MainController implements Initializable {
 
 	public void setCameFromLRT(boolean value) {
 		cameFromLRT = value;
+	}
+
+	public void setUICode(String value) {
+		sUICode = value;
+		if (!sUICode.equals("es")) {
+			sUICode = "en";
+		}
 	}
 
 	public void setMaxVariables(int value) {
@@ -451,13 +459,11 @@ public class MainController implements Initializable {
 
 		tooltipOverwriteRules = new Tooltip(bundle.getString("tooltip.overwriterules"));
 		cbOverwriteRules.setTooltip(tooltipOverwriteRules);
-		tooltipOverwriteRules.textProperty().bind(
-				RESOURCE_FACTORY.getStringBinding("tooltip.overwriterules"));
 
 		tooltipTestInLRT = new Tooltip(bundle.getString("tooltip.testinlrt"));
+		tooltipTestInLRT = new Tooltip();
+		tooltipTestInLRT.setText(bundle.getString("tooltip.testinlrt"));
 		btnTestInLRT.setTooltip(tooltipTestInLRT);
-		tooltipTestInLRT.textProperty().bind(
-				RESOURCE_FACTORY.getStringBinding("tooltip.testinlrt"));
 
 		SplitPane.setResizableWithParent(rulesPane, false);
 		SplitPane.setResizableWithParent(browserPane, false);
@@ -1103,9 +1109,9 @@ public class MainController implements Initializable {
 				rankings[j++] = i;
 		}
 		ChoiceDialog<Integer> dialog = new ChoiceDialog<Integer>(1, rankings);
-		dialog.setTitle(RESOURCE_FACTORY.getStringBinding("featureranking.header").get());
-		dialog.setHeaderText(RESOURCE_FACTORY.getStringBinding("featureranking.content").get());
-		dialog.setContentText(RESOURCE_FACTORY.getStringBinding("featureranking.choose").get());
+		dialog.setTitle(bundle.getString("featureranking.header"));
+		dialog.setHeaderText(bundle.getString("featureranking.content"));
+		dialog.setContentText(bundle.getString("featureranking.choose"));
 		dialog.setSelectedItem(feature.getRanking());
 		Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
 		stage.getIcons().add(mainApp.getNewMainIconImage());
@@ -1247,11 +1253,11 @@ public class MainController implements Initializable {
 
 	@FXML
 	private void handleHelpAbout() {
-		String sAboutHeader = RESOURCE_FACTORY.getStringBinding("about.header").get();
+		String sAboutHeader = bundle.getString("about.header");
 		Object[] args = { Constants.VERSION_NUMBER };
 		MessageFormat msgFormatter = new MessageFormat("");
 		msgFormatter.setLocale(new Locale("en"));
-		msgFormatter.applyPattern(RESOURCE_FACTORY.getStringBinding("about.content").get());
+		msgFormatter.applyPattern(bundle.getString("about.content"));
 		String sAboutContent = msgFormatter.format(args);
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle(sAboutHeader);
@@ -1344,9 +1350,9 @@ public class MainController implements Initializable {
 			final String[] idNumbers = new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9",
 					"10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20" };
 			ChoiceDialog<String> dialog = new ChoiceDialog<>("1", idNumbers);
-			dialog.setTitle(RESOURCE_FACTORY.getStringBinding("idchooser.header").get());
-			dialog.setHeaderText(RESOURCE_FACTORY.getStringBinding("idchooser.content").get());
-			dialog.setContentText(RESOURCE_FACTORY.getStringBinding("idchooser.choose").get());
+			dialog.setTitle(bundle.getString("idchooser.header"));
+			dialog.setHeaderText(bundle.getString("idchooser.content"));
+			dialog.setContentText(bundle.getString("idchooser.choose"));
 			String oldId = word.getId();
 			dialog.setSelectedItem(word.getId());
 			Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
@@ -1555,28 +1561,28 @@ public class MainController implements Initializable {
 		checker.setRule(rule);
 		if (!checker.checkSourceWordsHaveCategories()) {
 			showValidityMessage("validity.category",
-					rule.getName(), RESOURCE_FACTORY.getStringBinding("validity.SourceWordMissingCategory").get());
+					rule.getName(), bundle.getString("validity.SourceWordMissingCategory"));
 			return false;
 		}
 		if (!checker.checkTargetHasFeature()) {
 			showValidityMessage("validity.feature",
-					rule.getName(), RESOURCE_FACTORY.getStringBinding("validity.NoFeaturesOnTargetWordsOrAffixes").get());
+					rule.getName(), bundle.getString("validity.NoFeaturesOnTargetWordsOrAffixes"));
 			return false;
 		}
 		if (!checker.checkTargetWordMarkedAsHead()) {
 			showValidityMessage("validity.head",
-					rule.getName(), RESOURCE_FACTORY.getStringBinding("validity.NoHeadWordInTarget").get());
+					rule.getName(), bundle.getString("validity.NoHeadWordInTarget"));
 			return false;
 		}
 		return true;
 	}
 
 	void showValidityMessage(String sType, String sRuleName, String sContent) {
-		String sValidityHeader = RESOURCE_FACTORY.getStringBinding("validity.header").get();
+		String sValidityHeader = bundle.getString("validity.header");
 		Object[] args = { sRuleName };
 		MessageFormat msgFormatter = new MessageFormat("");
 		msgFormatter.setLocale(new Locale("en"));
-		msgFormatter.applyPattern(RESOURCE_FACTORY.getStringBinding(sType).get());
+		msgFormatter.applyPattern(bundle.getString(sType));
 		String sTypeMessage = msgFormatter.format(args);
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle(sValidityHeader);
@@ -1646,8 +1652,8 @@ public class MainController implements Initializable {
 	public void askAboutSaving() {
 		Alert alert = new Alert(AlertType.CONFIRMATION, "");
 		alert.setTitle(bundle.getString("main.Title"));
-		alert.setHeaderText(RESOURCE_FACTORY.getStringBinding("file.asktosaveheader").get());
-		alert.setContentText(RESOURCE_FACTORY.getStringBinding("file.asktosavecontent").get());
+		alert.setHeaderText(bundle.getString("file.asktosaveheader"));
+		alert.setContentText(bundle.getString("file.asktosavecontent"));
 		ButtonType buttonYes = new ButtonType(bundle.getString("view.yes"), ButtonData.YES);
 		ButtonType buttonNo = new ButtonType(bundle.getString("view.no"), ButtonData.NO);
 		alert.getButtonTypes().setAll(buttonYes, buttonNo);
