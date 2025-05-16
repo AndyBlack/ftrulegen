@@ -21,9 +21,9 @@ type="tRuleGen"
 ><emailAddress
 >blackhandrew@gmail.com</emailAddress
 ><date
->15 May, 2025</date
+>16 May, 2025</date
 ><version
->Version 1.1.0</version
+>Version 1.2.0</version
 ><version
 >Copyright © 2023-2025 SIL International</version
 ><contents
@@ -166,7 +166,10 @@ src="Resources/TestinLRT.png"
 ><p
 >The “Save” button is used to save changes made to rules or newly added rules.</p
 ><p
->The “Save &amp; Create” button is used to save changes made to rules or newly added rules and then create the currently selected rule in the <object
+>The <object
+type="tSaveCreate"
+></object
+> button is used to save changes made to rules or newly added rules and then create the currently selected rule in the <object
 type="tFLExTrans"
 ></object
 > rule file.<endnote
@@ -176,7 +179,10 @@ id="nCreate"
 ></endnote
 > A validity check will also be applied to this rule. If any issue is found, an error dialog message will be shown with an explanation of what the issue is. The program will not exit until all validity checks pass.</p
 ><p
->The “Save &amp; Create All” button is used to save changes made to rules or newly added rules and then create all the rules in the <object
+>The <object
+type="tSaveCreateAll"
+></object
+>” button is used to save changes made to rules or newly added rules and then create all the rules in the <object
 type="tFLExTrans"
 ></object
 > rule file.<endnote
@@ -188,7 +194,13 @@ id="nCreateAll"
 ><p
 >The “Help” button is used to get this user documentation file or to show the “About” dialog box.</p
 ><p
->Whenever you use either the “Save &amp; Create” or “Save &amp; Create All” buttons, <object
+>Whenever you use either the <object
+type="tSaveCreate"
+></object
+> or <object
+type="tSaveCreateAll"
+></object
+> buttons, <object
 type="tRuleGen"
 ></object
 > will close.</p
@@ -914,6 +926,14 @@ id="tRuleGen"
 ><type
 before="Run Operations"
 id="tRunTab"
+></type
+><type
+before="“Save &amp; Write”"
+id="tSaveCreate"
+></type
+><type
+before="“Save &amp; Write All”"
+id="tSaveCreateAll"
 ></type
 ><type
 before="Stem Allomorph"
