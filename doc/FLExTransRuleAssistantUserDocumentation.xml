@@ -21,9 +21,9 @@ type="tRuleGen"
 ><emailAddress
 >blackhandrew@gmail.com</emailAddress
 ><date
->5 March, 2025</date
+>15 May, 2025</date
 ><version
->Version 1.0.0</version
+>Version 1.1.0</version
 ><version
 >Copyright © 2023-2025 SIL International</version
 ><contents
@@ -88,7 +88,7 @@ num="xCommandLine"
 ><example
 num="xCommandLine"
 ><chart
->FLExTransRuleAssistant &lt;rule-file&gt; &lt;source/target-FLEx-category/features&gt; &lt;display-data&gt; &lt;enable Test in LRT button&gt; (&lt;max vars&gt;)<br
+>FLExTransRuleAssistant &lt;rule-file&gt; &lt;source/target-FLEx-category/features&gt; &lt;display-data&gt; &lt;enable Test in LRT button&gt; &lt;UI language code&gt; (&lt;max vars&gt;)<br
 ></br
 ><br
 ></br
@@ -105,6 +105,10 @@ num="xCommandLine"
 ><br
 ></br
 >&lt;enable Test in LRT button&gt; is a "y" or "n" to indicate whether or not to enable the “Test in LRT” button.<br
+></br
+><br
+></br
+>&lt;UI language code&gt; indicates which language to use in the user interface: en for English or es for Spanish<br
 ></br
 ><br
 ></br
