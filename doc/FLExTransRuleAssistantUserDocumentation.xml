@@ -21,9 +21,9 @@ type="tRuleGen"
 ><emailAddress
 >blackhandrew@gmail.com</emailAddress
 ><date
->16 May, 2025</date
+>28 May, 2025</date
 ><version
->Version 1.2.0</version
+>Version 1.3.0</version
 ><version
 >Copyright © 2023-2025 SIL International</version
 ><contents
@@ -88,7 +88,7 @@ num="xCommandLine"
 ><example
 num="xCommandLine"
 ><chart
->FLExTransRuleAssistant &lt;rule-file&gt; &lt;source/target-FLEx-category/features&gt; &lt;display-data&gt; &lt;enable Test in LRT button&gt; &lt;UI language code&gt; (&lt;max vars&gt;)<br
+>FLExTransRuleAssistant &lt;rule-file&gt; &lt;source/target-FLEx-category/features&gt; &lt;display-data&gt; &lt;enable Test in LRT button&gt; (&lt;UI language code&gt;) (&lt;max vars&gt;)<br
 ></br
 ><br
 ></br
@@ -108,11 +108,11 @@ num="xCommandLine"
 ></br
 ><br
 ></br
->&lt;UI language code&gt; indicates which language to use in the user interface: en for English or es for Spanish<br
+>&lt;UI language code&gt; indicates which language to use in the user interface: en for English or es for Spanish (default is en)<br
 ></br
 ><br
 ></br
->(max vars&gt; Specifies the optional max number of variables to show in values (default is 4)</chart
+>&lt;max vars&gt; Specifies the optional max number of variables to show in values (default is 4)</chart
 ></example
 ><pc
 >If the &lt;rule-file&gt; does not already exist, then <object
