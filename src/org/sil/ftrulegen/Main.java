@@ -39,6 +39,7 @@ public class Main extends Application implements MainAppUtilities {
 	Image flexTransImage;
 	private ApplicationPreferences applicationPreferences;
 	String sUICode = "en";
+	String sMaxVars = "";
 
 	@FXML
 	private BorderPane mainPane;
@@ -56,10 +57,21 @@ public class Main extends Application implements MainAppUtilities {
 			applicationPreferences = ApplicationPreferences.getInstance();
 			applicationPreferences.setObject(this);
 			if (arguments.length >= 5) {
-				sUICode = arguments[4].toLowerCase();
-				// TODO: when add another UI language, add a check for its code
-				if (!sUICode.equals("es")) {
+				if (arguments[4].matches("[1-9][0-9]*")) {
+					// is the max variables argument
+					sMaxVars = arguments[4];
 					sUICode = "en";
+				} else {
+					sUICode = arguments[4].toLowerCase();
+					// TODO: when add another UI language, add a check for its code
+					if (!sUICode.equals("es")) {
+						sUICode = "en";
+					}
+					if (arguments.length == 6) {
+						sMaxVars = arguments[5];
+					} else {
+						sMaxVars = "4";
+					}
 				}
 			}
 			locale = new Locale(sUICode);
@@ -92,7 +104,7 @@ public class Main extends Application implements MainAppUtilities {
 				controller.setFLexDataFile(arguments[1]);
 				controller.setTestDataFile(arguments[2]);
 				controller.setCameFromLRT(arguments[3].toLowerCase().equals("y") ? true : false);
-				controller.setUICode(arguments[4].toLowerCase());
+				controller.setUICode(sUICode);
 				controller.setMaxVariables(maxVariables);
 				controller.loadDataFiles();
 				controller.setFLExTransImage(flexTransImage);
@@ -133,7 +145,7 @@ public class Main extends Application implements MainAppUtilities {
 	}
 
 	private Boolean checkArguments(ResourceBundle bundle) {
-		if (arguments.length < 5 || arguments.length > 6) {
+		if (arguments.length < 4 || arguments.length > 6) {
 			writeHelp(bundle);
 			return false;
 		}
@@ -160,11 +172,11 @@ public class Main extends Application implements MainAppUtilities {
 			return false;
 		}
 
-		if (arguments.length >= 6) {
+		if (arguments.length >= 5) {
 			try {
-				maxVariables = Integer.parseInt(arguments[5]);
+				maxVariables = Integer.parseInt(sMaxVars);
 			} catch (NumberFormatException e) {
-				Object[] args = { arguments[5] };
+				Object[] args = { sMaxVars };
 				MessageFormat msgFormatter = new MessageFormat("");
 				msgFormatter.setLocale(new Locale("en"));
 				msgFormatter.applyPattern(bundle.getString("main.MaxVariablesNotAnInteger"));
