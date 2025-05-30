@@ -92,14 +92,12 @@ public class ApplicationPreferences extends ApplicationPreferencesUtilities {
 		double dWidth = prefs.getDouble(sWindow + WIDTH, defaultWidth);
 		double dX = prefs.getDouble(sWindow + POSITION_X, 10);
 		double dY = prefs.getDouble(sWindow + POSITION_Y, 10);
-		if (!isXOnAScreen(dX) || !isYOnAScreen(dY)) {
-			if (findRectangleOfFLExTransWindow()) {
-				dX = rectangle.getX();
-				dY = rectangle.getY();
-			} else {
-				dX = 10;
-				dY = 10;
-			}
+		if (findRectangleOfFLExTransWindow()) {
+			dX = rectangle.getX();
+			dY = rectangle.getY();
+		} else if (!isXOnAScreen(dX) || !isYOnAScreen(dY)) {
+			dX = 10;
+			dY = 10;
 			dHeight = defaultHeight;
 			dWidth = defaultWidth;
 		}
