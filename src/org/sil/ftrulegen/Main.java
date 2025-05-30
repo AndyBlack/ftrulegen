@@ -64,7 +64,7 @@ public class Main extends Application implements MainAppUtilities {
 				} else {
 					sUICode = arguments[4].toLowerCase();
 					// TODO: when add another UI language, add a check for its code
-					if (!sUICode.equals("es")) {
+					if (!sUICode.equals("es") && !sUICode.equals("de")) {
 						sUICode = "en";
 					}
 					if (arguments.length == 6) {

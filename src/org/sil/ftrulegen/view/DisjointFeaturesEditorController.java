@@ -33,6 +33,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.IndexRange;
 import javafx.scene.control.Label;
@@ -401,6 +402,9 @@ public class DisjointFeaturesEditorController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		sourceRadioButton.setText(resources.getString("disjoint.source"));
 		targetRadioButton.setText(resources.getString("disjoint.target"));
+		ButtonBar.setButtonUniformSize(addSetButton, false);
+		ButtonBar.setButtonUniformSize(deleteSetButton, false);
+		ButtonBar.setButtonUniformSize(closeButton, false);
 
 		for (TableColumn<DisjointFeatureSet, ?> column: disjointFeaturesTable.getColumns()) {
 			  column.widthProperty().addListener(new ChangeListener<Number>() {

@@ -35,21 +35,21 @@
           <AnchorPane fx:id="browserPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="1200.0">
                <children>
                   <WebView fx:id="browser" layoutX="31.0" layoutY="196.0" prefHeight="302.0" prefWidth="1049.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="196.0" />
-                  <ButtonBar layoutX="852.0" layoutY="5.0" prefHeight="25.0" prefWidth="765.0" AnchorPane.rightAnchor="13.0">
+                  <ButtonBar layoutX="852.0" layoutY="5.0" prefHeight="25.0" prefWidth="861.0" AnchorPane.rightAnchor="13.0">
                      <buttons>
                         <Button fx:id="btnTestInLRT" mnemonicParsing="false" onAction="#handleTestInLRT" text="%view.TestInLRT" />
-                        <Button mnemonicParsing="false" onAction="#handleSave" text="%view.Save" />
-                        <Button mnemonicParsing="false" onAction="#handleSaveCreate" text="%view.SaveCreate" />
-                        <Button mnemonicParsing="false" onAction="#handleSaveCreateAll" text="%view.SaveCreateAll" />
+                        <Button fx:id="btnSave" mnemonicParsing="false" onAction="#handleSave" text="%view.Save" />
+                        <Button fx:id="btnSaveWrite" mnemonicParsing="false" onAction="#handleSaveCreate" text="%view.SaveCreate" />
+                        <Button fx:id="btnSaveWriteAll" mnemonicParsing="false" onAction="#handleSaveCreateAll" text="%view.SaveCreateAll" />
                         <Button fx:id="btnHelp" mnemonicParsing="false" onAction="#handleHelp" text="%view.Help" />
                      </buttons>
                   </ButtonBar>
                   <Label layoutX="6.0" layoutY="43.0" text="%view.RuleName" />
-                  <TextField fx:id="tfRuleName" layoutX="93.0" layoutY="39.0" prefHeight="25.0" prefWidth="247.0" promptText="%view.RuleName" text="%view.RuleNameNeeded" />
+                  <TextField fx:id="tfRuleName" layoutX="93.0" layoutY="39.0" prefHeight="25.0" prefWidth="262.0" promptText="%view.RuleName" text="%view.RuleNameNeeded" />
                   <Label layoutX="6.0" layoutY="71.0" text="%view.RuleDescription" />
-                  <TextArea fx:id="tfRuleDescription" layoutX="93.0" layoutY="72.0" prefHeight="82.0" prefWidth="254.0" promptText="%view.RuleDescription" text="%view.RuleDescriptionNeeded" wrapText="true" />
-                  <WebView fx:id="testDataBrowser" layoutX="361.0" layoutY="43.0" prefHeight="146.0" prefWidth="678.0" AnchorPane.leftAnchor="361.0" AnchorPane.rightAnchor="10.0" />
-                  <ComboBox fx:id="cbxCreatePermutations" layoutX="127.0" layoutY="162.0" prefHeight="25.0" prefWidth="219.0" promptText="%view.CreatePermutations" />
+                  <TextArea fx:id="tfRuleDescription" layoutX="93.0" layoutY="72.0" prefHeight="82.0" prefWidth="264.0" promptText="%view.RuleDescription" text="%view.RuleDescriptionNeeded" wrapText="true" />
+                  <WebView fx:id="testDataBrowser" layoutX="365.0" layoutY="43.0" prefHeight="146.0" prefWidth="674.0" AnchorPane.leftAnchor="365.0" AnchorPane.rightAnchor="10.0" />
+                  <ComboBox fx:id="cbxCreatePermutations" layoutX="141.0" layoutY="162.0" prefHeight="25.0" prefWidth="219.0" promptText="%view.CreatePermutations" />
                   <Label fx:id="lblCreatePermutations" layoutX="6.0" layoutY="166.0" text="%view.CreatePermutations" />
                </children>
             </AnchorPane>

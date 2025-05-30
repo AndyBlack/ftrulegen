@@ -22,7 +22,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
-<StackPane prefHeight="397.0" prefWidth="877.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.sil.ftrulegen.view.DisjointFeaturesEditorController">
+<StackPane prefHeight="497.0" prefWidth="877.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.sil.ftrulegen.view.DisjointFeaturesEditorController">
    <children>
       <SplitPane fx:id="splitPane" dividerPositions="0.6011428571428571" prefHeight="160.0" prefWidth="250.0">
         <items>
@@ -36,10 +36,10 @@
 <!--                        <TableColumn fx:id="pairingsColumn" prefWidth="231.0" text="%disjoint.pairings" /> -->
                      </columns>
                   </TableView>
-                  <ButtonBar layoutX="14.0" layoutY="355.0" prefHeight="40.0" prefWidth="395.0" AnchorPane.bottomAnchor="0.0">
+                  <ButtonBar layoutX="14.0" layoutY="355.0" prefHeight="40.0" prefWidth="456.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="10.0">
                     <buttons>
                       <Button fx:id="addSetButton" mnemonicParsing="false" onAction="#handleAddSet" text="%disjoint.addnewset" />
-                        <Button fx:id="deleteSetButton" mnemonicParsing="false" onAction="#handleDeleteSet" prefHeight="25.0" prefWidth="124.0" text="%disjoint.deleteset" />
+                        <Button fx:id="deleteSetButton" mnemonicParsing="false" onAction="#handleDeleteSet" text="%disjoint.deleteset" />
                         <Button fx:id="closeButton" mnemonicParsing="false" onAction="#handleClose" text="%disjoint.close" />
                     </buttons>
                   </ButtonBar>
@@ -74,7 +74,7 @@
                         <ComboBox fx:id="coFeatureNameComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
-                  <Label layoutX="7.0" layoutY="171.0" text="%disjoint.pairings" />
+                  <Label layoutX="7.0" layoutY="165.0" text="%disjoint.pairings" />
 <!--                   <ButtonBar layoutX="135.0" layoutY="354.0" prefHeight="40.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                     <buttons>
                       <Button fx:id="addPairingButton" mnemonicParsing="false" onAction="#handleAddPairing" prefHeight="25.0" text="%disjoint.addnewpairing" />
@@ -82,11 +82,11 @@
                         <Button fx:id="closeButton" mnemonicParsing="false" onAction="#handleClose" text="%disjoint.close" />
                     </buttons>
                   </ButtonBar>  -->
-                  <Label layoutX="14.0" layoutY="208.0" style="-fx-font-weight: bold;" text="%disjoint.flexfeaturename" />
-                  <Label layoutX="186.0" layoutY="208.0" style="-fx-font-weight: bold;" text="%disjoint.cofeaturevalue" />
-                  <ScrollPane layoutX="11.0" layoutY="235.0" prefHeight="120.0" prefWidth="344.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="235.0">
+                  <Label layoutX="14.0" layoutY="240.0" style="-fx-font-weight: bold;" text="%disjoint.flexfeaturename" />
+                  <Label layoutX="186.0" layoutY="240.0" style="-fx-font-weight: bold;" text="%disjoint.cofeaturevalue" />
+                  <ScrollPane layoutX="11.0" layoutY="269.0" prefHeight="120.0" prefWidth="344.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="269.0">
                     <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="250.0" prefWidth="329.0">
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="159.0" prefWidth="329.0">
                            <children>
                               <ComboBox fx:id="flexFeature1ComboBox" layoutX="10.0" layoutY="2.0" prefWidth="150.0" />
                               <ComboBox fx:id="coFeatureValue1ComboBox" layoutX="172.0" layoutY="2.0" prefWidth="150.0" />
@@ -104,7 +104,7 @@
                         </AnchorPane>
                     </content>
                   </ScrollPane>
-                  <Slider fx:id="pairingsSlider" blockIncrement="1.0" layoutX="233.0" layoutY="158.0" majorTickUnit="1.0" max="6.0" min="2.0" minorTickCount="0" prefHeight="24.0" prefWidth="102.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="2.0" />
+                  <Slider fx:id="pairingsSlider" blockIncrement="1.0" layoutX="117.0" layoutY="192.0" majorTickUnit="1.0" max="6.0" min="2.0" minorTickCount="0" prefHeight="24.0" prefWidth="102.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="2.0" />
                </children>
             </AnchorPane>
         </items>

@@ -73,6 +73,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceDialog;
@@ -135,6 +136,12 @@ public class MainController implements Initializable {
 	Button btnDisjointGenderFeatures;
 	@FXML
 	Button btnHelp;
+	@FXML
+	Button btnSave;
+	@FXML
+	Button btnSaveWrite;
+	@FXML
+	Button btnSaveWriteAll;
 	@FXML
 	Button btnTestInLRT;
 	@FXML
@@ -302,6 +309,11 @@ public class MainController implements Initializable {
 
 		bundle = resources;
 		buildPermutationValues();
+		ButtonBar.setButtonUniformSize(btnHelp, false);
+		ButtonBar.setButtonUniformSize(btnSave, false);
+		ButtonBar.setButtonUniformSize(btnSaveWrite, false);
+		ButtonBar.setButtonUniformSize(btnSaveWriteAll, false);
+		ButtonBar.setButtonUniformSize(btnTestInLRT, false);
 		lvRules.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<FLExTransRule>() {
 			@Override
 			public void changed(ObservableValue<? extends FLExTransRule> observable, FLExTransRule oldValue,
