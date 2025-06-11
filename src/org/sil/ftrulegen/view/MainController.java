@@ -495,6 +495,7 @@ public class MainController implements Initializable {
 		provider = new XmlBackEndProvider(generator, bundle);
 		provider.loadDataFromFile(ruleAssistantFile);
 		generator = provider.getRuleGenerator();
+		generator.setLocale(bundle.getLocale());
 		finder = ConstituentFinder.getInstance();
 		lvRules.getItems().addAll(generator.getFLExTransRules());
 		if (generator.getOverwriteRules() == OverwriteRulesValue.yes)
