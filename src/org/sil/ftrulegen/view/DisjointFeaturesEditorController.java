@@ -141,7 +141,7 @@ public class DisjointFeaturesEditorController implements Initializable {
 	}
 
 	protected void initializeTableColumnWidthsAndSplitDividerPosition() {
-		Double d = prefs.getDoubleValue(sDisjointEditor + splitPane.getId(), .4);
+		Double d = prefs.getDoubleValue(sDisjointEditor + splitPane.getId(), .5);
 		splitPane.getDividers().get(0).setPosition(d);
 		initializeTableColumnWidths(prefs);
 	}

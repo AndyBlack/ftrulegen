@@ -163,7 +163,7 @@ public class ApplicationPreferences extends ApplicationPreferencesUtilities {
 	}
 
 	public double getLastSplitPaneDividerPosition() {
-		return prefs.getDouble(LAST_SPLIT_PANE_POSITION, 0.5);
+		return prefs.getDouble(LAST_SPLIT_PANE_POSITION, 0.3);
 	}
 
 	public void setLastSplitPaneDividerPosition(double position) {
