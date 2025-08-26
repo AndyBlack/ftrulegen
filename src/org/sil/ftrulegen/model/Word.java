@@ -241,10 +241,11 @@ public class Word extends ConstituentWithFeatures {
 		sb.append("</table>\n");
 		if (getFeatures().size() > 0 || getAffixes().size() > 0) {
 			sb.append("<ul>\n");
+			getAffixes().stream().filter(affix -> affix.getType() == AffixType.prefix)
+					.forEach(affix -> sb.append(affix.produceHtml(bundle)));
 			produceHtmlForFeatures(bundle, sb, wordHead == HeadValue.yes);
-			for (Affix affix : getAffixes()) {
-				sb.append(affix.produceHtml(bundle));
-			}
+			getAffixes().stream().filter(affix -> affix.getType() == AffixType.suffix)
+					.forEach(affix -> sb.append(affix.produceHtml(bundle)));
 			sb.append("</ul>\n");
 		}
 		sb.append("</li>");
