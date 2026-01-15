@@ -15,6 +15,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.sil.ftrulegen.ApplicationPreferences;
+import org.sil.ftrulegen.Constants;
 import org.sil.ftrulegen.Main;
 import org.sil.ftrulegen.flexmodel.FLExData;
 import org.sil.ftrulegen.flexmodel.FLExFeature;
@@ -401,10 +402,13 @@ public class DisjointFeaturesEditorController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		sourceRadioButton.setText(resources.getString("disjoint.source"));
+		sourceRadioButton.setDisable(true);
 		targetRadioButton.setText(resources.getString("disjoint.target"));
+		targetRadioButton.setDisable(true);
 		ButtonBar.setButtonUniformSize(addSetButton, false);
 		ButtonBar.setButtonUniformSize(deleteSetButton, false);
 		ButtonBar.setButtonUniformSize(closeButton, false);
+		addSetButton.setDisable(true);
 
 		for (TableColumn<DisjointFeatureSet, ?> column: disjointFeaturesTable.getColumns()) {
 			  column.widthProperty().addListener(new ChangeListener<Number>() {
@@ -486,10 +490,26 @@ public class DisjointFeaturesEditorController implements Initializable {
 		coFeatureValue1ComboBox.getSelectionModel().selectedItemProperty()
 		.addListener((options, oldValue, newValue) -> {
 			coFeatureValue1ComboBox = updateRequiredCoFeatureValueComboBox(coFeatureValue1ComboBox, 0, newValue);
+			// N.B. At this point, we only implement the feature "number" with values of "sg and "pl".
+			// We also only have two possibilities.
+			// Force the other one to be the other value;
+			if (newValue.equals(Constants.DISJOINT_SG)) {
+				coFeatureValue2ComboBox.setValue(Constants.DISJOINT_PL);
+			} else if (newValue.equals(Constants.DISJOINT_PL)) {
+				coFeatureValue2ComboBox.setValue(Constants.DISJOINT_SG);
+			}
 		});
 		coFeatureValue2ComboBox.getSelectionModel().selectedItemProperty()
 		.addListener((options, oldValue, newValue) -> {
 			coFeatureValue2ComboBox = updateRequiredCoFeatureValueComboBox(coFeatureValue2ComboBox, 1, newValue);
+			// N.B. At this point, we only implement the feature "number" with values of "sg and "pl".
+			// We also only have two possibilities.
+			// Force the other one to be the other value;
+			if (newValue.equals(Constants.DISJOINT_SG)) {
+				coFeatureValue1ComboBox.setValue(Constants.DISJOINT_PL);
+			} else if (newValue.equals(Constants.DISJOINT_PL)) {
+				coFeatureValue1ComboBox.setValue(Constants.DISJOINT_SG);
+			}
 		});
 		coFeatureValue3ComboBox.getSelectionModel().selectedItemProperty()
 		.addListener((options, oldValue, newValue) -> {
@@ -519,8 +539,8 @@ public class DisjointFeaturesEditorController implements Initializable {
 				currentFeatureSet.removePairingsFrom(result + 1);
 			}
 			pairingsSlider.setValue((double) newValue);
-		}
-		);
+		});
+		pairingsSlider.setDisable(true);
 		// Clear details.
 		showFeatureSetDetails(null);
 
@@ -697,7 +717,11 @@ public class DisjointFeaturesEditorController implements Initializable {
 		for (FLExFeature ff : flexFeatures) {
 			if (ff.getName().equals(currentFeatureSet.getCoFeatureName())) {
 				for (FLExFeatureValue val : ff.getValues()) {
-					flexFeatureValues.add(val.getAbbreviation());
+					// N.B. At this point, we only implement the feature "number" with values of "sg and "pl".
+					// There is no use in showing any other value.
+					if (val.getAbbreviation().equals(Constants.DISJOINT_SG) || val.getAbbreviation().equals(Constants.DISJOINT_PL)) {
+						flexFeatureValues.add(val.getAbbreviation());
+					}
 				}
 				break;
 			}
@@ -825,7 +849,11 @@ public class DisjointFeaturesEditorController implements Initializable {
 						flexFeatures.addAll(flexSourceFeatures);
 					}
 					for (FLExFeature ff : flexFeatures) {
-						flexFeatureNames.add(ff.getName());
+						// N.B. At this point, we only implement the feature "number" with values of "sg and "pl".
+						// There is no use in showing any other feature.
+						if (ff.getName().equals(Constants.DISJOINT_NUMBER)) {
+							flexFeatureNames.add(ff.getName());
+						}
 						if (!ff.getName().equals(featureSet.getCoFeatureName())) {
 							flexFeatureMinusCoFeatureNames.add(ff.getName());
 						}

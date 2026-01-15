@@ -62,7 +62,7 @@
                     </rowConstraints>
                      <children>
                         <Label text="%disjoint.name" />
-                        <Label text="%disjoint.language" GridPane.rowIndex="1" />
+                        <Label text="%disjoint.language" GridPane.rowIndex="1" disable="true" />
                         <Label text="%disjoint.cofeaturename" GridPane.rowIndex="3" />
                         <TextField fx:id="nameField" GridPane.columnIndex="1" />
 						<RadioButton fx:id="sourceRadioButton" mnemonicParsing="false" onAction="#handleSourceRadioButton" selected="true" text="%disjoint.source" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -74,7 +74,7 @@
                         <ComboBox fx:id="coFeatureNameComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
-                  <Label layoutX="7.0" layoutY="165.0" text="%disjoint.pairings" />
+                  <Label layoutX="7.0" layoutY="165.0" text="%disjoint.pairings" disable="true" />
 <!--                   <ButtonBar layoutX="135.0" layoutY="354.0" prefHeight="40.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                     <buttons>
                       <Button fx:id="addPairingButton" mnemonicParsing="false" onAction="#handleAddPairing" prefHeight="25.0" text="%disjoint.addnewpairing" />

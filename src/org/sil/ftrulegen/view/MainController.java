@@ -1045,6 +1045,12 @@ public class MainController implements Initializable {
 	}
 
 	public void handleDisjointFeatures() {
+		// N.B. At this point, we only implement the feature "number" with values of "sg and "pl".
+		// There is no use in launching this dialog if this feature with at least these two values is not present.
+		if (!isOKToShowDisjointFeaturesEditor()) {
+			showMissingFLExFeatureMessage();
+			return;
+		}
 		try {
 			Stage dialogStage = new Stage();
 			// Load root layout from fxml file.
@@ -1070,6 +1076,36 @@ public class MainController implements Initializable {
 			e.printStackTrace();
 		}
 
+	}
+
+	protected void showMissingFLExFeatureMessage() {
+		String sValidityHeader = bundle.getString("disjointvalidity.header");
+		String sHeaderText = bundle.getString("disjointvalidity.headertext");
+		String sMessage = bundle.getString("disjointvalidity.message");
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle(sValidityHeader);
+		alert.setHeaderText(sHeaderText);
+		alert.setContentText(sMessage);
+		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+		stage.getIcons().add(flexTransImage);
+		alert.showAndWait();
+	}
+
+	protected boolean isOKToShowDisjointFeaturesEditor() {
+		boolean fOkToShow = false;
+		Optional<FLExFeature> numberOp = flexData.getTargetData().getFeatures().stream()
+				.filter(f -> f.getName().equals(Constants.DISJOINT_NUMBER)).findFirst();
+		if (numberOp.isPresent()) {
+			FLExFeature ff = numberOp.get();
+			Optional<FLExFeatureValue> sgOp = ff.getValues().stream()
+					.filter(v -> v.getAbbreviation().equals(Constants.DISJOINT_SG)).findFirst();
+			Optional<FLExFeatureValue> plOp = ff.getValues().stream()
+					.filter(v -> v.getAbbreviation().equals(Constants.DISJOINT_PL)).findFirst();
+			if (sgOp.isPresent() && plOp.isPresent()) {
+				fOkToShow = true;
+			}
+		}
+		return fOkToShow;
 	}
 
 	public void handleFeatureDelete() {

@@ -21,11 +21,11 @@ type="tRuleGen"
 ><emailAddress
 >blackhandrew@gmail.com</emailAddress
 ><date
->30 May, 2025</date
+>16 January, 2026</date
 ><version
->Version 1.4.0</version
+>Version 1.5.0</version
 ><version
->Copyright © 2023-2025 SIL International</version
+>Copyright © 2023-2026 SIL International</version
 ><contents
 ></contents
 ></frontMatter
@@ -218,7 +218,7 @@ type="tLiveRuleTester"
 ><p
 >Under the list of rules is a check box labeled “Overwrite rule(s).” When this is checked, then any previous rules which have the same name will be overwritten.</p
 ><p
->Under this check box is a button labeled “Set disjoint gender features.” This is for a special case. See section <sectionRef
+>Under this check box is a button labeled “Set disjoint features.” This is for a special case. See section <sectionRef
 sec="sDisjointFeatureSets"
 ></sectionRef
 >.</p
@@ -596,7 +596,26 @@ type="tFLExTrans"
 ><section1
 id="sDisjointFeatureSets"
 ><secTitle
->Disjoint gender features</secTitle
+>Disjoint features</secTitle
+><p
+contentType="ctNumberOnly"
+>This is a special case and requires that the target language have a “number” feature with at least values of “sg” and “pl” (and the feature and these two values must be spelled exactly this way).  If your target language does not have this feature with at last these two values, then <object
+type="tRuleGen"
+></object
+> will show the error message dialog in example <exampleRef
+letter="xNumberSgPlMessage"
+num="xNumberSgPlMessage"
+></exampleRef
+>.</p
+><example
+contentType="ctNumberOnly"
+num="xNumberSgPlMessage"
+><chart
+><img
+src="Resources/NumberSgPlMessage.png"
+></img
+></chart
+></example
 ><p
 >In rare cases, you may need to use what we are calling “disjoint features.” Some <object
 type="tFLEx"
@@ -619,12 +638,21 @@ src="Resources/DisjointGenderFaturesEditor.png"
 ></chart
 ></example
 ><p
->The name that will be used in features in rules is in the “Name” field.</p
+>The name that will be used in features in rules is in the “Name” field. You can think of this as a cover term.</p
 ><p
+contentType="ctFull"
 >You can set this for either the source or the target language via the “Language” radio buttons.</p
 ><p
+contentType="ctNumberOnly"
+>Currently, only the target language can be used.</p
+><p
+contentType="ctFull"
 >The “Co-feature name” combo box lists all the features available in this language. You select the one that is common to each set of disjoint features. In this Bantu case, this is the “number” feature.</p
 ><p
+contentType="ctNumberOnly"
+>The “Distinguishing feature” combo box only allows for the “number” feature appropriate for Bantu. The combo boxes under “Feature value” only allow for either a “sg” or a “pl” value. When you set one, the other is automatically set to the other value.</p
+><p
+contentType="ctFull"
 >Below this is a slider control which lets you define between two and six pairs of a <object
 type="tFLEx"
 ></object
@@ -974,6 +1002,26 @@ font-style="italic"
 id="tXXE"
 ></type
 ></types
+><contentControl
+><contentTypes
+><contentType
+id="ctFull"
+>Full</contentType
+><contentType
+id="ctNumberOnly"
+>Number only</contentType
+></contentTypes
+><contentControlChoices
+><contentControlChoice
+active="no"
+exclude="ctNumberOnly"
+>Full</contentControlChoice
+><contentControlChoice
+active="yes"
+exclude="ctFull"
+>Number only</contentControlChoice
+></contentControlChoices
+></contentControl
 ></lingPaper
 ><publisherStyleSheet
 ><publisherStyleSheetName
