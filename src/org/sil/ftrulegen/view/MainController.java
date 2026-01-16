@@ -825,11 +825,13 @@ public class MainController implements Initializable {
 		} else {
 			cmRuleMoveDown.setDisable(false);
 		}
-		if (selectedRuleIndex == 0 && lvRules.getItems().size() == 1) {
-			cmRuleDelete.setDisable(true);
-		} else {
-			cmRuleDelete.setDisable(false);
-		}
+		// We no longer disallow deleting the final rule. Instead we immediately
+		// insert a new one.
+		//		if (selectedRuleIndex == 0 && lvRules.getItems().size() == 1) {
+//			cmRuleDelete.setDisable(true);
+//		} else {
+//			cmRuleDelete.setDisable(false);
+//		}
 	}
 
 	void enableDisableWordContextMenuItems() {
@@ -1343,7 +1345,13 @@ public class MainController implements Initializable {
 
 	public void handleRuleDelete() {
 		generator.getFLExTransRules().remove(selectedRuleIndex);
-		lvRules.getItems().remove(selectedRuleIndex);
+		if (generator.getFLExTransRules().size() == 0) {
+			// Need to avoid a null reference: we insert a new before and then remove the old one.
+			handleRuleInsertBefore();
+			lvRules.getItems().remove(1);
+		} else {
+			lvRules.getItems().remove(selectedRuleIndex);
+		}
 		lvRules.requestFocus();
 		lvRules.refresh();
 		markAsChanged(true);
