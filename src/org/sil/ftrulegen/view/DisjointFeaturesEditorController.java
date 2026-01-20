@@ -493,10 +493,12 @@ public class DisjointFeaturesEditorController implements Initializable {
 			// N.B. At this point, we only implement the feature "number" with values of "sg and "pl".
 			// We also only have two possibilities.
 			// Force the other one to be the other value;
-			if (newValue.equals(Constants.DISJOINT_SG)) {
-				coFeatureValue2ComboBox.setValue(Constants.DISJOINT_PL);
-			} else if (newValue.equals(Constants.DISJOINT_PL)) {
-				coFeatureValue2ComboBox.setValue(Constants.DISJOINT_SG);
+			if (newValue != null) {
+				if (newValue.equals(Constants.DISJOINT_SG)) {
+					coFeatureValue2ComboBox.setValue(Constants.DISJOINT_PL);
+				} else if (newValue.equals(Constants.DISJOINT_PL)) {
+					coFeatureValue2ComboBox.setValue(Constants.DISJOINT_SG);
+				}
 			}
 		});
 		coFeatureValue2ComboBox.getSelectionModel().selectedItemProperty()
@@ -505,10 +507,12 @@ public class DisjointFeaturesEditorController implements Initializable {
 			// N.B. At this point, we only implement the feature "number" with values of "sg and "pl".
 			// We also only have two possibilities.
 			// Force the other one to be the other value;
-			if (newValue.equals(Constants.DISJOINT_SG)) {
-				coFeatureValue1ComboBox.setValue(Constants.DISJOINT_PL);
-			} else if (newValue.equals(Constants.DISJOINT_PL)) {
-				coFeatureValue1ComboBox.setValue(Constants.DISJOINT_SG);
+			if (newValue != null) {
+				if (newValue.equals(Constants.DISJOINT_SG)) {
+					coFeatureValue1ComboBox.setValue(Constants.DISJOINT_PL);
+				} else if (newValue.equals(Constants.DISJOINT_PL)) {
+					coFeatureValue1ComboBox.setValue(Constants.DISJOINT_SG);
+				}
 			}
 		});
 		coFeatureValue3ComboBox.getSelectionModel().selectedItemProperty()
@@ -1005,6 +1009,9 @@ public class DisjointFeaturesEditorController implements Initializable {
 			disjointFeatureSets.remove(index);
 			if (index > 0)
 				selectFeatureSetInTableByIndex(index - 1);
+		}
+		if (disjointFeatureSets.size() == 0) {
+			createNewDisjointFeatureSet(disjointFeatureSets);
 		}
 		showFeatureSetDetails(currentFeatureSet);
 	}
