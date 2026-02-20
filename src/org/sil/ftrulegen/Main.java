@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023-2025 SIL International
+ * Copyright (c) 2023-2026 SIL International
  * This software is licensed under the LGPL, version 2.1 or later
  * (http://www.gnu.org/licenses/lgpl-2.1.html)
  */
@@ -64,7 +64,7 @@ public class Main extends Application implements MainAppUtilities {
 				} else {
 					sUICode = arguments[4].toLowerCase();
 					// TODO: when add another UI language, add a check for its code
-					if (!sUICode.equals("es") && !sUICode.equals("de")) {
+					if (!sUICode.equals("es") && !sUICode.equals("de") && !sUICode.equals("fr")) {
 						sUICode = "en";
 					}
 					if (arguments.length == 6) {
