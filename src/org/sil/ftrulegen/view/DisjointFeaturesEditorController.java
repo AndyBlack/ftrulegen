@@ -905,7 +905,7 @@ public class DisjointFeaturesEditorController implements Initializable {
 				} else {
 					selectFeatureSetInTableByIndex(iLastIndex);
 				}
-				if (iLastIndex > -1) {
+				if (iLastIndex > -1 && disjointFeatureSets.size() > 0) {
 					currentFeatureSet = disjointFeatureSets.get(iLastIndex);
 				} else {
 					currentFeatureSet = new DisjointFeatureSet();
@@ -1009,9 +1009,6 @@ public class DisjointFeaturesEditorController implements Initializable {
 			disjointFeatureSets.remove(index);
 			if (index > 0)
 				selectFeatureSetInTableByIndex(index - 1);
-		}
-		if (disjointFeatureSets.size() == 0) {
-			createNewDisjointFeatureSet(disjointFeatureSets);
 		}
 		showFeatureSetDetails(currentFeatureSet);
 	}
