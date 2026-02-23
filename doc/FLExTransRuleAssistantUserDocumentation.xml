@@ -21,9 +21,9 @@ type="tRuleGen"
 ><emailAddress
 >blackhandrew@gmail.com</emailAddress
 ><date
->16 January, 2026</date
+>20 February, 2026</date
 ><version
->Version 1.5.0</version
+>Version 1.6.0</version
 ><version
 >Copyright © 2023-2026 SIL International</version
 ><contents
@@ -108,7 +108,7 @@ num="xCommandLine"
 ></br
 ><br
 ></br
->&lt;UI language code&gt; indicates which language to use in the user interface: en for English, es for Spanish, or de for German (default is en)<br
+>&lt;UI language code&gt; indicates which language to use in the user interface: en for English, de for German, es for Spanish, or fr for French (default is en)<br
 ></br
 ><br
 ></br
@@ -599,7 +599,7 @@ id="sDisjointFeatureSets"
 >Disjoint features</secTitle
 ><p
 contentType="ctNumberOnly"
->This is a special case and requires that the target language have a “number” feature with at least values of “sg” and “pl” (and the feature and these two values must be spelled exactly this way).  If your target language does not have this feature with at last these two values, then <object
+>This is a special case and requires that the target language have a “number” feature with at least values of “sg” and “pl” (and the feature and these two values must be spelled exactly this way). If your target language does not have this feature with at last these two values, then <object
 type="tRuleGen"
 ></object
 > will show the error message dialog in example <exampleRef
