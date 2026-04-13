@@ -1,4 +1,7 @@
 # FLExTrans Rule Assistant
+
+##This is now in Python at https://github.com/rmlockwood/FLExTrans/tree/master.  This repository is archived.
+
 A tool to make it easier to write some FLExTrans transfer rules.
 
 *FLExTransRuleAssistant* is a 64-bit Windows program using Java FX 8.  It currently is only built for Windows.
